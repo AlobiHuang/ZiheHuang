@@ -163,6 +163,14 @@ const mediaCaptionsByProject = {
   'sankofa-multi-stakeholder-delivery': ['Full-scale assembly — the greenhouse moving from prototype toward construction', 'Build progress — the prototype becoming a full-scale structure', 'Project team — coordinating a shared direction across disciplines', 'Joinery detail — making the connection legible and repeatable', 'Community presentation — bringing the model into public conversation', 'Community dialogue — listening for priorities and concerns', 'Design review — translating feedback into visible decisions'],
 };
 const projectMedia = mediaByProject[project.slug] || ['teaser-final-dark-foreground.webp'];
+const portfolioPageDimensions = {
+  're-serv-oir': [1653, 1070],
+  'how-to-build-a-ruin': [1653, 1070],
+  'convergence-environmental-middle-school': [1070, 827],
+  'the-tinkerers-imaginarium': [1070, 827],
+  'radical-empathy': [1070, 827]
+};
+const projectPageDimensions = portfolioPageDimensions[project.slug];
 const architecturePortfolioOverview = {
   're-serv-oir': 'A Community Ecology Center Reclaiming Portland’s Water Infrastructure',
   'how-to-build-a-ruin': 'A Seed Bank Growing with What it Protects',
@@ -255,7 +263,7 @@ document.getElementById('project-root').innerHTML = `
   ${isInProgressArchitecture ? `<section class="project-in-progress" aria-label="Project status"><p>2026 / IN PROGRESS</p><h2>Work in progress.</h2><span>More from this project will be shared soon.</span></section>` : `<section class="project-gallery ${isPdfPortfolioProject ? 'project-gallery-pdf' : ''}" aria-label="Additional project visuals">
     ${lensKey === 'architecture' ? '' : '<header><span>05 / VISUAL RECORD</span><h2>Additional drawings, studies, and artifacts.</h2></header>'}
     <div class="project-gallery-grid">${(lensKey === 'architecture' ? projectMedia : projectMedia.slice(1 + sectionCount)).map((image, index) => `
-      <figure class="gallery-item gallery-item-${index + 1}"><img src="../assets/portfolio/${image}" alt="${lensKey === 'architecture' ? `${project.title} portfolio image ${index + 1}` : mediaAlt(index + 1 + sectionCount)}" loading="lazy" decoding="async">${lensKey === 'architecture' ? '' : `<figcaption><span>${String(index + 1 + sectionCount).padStart(2, '0')} / ${project.no}</span>${mediaCaptions[index + 1 + sectionCount] ? `<b>${mediaCaptions[index + 1 + sectionCount]}</b>` : ''}</figcaption>`}</figure>`).join('')}
+      <figure class="gallery-item gallery-item-${index + 1}"><img src="../assets/portfolio/${image}" alt="${lensKey === 'architecture' ? `${project.title} portfolio image ${index + 1}` : mediaAlt(index + 1 + sectionCount)}"${projectPageDimensions ? ` width="${projectPageDimensions[0]}" height="${projectPageDimensions[1]}"` : ''} loading="${isPdfPortfolioProject && index === 0 ? 'eager' : 'lazy'}" decoding="async">${lensKey === 'architecture' ? '' : `<figcaption><span>${String(index + 1 + sectionCount).padStart(2, '0')} / ${project.no}</span>${mediaCaptions[index + 1 + sectionCount] ? `<b>${mediaCaptions[index + 1 + sectionCount]}</b>` : ''}</figcaption>`}</figure>`).join('')}
     </div>
   </section>`}
 
