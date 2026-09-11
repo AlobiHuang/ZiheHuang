@@ -118,6 +118,7 @@
 .project-page[data-lens="architecture"] .project-gallery .gallery-item figcaption{left:18px;bottom:18px;background:#1d1d1f;color:#f5f5f7}
 .project-page[data-lens="architecture"] .project-gallery .gallery-item figcaption span{display:block;opacity:.62;font-size:.68em;letter-spacing:.08em}
 .project-page[data-lens="architecture"] .project-gallery .gallery-item figcaption b{display:block;margin-top:4px;font-weight:500;letter-spacing:0;line-height:1.25;max-width:34ch}
+.project-page[data-lens="architecture"] .project-in-progress{min-height:clamp(340px,46vw,640px);display:grid;place-content:center;padding:clamp(70px,11vw,160px) var(--pad);background:#f5f5f7;text-align:center;color:#1d1d1f}.project-page[data-lens="architecture"] .project-in-progress p{margin:0 0 16px;color:#ff5a36;font:600 10px/1.4 DM Mono,monospace;letter-spacing:.1em}.project-page[data-lens="architecture"] .project-in-progress h2{margin:0;font-size:clamp(48px,8vw,130px);line-height:.85;letter-spacing:-.08em;font-weight:500}.project-page[data-lens="architecture"] .project-in-progress span{margin-top:22px;color:#6e6e73;font-size:clamp(15px,1.5vw,20px)}
 .project-page[data-lens="architecture"] .project-sequence{background:#050505;color:#f5f5f7}
 @media(max-width:800px){
   .project-page[data-lens="architecture"] .project-gateway{padding:110px 20px 0}
@@ -160,3 +161,16 @@
 .project-page[data-lens="pm"] .project-hero-media{background:#e9e9ec}
 .project-page[data-lens="pm"] .project-hero-media-pm img{object-fit:contain;background:#fff}
 .project-page[data-lens="pm"] .project-enter{color:#1d1d1f}
+
+/* Keep the greenhouse gateway compact and explicit: the earlier dark-project
+   rules positioned its content behind the paper surface on some navigations. */
+.project-page[data-lens="pm"] .project-gateway{padding:clamp(96px,9vw,140px) var(--pad) clamp(48px,6vw,88px)!important}
+.project-page[data-lens="pm"] .project-gateway-kicker,.project-page[data-lens="pm"] .project-back,.project-page[data-lens="pm"] .project-gateway-heading,.project-page[data-lens="pm"] .project-gateway-meta,.project-page[data-lens="pm"] .project-enter{position:relative;z-index:2;color:#1d1d1f}
+.project-page[data-lens="pm"] .project-gateway-heading{margin:0!important}
+.project-page[data-lens="pm"] .project-gateway-heading>span{color:#1d1d1f!important}
+.project-page[data-lens="pm"] .project-gateway-heading h1{color:#1d1d1f!important;-webkit-text-fill-color:#1d1d1f!important;background:none!important;animation:none!important}
+.project-page[data-lens="pm"] .project-hero-media-pm{position:relative!important;z-index:2!important;display:block!important;height:min(52vw,620px)!important;margin:clamp(28px,4vw,56px) 0 0!important;opacity:1!important}
+.project-page[data-lens="pm"] .project-gateway-meta{margin:clamp(24px,3vw,42px) 0 0!important}
+.project-page[data-lens="architecture"] .project-gallery.project-gallery-pdf{padding:clamp(28px,5vw,72px) 0;background:#f5f5f7}.project-page[data-lens="architecture"] .project-gallery-pdf .project-gallery-grid{display:grid;grid-template-columns:1fr;gap:clamp(20px,3vw,48px);width:100%}.project-page[data-lens="architecture"] .project-gallery-pdf .gallery-item,.project-page[data-lens="architecture"] .project-gallery-pdf .gallery-item:nth-child(n){grid-column:1/-1;width:100%;height:auto!important;min-height:0;margin:0;overflow:visible;border-radius:0;background:transparent}.project-page[data-lens="architecture"] .project-gallery-pdf .gallery-item img{display:block;width:100%;height:auto!important;object-fit:initial!important;background:transparent}
+.project-page[data-lens="architecture"] .project-gateway.project-gateway-pdf{min-height:0;padding:clamp(106px,10vw,152px) var(--pad) clamp(34px,4vw,58px);background:#f5f5f7;color:#1d1d1f}.project-page[data-lens="architecture"] .project-gateway-pdf .project-gateway-grid,.project-page[data-lens="architecture"] .project-gateway-pdf .project-aperture{display:none}.project-page[data-lens="architecture"] .project-gateway-pdf .project-gateway-kicker{margin:0 0 clamp(26px,3vw,40px);color:#6e6e73}.project-page[data-lens="architecture"] .project-gateway-pdf .project-back{top:clamp(90px,8vw,118px);color:#1d1d1f;border-color:rgba(29,29,31,.3)}.project-page[data-lens="architecture"] .project-gateway-pdf .project-gateway-heading{max-width:none}.project-page[data-lens="architecture"] .project-gateway-pdf .project-gateway-heading>span{margin-bottom:12px;color:#ff5a36}.project-page[data-lens="architecture"] .project-gateway-pdf .project-gateway-heading h1{max-width:none;font-size:clamp(54px,8vw,124px);line-height:.86;color:#1d1d1f!important;-webkit-text-fill-color:#1d1d1f!important}.project-page[data-lens="architecture"] .project-gateway-pdf .project-hook{display:none}
+.project-page[data-lens="pm"] .project-enter{margin:clamp(24px,3vw,42px) 0 0!important}

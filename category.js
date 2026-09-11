@@ -4,12 +4,13 @@ const categoryData = {
     short: 'ARCH',
     code: '10²',
     accent: '#ff3d16',
-    question: ['How can architecture', 'connect people, climate,', 'and place?'],
+    question: ['SELECTED WORKS'],
     intro: 'I use architecture to study how people, material systems, and environmental forces meet. Each project moves from observation to rules, from rules to form, and from form to lived experience.',
     lens: ['Observe the context', 'Build a rule set', 'Test the experience'],
     experiences: [
       {
         no: 'A—01',
+        slug: 'convergence-environmental-middle-school',
         title: 'Convergence',
         org: 'Environmental Middle School · Second Year First Semester',
         date: '2025 Fall',
@@ -24,6 +25,7 @@ const categoryData = {
       },
       {
         no: 'A—02',
+        slug: 'the-tinkerers-imaginarium',
         title: "The Tinkerer's Imaginarium",
         org: 'Maker Space · First Year Second Semester',
         date: '2025 Spring',
@@ -38,6 +40,7 @@ const categoryData = {
       },
       {
         no: 'A—03',
+        slug: 'radical-empathy',
         title: 'Radical Empathy',
         org: 'Multi-generational House · First Year Second Semester',
         date: '2025 Spring',
@@ -51,21 +54,8 @@ const categoryData = {
         tags: ['Family', 'Empathy', 'Bridge', 'Collective living']
       },
       {
-        no: 'A—04',
-        title: 'Millennium Seed Bank',
-        org: 'Journey Continues · Research Study',
-        date: '2025',
-        type: 'Research Study',
-        summary: 'A continuing study of seed preservation, program, and time: a compact set of diagrams that extends the portfolio’s interest in architecture as a living archive.',
-        evidence: [
-          'Mapped preservation timelines and the relationships between collection, storage, and public learning.',
-          'Developed parti models and program diagrams to make an invisible ecological process spatial.',
-          'Used the study as a bridge into the next set of architectural questions.'
-        ],
-        tags: ['Preservation', 'Time', 'Ecology', 'Parti']
-      },
-      {
         no: 'A—05',
+        slug: 're-serv-oir',
         title: 'RE.SERV.OIR',
         org: 'Community Ecology Center · Portland, Oregon',
         date: '2026',
@@ -80,6 +70,7 @@ const categoryData = {
       },
       {
         no: 'A—06',
+        slug: 'how-to-build-a-ruin',
         title: 'How to Build a Ruin',
         org: 'Seed Bank · Option Studio 48-205',
         date: '2026',
@@ -94,10 +85,11 @@ const categoryData = {
       },
       {
         no: 'A—07',
+        slug: 'call-of-the-sea',
         title: 'Call of the Sea',
         org: 'Mixed Use / Accommodation · Torosiaje, Indonesia',
-        date: '2025',
-        type: 'Competition',
+        date: '2026—Present',
+        type: 'In progress',
         summary: 'A way of living on water that connects community, hospitality, and the tides through a porous network of rooms, circulation, and shared exchange.',
         evidence: [
           'Read the settlement as a living network shaped by water, movement, and collective routines.',
@@ -287,7 +279,13 @@ const recencyScore = value => {
   return year * 10 + term;
 };
 if (key === 'architecture') {
-  data.experiences = data.experiences.slice().sort((a, b) => recencyScore(b.date) - recencyScore(a.date)).map((item, index) => ({ ...item, no: `A—${String(index + 1).padStart(2, '0')}` }));
+  const architectureOrder = ['re-serv-oir', 'how-to-build-a-ruin', 'convergence-environmental-middle-school', 'the-tinkerers-imaginarium', 'radical-empathy', 'call-of-the-sea'];
+  const archiveSlug = title => title.normalize('NFKD').toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '');
+  data.experiences = data.experiences.slice().sort((a, b) => {
+    const aRank = architectureOrder.indexOf(a.slug || archiveSlug(a.title));
+    const bRank = architectureOrder.indexOf(b.slug || archiveSlug(b.title));
+    return (aRank < 0 ? 999 : aRank) - (bRank < 0 ? 999 : bRank);
+  }).map((item, index) => ({ ...item, no: `A—${String(index + 1).padStart(2, '0')}` }));
 }
 const root = document.getElementById('category-root');
 document.documentElement.style.setProperty('--category-accent', data.accent);
@@ -301,10 +299,17 @@ const projectSlug = title => title
   .toLowerCase()
   .replace(/[^a-z0-9]+/g, '-')
   .replace(/^-|-$/g, '');
-const projectHref = experience => `../project/?lens=${key}&project=${projectSlug(experience.title)}`;
+const projectHref = experience => `../project/?lens=${key}&project=${experience.slug || projectSlug(experience.title)}`;
 const projectRouteLabel = experience => `PROJECT / ${experience.title.toUpperCase()}`;
 const categoryImages = {
-  architecture: ['p2-final-final-perspective-1-for-print.webp', 'p2-field-model-large.webp', 'p2-exploded-axon-16th-2.0.webp', 'p2-doll-house-sectional-perspective.webp'],
+  architecture: {
+    'convergence-environmental-middle-school': 'convergence-pdf-01.jpg',
+    'the-tinkerers-imaginarium': 'tinkerers-pdf-01.jpg',
+    'radical-empathy': 'radical-empathy-pdf-01.jpg',
+    're-serv-oir': 'reservoir-exterior.png',
+    'how-to-build-a-ruin': 'ruin-hero.jpg',
+    'call-of-the-sea': 'sea-hero.png'
+  },
   pm: ['stepping-massing-05.webp', 'conceptual-timeline-01.webp', 'new-circulation.webp'],
   hci: ['add-circular-site-map.webp', 'conceptual-timeline-03.webp', 'site-plan-new-01.webp']
 };
@@ -318,7 +323,7 @@ const experienceMarkup = data.experiences.map((experience, index) => {
   if (isArchitecture) return `
     <a class="arch-work-card project-gateway-link" id="architecture-project-${index + 1}" href="${projectHref(experience)}" data-route data-route-label="${projectRouteLabel(experience)}" aria-label="Open the ${experience.title} project gateway">
       <figure class="arch-work-image arch-work-image-0${index + 1}">
-        <img src="../assets/portfolio/${workImages[index % workImages.length]}" alt="Selected portfolio visual for ${experience.title}" loading="lazy" decoding="async">
+        <img src="../assets/portfolio/${workImages[experience.slug || projectSlug(experience.title)]}" alt="Selected portfolio visual for ${experience.title}" loading="lazy" decoding="async">
         <span>${experience.no}</span>
         <figcaption>OPEN PROJECT ↗</figcaption>
       </figure>
@@ -340,7 +345,7 @@ const experienceMarkup = data.experiences.map((experience, index) => {
     </article>`;
 }).join('');
 
-const architectureIndexLabels = ['Convergence', "Tinkerer's Imaginarium", 'Radical Empathy', 'Millennium Seed Bank', 'RE.SERV.OIR', 'How to Build a Ruin', 'Call of the Sea'];
+const architectureIndexLabels = data.experiences.map(experience => experience.title);
 const architectureArchiveMarkup = isArchitecture ? `
   <section class="arch-lens-work category-architecture-archive" id="experience" aria-labelledby="architecture-archive-title">
     <aside class="arch-work-index">
@@ -526,12 +531,12 @@ const standardCategoryMarkup = `
   <section class="category-hero" id="top">
     <div class="category-grid" aria-hidden="true"></div>
     <p class="category-kicker">${data.code} / ${data.name}<br>SELECTED EXPERIENCE</p>
-    <h1>${data.question.map((line, index) => `<span class="question-line line-${index + 1}">${line}</span>`).join('')}<i>?</i></h1>
+    <h1>${data.question.map((line, index) => `<span class="question-line line-${index + 1}">${line}</span>`).join('')}${isArchitecture ? '' : '<i>?</i>'}</h1>
     <div class="category-figure figure-${key}" aria-hidden="true"><span></span><span></span><span></span><span></span><span></span></div>
     <figure class="category-image-stage" aria-hidden="true"><img src="../assets/portfolio/${categoryHeroImage[key]}" alt="" fetchpriority="high"></figure>
-    <p class="category-intro">${data.intro}</p>
-    <div class="category-lenses">${data.lens.map((lens, index) => `<span><i>0${index + 1}</i>${lens}</span>`).join('')}</div>
-    <a class="category-scroll" href="#experience"><span>Enter ${data.short}</span><i>↓</i></a>
+    ${isArchitecture ? '' : `<p class="category-intro">${data.intro}</p>`}
+    ${isArchitecture ? '' : `<div class="category-lenses">${data.lens.map((lens, index) => `<span><i>0${index + 1}</i>${lens}</span>`).join('')}</div>`}
+    ${isArchitecture ? '' : `<a class="category-scroll" href="#experience"><span>Enter ${data.short}</span><i>↓</i></a>`}
   </section>
 
   ${isArchitecture ? architectureArchiveMarkup : key === 'pm' ? pmArchiveMarkup : key === 'hci' ? hciArchiveMarkup : `
@@ -756,9 +761,9 @@ const routeHoldDuration = 170;
 const routeRevealDuration = 1050;
 const routeStorageKey = 'alobi-route-reveal';
 
-const rememberRouteReveal = label => {
+const rememberRouteReveal = (label, effect = 'route') => {
   try {
-    sessionStorage.setItem(routeStorageKey, JSON.stringify({ label, createdAt: Date.now() }));
+    sessionStorage.setItem(routeStorageKey, JSON.stringify({ label, effect, createdAt: Date.now() }));
   } catch {}
 };
 
@@ -777,7 +782,7 @@ const playIncomingRouteReveal = () => {
 
   routing = true;
   transitionLabel.textContent = state.label || data.name;
-  transition.className = 'page-transition is-active effect-route-reveal';
+  transition.className = `page-transition is-active ${state.effect === 'arch-slide' ? 'effect-arch-slide-reveal' : 'effect-route-reveal'}`;
   void transition.offsetWidth;
   requestAnimationFrame(() => requestAnimationFrame(() => {
     document.documentElement.classList.remove('route-enter-pending');

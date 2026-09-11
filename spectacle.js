@@ -220,6 +220,16 @@
       let lastTime = 0;
       let velocity = 0;
       let momentumFrame = 0;
+      let archivePull = 0;
+      let archiveLaunching = false;
+
+      const setArchivePull = distance => {
+        const threshold = Math.max(220, photoWall.clientWidth * .55);
+        archivePull = Math.max(0, Math.min(threshold + 72, distance));
+        photoSection.style.setProperty('--arch-pull', (archivePull / threshold).toFixed(3));
+        photoSection.classList.toggle('is-arch-pulling', archivePull > 0);
+        photoSection.classList.toggle('is-arch-armed', archivePull >= threshold);
+      };
 
       const updatePhotoWall = () => {
         const max = Math.max(1, photoWall.scrollWidth - photoWall.clientWidth);
@@ -240,6 +250,24 @@
         photoWall.classList.remove('is-dragging');
         try { photoWall.releasePointerCapture(event.pointerId); } catch {}
         suppressClick = moved;
+        if (archivePull >= Math.max(220, photoWall.clientWidth * .55) && !archiveLaunching) {
+          archiveLaunching = true;
+          photoSection.classList.add('is-arch-launching');
+          if (cursor) cursor.querySelector('span').textContent = 'ARCH';
+          window.setTimeout(() => {
+            const architectureControl = document.querySelector('.scale[data-discipline="architecture"]');
+            if (!reduced && window.alobiNavigateToArchitectureSlide) window.alobiNavigateToArchitectureSlide();
+            else if (!reduced && architectureControl) architectureControl.click();
+            else window.location.assign('architecture/');
+          }, reduced ? 0 : 520);
+          return;
+        }
+        const shouldRecoil = archivePull > 0;
+        setArchivePull(0);
+        if (shouldRecoil && !reduced) {
+          photoSection.classList.add('is-arch-recoiling');
+          window.setTimeout(() => photoSection.classList.remove('is-arch-recoiling'), 560);
+        }
         if (cursor) cursor.querySelector('span').textContent = 'DRAG';
         if (!reduced && Math.abs(velocity) > .08) momentumFrame = requestAnimationFrame(coast);
       };
@@ -265,7 +293,10 @@
           photoWall.setPointerCapture(event.pointerId);
         }
         if (!moved) return;
-        photoWall.scrollLeft = startScroll - delta;
+        const max = Math.max(0, photoWall.scrollWidth - photoWall.clientWidth);
+        const desiredScroll = startScroll - delta * 1.18;
+        photoWall.scrollLeft = desiredScroll;
+        setArchivePull(desiredScroll > max ? desiredScroll - max : 0);
         velocity = Math.max(-2.6, Math.min(2.6, (lastX - event.clientX) / Math.max(8, now - lastTime)));
         lastX = event.clientX;
         lastTime = now;
@@ -299,6 +330,7 @@
       photoWall.querySelectorAll('figure').forEach(frame => frame.addEventListener('pointerenter', () => {
         if (cursor) cursor.querySelector('span').textContent = 'VIEW';
       }));
+
       updatePhotoWall();
     }
 

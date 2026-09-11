@@ -3,9 +3,9 @@
 if ('scrollRestoration' in history) history.scrollRestoration = 'manual';
 
 const resetEntryPosition = () => {
-  if (location.hash && location.hash !== '#top') {
-    history.replaceState(null, '', `${location.pathname}${location.search}`);
-  }
+  // Preserve real anchors so keyboard navigation and deep links can land on
+  // the requested section instead of being erased during the initial paint.
+  if (location.hash && location.hash !== '#top') return;
   window.scrollTo({ top: 0, left: 0, behavior: 'auto' });
 };
 
@@ -20,6 +20,8 @@ const loader = document.querySelector('.loader');
 const loaderValue = document.querySelector('.loader-value');
 const symbolCaption = document.querySelector('.symbol-caption');
 const incomingRouteReveal = document.documentElement.classList.contains('route-enter-pending');
+let returningVisitor = false;
+try { returningVisitor = sessionStorage.getItem('alobi-visited') === '1'; } catch {}
 let displayedProgress = 0;
 let documentReady = document.readyState === 'complete';
 const loaderStart = performance.now();
@@ -47,21 +49,31 @@ function updateLoader(now) {
   if (displayedProgress < 100) {
     requestAnimationFrame(updateLoader);
   } else {
-    setTimeout(() => {
-      window.clearInterval(symbolTimer);
-      loader.classList.add('is-complete');
-      document.body.classList.add('is-ready');
-    }, 180);
+    window.clearInterval(symbolTimer);
+    loader.classList.add('is-complete');
+    document.body.classList.add('is-ready');
   }
 }
-if (incomingRouteReveal) {
+if (incomingRouteReveal || returningVisitor) {
   loader.style.setProperty('--load-progress', '100%');
   loaderValue.textContent = '100%';
   loader.classList.add('is-complete');
   document.body.classList.add('is-ready');
+  try { sessionStorage.setItem('alobi-visited', '1'); } catch {}
 } else {
   requestAnimationFrame(updateLoader);
 }
+
+// Keep browser-style section movement available even when the custom motion
+// layer is active. Interactive controls retain their own arrow-key behavior.
+document.addEventListener('keydown', event => {
+  if (event.defaultPrevented || event.target.closest('input,textarea,select,[contenteditable="true"]')) return;
+  const steps = { PageDown: 1, PageUp: -1, ArrowDown: 1, ArrowUp: -1 };
+  if (!(event.key in steps)) return;
+  const amount = Math.max(240, Math.round(window.innerHeight * .82)) * steps[event.key];
+  event.preventDefault();
+  window.scrollBy({ top: amount, left: 0, behavior: matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth' });
+});
 
 // Custom pointer.
 const cursor = document.querySelector('.cursor');
@@ -171,9 +183,9 @@ const routeRevealDuration = 1050;
 const routeStorageKey = 'alobi-route-reveal';
 let transitioning = false;
 
-function rememberRouteReveal(label) {
+function rememberRouteReveal(label, effect = 'route') {
   try {
-    sessionStorage.setItem(routeStorageKey, JSON.stringify({ label, createdAt: Date.now() }));
+    sessionStorage.setItem(routeStorageKey, JSON.stringify({ label, effect, createdAt: Date.now() }));
   } catch {}
 }
 
@@ -192,7 +204,7 @@ function playIncomingRouteReveal() {
 
   transitioning = true;
   transitionLabel.textContent = state.label || 'ALOBI';
-  transition.className = 'page-transition is-active effect-route-reveal';
+  transition.className = `page-transition is-active ${state.effect === 'arch-slide' ? 'effect-arch-slide-reveal' : 'effect-route-reveal'}`;
   void transition.offsetWidth;
   requestAnimationFrame(() => requestAnimationFrame(() => {
     document.documentElement.classList.remove('route-enter-pending');
@@ -241,6 +253,23 @@ function navigateToCategory(discipline) {
     requestAnimationFrame(() => window.setTimeout(() => location.assign(destination.url), routeHoldDuration));
   }, categoryTransitionDuration);
 }
+
+window.alobiNavigateToArchitectureSlide = () => {
+  const destination = categoryRoutes.architecture;
+  if (!destination || transitioning) return;
+  if (matchMedia('(prefers-reduced-motion: reduce)').matches) {
+    location.assign(destination.url);
+    return;
+  }
+  transitioning = true;
+  transition.className = 'page-transition is-active effect-arch-slide';
+  transitionLabel.textContent = 'ARCHITECTURE / SELECTED WORKS';
+  window.setTimeout(() => {
+    transition.classList.add('is-holding');
+    rememberRouteReveal(destination.label, 'arch-slide');
+    requestAnimationFrame(() => window.setTimeout(() => location.assign(destination.url), routeHoldDuration));
+  }, 620);
+};
 
 document.querySelectorAll('[data-site-route]').forEach(link => {
   link.addEventListener('click', event => {
