@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 128" role="img" aria-labelledby="title">
+  <title>3D printing</title>
+  <g fill="none" stroke="#000" stroke-width="6" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M19 18h90v92H19zM31 94h66M33 31h62M64 31v18"/>
+    <path d="M52 49h24l-5 14H57zM64 63v9M45 94V79l19-10 19 10v15"/>
+    <path d="M45 85h38"/>
+  </g>
+</svg>

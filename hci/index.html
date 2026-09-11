@@ -1,0 +1,86 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="Human-computer interaction work and experience by Zihe Huang." />
+    <title>Human-Computer Interaction — Zihe Huang</title>
+    <script src="../route-entry.js"></script>
+    <link rel="icon" type="image/svg+xml" href="../assets/alobi-mark.svg" />
+    <link rel="stylesheet" href="../styles.css" />
+    <link rel="stylesheet" href="../animations.css" />
+    <link rel="stylesheet" href="../category.css" />
+    <link rel="stylesheet" href="../apple-system.css" />
+    <link rel="stylesheet" href="../spectacle.css?v=20260910-14" />
+    <link rel="stylesheet" href="./hci.css" />
+  </head>
+  <body class="hci-holding-page">
+    <div class="page-transition" aria-hidden="true"><div class="transition-panel"></div><div class="transition-grid"></div><div class="transition-scan"></div><span class="transition-label">HUMAN-COMPUTER INTERACTION</span></div>
+    <div class="cursor" aria-hidden="true"></div><div class="grain" aria-hidden="true"></div>
+    <header class="site-head">
+      <a class="identity" href="../" data-route data-route-label="ALOBI / HOME" aria-label="Zihe Huang — home">
+        <span class="logo-tile" aria-hidden="true"><span class="logo-initials">ZH</span><svg class="personal-mark" viewBox="0 0 48 48" role="presentation"><path class="mark-z" d="M9 12H39L9 36H39"/><path class="mark-h" d="M17 9V39M31 9V39M17 24H31"/><circle cx="24" cy="24" r="2"/></svg></span>
+        <span class="identity-copy">Zihe Huang<br />Architecture · HCI · AI</span>
+      </a>
+      <div class="coordinates" aria-hidden="true">10⁻² / HCI<br />HUMAN SYSTEMS</div>
+      <div class="header-actions"><button class="menu-button" type="button" aria-label="Open contents" aria-expanded="false"><i aria-hidden="true"></i></button><a class="header-contact" href="#category-contact">Contact</a></div>
+    </header>
+    <aside class="index-panel" aria-hidden="true">
+      <nav aria-label="Portfolio contents">
+        <a href="../" data-route data-route-label="ALOBI / HOME"><span>01</span><b>Home</b></a>
+        <a href="../about/" data-route data-route-label="ABOUT / TIMELINE"><span>02</span><b>About me</b></a>
+        <a href="../architecture/" data-route data-route-label="ARCHITECTURE"><span>03</span><b>Arch</b></a>
+        <a href="../pm/" data-route data-route-label="PRODUCT MANAGEMENT"><span>04</span><b>PM</b></a>
+        <a href="./" data-route data-route-label="HUMAN-COMPUTER INTERACTION" aria-current="page"><span>05</span><b>HCI</b></a>
+        <a href="#category-contact"><span>06</span><b>Contact</b></a>
+      </nav>
+      <p>Human-centered work grounded in research, prototyping, feedback, and usable systems.</p>
+      <div class="index-socials" aria-label="Contact links">
+        <a class="index-linkedin" href="https://www.linkedin.com/in/zihe-huang/" target="_blank" rel="noreferrer" aria-label="LinkedIn">in</a>
+        <a class="index-instagram" href="https://www.instagram.com/zihealobi/" target="_blank" rel="noreferrer" aria-label="Instagram"><i></i></a>
+        <a class="index-email" href="mailto:ziheh@andrew.cmu.edu" aria-label="Email Zihe Huang"><i></i></a>
+      </div>
+    </aside>
+    <main class="hci-holding" aria-labelledby="hci-title">
+      <div class="hci-holding-grid" aria-hidden="true"></div>
+      <div class="hci-holding-code">05 / HCI<br />HUMAN SYSTEMS</div>
+      <div class="hci-holding-orbit" aria-hidden="true"><span></span><i></i></div>
+      <section class="hci-holding-copy">
+        <p class="hci-holding-kicker">HUMAN-COMPUTER INTERACTION / 2026</p>
+        <h1 id="hci-title">SITE UNDER<br /><em>CONSTRUCTION.</em></h1>
+        <p class="hci-holding-note">The HCI archive is still taking shape. Come back soon to explore research, prototypes, and systems in progress.</p>
+        <a class="hci-home-button" href="../" data-route data-route-label="ALOBI / HOME">Back to main page <span aria-hidden="true">↗</span></a>
+      </section>
+      <p class="hci-holding-footer">BUILDING THE NEXT ITERATION <span>—</span> CHECK BACK SOON</p>
+    </main>
+    <script src="../spectacle.js?v=20260910-14"></script>
+    <script>
+      (() => {
+        const transition = document.querySelector('.page-transition');
+        const grid = transition?.querySelector('.transition-grid');
+        for (let index = 0; index < 12; index += 1) {
+          const cell = document.createElement('span');
+          cell.style.setProperty('--cell', index);
+          cell.style.setProperty('--reverse-cell', 11 - index);
+          grid?.append(cell);
+        }
+        const reveal = () => {
+          if (transition && grid?.children.length) {
+            transition.className = 'page-transition is-active effect-route-reveal';
+            requestAnimationFrame(() => {
+              document.documentElement.classList.remove('route-enter-pending');
+              document.getElementById('route-prepaint-style')?.remove();
+            });
+            window.setTimeout(() => { transition.className = 'page-transition'; }, 1100);
+          } else {
+            document.documentElement.classList.remove('route-enter-pending');
+            document.getElementById('route-prepaint-style')?.remove();
+          }
+          try { sessionStorage.removeItem('alobi-route-reveal'); } catch {}
+        };
+        requestAnimationFrame(() => requestAnimationFrame(reveal));
+        window.addEventListener('pageshow', reveal, { once: true });
+      })();
+    </script>
+  </body>
+</html>

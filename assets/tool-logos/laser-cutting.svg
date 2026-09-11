@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 128" role="img" aria-labelledby="title">
+  <title>Laser cutting</title>
+  <g fill="none" stroke="#000" stroke-width="6" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M19 91h90v20H19zM29 91l13-35h44l13 35M64 17v29"/>
+    <path d="M54 17h20v20H54zM58 56l6-10 6 10M50 71l14-15 14 15M64 56v28"/>
+  </g>
+  <circle cx="64" cy="84" r="5" fill="#000"/>
+</svg>

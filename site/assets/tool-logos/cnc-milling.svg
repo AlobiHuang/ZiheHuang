@@ -1,7 +1,0 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 128" role="img" aria-labelledby="title">
-  <title>CNC milling</title>
-  <g fill="none" stroke="#000" stroke-width="6" stroke-linecap="round" stroke-linejoin="round">
-    <path d="M18 18h92v92H18zM34 18v20h60V18M44 38v24h40V38"/>
-    <path d="M57 62h14v20l-7 10-7-10zM31 96h66M31 84h18M79 84h18"/>
-  </g>
-</svg>
