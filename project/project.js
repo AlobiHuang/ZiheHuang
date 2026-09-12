@@ -160,7 +160,7 @@ const mediaCaptionsByProject = {
   're-serv-oir': ['Exterior view of the community ecology center', 'Project form study', 'Site systems map', 'Ground floor plan', 'Mezzanine plan', 'First floor plan', 'Environmental axonometric', 'Climate section', 'Long section', 'Transportation and neighborhood map'],
   'how-to-build-a-ruin': ['Former coal-site landscape', 'Climate timeline and projected growing conditions', 'Temperature projections and climate thresholds', 'Rice, infrastructure, and continuous reconstruction', 'Growth sequence studies', 'Ground floor plan', 'Program circulation and landscape', 'Parti: spine and branch', 'Parti: field organization', 'Parti: growth and structure', 'Parti: circulation rules', 'Physical model'],
   'call-of-the-sea': ['A way of living on water — community, hospitality, and the tides', 'Site map — Torosiaje as a network of water and exchange', 'Section — porous rooms and shared movement across the water', 'Spatial study — thresholds between dwelling and community', 'Exchange study — architecture shaped by daily coastal routines'],
-  'sankofa-multi-stakeholder-delivery': ['Full-scale assembly — the greenhouse moving from prototype toward construction', 'Build progress — the prototype becoming a full-scale structure', 'Project team — coordinating a shared direction across disciplines', 'Joinery detail — making the connection legible and repeatable', 'Community presentation — bringing the model into public conversation', 'Community dialogue — listening for priorities and concerns', 'Design review — translating feedback into visible decisions'],
+  'sankofa-multi-stakeholder-delivery': ['Full-scale assembly — the greenhouse moving from prototype toward construction', 'Build progress — the prototype becoming a full-scale structure', 'Project team — coordinating a shared direction across disciplines', 'Joinery detail — making the connection legible and repeatable', 'Community presentation — bringing the model into public conversation', 'Community dialogue — actively discussing with clients and designing furniture and layouts around their needs', 'Design review — translating feedback into visible decisions'],
 };
 const projectMedia = mediaByProject[project.slug] || ['teaser-final-dark-foreground.webp'];
 const portfolioPageDimensions = {
@@ -177,6 +177,7 @@ const architecturePortfolioOverview = {
   'call-of-the-sea': 'A Way of Living on Water'
 };
 const isPdfPortfolioProject = lensKey === 'architecture' && ['re-serv-oir', 'how-to-build-a-ruin', 'convergence-environmental-middle-school', 'the-tinkerers-imaginarium', 'radical-empathy'].includes(project.slug);
+const isPairedSpreadProject = lensKey === 'architecture' && ['convergence-environmental-middle-school', 'radical-empathy'].includes(project.slug);
 const sourceOverview = lensKey === 'architecture' && !isPdfPortfolioProject ? architecturePortfolioOverview[project.slug] : '';
 const isInProgressArchitecture = lensKey === 'architecture' && project.slug === 'call-of-the-sea';
 const isSankofaProject = lensKey === 'pm' && project.slug === 'sankofa-multi-stakeholder-delivery';
@@ -196,6 +197,15 @@ const processSteps = lensKey === 'architecture'
     : 'Observe → Frame → Prototype → Test → Share';
 const projectMetaLabel = lensKey === 'pm' ? 'Team' : 'Mode';
 const projectMetaValue = lensKey === 'pm' ? 'Vicky Achnani, Zihe Huang, Shirley Xie, Victor Teng' : project.type;
+const architectureGalleryMarkup = isPairedSpreadProject
+  ? Array.from({ length: Math.ceil(projectMedia.length / 2) }, (_, spreadIndex) => {
+      const pages = projectMedia.slice(spreadIndex * 2, spreadIndex * 2 + 2);
+      return `<figure class="gallery-item gallery-spread gallery-spread-${spreadIndex + 1}">${pages.map((image, pageIndex) => {
+        const absoluteIndex = spreadIndex * 2 + pageIndex;
+        return `<span class="gallery-spread-page"><img src="../assets/portfolio/${image}" alt="${project.title} portfolio page ${absoluteIndex + 1}"${projectPageDimensions ? ` width="${projectPageDimensions[0]}" height="${projectPageDimensions[1]}"` : ''} loading="${spreadIndex === 0 ? 'eager' : 'lazy'}" decoding="async"></span>`;
+      }).join('')}</figure>`;
+    }).join('')
+  : projectMedia.map((image, index) => `<figure class="gallery-item gallery-item-${index + 1}"><img src="../assets/portfolio/${image}" alt="${project.title} portfolio image ${index + 1}"${projectPageDimensions ? ` width="${projectPageDimensions[0]}" height="${projectPageDimensions[1]}"` : ''} loading="${isPdfPortfolioProject && index === 0 ? 'eager' : 'lazy'}" decoding="async"></figure>`).join('');
 
 document.body.dataset.lens = lensKey;
 document.body.style.setProperty('--project-accent', lens.accent);
@@ -231,7 +241,7 @@ document.getElementById('project-root').innerHTML = `
     ${lensKey === 'architecture' ? '' : '<a class="project-enter" href="#case-study"><span>Enter project</span><i>↓</i></a>'}
   </section>
 
-  ${lensKey === 'architecture' ? '' : `<section class="case-framing" id="case-study">
+  ${lensKey === 'architecture' || isSankofaProject ? '' : `<section class="case-framing" id="case-study">
     <p class="case-framing-index">02 / FRAMING<br>QUESTION → POSITION → METHOD</p>
     <div class="case-framing-copy">
       <p class="case-framing-lede">${project.question}</p>
@@ -241,8 +251,8 @@ document.getElementById('project-root').innerHTML = `
     </div>
   </section>`}
 
-  ${lensKey === 'architecture' ? '' : `<section class="case-sections" aria-label="Project case study">
-    <div class="case-sections-intro"><span>03 / CASE STUDY</span><h2>From question to a working direction.</h2></div>
+  ${lensKey === 'architecture' ? '' : `<section class="case-sections" id="case-study" aria-label="Project case study">
+    ${isSankofaProject ? '' : '<div class="case-sections-intro"><span>03 / CASE STUDY</span><h2>From question to a working direction.</h2></div>'}
     ${sectionMedia.map((image, index) => `
       <article class="case-section gateway-reveal">
         <div class="case-section-copy">
@@ -262,8 +272,8 @@ document.getElementById('project-root').innerHTML = `
 
   ${isInProgressArchitecture ? `<section class="project-in-progress" aria-label="Project status"><p>2026 / IN PROGRESS</p><h2>Work in progress.</h2><span>More from this project will be shared soon.</span></section>` : `<section class="project-gallery ${isPdfPortfolioProject ? 'project-gallery-pdf' : ''}" aria-label="Additional project visuals">
     ${lensKey === 'architecture' ? '' : '<header><span>05 / VISUAL RECORD</span><h2>Additional drawings, studies, and artifacts.</h2></header>'}
-    <div class="project-gallery-grid">${(lensKey === 'architecture' ? projectMedia : projectMedia.slice(1 + sectionCount)).map((image, index) => `
-      <figure class="gallery-item gallery-item-${index + 1}"><img src="../assets/portfolio/${image}" alt="${lensKey === 'architecture' ? `${project.title} portfolio image ${index + 1}` : mediaAlt(index + 1 + sectionCount)}"${projectPageDimensions ? ` width="${projectPageDimensions[0]}" height="${projectPageDimensions[1]}"` : ''} loading="${isPdfPortfolioProject && index === 0 ? 'eager' : 'lazy'}" decoding="async">${lensKey === 'architecture' ? '' : `<figcaption><span>${String(index + 1 + sectionCount).padStart(2, '0')} / ${project.no}</span>${mediaCaptions[index + 1 + sectionCount] ? `<b>${mediaCaptions[index + 1 + sectionCount]}</b>` : ''}</figcaption>`}</figure>`).join('')}
+    <div class="project-gallery-grid">${lensKey === 'architecture' ? architectureGalleryMarkup : projectMedia.slice(1 + sectionCount).map((image, index) => `
+      <figure class="gallery-item gallery-item-${index + 1}"><img src="../assets/portfolio/${image}" alt="${mediaAlt(index + 1 + sectionCount)}" loading="lazy" decoding="async"><figcaption><span>${String(index + 1 + sectionCount).padStart(2, '0')} / ${project.no}</span>${mediaCaptions[index + 1 + sectionCount] ? `<b>${mediaCaptions[index + 1 + sectionCount]}</b>` : ''}</figcaption></figure>`).join('')}
     </div>
   </section>`}
 

@@ -279,7 +279,7 @@ const recencyScore = value => {
   return year * 10 + term;
 };
 if (key === 'architecture') {
-  const architectureOrder = ['re-serv-oir', 'how-to-build-a-ruin', 'convergence-environmental-middle-school', 'the-tinkerers-imaginarium', 'radical-empathy', 'call-of-the-sea'];
+  const architectureOrder = ['re-serv-oir', 'how-to-build-a-ruin', 'convergence-environmental-middle-school', 'radical-empathy', 'the-tinkerers-imaginarium', 'call-of-the-sea'];
   const archiveSlug = title => title.normalize('NFKD').toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '');
   data.experiences = data.experiences.slice().sort((a, b) => {
     const aRank = architectureOrder.indexOf(a.slug || archiveSlug(a.title));
@@ -303,9 +303,9 @@ const projectHref = experience => `../project/?lens=${key}&project=${experience.
 const projectRouteLabel = experience => `PROJECT / ${experience.title.toUpperCase()}`;
 const categoryImages = {
   architecture: {
-    'convergence-environmental-middle-school': 'convergence-pdf-01.jpg',
-    'the-tinkerers-imaginarium': 'tinkerers-pdf-01.jpg',
-    'radical-empathy': 'radical-empathy-pdf-01.jpg',
+    'convergence-environmental-middle-school': 'convergence-pdf-02.jpg',
+    'the-tinkerers-imaginarium': 'tinkerers-site-model-cover.jpg',
+    'radical-empathy': 'radical-empathy-cover.jpg',
     're-serv-oir': 'reservoir-exterior.png',
     'how-to-build-a-ruin': 'ruin-hero.jpg',
     'call-of-the-sea': 'sea-hero.png'
@@ -320,15 +320,18 @@ const categoryHeroImage = {
 };
 const workImages = categoryImages[key] || categoryImages.architecture;
 const experienceMarkup = data.experiences.map((experience, index) => {
-  if (isArchitecture) return `
+  if (isArchitecture) {
+    const isInProgress = experience.slug === 'call-of-the-sea';
+    return `
     <a class="arch-work-card project-gateway-link" id="architecture-project-${index + 1}" href="${projectHref(experience)}" data-route data-route-label="${projectRouteLabel(experience)}" aria-label="Open the ${experience.title} project gateway">
-      <figure class="arch-work-image arch-work-image-0${index + 1}">
-        <img src="../assets/portfolio/${workImages[experience.slug || projectSlug(experience.title)]}" alt="Selected portfolio visual for ${experience.title}" loading="lazy" decoding="async">
+      <figure class="arch-work-image arch-work-image-0${index + 1}${isInProgress ? ' arch-work-image-progress' : ''}">
+        ${isInProgress ? '<div class="arch-progress-cover" aria-hidden="true"><small>ONGOING / 2026</small><strong>IN<br>PROGRESS</strong><i>TOROSIAJE · INDONESIA</i></div>' : `<img src="../assets/portfolio/${workImages[experience.slug || projectSlug(experience.title)]}" alt="Selected portfolio visual for ${experience.title}" loading="eager" decoding="async">`}
         <span>${experience.no}</span>
         <figcaption>OPEN PROJECT ↗</figcaption>
       </figure>
       <div><h3>${experience.title}</h3><time>${experience.date}</time><p>${experience.type}</p></div>
     </a>`;
+  }
 
   return `
     <article class="case-sheet reveal">

@@ -226,7 +226,12 @@
       const setArchivePull = distance => {
         const threshold = Math.max(220, photoWall.clientWidth * .55);
         archivePull = Math.max(0, Math.min(threshold + 72, distance));
-        photoSection.style.setProperty('--arch-pull', (archivePull / threshold).toFixed(3));
+        const pullProgress = archivePull / threshold;
+        const revealProgress = Math.min(1, pullProgress);
+        photoSection.style.setProperty('--arch-pull', pullProgress.toFixed(3));
+        photoSection.style.setProperty('--more-work-opacity', Math.min(1, pullProgress * 1.15).toFixed(3));
+        photoSection.style.setProperty('--more-work-scale', (.38 + revealProgress * .72).toFixed(3));
+        photoSection.style.setProperty('--more-work-blur', `${((1 - revealProgress) * 4).toFixed(2)}px`);
         photoSection.classList.toggle('is-arch-pulling', archivePull > 0);
         photoSection.classList.toggle('is-arch-armed', archivePull >= threshold);
       };

@@ -19,7 +19,7 @@ window.addEventListener('pageshow', resetEntryPosition);
 const loader = document.querySelector('.loader');
 const loaderValue = document.querySelector('.loader-value');
 const symbolCaption = document.querySelector('.symbol-caption');
-const incomingRouteReveal = document.documentElement.classList.contains('route-enter-pending');
+const incomingRouteReveal = document.documentElement.classList.contains('route-enter-pending') || location.hash === '#play-lab';
 let returningVisitor = false;
 try { returningVisitor = sessionStorage.getItem('alobi-visited') === '1'; } catch {}
 let displayedProgress = 0;

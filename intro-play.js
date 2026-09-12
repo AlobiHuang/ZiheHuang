@@ -10,25 +10,16 @@
   const pullLabel = pull.querySelector('span');
   const hobbyNotes = [...stage.querySelectorAll('.intro-hobby-note')];
   const hobbyNotesGroup = stage.querySelector('.intro-hobby-notes');
+  const fieldOrbit = stage.querySelector('.intro-field-orbit');
   const gallery = document.querySelector('.note-gallery');
   const galleryClose = gallery?.querySelector('.note-gallery-close');
   const galleryField = gallery?.querySelector('.note-gallery-field');
   const galleryPlane = gallery?.querySelector('.note-gallery-plane');
   const galleryTemplates = gallery ? [...gallery.querySelectorAll('.note-gallery-templates .note-gallery-card')] : [];
   let galleryCards = [];
+  let galleryItems = [];
   const galleryBurst = gallery?.querySelector('.note-gallery-burst');
   const magnets = [...stage.querySelectorAll('[data-intro-magnet]')];
-
-  stage.addEventListener('pointermove', event => {
-    if (event.pointerType === 'touch') return;
-    const bounds = stage.getBoundingClientRect();
-    stage.style.setProperty('--play-x', `${((event.clientX - bounds.left) / bounds.width * 100).toFixed(1)}%`);
-    stage.style.setProperty('--play-y', `${((event.clientY - bounds.top) / bounds.height * 100).toFixed(1)}%`);
-  }, { passive: true });
-  stage.addEventListener('pointerleave', () => {
-    stage.style.setProperty('--play-x', '50%');
-    stage.style.setProperty('--play-y', '50%');
-  });
 
   let stickerPointer = null;
   let stickerStartX = 0;
@@ -98,12 +89,23 @@
   let pullResetting = false;
   let galleryReturnFocus = null;
 
+  const setFieldProgress = (progress, remaining = hobbyNotes.length) => {
+    stage.style.setProperty('--field-progress', String(clamp(progress, 0, 1)));
+    const readout = fieldOrbit?.querySelector('span');
+    if (readout) readout.textContent = String(Math.max(0, remaining));
+    const label = fieldOrbit?.querySelector('b');
+    if (label) label.textContent = remaining === 1 ? 'note left' : 'notes left';
+  };
+
   const setPullProgress = progress => {
     pullProgress = clamp(progress, 0, 1);
     stage.style.setProperty('--pull-progress', String(pullProgress));
+    if (pullPhase === 1) setFieldProgress(hobbyPeelIndex / hobbyNotes.length, hobbyNotes.length - hobbyPeelIndex);
   };
 
-  const peelCards = [sticker, ...hobbyNotes];
+  // The opening pull has seven timing windows: the cover plus six notes.
+  // Animate only those cards; the full stack is activated after the pull.
+  const peelCards = [sticker, ...hobbyNotes.slice(0, 6)];
   const peelStarts = [0, .26, .45, .59, .70, .79, .86];
   const peelEnds = [.26, .45, .59, .70, .79, .86, 1];
   let hobbyPeelIndex = 0;
@@ -111,6 +113,7 @@
   let hobbyStartX = 0;
   let hobbyStartY = 0;
   let hobbyDistance = 0;
+  let hobbyPullOrigin = 0;
 
   const renderHobbyStack = () => {
     hobbyNotesGroup.setAttribute('aria-hidden', 'false');
@@ -122,7 +125,8 @@
         ? 'translate3d(220px, -150px, 0) rotate(18deg) scale(.94)'
         : `translate3d(${Math.min(depth, 5) * -2}px, ${Math.min(depth, 5) * -3}px, 0) rotate(${Math.min(depth, 5) * .7 - 2}deg)`;
       note.style.opacity = isPeeled ? '0' : '1';
-      note.style.filter = isPeeled ? 'blur(5px)' : 'none';
+      note.style.filter = 'none';
+      note.style.visibility = isPeeled || depth > 5 ? 'hidden' : 'visible';
       note.style.zIndex = String(hobbyNotes.length - index + 8);
       note.style.pointerEvents = isTop ? 'auto' : 'none';
       note.tabIndex = isTop ? 0 : -1;
@@ -132,31 +136,77 @@
 
   const beginHobbyPeeling = () => {
     if (pullPhase === 1) return;
+    // The second pull uses a longer rail. Convert the handle's current pixel
+    // position to that rail so it does not jump when the interaction changes.
+    hobbyPullOrigin = pullProgress / 2;
     pullPhase = 1;
     hobbyPeelIndex = 0;
     setNoteOpen(true);
+    sticker.hidden = true;
     stage.classList.add('is-hobbies-open');
     stage.classList.remove('is-auto-peeling');
-    setPullProgress(0);
+    setPullProgress(hobbyPullOrigin);
     renderHobbyStack();
     pull.setAttribute('aria-expanded', 'true');
     pullLabel.textContent = `Peel 01 / ${String(hobbyNotes.length).padStart(2, '0')}`;
     pullResetting = false;
+    setFieldProgress(0, hobbyNotes.length);
   };
 
   const peelHobbyNote = index => {
     if (pullPhase !== 1 || index !== hobbyPeelIndex) return;
     hobbyPeelIndex += 1;
+    setPullProgress(hobbyPullOrigin + (hobbyPeelIndex / hobbyNotes.length) * (1 - hobbyPullOrigin));
     renderHobbyStack();
+    setFieldProgress(hobbyPeelIndex / hobbyNotes.length, hobbyNotes.length - hobbyPeelIndex);
     if (hobbyPeelIndex === hobbyNotes.length) {
       pullLabel.textContent = 'Open all notes';
+      window.setTimeout(openGallery, 260);
     } else {
       pullLabel.textContent = `Peel ${String(hobbyPeelIndex + 1).padStart(2, '0')} / ${String(hobbyNotes.length).padStart(2, '0')}`;
       hobbyNotes[hobbyPeelIndex].focus({ preventScroll: true });
     }
   };
 
+  const renderPulleyHobbyPeel = progress => {
+    const p = clamp(progress, 0, 1);
+    const travel = clamp((p - hobbyPullOrigin) / Math.max(.001, 1 - hobbyPullOrigin), 0, 1);
+    const exact = travel * hobbyNotes.length;
+    const completedInPull = Math.min(hobbyNotes.length, Math.floor(exact + .0001));
+    const activeIndex = completedInPull;
+    const local = activeIndex < hobbyNotes.length ? exact - completedInPull : 0;
+    hobbyPeelIndex = activeIndex;
+
+    hobbyNotes.forEach((note, index) => {
+      const depth = index - activeIndex;
+      const isPeeled = depth < 0;
+      const isActive = depth === 0 && activeIndex < hobbyNotes.length;
+      if (isActive) {
+        const eased = 1 - Math.pow(1 - local, 3);
+        note.style.transform = `translate3d(${(205 * eased).toFixed(1)}px,${(-132 * eased).toFixed(1)}px,${(24 * local).toFixed(1)}px) rotate(${(-2 + 20 * eased).toFixed(1)}deg) scale(${(1 - .06 * local).toFixed(3)})`;
+        note.style.opacity = String(1 - clamp((local - .72) / .28, 0, 1));
+      } else {
+        note.style.transform = isPeeled
+          ? 'translate3d(220px, -150px, 0) rotate(18deg) scale(.94)'
+          : `translate3d(${Math.min(depth, 5) * -2}px, ${Math.min(depth, 5) * -3}px, 0) rotate(${Math.min(depth, 5) * .7 - 2}deg)`;
+        note.style.opacity = isPeeled ? '0' : '1';
+      }
+      note.style.visibility = isPeeled || depth > 5 ? 'hidden' : 'visible';
+      note.style.pointerEvents = 'none';
+      note.tabIndex = -1;
+      note.setAttribute('aria-hidden', 'true');
+    });
+
+    const remaining = hobbyNotes.length - activeIndex;
+    setFieldProgress(activeIndex / hobbyNotes.length, remaining);
+    pullLabel.textContent = remaining > 0
+      ? `Peeling ${String(activeIndex + 1).padStart(2, '0')} / ${String(hobbyNotes.length).padStart(2, '0')}`
+      : 'All notes revealed';
+  };
+
   hobbyNotes.forEach((note, index) => {
+    note.setAttribute('role', 'button');
+    note.setAttribute('aria-label', `Peel ${note.querySelector('strong')?.textContent || `field note ${index + 1}`}`);
     const finishHobbyPeel = event => {
       if (hobbyPointer === null || (event.pointerId !== undefined && event.pointerId !== hobbyPointer)) return;
       const activePointer = hobbyPointer;
@@ -186,6 +236,10 @@
     note.addEventListener('pointerup', finishHobbyPeel);
     note.addEventListener('pointercancel', finishHobbyPeel);
     note.addEventListener('lostpointercapture', finishHobbyPeel);
+    note.addEventListener('click', () => {
+      if (pullPhase !== 1 || index !== hobbyPeelIndex) return;
+      peelHobbyNote(index);
+    });
     note.addEventListener('keydown', event => {
       if (!['Enter', ' '].includes(event.key)) return;
       event.preventDefault();
@@ -205,7 +259,7 @@
       const opacity = local < .7 ? 1 : 1 - (local - .7) / .3;
       card.style.transform = `translate3d(${x.toFixed(1)}px,${y.toFixed(1)}px,${(local * 34).toFixed(1)}px) rotateY(${(local * 38).toFixed(1)}deg) rotateZ(${rotation.toFixed(1)}deg) scale(${(1 - local * .07).toFixed(3)})`;
       card.style.opacity = String(clamp(opacity, 0, 1));
-      card.style.filter = `blur(${(Math.max(0, local - .72) * 8).toFixed(1)}px)`;
+      card.style.filter = 'none';
       card.style.pointerEvents = local > .02 ? 'none' : '';
       if (index > 0) card.style.zIndex = String(hobbyNotes.length - index + 1);
     });
@@ -220,16 +274,20 @@
 
   const resetExperience = () => {
     pullPhase = 0;
+    sticker.hidden = false;
     hobbyPeelIndex = 0;
+    hobbyPullOrigin = 0;
     stage.classList.remove('is-hobbies-open', 'is-auto-peeling');
     pull.setAttribute('aria-expanded', 'false');
     pullLabel.textContent = 'Drag the first note';
+    setFieldProgress(0, hobbyNotes.length);
     setPullProgress(0);
     setNoteOpen(false);
     renderPeelSequence(0);
-    hobbyNotes.forEach(note => {
+    hobbyNotes.forEach((note, index) => {
       note.tabIndex = -1;
       note.setAttribute('aria-hidden', 'true');
+      note.style.visibility = index < 6 ? 'visible' : 'hidden';
     });
     sticker.style.removeProperty('transform');
     sticker.style.removeProperty('opacity');
@@ -237,9 +295,11 @@
     sticker.style.removeProperty('pointer-events');
   };
 
-  const createBurstDebris = () => {
+  const createBurstDebris = origin => {
     if (!galleryBurst) return;
     galleryBurst.replaceChildren();
+    galleryBurst.style.left = `${origin.x.toFixed(1)}px`;
+    galleryBurst.style.top = `${origin.y.toFixed(1)}px`;
     const palette = ['#fff1a8', '#ffffff', '#bcdcff', '#ffc8da', '#bae5c6', '#ffd0ae', '#1d1d1f'];
     const distance = Math.max(innerWidth, innerHeight) * .72;
     for (let index = 0; index < 30; index += 1) {
@@ -272,6 +332,8 @@
   let galleryMomentum = 0;
   let galleryRenderFrame = 0;
   let suppressGalleryClickUntil = 0;
+  let galleryTransitionTimer = 0;
+  let galleryClosing = false;
 
   const wrapGalleryAxis = (value, size) => {
     if (!size) return value;
@@ -281,8 +343,13 @@
   const renderGalleryPosition = () => {
     galleryOffsetX = wrapGalleryAxis(galleryOffsetX, galleryTileWidth);
     galleryOffsetY = wrapGalleryAxis(galleryOffsetY, galleryTileHeight);
-    galleryPlane?.style.setProperty('--gallery-x', `${galleryOffsetX.toFixed(2)}px`);
-    galleryPlane?.style.setProperty('--gallery-y', `${galleryOffsetY.toFixed(2)}px`);
+    const centerX = innerWidth / 2;
+    const centerY = innerHeight / 2;
+    galleryItems.forEach(({ element, baseX, baseY }) => {
+      const x = centerX + wrapGalleryAxis(baseX + galleryOffsetX, galleryTileWidth);
+      const y = centerY + wrapGalleryAxis(baseY + galleryOffsetY, galleryTileHeight);
+      element.style.transform = `translate3d(${x.toFixed(2)}px,${y.toFixed(2)}px,0) translate(-50%,-50%)`;
+    });
   };
 
   const queueGalleryRender = () => {
@@ -300,35 +367,59 @@
 
   const buildInfiniteGallery = () => {
     if (!galleryPlane || !galleryTemplates.length) return;
-    galleryTileWidth = Math.max(innerWidth * 1.12, innerWidth < 760 ? 920 : 1280);
-    galleryTileHeight = Math.max(innerHeight * 1.15, innerWidth < 760 ? 760 : 880);
+    const compact = innerWidth < 760;
+    const columns = compact ? 5 : 9;
+    const rows = Math.ceil(galleryTemplates.length / columns);
+    galleryTileWidth = Math.max(innerWidth * 1.35, columns * (compact ? 230 : 300));
+    galleryTileHeight = Math.max(innerHeight * 1.4, rows * (compact ? 285 : 330));
     galleryPlane.replaceChildren();
     const fragment = document.createDocumentFragment();
-    for (let row = -1; row <= 1; row += 1) {
-      for (let column = -1; column <= 1; column += 1) {
-        galleryTemplates.forEach((template, index) => {
-          const item = document.createElement('div');
-          item.className = 'note-gallery-item';
-          item.style.left = `${column * galleryTileWidth + Number(template.dataset.x) * galleryTileWidth}px`;
-          item.style.top = `${row * galleryTileHeight + Number(template.dataset.y) * galleryTileHeight}px`;
-          const card = template.cloneNode(true);
-          card.removeAttribute('data-x');
-          card.removeAttribute('data-y');
-          card.dataset.noteIndex = String(index);
-          card.style.setProperty('--delay', `${((index + (row + 1) * 3 + column + 1) % 8) * .055}s`);
-          card.setAttribute('aria-pressed', 'false');
-          if (row !== 0 || column !== 0) {
-            card.tabIndex = -1;
-            card.setAttribute('aria-hidden', 'true');
-          }
-          item.append(card);
-          fragment.append(item);
-        });
+    galleryItems = galleryTemplates.map((template, index) => {
+      const row = Math.floor(index / columns);
+      const column = index % columns;
+      const jitterX = (((index * 37) % 13) - 6) * (compact ? 2.4 : 3.4);
+      const jitterY = (((index * 23) % 11) - 5) * (compact ? 2.1 : 3.1);
+      const baseX = (column + .5) / columns * galleryTileWidth - galleryTileWidth / 2 + jitterX;
+      const baseY = (row + .5) / rows * galleryTileHeight - galleryTileHeight / 2 + jitterY;
+      const item = document.createElement('div');
+      item.className = 'note-gallery-item is-primary';
+      item.style.setProperty('--photo-ratio', template.style.getPropertyValue('--photo-ratio'));
+      const card = template.cloneNode(true);
+      const image = card.querySelector('img[data-src]');
+      if (image) {
+        image.src = image.dataset.src;
+        image.removeAttribute('data-src');
       }
-    }
+      card.dataset.noteIndex = String(index);
+      card.style.setProperty('--delay', `${(index % 8) * .055}s`);
+      card.setAttribute('aria-pressed', 'false');
+      item.append(card);
+      fragment.append(item);
+      return { element: item, baseX, baseY };
+    });
     galleryPlane.append(fragment);
     galleryCards = [...galleryPlane.querySelectorAll('.note-gallery-card')];
-    queueGalleryRender();
+    renderGalleryPosition();
+  };
+
+  const getGalleryOrigin = () => {
+    const rect = hobbyNotesGroup.getBoundingClientRect();
+    return { x: rect.left + rect.width / 2, y: rect.top + rect.height / 2 };
+  };
+
+  const prepareGalleryTransition = () => {
+    const origin = getGalleryOrigin();
+    gallery?.style.setProperty('--burst-origin-x', `${origin.x.toFixed(1)}px`);
+    gallery?.style.setProperty('--burst-origin-y', `${origin.y.toFixed(1)}px`);
+    gallery?.querySelectorAll('.note-gallery-item.is-primary').forEach((item, index) => {
+      const rect = item.getBoundingClientRect();
+      const card = item.querySelector('.note-gallery-card');
+      card?.style.setProperty('--burst-x', `${(origin.x - rect.left - rect.width / 2).toFixed(1)}px`);
+      card?.style.setProperty('--burst-y', `${(origin.y - rect.top - rect.height / 2).toFixed(1)}px`);
+      card?.style.setProperty('--burst-delay', `${((index % 18) * .018).toFixed(3)}s`);
+      card?.style.setProperty('--collect-delay', `${(((galleryTemplates.length - 1 - index) % 18) * .01).toFixed(3)}s`);
+    });
+    return origin;
   };
 
   const focusGalleryCard = card => {
@@ -421,39 +512,62 @@
   }, { passive: false });
 
   const openGallery = () => {
-    if (!gallery) return;
+    if (!gallery || gallery.classList.contains('is-open') || gallery.classList.contains('is-preparing')) return;
     pullPhase = 2;
     galleryReturnFocus = document.activeElement;
+    galleryClosing = false;
+    clearTimeout(galleryTransitionTimer);
     stopGalleryMomentum();
     galleryOffsetX = 0;
     galleryOffsetY = 0;
     buildInfiniteGallery();
-    createBurstDebris();
     document.body.classList.add('note-gallery-open');
     document.querySelector('main')?.setAttribute('inert', '');
     gallery.setAttribute('aria-hidden', 'false');
-    requestAnimationFrame(() => gallery.classList.add('is-open'));
-    window.setTimeout(() => galleryClose?.focus(), 420);
+    gallery.classList.add('is-preparing');
+    requestAnimationFrame(() => {
+      const origin = prepareGalleryTransition();
+      createBurstDebris(origin);
+      gallery.classList.remove('is-preparing');
+      gallery.classList.add('is-open', 'is-entering');
+      galleryTransitionTimer = window.setTimeout(() => {
+        gallery.classList.remove('is-entering');
+        galleryClose?.focus();
+      }, 1320);
+    });
   };
 
   const closeGallery = () => {
-    if (!gallery) return;
-    gallery.classList.remove('is-open');
-    gallery.setAttribute('aria-hidden', 'true');
-    document.body.classList.remove('note-gallery-open');
-    document.querySelector('main')?.removeAttribute('inert');
+    if (!gallery || !gallery.classList.contains('is-open') || galleryClosing) return;
+    galleryClosing = true;
+    clearTimeout(galleryTransitionTimer);
     stopGalleryMomentum();
-    galleryOffsetX = 0;
-    galleryOffsetY = 0;
     galleryCards.forEach(card => { card.classList.remove('is-focused'); card.setAttribute('aria-pressed', 'false'); });
-    resetExperience();
-    (galleryReturnFocus instanceof HTMLElement ? galleryReturnFocus : pull).focus();
+    prepareGalleryTransition();
+    gallery.classList.remove('is-entering');
+    gallery.classList.add('is-closing');
+    galleryTransitionTimer = window.setTimeout(() => {
+      gallery.classList.remove('is-open', 'is-closing', 'is-preparing');
+      gallery.setAttribute('aria-hidden', 'true');
+      document.body.classList.remove('note-gallery-open');
+      document.querySelector('main')?.removeAttribute('inert');
+      galleryOffsetX = 0;
+      galleryOffsetY = 0;
+      resetExperience();
+      galleryClosing = false;
+      (galleryReturnFocus instanceof HTMLElement ? galleryReturnFocus : pull).focus();
+    }, 980);
   };
 
   const animatePull = () => {
     if (pullResetting || pullPhase > 1) return;
     const startingPhase = pullPhase;
-    const duration = startingPhase === 0 ? 1050 : 620;
+    if (startingPhase === 1 && hobbyPeelIndex >= hobbyNotes.length) {
+      openGallery();
+      return;
+    }
+    const startingProgress = pullProgress;
+    const duration = startingPhase === 0 ? 1050 : 1750;
     const startedAt = performance.now();
     pullResetting = true;
     stage.classList.add('is-pull-dragging');
@@ -463,13 +577,21 @@
     }
     const tick = now => {
       const progress = clamp((now - startedAt) / duration, 0, 1);
-      setPullProgress(progress);
+      setPullProgress(startingPhase === 0 ? progress : startingProgress + (1 - startingProgress) * progress);
       if (startingPhase === 0) renderPeelSequence(progress);
+      else renderPulleyHobbyPeel(pullProgress);
       if (progress < 1) { requestAnimationFrame(tick); return; }
       pullResetting = false;
       stage.classList.remove('is-pull-dragging');
       if (startingPhase === 0) completeFirstPull();
-      else openGallery();
+      else {
+        hobbyPeelIndex = hobbyNotes.length;
+        setPullProgress(1);
+        renderHobbyStack();
+        setFieldProgress(1, 0);
+        pullLabel.textContent = 'All notes revealed';
+        window.setTimeout(openGallery, 260);
+      }
     };
     requestAnimationFrame(tick);
   };
@@ -480,6 +602,16 @@
     pullPointer = null;
     try { pull.releasePointerCapture(activePointer); } catch {}
     stage.classList.remove('is-pull-dragging');
+    if (pullPhase === 1) {
+      const complete = hobbyPeelIndex >= hobbyNotes.length;
+      renderPulleyHobbyPeel(pullProgress);
+      setFieldProgress(hobbyPeelIndex / hobbyNotes.length, hobbyNotes.length - hobbyPeelIndex);
+      pullLabel.textContent = complete
+        ? 'All notes revealed'
+        : `Continue ${String(hobbyPeelIndex + 1).padStart(2, '0')} / ${String(hobbyNotes.length).padStart(2, '0')}`;
+      if (complete) window.setTimeout(openGallery, 260);
+      return;
+    }
     if (pullRewinding) {
       pullRewinding = false;
       if (pullProgress <= .32) {
@@ -494,15 +626,14 @@
     }
     if (pullProgress >= .68) {
       if (pullPhase === 0) completeFirstPull();
+      else if (hobbyPeelIndex < hobbyNotes.length) peelHobbyNote(hobbyPeelIndex);
       else openGallery();
     } else {
-      setPullProgress(0);
       if (pullPhase === 0) {
         stage.classList.remove('is-auto-peeling');
-        renderPeelSequence(0);
-        window.setTimeout(() => sticker.style.removeProperty('transform'), 680);
-        pullLabel.textContent = 'Pull the notes';
-      }
+        renderPeelSequence(pullProgress);
+        pullLabel.textContent = 'Continue pulling';
+      } else renderHobbyStack();
     }
   };
 
@@ -525,16 +656,18 @@
     const delta = event.clientY - pullStartY;
     if (Math.abs(delta) > 4) pullMoved = true;
     const pullStep = parseFloat(getComputedStyle(stage).getPropertyValue('--pull-step')) || 145;
-    if (pullPhase === 1 && delta < -4) pullRewinding = true;
+    const activePullRange = pullPhase === 1 ? pullStep * 2 : pullStep;
     if (pullRewinding) {
       pullProgress = clamp(1 + delta / pullStep, 0, 1);
       stage.style.setProperty('--pull-progress', (pullProgress - 1).toFixed(3));
       stage.classList.remove('is-hobbies-open');
       renderPeelSequence(pullProgress);
     } else {
-      pullProgress = clamp(pullStartProgress + delta / pullStep, 0, 1);
+      const minimumProgress = pullPhase === 1 ? pullStartProgress : 0;
+      pullProgress = clamp(pullStartProgress + delta / activePullRange, minimumProgress, 1);
       stage.style.setProperty('--pull-progress', pullProgress.toFixed(3));
       if (pullPhase === 0) renderPeelSequence(pullProgress);
+      else renderPulleyHobbyPeel(pullProgress);
     }
     if (pullMoved) event.preventDefault();
   });
