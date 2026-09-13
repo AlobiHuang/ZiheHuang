@@ -10,10 +10,11 @@
     <link rel="stylesheet" href="styles.css" />
     <link rel="stylesheet" href="animations.css" />
     <link rel="stylesheet" href="apple-system.css?v=20260912-1" />
-    <link rel="stylesheet" href="spectacle.css?v=20260912-23" />
-    <link rel="stylesheet" href="intro-play.css?v=20260912-30" />
+    <link rel="stylesheet" href="spectacle.css?v=20260912-24" />
+    <link rel="stylesheet" href="intro-play.css?v=20260912-38" />
     <link rel="stylesheet" href="playground.css?v=20260912-3" />
-    <link rel="stylesheet" href="why-interface.css?v=20260912-5" />
+    <link rel="stylesheet" href="why-interface.css?v=20260912-20" />
+    <link rel="stylesheet" href="MetaBalls.css?v=20260912-1" />
   </head>
   <body class="home-page">
     <div class="loader" role="status" aria-live="polite" aria-label="Loading portfolio">
@@ -164,6 +165,11 @@
             </div>
           </div>
         </div>
+        <div class="photo-wall-mobile-controls" aria-label="Project preview controls">
+          <button type="button" data-wall-previous aria-label="Previous project preview">←</button>
+          <span>Swipe or tap</span>
+          <button type="button" data-wall-next aria-label="Next project preview">→</button>
+        </div>
         <div class="photo-wall-arch-cue" aria-hidden="true">
           <span>END OF FRAGMENTS</span>
           <strong>KEEP<br />PULLING<br /><em>ARCH ↗</em></strong>
@@ -174,53 +180,47 @@
       </section>
 
       <section class="about-journey" id="profile" aria-label="About Zihe Huang">
+      <div class="about-light-flow">
       <div class="why-interface" id="why-am-i" data-why-interface>
-        <div class="why-grid" aria-hidden="true"></div>
-        <header class="why-header">
-          <p><span>00.4 / OPEN QUESTION</span><strong>Start with a question.</strong></p>
-          <small>DRAG THE ORBIT · CLICK A WORD</small>
-        </header>
-        <div class="why-stage">
-          <p class="why-question">WHO AM I</p>
-          <div class="why-word-window" aria-live="polite"><strong data-why-word>ALOBI.</strong></div>
-          <p class="why-answer" data-why-answer>Why called Alobi? I first heard the name in a dream—and decided to keep it.</p>
-        </div>
-        <div class="why-orbit" data-why-orbit role="listbox" tabindex="0" aria-label="Explore four parts of Zihe's identity">
-          <i class="why-orbit-ring" aria-hidden="true"></i>
-          <button type="button" class="why-orbit-item is-active" data-why-index="0" role="option" aria-selected="true">NAME</button>
-          <button type="button" class="why-orbit-item" data-why-index="1" role="option" aria-selected="false">MAJOR</button>
-          <button type="button" class="why-orbit-item" data-why-index="2" role="option" aria-selected="false">WHERE</button>
-          <button type="button" class="why-orbit-item" data-why-index="3" role="option" aria-selected="false">PROJECTS</button>
-          <span class="why-orbit-core" aria-hidden="true"><b>WHO</b><i>?</i></span>
-        </div>
-        <div class="why-route" aria-hidden="true"><span><b>01</b> QUESTION</span><i></i><span><b>02</b> FIELD NOTES</span><i></i><span><b>03</b> NAME ORIGIN</span></div>
-        <a class="why-enter" href="#field-notes"><span>Explore the answer</span><i>↓</i></a>
+        <section class="why-welcome-page" aria-label="Hi. Welcome, stranger. What's your question?">
+          <div class="why-grid" aria-hidden="true"></div>
+          <button class="why-welcome" type="button" data-why-enter aria-label="Open the question field">
+            <h2><span data-why-type aria-hidden="true"></span><i class="why-type-cursor" aria-hidden="true">|</i></h2>
+          </button>
+          <p class="why-welcome-cue"><span></span> Click the question to continue</p>
+        </section>
+        <section class="why-metaball-page" id="questions" aria-label="Choose a question about Zihe">
+          <div class="why-question-deck" data-why-orbit role="listbox" tabindex="0" aria-label="Choose a question about Zihe">
+            <div class="metaballs-container" data-meta-balls aria-hidden="true"></div>
+            <button type="button" class="why-question-card" data-why-index="0" role="option" aria-selected="false"><small>01</small><strong>WHO AM I?</strong><i>↗</i></button>
+            <button type="button" class="why-question-card" data-why-index="1" role="option" aria-selected="false"><small>02</small><strong>WHAT I DO?</strong><i>↗</i></button>
+            <button type="button" class="why-question-card" data-why-index="2" role="option" aria-selected="false"><small>03</small><strong>WHERE I'M FROM?</strong><i>↗</i></button>
+            <button type="button" class="why-question-card" data-why-index="3" role="option" aria-selected="false"><small>04</small><strong>WHAT I WORK ON?</strong><i>↗</i></button>
+            <button type="button" class="why-question-card" data-why-index="4" role="option" aria-selected="false"><small>05</small><strong>WHAT I LIKE?</strong><i>↗</i></button>
+            <p class="why-ball-hint"><span></span> Touch a form to reveal its question · click to enter</p>
+          </div>
+        </section>
       </div>
+      <section class="why-detail" data-why-detail role="dialog" aria-modal="true" aria-labelledby="why-detail-title" aria-hidden="true">
+        <img data-why-detail-image src="assets/profile-position-v2.png" alt="" />
+        <div class="why-detail-shade" aria-hidden="true"></div>
+        <header class="why-detail-header">
+          <p><span data-why-detail-count>ANSWER / 01</span><strong data-why-detail-label>WHO AM I?</strong></p>
+          <button class="why-detail-close" type="button">Back to questions <i>×</i></button>
+        </header>
+        <div class="why-option-wheel" aria-hidden="true">
+          <span>WHO AM I?</span><span>WHAT I DO?</span><span>WHERE I'M FROM?</span><span>WHAT I WORK ON?</span><span>WHAT I LIKE?</span>
+        </div>
+        <article class="why-detail-copy">
+          <small data-why-detail-kicker>PERSON / PROCESS / PLACE</small>
+          <h3 id="why-detail-title" data-why-detail-title>ALOBI.</h3>
+          <p data-why-detail-text>I’m Zihe Huang—an architecture and HCI student who follows curiosity across physical and digital spaces.</p>
+        </article>
+      </section>
       <div class="intro-brief" id="field-notes">
-        <span class="intro-monogram" aria-hidden="true">ZH</span>
-        <p class="intro-code">00.5 / INTRODUCTION<br />ZIHE HUANG</p>
         <div class="intro-playground" aria-label="Interactive self-introduction playground">
           <div class="intro-play-grid" aria-hidden="true"></div>
-          <div class="intro-field-orbit" aria-hidden="true"><i></i><i></i><i></i><span>15</span><b>notes left</b></div>
-          <div class="intro-placeholder" aria-hidden="true">
-            <span>PORTRAIT / FIELD NOTE</span>
-            <i class="intro-placeholder-avatar"></i>
-            <strong>ZH</strong>
-            <small>ARCHITECTURE · HCI · AI</small>
-          </div>
-          <article class="intro-note-secret" id="intro-note-secret" aria-hidden="true">
-            <small>FIELD NOTE / 01</small>
-            <strong>Stay curious longer.</strong>
-            <p>The first answer is rarely the real question.</p>
-            <button class="intro-note-reset" type="button">Put it back ↙</button>
-          </article>
-          <button class="intro-sticker" type="button" aria-controls="intro-note-secret" aria-expanded="false">
-            <small>CLICK TO PEEL ↓</small>
-            <strong>Before I design—</strong>
-            <span>I investigate.</span>
-            <i aria-hidden="true"></i>
-          </button>
-          <div class="intro-hobby-notes" id="intro-hobby-notes" aria-hidden="true">
+          <div class="intro-hobby-notes" id="intro-hobby-notes" role="listbox" tabindex="0" aria-label="Ten personal field notes. Hover or press Enter to spread them." aria-expanded="false">
             <article class="intro-hobby-note" data-note-x="-350" data-note-y="18" data-note-r="-8"><small>01 / LISTEN</small><strong>Music</strong><span>Soundtracks for focus and feeling.</span></article>
             <article class="intro-hobby-note" data-note-x="-205" data-note-y="126" data-note-r="6"><small>02 / PLAY</small><strong>Piano</strong><span>A place to slow down and improvise.</span></article>
             <article class="intro-hobby-note" data-note-x="-405" data-note-y="232" data-note-r="-4"><small>03 / MOVE</small><strong>Soccer</strong><span>Teamwork, pace, and instinct.</span></article>
@@ -229,36 +229,20 @@
             <article class="intro-hobby-note" data-note-x="-112" data-note-y="405" data-note-r="-7"><small>06 / TRAIN</small><strong>Taekwondo</strong><span>Discipline, balance, and control.</span></article>
             <article class="intro-hobby-note" data-note-x="-382" data-note-y="478" data-note-r="8"><small>07 / ROAM</small><strong>Travelling</strong><span>New places reset how I see.</span></article>
             <article class="intro-hobby-note" data-note-x="-164" data-note-y="520" data-note-r="-5"><small>08 / WATCH</small><strong>Film</strong><span>Stories told through image, rhythm, and sound.</span></article>
-            <article class="intro-hobby-note" data-note-x="-432" data-note-y="590" data-note-r="4"><small>09 / SHOOT</small><strong>Basketball</strong><span>Movement, rhythm, and court vision.</span></article>
-            <article class="intro-hobby-note" data-note-x="-248" data-note-y="640" data-note-r="-7"><small>10 / RALLY</small><strong>Badminton</strong><span>Fast feet and quicker reflexes.</span></article>
-            <article class="intro-hobby-note" data-note-x="-72" data-note-y="694" data-note-r="6"><small>11 / SPIN</small><strong>Table tennis</strong><span>Timing, control, and a good return.</span></article>
-            <article class="intro-hobby-note" data-note-x="-394" data-note-y="756" data-note-r="-4"><small>12 / DANCE</small><strong>EDM</strong><span>Energy, texture, and a good drop.</span></article>
-            <article class="intro-hobby-note" data-note-x="-182" data-note-y="806" data-note-r="8"><small>13 / WRITE</small><strong>Composition</strong><span>Building feeling through structure.</span></article>
-            <article class="intro-hobby-note" data-note-x="-350" data-note-y="876" data-note-r="-6"><small>14 / FRAME</small><strong>Photography</strong><span>Noticing light, people, and timing.</span></article>
-            <article class="intro-hobby-note" data-note-x="-116" data-note-y="930" data-note-r="5"><small>15 / MAKE</small><strong>Cooking</strong><span>A hands-on way to share care.</span></article>
+            <article class="intro-hobby-note" data-note-r="4"><small>09 / FRAME</small><strong>Photography</strong><span>Noticing light, people, and timing.</span></article>
+            <article class="intro-hobby-note" data-note-r="-6"><small>10 / MAKE</small><strong>Cooking</strong><span>A hands-on way to share care.</span></article>
           </div>
-          <div class="intro-pulley">
-            <span class="intro-pull-line" aria-hidden="true"></span>
-            <button class="intro-pull" type="button" aria-controls="intro-hobby-notes note-gallery" aria-expanded="false"><span>Pull the notes</span><i>↓</i></button>
-            <span class="intro-pull-more" aria-hidden="true"><b>There’s more</b><em>Pull once more</em></span>
+          <div class="intro-stack-controls">
+            <button class="intro-stack-toggle" type="button" aria-controls="intro-hobby-notes" aria-expanded="false">
+              <span>SPREAD THE NOTES</span><i aria-hidden="true">↔</i>
+            </button>
+            <button class="intro-gallery-open" type="button" aria-controls="note-gallery">
+              <span>OPEN PHOTO ARCHIVE</span><i aria-hidden="true">↗</i>
+            </button>
+            <p>Hover to fan out · click to keep open</p>
           </div>
-          <div class="intro-magnets" aria-label="Draggable personal traits">
-            <button type="button" class="intro-magnet" data-intro-magnet aria-label="Draggable trait: curious. Use arrow keys to move." style="--magnet-left:12%;--magnet-top:78%;--magnet-rotate:-5deg">CURIOUS</button>
-            <button type="button" class="intro-magnet" data-intro-magnet aria-label="Draggable trait: systemic. Use arrow keys to move." style="--magnet-left:37%;--magnet-top:84%;--magnet-rotate:3deg">SYSTEMIC</button>
-            <button type="button" class="intro-magnet" data-intro-magnet aria-label="Draggable trait: human. Use arrow keys to move." style="--magnet-left:67%;--magnet-top:76%;--magnet-rotate:-2deg">HUMAN</button>
-          </div>
-          <p class="intro-play-hint"><span></span> Click the notes · pull the thread</p>
         </div>
-        <div class="intro-voice">
-          <span>15 PERSONAL FIELD NOTES</span>
-          <h2>Peel back <em>what moves me.</em></h2>
-        </div>
-        <div class="intro-copy">
-          <p>Every note is a clue. Peel the stack, pull the thread, then scatter all fifteen into a map of what keeps me moving.</p>
-          <a class="intro-next" href="#play-lab" aria-label="Continue to the story behind the name Alobi">
-            <span><small>NEXT CHAPTER</small><strong>The name that stayed</strong></span><i>↓</i>
-          </a>
-        </div>
+      </div>
       </div>
 
       <div class="dream-lab" id="play-lab" aria-labelledby="dream-lab-title" data-dream-lab>
@@ -378,10 +362,11 @@
       <p class="note-gallery-hint"><span></span> Drag in any direction · Images continue forever · Esc to return</p>
     </section>
     <script type="module" src="app.js?v=20260911-1"></script>
-    <script src="spectacle.js?v=20260911-15"></script>
-    <script src="intro-play.js?v=20260912-4"></script>
+    <script src="spectacle.js?v=20260912-16"></script>
+    <script src="intro-play.js?v=20260912-11"></script>
     <script src="playground.js?v=20260912-3"></script>
-    <script src="why-interface.js?v=20260912-5"></script>
+    <script src="why-interface.js?v=20260912-20"></script>
+    <script type="module" src="meta-balls-init.js?v=20260912-2"></script>
   </body>
 </html>
 

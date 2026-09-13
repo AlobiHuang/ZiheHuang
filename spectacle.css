@@ -103,6 +103,24 @@ body{--fx-contrast:#1d1d1f}
 .category-architecture-archive .arch-work-image:after{display:none!important}
 .category-architecture-archive .arch-work-image img{position:relative;z-index:1}
 
+/* Phone project previews: one aligned row, one card per gesture. */
+.photo-wall-mobile-controls{display:none}
+@media(max-width:900px){
+  .photo-wall-viewport{scroll-snap-type:x mandatory;scroll-padding-inline:18px;touch-action:pan-y;overscroll-behavior-x:contain}
+  .photo-wall-track{align-items:stretch!important;gap:12px!important;padding-inline:18px!important}
+  .photo-wall-panel{display:contents!important}
+  .portfolio-showcase .photo-wall-panel figure,
+  .portfolio-showcase .photo-wall-panel figure:nth-child(n){flex:0 0 min(82vw,336px)!important;width:min(82vw,336px)!important;height:clamp(224px,61vw,292px)!important;min-width:min(82vw,336px)!important;min-height:0!important;aspect-ratio:auto!important;grid-column:auto!important;grid-row:auto!important;scroll-snap-align:start;scroll-snap-stop:always;border-radius:18px!important}
+  .portfolio-showcase .photo-wall-panel figure img{width:100%!important;height:100%!important;margin:0!important;padding:0!important;object-fit:cover!important}
+  .portfolio-showcase .photo-wall-panel figure.massing-stack{display:grid!important;grid-template-columns:repeat(2,minmax(0,1fr))!important;grid-template-rows:1fr!important;gap:5px!important;background:transparent!important}
+  .portfolio-showcase .photo-wall-panel figure.massing-stack>span{height:100%;border-radius:15px!important}
+  .photo-wall-panel figcaption{display:block!important;opacity:1!important;transform:none!important;font-size:7px!important}
+  .photo-wall-mobile-controls{width:calc(100% - 36px);margin:14px auto 0;display:grid;grid-template-columns:44px 1fr 44px;align-items:center;gap:10px}
+  .photo-wall-mobile-controls button{width:44px;height:44px;border:1px solid #c7c7cc;border-radius:50%;background:#fff;color:#1d1d1f;font:600 18px/1 sans-serif}
+  .photo-wall-mobile-controls span{text-align:center;color:#6e6e73;font:700 8px/1 sans-serif;letter-spacing:.1em;text-transform:uppercase}
+  .photo-wall-heading>span{font-size:0!important}.photo-wall-heading>span:before{content:"SWIPE PREVIEWS";font-size:8px}
+}
+
 /* Architecture cards keep motion inside the rounded artwork frame. */
 .category-architecture-archive .arch-work-card.fx-tilt,
 .category-architecture-archive .arch-work-card.fx-tilt:hover{transform:none!important;box-shadow:none!important;background:transparent!important}

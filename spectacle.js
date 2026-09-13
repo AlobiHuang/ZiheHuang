@@ -211,6 +211,8 @@
     if (photoWall) {
       const photoSection = photoWall.closest('.portfolio-showcase');
       const wallCount = photoSection.querySelector('.photo-wall-status b');
+      const wallPrevious = photoSection.querySelector('[data-wall-previous]');
+      const wallNext = photoSection.querySelector('[data-wall-next]');
       let dragging = false;
       let moved = false;
       let suppressClick = false;
@@ -299,7 +301,8 @@
         }
         if (!moved) return;
         const max = Math.max(0, photoWall.scrollWidth - photoWall.clientWidth);
-        const desiredScroll = startScroll - delta * 1.18;
+        const dragMultiplier = innerWidth <= 900 ? 2.35 : 1.18;
+        const desiredScroll = startScroll - delta * dragMultiplier;
         photoWall.scrollLeft = desiredScroll;
         setArchivePull(desiredScroll > max ? desiredScroll - max : 0);
         velocity = Math.max(-2.6, Math.min(2.6, (lastX - event.clientX) / Math.max(8, now - lastTime)));
@@ -330,6 +333,14 @@
         const left = event.key === 'Home' ? 0 : event.key === 'End' ? photoWall.scrollWidth : photoWall.scrollLeft + direction * photoWall.clientWidth * .35;
         photoWall.scrollTo({ left, behavior: reduced ? 'auto' : 'smooth' });
       });
+      const moveMobilePreview = direction => {
+        const firstCard = photoWall.querySelector('figure');
+        const gap = parseFloat(getComputedStyle(photoWall.querySelector('.photo-wall-track')).gap) || 12;
+        const distance = firstCard ? firstCard.getBoundingClientRect().width + gap : photoWall.clientWidth * .82;
+        photoWall.scrollBy({ left: direction * distance, behavior: reduced ? 'auto' : 'smooth' });
+      };
+      wallPrevious?.addEventListener('click', () => moveMobilePreview(-1));
+      wallNext?.addEventListener('click', () => moveMobilePreview(1));
       photoWall.addEventListener('pointerenter', () => { if (cursor) { cursor.querySelector('span').textContent = 'DRAG'; cursor.classList.add('is-action'); } });
       photoWall.addEventListener('pointerleave', () => { if (cursor && !dragging) cursor.classList.remove('is-action'); });
       photoWall.querySelectorAll('figure').forEach(frame => frame.addEventListener('pointerenter', () => {
