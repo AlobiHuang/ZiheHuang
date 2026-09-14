@@ -843,3 +843,11 @@ html,body{overflow-x:clip}
 body{cursor:auto!important}
 .cursor{display:none!important}
 a,button,[role="button"]{cursor:pointer!important}
+
+/* A grounded red-orange between the original signal red and the later pale orange. */
+.loader-fill{color:#d55336}
+.loader-status:before{background:#d55336}
+.morph-frame{border-color:#d55336}
+.symbol-icon{stroke:#d55336}
+.symbol-icon .solid{fill:#d55336}
+.symbol-caption i{color:#d55336}

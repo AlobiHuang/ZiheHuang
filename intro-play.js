@@ -7,6 +7,8 @@
   const hobbyNotes = [...stage.querySelectorAll('.intro-hobby-note')];
   const stackToggle = stage.querySelector('.intro-stack-toggle');
   const galleryOpen = stage.querySelector('.intro-gallery-open');
+  const photoCards = [...stage.querySelectorAll('.intro-photo-card')];
+  const photoCardsGroup = stage.querySelector('.intro-photo-cards');
   const fieldOrbit = stage.querySelector('.intro-field-orbit');
   const gallery = document.querySelector('.note-gallery');
   const galleryClose = gallery?.querySelector('.note-gallery-close');
@@ -23,6 +25,38 @@
   let activeNote = -1;
   let collapseTimer = 0;
   let launchTimer = 0;
+  let spreadReadyTimer = 0;
+
+  if (photoCards.length) {
+    if (matchMedia('(prefers-reduced-motion: reduce)').matches || !('IntersectionObserver' in window)) {
+      stage.classList.add('is-photo-stack-visible');
+    } else {
+      const photoStackObserver = new IntersectionObserver(entries => {
+        if (!entries.some(entry => entry.isIntersecting)) return;
+        stage.classList.add('is-photo-stack-visible');
+        photoStackObserver.disconnect();
+      }, { threshold: .28 });
+      photoStackObserver.observe(stage);
+    }
+  }
+
+  const setHoveredPhoto = hoveredIndex => {
+    const compact = innerWidth <= 760;
+    photoCards.forEach((card, index) => {
+      const distance = Math.abs(index - hoveredIndex);
+      const direction = hoveredIndex < 0 || index === hoveredIndex ? 0 : index < hoveredIndex ? -1 : 1;
+      const baseShift = compact ? 36 : 70;
+      const distanceShift = compact ? 12 : 22;
+      const shift = direction * (baseShift + Math.min(2, Math.max(0, distance - 1)) * distanceShift);
+      card.style.setProperty('--hover-shift', `${shift}px`);
+    });
+  };
+  photoCardsGroup?.addEventListener('pointermove', event => {
+    if (event.pointerType === 'touch') return;
+    const card = event.target.closest('.intro-photo-card');
+    setHoveredPhoto(card ? photoCards.indexOf(card) : -1);
+  });
+  photoCardsGroup?.addEventListener('pointerleave', () => setHoveredPhoto(-1));
 
   hobbyNotes.forEach((note, index) => {
     note.style.setProperty('--note-index', String(index));
@@ -46,10 +80,24 @@
 
   const setSpread = (open, pinned = spreadPinned) => {
     clearTimeout(collapseTimer);
+    const wasOpen = notesSpread;
     notesSpread = open;
     spreadPinned = open && pinned;
     stage.classList.toggle('is-notes-spread', open);
     stage.classList.toggle('is-notes-pinned', spreadPinned);
+    if (open && !wasOpen) {
+      clearTimeout(spreadReadyTimer);
+      setActiveNote(-1);
+      stage.classList.add('is-notes-settling');
+      stage.classList.remove('is-notes-ready');
+      spreadReadyTimer = window.setTimeout(() => {
+        stage.classList.remove('is-notes-settling');
+        stage.classList.add('is-notes-ready');
+      }, matchMedia('(prefers-reduced-motion: reduce)').matches ? 0 : 680);
+    } else if (!open) {
+      clearTimeout(spreadReadyTimer);
+      stage.classList.remove('is-notes-settling', 'is-notes-ready');
+    }
     hobbyNotesGroup?.setAttribute('aria-expanded', String(open));
     stackToggle?.setAttribute('aria-expanded', String(open));
     if (stackToggle) stackToggle.querySelector('span').textContent = open ? (spreadPinned ? 'STACK THE NOTES' : 'NOTES ARE OPEN') : 'SPREAD THE NOTES';
@@ -64,12 +112,11 @@
     collapseTimer = window.setTimeout(() => setSpread(false, false), 180);
   };
 
-  hobbyNotesGroup?.addEventListener('pointerenter', event => {
-    if (event.pointerType !== 'touch') setSpread(true, spreadPinned);
-  });
-  stage.addEventListener('pointerleave', scheduleCollapse);
+  // The collapsed pile opens only when the cursor reaches an actual note.
+  // Once open, the larger group keeps the fan stable until the cursor leaves it.
+  hobbyNotesGroup?.addEventListener('pointerleave', scheduleCollapse);
   hobbyNotesGroup?.addEventListener('pointermove', event => {
-    if (!notesSpread || event.pointerType === 'touch') return;
+    if (!notesSpread || !stage.classList.contains('is-notes-ready') || event.pointerType === 'touch') return;
     const rect = hobbyNotesGroup.getBoundingClientRect();
     const ratio = clamp((event.clientX - rect.left) / rect.width, 0, 1);
     hobbyNotesGroup.style.setProperty('--fan-shift', `${((ratio - .5) * -12).toFixed(1)}px`);
@@ -95,7 +142,7 @@
     note.addEventListener('pointerenter', () => {
       clearTimeout(collapseTimer);
       setSpread(true, spreadPinned);
-      setActiveNote(index);
+      if (stage.classList.contains('is-notes-ready')) setActiveNote(index);
     });
     note.addEventListener('pointerleave', event => {
       if (hobbyNotesGroup.contains(event.relatedTarget)) setActiveNote(-1);
@@ -114,12 +161,12 @@
     galleryBurst.replaceChildren();
     galleryBurst.style.left = `${origin.x.toFixed(1)}px`;
     galleryBurst.style.top = `${origin.y.toFixed(1)}px`;
-    const palette = ['#fff1a8', '#ffffff', '#bcdcff', '#ffc8da', '#bae5c6', '#ffd0ae', '#1d1d1f'];
+    const palette = ['#ffffff', '#d8c6b7', '#98715f', '#cbd3cc', '#1d1d1f'];
     const distance = Math.max(innerWidth, innerHeight) * .72;
-    for (let index = 0; index < 30; index += 1) {
+    for (let index = 0; index < 18; index += 1) {
       const shard = document.createElement('i');
-      const angle = Math.PI * 2 * index / 30 + Math.sin(index * 8.31) * .16;
-      const travel = distance * (.42 + (index % 7) * .075);
+      const angle = Math.PI * 2 * index / 18 + Math.sin(index * 8.31) * .12;
+      const travel = distance * (.3 + (index % 6) * .055);
       shard.style.setProperty('--dx', `${(Math.cos(angle) * travel).toFixed(0)}px`);
       shard.style.setProperty('--dy', `${(Math.sin(angle) * travel).toFixed(0)}px`);
       shard.style.setProperty('--spin', `${index % 2 ? 420 + index * 13 : -380 - index * 11}deg`);
@@ -222,7 +269,7 @@
   };
 
   const getGalleryOrigin = () => {
-    const rect = hobbyNotesGroup.getBoundingClientRect();
+    const rect = (galleryOpen || hobbyNotesGroup).getBoundingClientRect();
     return { x: rect.left + rect.width / 2, y: rect.top + rect.height / 2 };
   };
 
@@ -356,24 +403,34 @@
     });
   };
 
-  const launchGallery = () => {
-    if (stage.classList.contains('is-launching-gallery')) return;
-    setSpread(true, true);
+  const launchGallery = event => {
+    event?.preventDefault();
+    event?.stopPropagation();
+    if (gallery?.classList.contains('is-open') || gallery?.classList.contains('is-preparing')) return;
     stage.classList.add('is-launching-gallery');
-    hobbyNotes.forEach((note, index) => {
-      const angle = -Math.PI * .82 + index / Math.max(1, hobbyNotes.length - 1) * Math.PI * 1.64;
-      note.style.setProperty('--launch-x', `${Math.cos(angle) * (210 + index * 9)}px`);
-      note.style.setProperty('--launch-y', `${Math.sin(angle) * (155 + index * 5)}px`);
-      note.style.setProperty('--launch-r', `${(index - 4.5) * 16}deg`);
-    });
-    launchTimer = window.setTimeout(openGallery, 430);
+    galleryOpen?.classList.add('is-clicking');
+    openGallery();
+    return false;
   };
 
-  galleryOpen?.addEventListener('click', launchGallery);
+  galleryOpen?.addEventListener('pointerup', event => {
+    if (event.button !== 0 && event.pointerType !== 'touch') return;
+    launchGallery(event);
+  }, { capture: true });
+  galleryOpen?.addEventListener('click', event => {
+    if (!gallery?.classList.contains('is-open') && !gallery?.classList.contains('is-preparing')) launchGallery(event);
+    else {
+      event.preventDefault();
+      event.stopPropagation();
+    }
+  }, { capture: true });
 
   const resetExperience = () => {
     clearTimeout(launchTimer);
     stage.classList.remove('is-launching-gallery');
+    galleryOpen?.classList.remove('is-clicking');
+    photoCards.forEach(card => card.style.removeProperty('--launch-delay'));
+    hobbyNotes.forEach(note => ['--archive-x','--archive-y','--archive-r','--archive-scale','--archive-opacity','--archive-blur'].forEach(property => note.style.removeProperty(property)));
     hobbyNotesGroup?.style.removeProperty('--fan-shift');
     spreadPinned = false;
     setSpread(false, false);
@@ -477,7 +534,7 @@
   requestAnimationFrame(() => requestAnimationFrame(() => {
     const cursor = document.querySelector('.fx-cursor span');
     if (!cursor) return;
-    [[hobbyNotesGroup, 'SPREAD'], [galleryOpen, 'OPEN'], [galleryField, 'DRAG'], ...magnets.map(magnet => [magnet, 'DRAG'])].forEach(([element, label]) => {
+    [[galleryOpen, 'OPEN'], [galleryField, 'DRAG'], ...magnets.map(magnet => [magnet, 'DRAG'])].forEach(([element, label]) => {
       if (!element) return;
       element.addEventListener('pointerenter', () => { cursor.textContent = label; });
     });

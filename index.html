@@ -8,12 +8,12 @@
     <script src="route-entry.js"></script>
     <link rel="icon" type="image/svg+xml" href="assets/alobi-mark.svg" />
     <link rel="stylesheet" href="styles.css" />
-    <link rel="stylesheet" href="animations.css" />
+    <link rel="stylesheet" href="animations.css?v=20260913-3" />
     <link rel="stylesheet" href="apple-system.css?v=20260912-1" />
-    <link rel="stylesheet" href="spectacle.css?v=20260912-24" />
-    <link rel="stylesheet" href="intro-play.css?v=20260912-38" />
-    <link rel="stylesheet" href="playground.css?v=20260912-3" />
-    <link rel="stylesheet" href="why-interface.css?v=20260912-20" />
+    <link rel="stylesheet" href="spectacle.css?v=20260914-1" />
+    <link rel="stylesheet" href="intro-play.css?v=20260914-3" />
+    <link rel="stylesheet" href="playground.css?v=20260914-5" />
+    <link rel="stylesheet" href="why-interface.css?v=20260914-7" />
     <link rel="stylesheet" href="MetaBalls.css?v=20260912-1" />
   </head>
   <body class="home-page">
@@ -147,7 +147,7 @@
               <figure><img src="assets/portfolio/reservoir.webp" alt="Reservoir architectural study" loading="eager" decoding="async" /><figcaption>05 / RESERVOIR</figcaption></figure>
               <figure><img src="assets/portfolio/site-plan-new-01.webp" alt="Architectural site plan" loading="eager" decoding="async" /><figcaption>06 / SITE</figcaption></figure>
               <figure><img src="assets/portfolio/dsc-0996.webp" alt="Physical model process photograph" loading="eager" decoding="async" /><figcaption>07 / PROCESS</figcaption></figure>
-              <figure><img src="assets/portfolio/long-section.webp" alt="Long architectural section drawing" loading="eager" decoding="async" /><figcaption>08 / SECTION</figcaption></figure>
+              <figure><img src="assets/portfolio/section-climate.webp" alt="Environmental section and climate study" loading="eager" decoding="async" /><figcaption>16 / CLIMATE</figcaption></figure>
             </div>
             <div class="photo-wall-panel panel-study" aria-label="Photo wall panel 3 of 5">
               <figure><img src="assets/portfolio/exchange-room-new.webp" alt="Exchange room architectural visualization" loading="eager" decoding="async" /><figcaption>09 / EXCHANGE</figcaption></figure>
@@ -157,11 +157,8 @@
               <figure><img src="assets/portfolio/ground-plan-gallery.jpg" alt="Reservoir ground floor plan" loading="eager" decoding="async" /><figcaption>17 / GROUND PLAN</figcaption></figure>
               <figure><img src="assets/portfolio/first-floor-plan-gallery.jpg" alt="Reservoir first floor plan" loading="eager" decoding="async" /><figcaption>18 / FIRST FLOOR</figcaption></figure>
             </div>
-            <div class="photo-wall-panel panel-model" aria-label="Photo wall panel 5 of 5">
-              <figure class="massing-stack"><span><img src="assets/portfolio/massing-study-a.png" alt="Architectural massing study" loading="eager" decoding="async" /></span><span><img src="assets/portfolio/massing-study-b.png" alt="Architectural massing sequence study" loading="eager" decoding="async" /></span><figcaption>14 / MASSING</figcaption></figure>
-              <figure><img src="assets/portfolio/parti-04.webp" alt="Architectural parti diagram" loading="eager" decoding="async" /><figcaption>13 / PARTI</figcaption></figure>
+            <div class="photo-wall-panel panel-model panel-single" aria-label="Photo wall panel 5 of 5">
               <figure><img src="assets/portfolio/new-circulation.webp" alt="Architectural circulation analysis" loading="eager" decoding="async" /><figcaption>15 / FLOW</figcaption></figure>
-              <figure><img src="assets/portfolio/section-climate.webp" alt="Environmental section and climate study" loading="eager" decoding="async" /><figcaption>16 / CLIMATE</figcaption></figure>
             </div>
           </div>
         </div>
@@ -182,7 +179,7 @@
       <section class="about-journey" id="profile" aria-label="About Zihe Huang">
       <div class="about-light-flow">
       <div class="why-interface" id="why-am-i" data-why-interface>
-        <section class="why-welcome-page" aria-label="Hi. Welcome, stranger. What's your question?">
+        <section class="why-welcome-page" aria-label="Hi. Welcome, stranger. Any questions for me?">
           <div class="why-grid" aria-hidden="true"></div>
           <button class="why-welcome" type="button" data-why-enter aria-label="Open the question field">
             <h2><span data-why-type aria-hidden="true"></span><i class="why-type-cursor" aria-hidden="true">|</i></h2>
@@ -197,16 +194,20 @@
             <button type="button" class="why-question-card" data-why-index="2" role="option" aria-selected="false"><small>03</small><strong>WHERE I'M FROM?</strong><i>↗</i></button>
             <button type="button" class="why-question-card" data-why-index="3" role="option" aria-selected="false"><small>04</small><strong>WHAT I WORK ON?</strong><i>↗</i></button>
             <button type="button" class="why-question-card" data-why-index="4" role="option" aria-selected="false"><small>05</small><strong>WHAT I LIKE?</strong><i>↗</i></button>
-            <p class="why-ball-hint"><span></span> Touch a form to reveal its question · click to enter</p>
           </div>
         </section>
       </div>
-      <section class="why-detail" data-why-detail role="dialog" aria-modal="true" aria-labelledby="why-detail-title" aria-hidden="true">
+      <section class="why-detail" data-why-detail role="dialog" aria-modal="true" aria-labelledby="why-detail-title" aria-hidden="true" tabindex="-1">
         <img data-why-detail-image src="assets/profile-position-v2.png" alt="" />
+        <div class="why-character-stage" data-why-character-3d role="img" aria-label="Interactive three-dimensional portrait of Zihe"></div>
         <div class="why-detail-shade" aria-hidden="true"></div>
+        <div class="why-character-interface" aria-hidden="true">
+          <span class="why-character-orbit"></span>
+          <p><i></i> Move left or right — I’ll turn with you</p>
+          <small>AN INTERACTIVE SELF PORTRAIT / 2026</small>
+        </div>
         <header class="why-detail-header">
           <p><span data-why-detail-count>ANSWER / 01</span><strong data-why-detail-label>WHO AM I?</strong></p>
-          <button class="why-detail-close" type="button">Back to questions <i>×</i></button>
         </header>
         <div class="why-option-wheel" aria-hidden="true">
           <span>WHO AM I?</span><span>WHAT I DO?</span><span>WHERE I'M FROM?</span><span>WHAT I WORK ON?</span><span>WHAT I LIKE?</span>
@@ -218,29 +219,22 @@
         </article>
       </section>
       <div class="intro-brief" id="field-notes">
-        <div class="intro-playground" aria-label="Interactive self-introduction playground">
-          <div class="intro-play-grid" aria-hidden="true"></div>
-          <div class="intro-hobby-notes" id="intro-hobby-notes" role="listbox" tabindex="0" aria-label="Ten personal field notes. Hover or press Enter to spread them." aria-expanded="false">
-            <article class="intro-hobby-note" data-note-x="-350" data-note-y="18" data-note-r="-8"><small>01 / LISTEN</small><strong>Music</strong><span>Soundtracks for focus and feeling.</span></article>
-            <article class="intro-hobby-note" data-note-x="-205" data-note-y="126" data-note-r="6"><small>02 / PLAY</small><strong>Piano</strong><span>A place to slow down and improvise.</span></article>
-            <article class="intro-hobby-note" data-note-x="-405" data-note-y="232" data-note-r="-4"><small>03 / MOVE</small><strong>Soccer</strong><span>Teamwork, pace, and instinct.</span></article>
-            <article class="intro-hobby-note" data-note-x="-92" data-note-y="274" data-note-r="9"><small>04 / LOVE</small><strong>Girlfriend</strong><span>My favorite person and adventure partner.</span></article>
-            <article class="intro-hobby-note" data-note-x="-315" data-note-y="364" data-note-r="5"><small>05 / READ</small><strong>Poker</strong><span>Patterns, people, and calculated risk.</span></article>
-            <article class="intro-hobby-note" data-note-x="-112" data-note-y="405" data-note-r="-7"><small>06 / TRAIN</small><strong>Taekwondo</strong><span>Discipline, balance, and control.</span></article>
-            <article class="intro-hobby-note" data-note-x="-382" data-note-y="478" data-note-r="8"><small>07 / ROAM</small><strong>Travelling</strong><span>New places reset how I see.</span></article>
-            <article class="intro-hobby-note" data-note-x="-164" data-note-y="520" data-note-r="-5"><small>08 / WATCH</small><strong>Film</strong><span>Stories told through image, rhythm, and sound.</span></article>
-            <article class="intro-hobby-note" data-note-r="4"><small>09 / FRAME</small><strong>Photography</strong><span>Noticing light, people, and timing.</span></article>
-            <article class="intro-hobby-note" data-note-r="-6"><small>10 / MAKE</small><strong>Cooking</strong><span>A hands-on way to share care.</span></article>
-          </div>
-          <div class="intro-stack-controls">
-            <button class="intro-stack-toggle" type="button" aria-controls="intro-hobby-notes" aria-expanded="false">
-              <span>SPREAD THE NOTES</span><i aria-hidden="true">↔</i>
+        <div class="intro-playground intro-photo-playground" aria-label="Selected moments from Zihe's personal photo archive">
+          <div class="intro-photo-cards" aria-label="A small stack of selected personal photographs">
+            <figure class="intro-photo-card" style="--card-x:-450px;--card-y:22px;--card-r:-9deg;--card-z:1;--card-delay:0ms"><img src="assets/personal-gallery/personal-01.jpg" alt="A selected moment from Zihe's personal archive" loading="lazy" decoding="async" /></figure>
+            <figure class="intro-photo-card" style="--card-x:-300px;--card-y:-12px;--card-r:5deg;--card-z:2;--card-delay:70ms"><img src="assets/personal-gallery/personal-05.jpg" alt="A selected moment from Zihe's personal archive" loading="lazy" decoding="async" /></figure>
+            <figure class="intro-photo-card" style="--card-x:-150px;--card-y:14px;--card-r:-3deg;--card-z:3;--card-delay:140ms"><img src="assets/personal-gallery/personal-10.jpg" alt="A selected moment from Zihe's personal archive" loading="lazy" decoding="async" /></figure>
+            <figure class="intro-photo-card" style="--card-x:0px;--card-y:-8px;--card-r:6deg;--card-z:4;--card-delay:210ms"><img src="assets/personal-gallery/personal-15.jpg" alt="A fine dining moment from Zihe's personal archive" loading="lazy" decoding="async" /></figure>
+            <figure class="intro-photo-card" style="--card-x:150px;--card-y:17px;--card-r:-5deg;--card-z:5;--card-delay:280ms"><img src="assets/personal-gallery/personal-43.jpg" alt="A shared shadow portrait with Zihe's girlfriend" loading="lazy" decoding="async" /></figure>
+            <figure class="intro-photo-card" style="--card-x:300px;--card-y:-10px;--card-r:5deg;--card-z:6;--card-delay:350ms"><img src="assets/personal-gallery/personal-33.jpg" alt="A cathedral photographed while travelling" loading="lazy" decoding="async" /></figure>
+            <button class="intro-photo-card intro-photo-card-entry intro-gallery-open" type="button" aria-controls="note-gallery" style="--card-x:450px;--card-y:18px;--card-r:-5deg;--card-z:7;--card-delay:420ms" aria-label="Open the full personal photo archive">
+              <img src="assets/personal-gallery/personal-46.jpg" alt="" loading="lazy" decoding="async" />
+              <span class="intro-photo-entry-shade" aria-hidden="true"></span>
+              <span class="intro-photo-entry-copy" aria-hidden="true"><small>PERSONAL ARCHIVE</small><strong>OPEN<br />THE REST</strong></span>
+              <span class="intro-photo-hand" aria-hidden="true">👆🏻</span>
             </button>
-            <button class="intro-gallery-open" type="button" aria-controls="note-gallery">
-              <span>OPEN PHOTO ARCHIVE</span><i aria-hidden="true">↗</i>
-            </button>
-            <p>Hover to fan out · click to keep open</p>
           </div>
+          <p class="intro-photo-caption"><span></span> A few moments, with more just beneath the surface.</p>
         </div>
       </div>
       </div>
@@ -265,6 +259,15 @@
               <button type="button" class="memory-orb" data-memory="like" style="--orb-x:86%;--orb-y:56%"><i></i><span>WHAT I LIKE</span></button>
               <button type="button" class="memory-orb" data-memory="home" style="--orb-x:64%;--orb-y:74%"><i></i><span>WHERE I’M FROM</span></button>
             </div>
+            <div class="dream-hanging-light" data-hanging-light aria-hidden="true">
+              <div class="dream-light-cord" data-light-cord aria-hidden="true"></div>
+              <div class="dream-light-beam" data-light-beam aria-hidden="true"></div>
+              <button class="dream-light-pull" data-light-pull type="button" tabindex="-1" aria-label="Pull the hanging light down to restore color">
+                <span class="dream-light-cap" aria-hidden="true"></span>
+                <span class="dream-light-shade" aria-hidden="true"></span>
+                <i class="dream-light-bulb" aria-hidden="true"></i>
+              </button>
+            </div>
             <aside class="memory-reveal" data-memory-reveal aria-live="polite" aria-hidden="true">
               <button type="button" data-memory-close aria-label="Close memory">×</button><small data-memory-kicker>MEMORY 01</small><strong data-memory-title>Across scales.</strong><p data-memory-copy></p>
             </aside>
@@ -276,12 +279,10 @@
       <section class="lens-gateway" id="lens-gateway" aria-labelledby="lens-gateway-title">
         <div class="lens-gateway-grid" aria-hidden="true"></div>
         <div class="lens-hover-preview" aria-hidden="true"><span></span><i></i></div>
-        <p class="lens-gateway-code">01 / PROFESSIONAL LENS<br />CHOOSE A WAY IN</p>
         <div class="lens-gateway-title">
           <span>One practice.</span>
           <h2 id="lens-gateway-title">Two ways to read <em>the work.</em></h2>
         </div>
-        <p class="lens-gateway-copy">My foundation stays the same. Choose the perspective that matters most to you; you can switch at any point.</p>
         <div class="lens-choices" role="group" aria-label="Choose a professional lens">
           <button class="lens-choice lens-choice-arch" type="button" data-lens-choice="architecture" aria-pressed="false">
             <span class="lens-choice-number">01 / BUILT</span>
@@ -362,11 +363,12 @@
       <p class="note-gallery-hint"><span></span> Drag in any direction · Images continue forever · Esc to return</p>
     </section>
     <script type="module" src="app.js?v=20260911-1"></script>
-    <script src="spectacle.js?v=20260912-16"></script>
-    <script src="intro-play.js?v=20260912-11"></script>
-    <script src="playground.js?v=20260912-3"></script>
-    <script src="why-interface.js?v=20260912-20"></script>
-    <script type="module" src="meta-balls-init.js?v=20260912-2"></script>
+    <script src="spectacle.js?v=20260914-2"></script>
+    <script src="intro-play.js?v=20260914-5"></script>
+    <script src="playground.js?v=20260914-1"></script>
+    <script type="module" src="why-interface.js?v=20260914-8"></script>
+    <script type="module" src="meta-balls-init.js?v=20260914-3"></script>
   </body>
 </html>
+
 

@@ -54,3 +54,94 @@
 /* The drawn eye is an interactive part of the dream scene. */
 .dream-sticky.is-eye-hovered{cursor:pointer}
 .dream-sticky.is-eye-hovered .dream-canvas{filter:brightness(calc(1.08 - var(--lights-off) * .42)) saturate(calc(1.08 - var(--lights-off) * .58))}
+
+/* Light editorial treatment for the name story. */
+.dream-lab{--acid:#78c900;--blue:#0879f9;--pink:#ff477e;background:#f5f5f7!important;color:#1d1d1f!important}
+.dream-sticky{background:radial-gradient(circle at 74% 48%,rgba(120,201,0,.14),transparent 23%),radial-gradient(circle at 58% 72%,rgba(8,121,249,.09),transparent 34%),radial-gradient(circle at 88% 18%,rgba(255,90,54,.09),transparent 25%),#f5f5f7!important}
+.dream-sticky:before{display:block!important;z-index:0;background:radial-gradient(circle at 74% 48%,transparent 0 16%,rgba(29,29,31,.08) 16.1% 16.25%,transparent 16.35% 25%,rgba(120,201,0,.18) 25.1% 25.25%,transparent 25.35% 34%,rgba(29,29,31,.055) 34.1% 34.22%,transparent 34.3%);mask-image:none}
+.dream-header{left:6%;right:6%;top:clamp(74px,9vh,108px)}
+.dream-header p{gap:11px}.dream-header span{color:#ff5a36}.dream-header strong{color:#1d1d1f;font-size:clamp(25px,2.6vw,42px)}
+.dream-header a{border-color:#d2d2d7;background:rgba(255,255,255,.76);color:#1d1d1f;box-shadow:0 10px 28px rgba(29,29,31,.08)}
+.dream-header a:hover{background:#1d1d1f;color:#fff}
+.dream-scenes{left:6%;top:32%;width:min(49vw,760px);height:46%}
+.dream-scene small{display:inline-flex;width:max-content;padding:8px 11px;border:1px solid currentColor;border-radius:999px;background:rgba(255,255,255,.58);color:var(--scene-color,#ff5a36)}
+.dream-scene h3{margin:26px 0 14px;color:var(--scene-color,#ff5a36);font-size:clamp(100px,15vw,245px);line-height:.72;text-shadow:none}
+.dream-scene p{max-width:520px!important;margin-top:clamp(28px,4vh,48px)!important;color:#515154;font-size:clamp(16px,1.35vw,21px)}
+.dream-scene[data-dream-scene="0"]{--scene-color:#ff5a36}.dream-scene[data-dream-scene="1"]{--scene-color:#78c900}.dream-scene[data-dream-scene="2"]{--scene-color:#0879f9}
+.dream-meter{color:#86868d}.dream-meter i{background:#d2d2d7}.dream-meter i:after{background:#ff5a36;box-shadow:0 0 15px rgba(255,90,54,.38)}.dream-meter span{color:#1d1d1f}
+.dream-scroll-note{left:6%;color:#6e6e73}.dream-scroll-note span{background:#ff5a36;box-shadow:0 0 0 6px rgba(255,90,54,.12)}
+.memory-orb{width:96px;height:122px;color:#1d1d1f;cursor:pointer}
+.memory-orb:nth-child(1){--orb-color:#78c900}.memory-orb:nth-child(2){--orb-color:#ff477e}.memory-orb:nth-child(3){--orb-color:#0879f9}
+.memory-orb i{left:9px;top:0;width:78px;height:78px;border:1px solid color-mix(in srgb,var(--orb-color) 60%,#fff);border-radius:50%;background:radial-gradient(circle at 37% 30%,#fff 0 8%,var(--orb-color) 10% 38%,color-mix(in srgb,var(--orb-color) 34%,transparent) 39% 58%,transparent 60%);box-shadow:0 15px 35px color-mix(in srgb,var(--orb-color) 24%,transparent);backdrop-filter:blur(5px)}
+.memory-orb i:before{left:50%;top:50%;bottom:auto;width:9px;height:9px;border:0;border-radius:50%;background:#fff;transform:translate(-50%,-50%);box-shadow:0 0 0 8px rgba(255,255,255,.22)}
+.memory-orb i:after{left:50%;top:50%;bottom:auto;width:100%;height:100%;border:1px dashed rgba(29,29,31,.2);border-radius:50%;transform:translate(-50%,-50%) scale(1.18);filter:none}
+.memory-orb span{bottom:7px;color:#515154}.memory-orb:hover{filter:none}
+.memory-reveal{border-color:#d2d2d7;background:rgba(255,255,255,.9);color:#1d1d1f;box-shadow:0 28px 70px rgba(29,29,31,.16)}
+.memory-reveal>button{color:#6e6e73}.memory-reveal small{color:#ff5a36}.memory-reveal p{color:#515154}
+.dream-sticky:after{background:rgba(20,20,24,.92);opacity:calc(var(--lights-off) * .72)}
+.dream-sticky.is-lights-out .dream-scene h3{color:#86868d}.dream-sticky.is-lights-out .dream-scene p{color:#6e6e73}
+.memory-orb.is-broken i{border-color:#b8b8bd;background:radial-gradient(circle,#d2d2d7 0 9%,rgba(142,142,147,.2) 10% 48%,transparent 50%);box-shadow:none}
+.memory-orb.is-broken i:after{border-color:#b8b8bd}.memory-orb.is-broken span{color:#86868d}
+@media(max-width:900px){.dream-scenes{left:6%;top:48%;width:80%}.dream-scene h3{font-size:clamp(82px,23vw,165px)}.dream-sticky{background:radial-gradient(circle at 58% 31%,rgba(120,201,0,.14),transparent 25%),radial-gradient(circle at 50% 70%,rgba(8,121,249,.08),transparent 36%),#f5f5f7!important}.dream-sticky:before{background:radial-gradient(circle at 58% 31%,transparent 0 17%,rgba(29,29,31,.08) 17.1% 17.3%,transparent 17.4% 28%,rgba(120,201,0,.16) 28.1% 28.3%,transparent 28.4%)}}
+@media(max-width:560px){.dream-header{left:20px;right:20px}.dream-scenes{left:20px;right:48px;width:auto}.dream-scene p{margin-top:20px!important}.dream-scroll-note{left:20px}.memory-orb{width:74px;height:102px}.memory-orb i{left:6px;width:62px;height:62px}}
+
+/* Restrained name-story palette: warm accent, charcoal, and quiet neutrals. */
+.dream-lab{--acid:#aaa39b;--blue:#7f8a92;--pink:#c77d5d}
+.dream-sticky{background:radial-gradient(circle at 74% 48%,rgba(199,125,93,.075),transparent 25%),radial-gradient(circle at 58% 72%,rgba(127,138,146,.05),transparent 36%),#f5f5f7!important}
+.dream-sticky:before{background:radial-gradient(circle at 74% 48%,transparent 0 16%,rgba(29,29,31,.065) 16.1% 16.25%,transparent 16.35% 25%,rgba(127,138,146,.12) 25.1% 25.25%,transparent 25.35% 34%,rgba(29,29,31,.04) 34.1% 34.22%,transparent 34.3%)}
+.dream-header span{color:#c77d5d}.dream-scene[data-dream-scene="0"]{--scene-color:#c77d5d}.dream-scene[data-dream-scene="1"]{--scene-color:#1d1d1f}.dream-scene[data-dream-scene="2"]{--scene-color:#7f8a92}
+.dream-meter i:after{background:#c77d5d;box-shadow:0 0 12px rgba(199,125,93,.22)}.dream-scroll-note span{background:#c77d5d;box-shadow:0 0 0 6px rgba(199,125,93,.09)}
+.memory-orb:nth-child(1){--orb-color:#c77d5d}.memory-orb:nth-child(2){--orb-color:#aaa39b}.memory-orb:nth-child(3){--orb-color:#7f8a92}
+.memory-reveal small{color:#c77d5d}
+@media(max-width:900px){.dream-sticky{background:radial-gradient(circle at 58% 31%,rgba(199,125,93,.07),transparent 27%),radial-gradient(circle at 50% 70%,rgba(127,138,146,.045),transparent 38%),#f5f5f7!important}.dream-sticky:before{background:radial-gradient(circle at 58% 31%,transparent 0 17%,rgba(29,29,31,.065) 17.1% 17.3%,transparent 17.4% 28%,rgba(127,138,146,.11) 28.1% 28.3%,transparent 28.4%)}}
+
+/* A pullable ceiling lamp appears once the three memory lights are out. */
+.dream-hanging-light{position:absolute;z-index:18;inset:0;overflow:hidden;pointer-events:none;opacity:0;visibility:hidden;transition:opacity .28s ease;--lamp-warm:#e4b06f}
+.dream-hanging-light.is-active{opacity:1;visibility:visible}
+.dream-light-cord{position:absolute;top:-8px;width:2px;transform-origin:50% 0;background:linear-gradient(#27272a,#77716b);box-shadow:1px 0 rgba(255,255,255,.26);will-change:height,transform}
+.dream-light-pull{position:absolute;left:0;top:0;width:112px;height:88px;padding:0;border:0;background:none;color:#1d1d1f;cursor:grab;pointer-events:auto;touch-action:none;will-change:transform;filter:drop-shadow(0 16px 14px rgba(0,0,0,.24))}
+.dream-hanging-light.is-dragging .dream-light-pull{cursor:grabbing;filter:drop-shadow(0 22px 18px rgba(0,0,0,.3))}
+.dream-light-cap{position:absolute;left:45px;top:0;width:22px;height:18px;border-radius:7px 7px 3px 3px;background:#2d2d30;box-shadow:inset 0 1px rgba(255,255,255,.2)}
+.dream-light-shade{position:absolute;left:13px;top:13px;width:86px;height:52px;border-radius:48% 48% 13px 13px;clip-path:polygon(31% 0,69% 0,100% 100%,0 100%);background:linear-gradient(100deg,#39383a 0,#77716b 48%,#2b2b2e 100%);box-shadow:inset 0 -6px rgba(0,0,0,.2)}
+.dream-light-shade:after{content:"";position:absolute;left:5px;right:5px;bottom:-2px;height:11px;border-radius:50%;background:#efe2cf;box-shadow:0 4px 18px rgba(228,176,111,.75)}
+.dream-light-bulb{position:absolute;left:48px;top:57px;width:17px;height:22px;border-radius:45% 45% 52% 52%;background:#fff8df;box-shadow:0 0 9px #fff,0 0 28px var(--lamp-warm),0 0 62px rgba(228,176,111,.7)}
+.dream-light-beam{position:absolute;left:0;top:0;width:460px;height:min(64vh,620px);transform-origin:50% 0;clip-path:polygon(42% 0,58% 0,100% 100%,0 100%);background:linear-gradient(to bottom,rgba(255,238,196,.32),rgba(255,228,168,.1) 48%,transparent 100%);mix-blend-mode:screen;pointer-events:none;will-change:transform;animation:lamp-beam-breathe 3.4s ease-in-out infinite}
+.dream-hanging-light p{position:absolute;z-index:2;left:50%;bottom:7%;margin:0;padding:10px 14px;border:1px solid rgba(255,255,255,.28);border-radius:999px;background:rgba(29,29,31,.74);color:#fff;font:700 9px/1 -apple-system,BlinkMacSystemFont,"SF Pro Text",sans-serif;letter-spacing:.09em;text-transform:uppercase;transform:translateX(-50%);backdrop-filter:blur(12px);transition:opacity .25s}
+.dream-hanging-light.is-dragging p,.dream-hanging-light.is-returning p{opacity:0}
+.dream-hanging-light.is-returning .dream-light-beam{opacity:0;transition:opacity .25s}
+.dream-light-pull:focus-visible{outline:2px solid #fff;outline-offset:7px;border-radius:28px}
+@keyframes lamp-beam-breathe{0%,100%{opacity:.62}50%{opacity:.92}}
+@media(max-width:700px){.dream-light-beam{width:340px}.dream-hanging-light p{bottom:4%}}
+@media(prefers-reduced-motion:reduce){.dream-light-beam{animation:none}.dream-hanging-light{transition:none}}
+
+/* Keep each revealed memory beneath the story in the quiet lower-left field. */
+.memory-reveal{
+  left:clamp(28px,2.7vw,52px)!important;
+  right:auto!important;
+  top:auto!important;
+  bottom:13.5%!important;
+  width:min(500px,30vw)!important;
+  min-height:230px!important;
+  transform:translate(-24px,22px) scale(.96)!important;
+}
+.memory-reveal.is-open{transform:none!important}
+@media(max-width:900px){
+  .memory-reveal{
+    left:clamp(18px,4vw,36px)!important;
+    right:auto!important;
+    top:auto!important;
+    bottom:5%!important;
+    width:min(390px,58vw)!important;
+    transform:translateX(-18px) scale(.96)!important;
+  }
+  .memory-reveal.is-open{transform:none!important}
+}
+@media(max-width:560px){
+  .memory-reveal{
+    left:14px!important;
+    right:48px!important;
+    bottom:4%!important;
+    width:auto!important;
+    min-height:190px!important;
+  }
+}

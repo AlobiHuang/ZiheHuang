@@ -53,6 +53,7 @@ uniform float iTime;
 uniform vec3 iMouse;
 uniform vec3 iColor;
 uniform vec3 iCursorColor;
+uniform vec3 iColors[50];
 uniform float iAnimationSize;
 uniform int iBallCount;
 uniform float iCursorBallSize;
@@ -73,18 +74,19 @@ void main() {
   vec2 coord = (fc - iResolution.xy * 0.5) * scale;
   vec2 mouseW = (iMouse.xy - iResolution.xy * 0.5) * scale;
   float m1 = 0.0;
+  vec3 colorSum = vec3(0.0);
   for (int i = 0; i < 50; i++) {
     if (i >= iBallCount) break;
-    m1 += getMetaBallValue(iMetaBalls[i].xy, iMetaBalls[i].z, coord);
+    float value = getMetaBallValue(iMetaBalls[i].xy, iMetaBalls[i].z, coord);
+    m1 += value;
+    colorSum += iColors[i] * value;
   }
   float m2 = getMetaBallValue(mouseW, iCursorBallSize, coord);
   float total = m1 + m2;
   float f = smoothstep(-1.0, 1.0, (total - 1.3) / min(1.0, fwidth(total)));
   vec3 cFinal = vec3(0.0);
   if (total > 0.0) {
-    float alpha1 = m1 / total;
-    float alpha2 = m2 / total;
-    cFinal = iColor * alpha1 + iCursorColor * alpha2;
+    cFinal = (colorSum + iCursorColor * m2) / total;
   }
   outColor = vec4(cFinal * f, enableTransparency ? f : 1.0);
 }
@@ -100,7 +102,10 @@ export default function MetaBalls(container, {
   clumpFactor = 1,
   cursorBallSize = 3,
   cursorBallColor = '#ffffff',
-  enableTransparency = false
+  enableTransparency = false,
+  colors = [],
+  labeledBallCount = 0,
+  onUpdate = null
 } = {}) {
   if (!container) return () => {};
 
@@ -116,6 +121,11 @@ export default function MetaBalls(container, {
   const [r1, g1, b1] = parseHexColor(color);
   const [r2, g2, b2] = parseHexColor(cursorBallColor);
   const metaBallsUniform = Array.from({ length: 50 }, () => new Vec3(0, 0, 0));
+  const ballColorUniform = Array.from({ length: 50 }, (_, index) => {
+    const chosen = colors.length ? colors[index % colors.length] : color;
+    const [r, g, b] = parseHexColor(chosen);
+    return new Vec3(r, g, b);
+  });
   const program = new Program(gl, {
     vertex,
     fragment,
@@ -125,6 +135,7 @@ export default function MetaBalls(container, {
       iMouse: { value: new Vec3(0, 0, 0) },
       iColor: { value: new Vec3(r1, g1, b1) },
       iCursorColor: { value: new Vec3(r2, g2, b2) },
+      iColors: { value: ballColorUniform },
       iAnimationSize: { value: animationSize },
       iBallCount: { value: ballCount },
       iCursorBallSize: { value: cursorBallSize },
@@ -138,16 +149,23 @@ export default function MetaBalls(container, {
   const scene = new Transform();
   mesh.setParent(scene);
   const effectiveBallCount = Math.min(ballCount, 50);
+  const primaryBallCount = Math.min(labeledBallCount, effectiveBallCount);
+  const secondaryBallCount = Math.max(0, effectiveBallCount - primaryBallCount);
+  const revealHost = container.closest('[data-why-interface]');
   const ballParams = [];
   for (let i = 0; i < effectiveBallCount; i += 1) {
     const h1 = hash31(i + 1);
     const h2 = hash33(h1);
+    const isLabeled = i < labeledBallCount;
     ballParams.push({
-      st: h1[0] * (2 * Math.PI),
-      dtFactor: 0.1 * Math.PI + h1[1] * (0.4 * Math.PI - 0.1 * Math.PI),
-      baseScale: 5 + h1[1] * 5,
+      st: isLabeled ? -Math.PI * 0.5 + i * (Math.PI * 2 / Math.max(1, labeledBallCount)) : h1[0] * (2 * Math.PI),
+      dtFactor: isLabeled ? 0.52 : 0.1 * Math.PI + h1[1] * (0.4 * Math.PI - 0.1 * Math.PI),
+      baseScale: isLabeled ? [5.55, 7.35, 6.15, 8.05, 6.75][i % 5] : 3.2 + h1[1] * 6.2,
       toggle: Math.floor(h2[0] * 2),
-      radius: 0.5 + h2[2] * 1.5
+      labeled: isLabeled,
+      radius: isLabeled ? 1.25 + h2[2] * 0.5 : 0.35 + h2[2] * 0.9,
+      parentIndex: isLabeled || !primaryBallCount ? -1 : (i - primaryBallCount) % primaryBallCount,
+      revealDelay: isLabeled || secondaryBallCount <= 1 ? 0 : ((i - primaryBallCount) / (secondaryBallCount - 1)) * 0.58
     });
   }
 
@@ -156,6 +174,12 @@ export default function MetaBalls(container, {
   let pointerX = 0;
   let pointerY = 0;
   let animationFrameId = 0;
+  let secondaryRevealStartedAt = null;
+  const interactionTarget = container.parentElement || container;
+  const smoothstep = value => {
+    const t = Math.max(0, Math.min(1, value));
+    return t * t * (3 - 2 * t);
+  };
 
   const resize = () => {
     const width = container.clientWidth;
@@ -175,9 +199,9 @@ export default function MetaBalls(container, {
   const onPointerLeave = () => { if (enableMouseInteraction) pointerInside = false; };
 
   window.addEventListener('resize', resize);
-  container.addEventListener('pointermove', onPointerMove);
-  container.addEventListener('pointerenter', onPointerEnter);
-  container.addEventListener('pointerleave', onPointerLeave);
+  interactionTarget.addEventListener('pointermove', onPointerMove);
+  interactionTarget.addEventListener('pointerenter', onPointerEnter);
+  interactionTarget.addEventListener('pointerleave', onPointerLeave);
   resize();
 
   const startTime = performance.now();
@@ -185,15 +209,35 @@ export default function MetaBalls(container, {
     animationFrameId = requestAnimationFrame(update);
     const elapsed = (time - startTime) * 0.001;
     program.uniforms.iTime.value = elapsed;
+    const shouldRevealSecondary = !revealHost || revealHost.classList.contains('is-forming') || revealHost.classList.contains('is-launched');
+    if (shouldRevealSecondary && secondaryRevealStartedAt === null) secondaryRevealStartedAt = elapsed;
+    const secondaryRevealElapsed = secondaryRevealStartedAt === null ? -1 : elapsed - secondaryRevealStartedAt;
     for (let i = 0; i < effectiveBallCount; i += 1) {
       const p = ballParams[i];
       const dt = elapsed * speed * p.dtFactor;
       const th = p.st + dt;
+      const radialBreath = p.labeled ? 1 + Math.sin(elapsed * 0.42 + i * 1.17) * 0.025 : 1;
+      const targetX = Math.cos(th) * p.baseScale * clumpFactor * radialBreath;
+      const targetY = Math.sin(p.labeled ? th : th + dt * p.toggle) * p.baseScale * clumpFactor * radialBreath;
+      if (p.labeled || p.parentIndex < 0) {
+        metaBallsUniform[i].set(targetX, targetY, p.radius);
+        continue;
+      }
+      const reveal = smoothstep((secondaryRevealElapsed - p.revealDelay) / 0.92);
+      const parent = metaBallsUniform[p.parentIndex];
       metaBallsUniform[i].set(
-        Math.cos(th) * p.baseScale * clumpFactor,
-        Math.sin(th + dt * p.toggle) * p.baseScale * clumpFactor,
-        p.radius
+        parent.x + (targetX - parent.x) * reveal,
+        parent.y + (targetY - parent.y) * reveal,
+        p.radius * reveal
       );
+    }
+    if (typeof onUpdate === 'function') {
+      const scale = animationSize / Math.max(1, gl.canvas.height);
+      onUpdate(metaBallsUniform.slice(0, Math.min(labeledBallCount, effectiveBallCount)).map(ball => ({
+        x: ball.x / scale + gl.canvas.width * 0.5,
+        y: gl.canvas.height * 0.5 - ball.y / scale,
+        radius: ball.z / scale
+      })));
     }
     const targetX = pointerInside ? pointerX : gl.canvas.width * 0.5 + Math.cos(elapsed * speed) * gl.canvas.width * 0.15;
     const targetY = pointerInside ? pointerY : gl.canvas.height * 0.5 + Math.sin(elapsed * speed) * gl.canvas.height * 0.15;
@@ -207,9 +251,9 @@ export default function MetaBalls(container, {
   return () => {
     cancelAnimationFrame(animationFrameId);
     window.removeEventListener('resize', resize);
-    container.removeEventListener('pointermove', onPointerMove);
-    container.removeEventListener('pointerenter', onPointerEnter);
-    container.removeEventListener('pointerleave', onPointerLeave);
+    interactionTarget.removeEventListener('pointermove', onPointerMove);
+    interactionTarget.removeEventListener('pointerenter', onPointerEnter);
+    interactionTarget.removeEventListener('pointerleave', onPointerLeave);
     if (gl.canvas.parentNode === container) container.removeChild(gl.canvas);
     gl.getExtension('WEBGL_lose_context')?.loseContext();
   };

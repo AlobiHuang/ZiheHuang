@@ -347,6 +347,33 @@
         if (cursor) cursor.querySelector('span').textContent = 'VIEW';
       }));
 
+      const cropFrames = [...photoWall.querySelectorAll('.photo-wall-panel figure')];
+      const classifyCrop = frame => {
+        const image = frame.querySelector('img');
+        if (!image?.naturalWidth || !image.naturalHeight || !frame.clientWidth || !frame.clientHeight) return;
+        const imageRatio = image.naturalWidth / image.naturalHeight;
+        const frameRatio = frame.clientWidth / frame.clientHeight;
+        const visibleFraction = Math.min(imageRatio / frameRatio, frameRatio / imageRatio);
+        const isCropped = getComputedStyle(image).objectFit === 'cover' && visibleFraction < .82;
+        frame.classList.toggle('is-crop-expandable', isCropped);
+        if (!isCropped) {
+          frame.style.removeProperty('--crop-expand-x');
+          frame.style.removeProperty('--crop-expand-y');
+          return;
+        }
+        const expandX = imageRatio > frameRatio ? Math.min(1.9, imageRatio / frameRatio) : 1;
+        const expandY = imageRatio < frameRatio ? Math.min(1.65, frameRatio / imageRatio) : 1;
+        frame.style.setProperty('--crop-expand-x', expandX.toFixed(3));
+        frame.style.setProperty('--crop-expand-y', expandY.toFixed(3));
+      };
+      const classifyCrops = () => cropFrames.forEach(classifyCrop);
+      cropFrames.forEach(frame => {
+        const image = frame.querySelector('img');
+        if (image?.complete) classifyCrop(frame);
+        else image?.addEventListener('load', () => classifyCrop(frame), { once: true });
+      });
+      new ResizeObserver(classifyCrops).observe(photoWall);
+
       updatePhotoWall();
     }
 
@@ -368,8 +395,8 @@
     const galleryImages = [...document.querySelectorAll('.gallery-item img,.portfolio-showcase img')];
     if (galleryImages.length) {
       const lightbox = document.createElement('div');
-      lightbox.className = 'fx-lightbox'; lightbox.setAttribute('role', 'dialog'); lightbox.setAttribute('aria-modal', 'true'); lightbox.setAttribute('aria-label', 'Image viewer');
-      lightbox.innerHTML = '<button class="fx-lightbox-close" aria-label="Close">×</button><button class="fx-lightbox-prev" aria-label="Previous image">←</button><img alt=""><button class="fx-lightbox-next" aria-label="Next image">→</button><span class="fx-lightbox-meta">ALOBI / VISUAL RECORD</span><span class="fx-lightbox-count"></span>';
+      lightbox.className = 'fx-lightbox'; lightbox.setAttribute('role', 'dialog'); lightbox.setAttribute('aria-modal', 'true'); lightbox.setAttribute('aria-label', 'Image viewer. Click anywhere to close.'); lightbox.tabIndex = -1;
+      lightbox.innerHTML = '<button class="fx-lightbox-prev" aria-label="Previous image">←</button><img alt=""><button class="fx-lightbox-next" aria-label="Next image">→</button><span class="fx-lightbox-meta">ALOBI / VISUAL RECORD</span><span class="fx-lightbox-count"></span>';
       body.append(lightbox);
       const image = lightbox.querySelector('img'); const count = lightbox.querySelector('.fx-lightbox-count');
       let active = 0;
@@ -413,13 +440,12 @@
           lightbox.classList.remove('is-switching');
         }
       };
-      const open = index => { show(index, 1, true); lightbox.classList.add('is-open'); body.style.overflow = 'hidden'; lightbox.querySelector('.fx-lightbox-close').focus(); };
+      const open = index => { show(index, 1, true); lightbox.classList.add('is-open'); body.style.overflow = 'hidden'; lightbox.focus({ preventScroll: true }); };
       const close = () => { lightbox.classList.remove('is-open'); body.style.overflow = ''; };
       galleryImages.forEach((item, index) => { item.parentElement.tabIndex = 0; item.parentElement.setAttribute('role', 'button'); item.parentElement.addEventListener('click', () => open(index)); item.parentElement.addEventListener('keydown', event => { if (event.key === 'Enter') open(index); }); });
-      lightbox.querySelector('.fx-lightbox-close').addEventListener('click', close);
       lightbox.querySelector('.fx-lightbox-prev').addEventListener('click', event => { event.stopPropagation(); show(active - 1, -1); });
       lightbox.querySelector('.fx-lightbox-next').addEventListener('click', event => { event.stopPropagation(); show(active + 1, 1); });
-      lightbox.addEventListener('click', event => { if (event.target === lightbox) close(); });
+      lightbox.addEventListener('click', close);
       document.addEventListener('keydown', event => { if (!lightbox.classList.contains('is-open')) return; if (event.key === 'Escape') close(); if (event.key === 'ArrowLeft') show(active - 1, -1); if (event.key === 'ArrowRight') show(active + 1, 1); });
     }
 

@@ -360,7 +360,6 @@ const architectureArchiveMarkup = isArchitecture ? `
           ${architectureIndexLabels.map((label, index) => `<a href="${projectHref(data.experiences[index])}" data-route data-route-label="${projectRouteLabel(data.experiences[index])}">${label}</a>`).join('')}
         </nav>
       </div>
-      <a class="arch-work-archive-link" href="#architecture-experience">Experience ↓</a>
     </aside>
     <div class="arch-work-grid">${experienceMarkup}</div>
   </section>` : '';
@@ -421,7 +420,7 @@ const hciArchiveMarkup = key === 'hci' ? `
 
 const architectureExperienceLedgerMarkup = `
   <section class="career-ledger category-architecture-experience" id="architecture-experience">
-    <header class="section-head"><div><span>02</span><h2>Experience</h2></div><p>Roles, responsibilities, and outcomes.<br>Résumé / selected record</p></header>
+    <header class="section-head"><div><span>02</span><h2>Experience</h2></div><p>Roles, responsibilities, and outcomes.<br>Curriculum Vitae</p></header>
     <div class="ledger-columns" aria-hidden="true"><span>Period</span><span>Role / Organization</span><span>Selected contribution</span><span>Field</span></div>
 
     ${resumeExperienceEntriesMarkup}
@@ -531,12 +530,13 @@ const methodMarkup = data.methods.map(method => `
   <article class="method-card reveal"><span>${method[0]}</span><h3>${method[1]}</h3><p>${method[2]}</p></article>`).join('');
 
 const standardCategoryMarkup = `
-  <section class="category-hero" id="top">
+  <section class="category-hero${isArchitecture ? ' architecture-waves-hero' : ''}" id="top">
     <div class="category-grid" aria-hidden="true"></div>
+    ${isArchitecture ? '<div class="architecture-wave-field" data-selected-waves aria-hidden="true"><canvas class="selected-works-waves" data-selected-waves-canvas></canvas></div>' : ''}
     <p class="category-kicker">${data.code} / ${data.name}<br>SELECTED EXPERIENCE</p>
-    <h1>${data.question.map((line, index) => `<span class="question-line line-${index + 1}">${line}</span>`).join('')}${isArchitecture ? '' : '<i>?</i>'}</h1>
+    ${isArchitecture ? '<h1 class="selected-works-title" aria-label="Selected works"><span data-selected-works-type></span></h1>' : `<h1>${data.question.map((line, index) => `<span class="question-line line-${index + 1}">${line}</span>`).join('')}<i>?</i></h1>`}
     <div class="category-figure figure-${key}" aria-hidden="true"><span></span><span></span><span></span><span></span><span></span></div>
-    <figure class="category-image-stage" aria-hidden="true"><img src="../assets/portfolio/${categoryHeroImage[key]}" alt="" fetchpriority="high"></figure>
+    ${isArchitecture ? '' : `<figure class="category-image-stage" aria-hidden="true"><img src="../assets/portfolio/${categoryHeroImage[key]}" alt="" fetchpriority="high"></figure>`}
     ${isArchitecture ? '' : `<p class="category-intro">${data.intro}</p>`}
     ${isArchitecture ? '' : `<div class="category-lenses">${data.lens.map((lens, index) => `<span><i>0${index + 1}</i>${lens}</span>`).join('')}</div>`}
     ${isArchitecture ? '' : `<a class="category-scroll" href="#experience"><span>Enter ${data.short}</span><i>↓</i></a>`}
