@@ -1,134 +1,150 @@
 import { Renderer } from './vendor/ogl/core/Renderer.js';
 import { Camera } from './vendor/ogl/core/Camera.js';
+import { Geometry } from './vendor/ogl/core/Geometry.js';
 import { Program } from './vendor/ogl/core/Program.js';
 import { Mesh } from './vendor/ogl/core/Mesh.js';
 import { Transform } from './vendor/ogl/core/Transform.js';
 import { Texture } from './vendor/ogl/core/Texture.js';
-import { Vec2 } from './vendor/ogl/math/Vec2.js';
 import { Vec3 } from './vendor/ogl/math/Vec3.js';
-import { Plane } from './vendor/ogl/extras/Plane.js';
 
 const vertex=`
-  precision highp float;
-  attribute vec3 position;
-  attribute vec2 uv;
-  uniform mat4 modelViewMatrix;
-  uniform mat4 projectionMatrix;
-  uniform vec2 uLook;
-  varying vec2 vUv;
-  varying float vHead;
-  varying float vDepth;
-
-  float ellipseMask(vec2 point,vec2 center,vec2 radius,float feather){
-    float distanceToCenter=length((point-center)/radius);
-    return 1.0-smoothstep(1.0-feather,1.0,distanceToCenter);
-  }
-
-  void main(){
-    vUv=uv;
-    vec3 p=position;
-    const float planeWidth=7.4666667;
-    const float planeHeight=4.2;
-    vec2 headCenterUv=vec2(.688,.696);
-    vec2 headCenter=vec2((headCenterUv.x-.5)*planeWidth,(headCenterUv.y-.5)*planeHeight);
-    float head=ellipseMask(uv,headCenterUv,vec2(.178,.27),.34);
-    float face=ellipseMask(uv,vec2(.685,.66),vec2(.126,.215),.44);
-    float shoulders=ellipseMask(uv,vec2(.687,.11),vec2(.39,.43),.5);
-    float chest=ellipseMask(uv,vec2(.70,.0),vec2(.29,.42),.56);
-    float depth=head*.34+face*.12+shoulders*.075+chest*.035;
-    p.z+=depth;
-
-    vec3 local=vec3(p.xy-headCenter,p.z);
-    float yaw=uLook.x*.12;
-    float pitch=-uLook.y*.07;
-    float cy=cos(yaw),sy=sin(yaw),cx=cos(pitch),sx=sin(pitch);
-    local=vec3(cy*local.x+sy*local.z,local.y,-sy*local.x+cy*local.z);
-    local=vec3(local.x,cx*local.y-sx*local.z,sx*local.y+cx*local.z);
-    vec3 turned=vec3(local.xy+headCenter,local.z);
-    p=mix(p,turned,head*.96);
-    p.x+=uLook.x*head*.028;
-    p.y-=uLook.y*head*.014;
-
-    vHead=head;
-    vDepth=depth;
-    gl_Position=projectionMatrix*modelViewMatrix*vec4(p,1.0);
-  }
-`;
-
+precision highp float;
+attribute vec3 position;
+attribute vec3 normal;
+attribute vec2 uv;
+attribute vec3 rig;
+uniform mat4 modelViewMatrix,projectionMatrix;
+uniform mat3 normalMatrix;
+uniform vec2 uLook;
+uniform vec2 uGaze;
+varying vec2 vUv;
+varying vec3 vNormal,vPosition;
+mat3 turn(float yaw,float pitch){
+ float c=cos(yaw),s=sin(yaw),a=cos(pitch),b=sin(pitch);
+ return mat3(c,0.,-s,0.,1.,0.,s,0.,c)*mat3(1.,0.,0.,0.,a,b,0.,-b,a);
+}
+void main(){
+ vec3 p=position,n=normal;
+ // Eye and head membership is embedded in the duplicate GLB as normalized
+ // vertex data. This keeps the pupils moving together while the glasses,
+ // eyelids, and sockets remain part of the head.
+ vec3 eyeA=vec3(-.011,.193,.2138),eyeB=vec3(.110,.169,.239);
+ float eyeWeightA=rig.x;
+ float eyeWeightB=rig.y;
+ float eyeWeight=max(eyeWeightA,eyeWeightB);
+ vec3 eyeCenter=(eyeWeightA>eyeWeightB?eyeA:eyeB)-vec3(0.,0.,.024);
+ // Small rotations prevent the fused eye surface from stretching at its rim.
+ // Account for head movement so the eyes continue aiming at the pointer.
+ mat3 eyeRotation=turn(clamp(uGaze.x-uLook.x*.12,-.16,.16),clamp(uGaze.y-uLook.y*.06,-.10,.10));
+ p=mix(p,eyeRotation*(p-eyeCenter)+eyeCenter,eyeWeight);
+ n=normalize(mix(n,eyeRotation*n,eyeWeight));
+ float weight=rig.z;
+ mat3 rotation=turn(uLook.x*.25,uLook.y*.13);
+ vec3 pivot=vec3(.035,-.105,.025);
+ p=mix(p,rotation*(p-pivot)+pivot,weight);
+ n=normalize(mix(n,rotation*n,weight));
+ vec4 view=modelViewMatrix*vec4(p,1.);
+ vUv=uv;vPosition=view.xyz;vNormal=normalize(normalMatrix*n);
+ gl_Position=projectionMatrix*view;
+}`;
 const fragment=`
-  precision highp float;
-  uniform sampler2D uMap;
-  uniform float uReady;
-  uniform vec2 uLook;
-  varying vec2 vUv;
-  varying float vHead;
-  varying float vDepth;
+precision highp float;
+uniform sampler2D uColor,uMaterial;
+varying vec2 vUv;
+varying vec3 vNormal,vPosition;
+void main(){
+ vec3 base=pow(texture2D(uColor,vUv).rgb,vec3(2.2));
+ vec3 n=normalize(vNormal),v=normalize(-vPosition);
+ vec3 key=normalize(vec3(-2.,3.,4.)),fill=normalize(vec3(3.,1.,3.)),rim=normalize(vec3(2.,2.,-3.));
+ float roughness=clamp(texture2D(uMaterial,vUv).g,.35,1.);
+ float diffuse=max(dot(n,key),0.);
+ float highlight=pow(max(dot(n,normalize(key+v)),0.),mix(90.,12.,roughness))*.06;
+ vec3 light=vec3(.42)+vec3(1.,.9,.8)*diffuse*.8+vec3(.68,.79,1.)*max(dot(n,fill),0.)*.24;
+ vec3 color=base*light+vec3(1.,.57,.29)*max(dot(n,rim),0.)*.16*base+highlight;
+ gl_FragColor=vec4(pow(color,vec3(1./2.2)),1.);
+}`;
 
-  float ellipse(vec2 point,vec2 center,vec2 radius){return length((point-center)/radius);}
-
-  void main(){
-    vec2 gaze=uLook*vec2(.0105,.0062);
-    vec2 sampleUv=vUv;
-    vec2 leftEye=vec2(.627,.650)+gaze;
-    vec2 rightEye=vec2(.706,.649)+gaze;
-    float leftMask=1.0-smoothstep(.2,1.0,ellipse(vUv,leftEye,vec2(.014,.011)));
-    float rightMask=1.0-smoothstep(.2,1.0,ellipse(vUv,rightEye,vec2(.014,.011)));
-    sampleUv-=gaze*max(leftMask,rightMask);
-    vec3 color=texture2D(uMap,sampleUv).rgb;
-    float dimensionalLight=(uLook.x*(vUv.x-.688)-uLook.y*(vUv.y-.646))*vHead*.075;
-    color*=1.0+dimensionalLight+vDepth*.018;
-    vec3 fallback=vec3(.055,.043,.038);
-    gl_FragColor=vec4(mix(fallback,color,uReady),1.0);
-  }
-`;
+// Read the supplied GLB's indexed geometry and embedded PBR images without
+// altering or reducing its two million triangles.
+async function loadAsset(gl,signal){
+ const response=await fetch(new URL('./assets/zihe-character-eye-rig-v2.glb',import.meta.url),{signal});
+ if(!response.ok)throw new Error(`Character download failed (${response.status})`);
+ const buffer=await response.arrayBuffer(),view=new DataView(buffer);
+ if(view.getUint32(0,true)!==0x46546c67)throw new Error('Invalid character GLB');
+ const jsonLength=view.getUint32(12,true);
+ const data=JSON.parse(new TextDecoder().decode(new Uint8Array(buffer,20,jsonLength)));
+ const binaryOffset=20+jsonLength+8;
+ const read=index=>{
+  const accessor=data.accessors[index],part=data.bufferViews[accessor.bufferView];
+  const Type={5126:Float32Array,5125:Uint32Array,5123:Uint16Array,5121:Uint8Array}[accessor.componentType];
+  const size={VEC3:3,VEC2:2,SCALAR:1}[accessor.type];
+  if(!Type||!size||(part.byteStride && part.byteStride!==size*Type.BYTES_PER_ELEMENT))throw new Error('Unsupported character accessor');
+  const glType={5126:gl.FLOAT,5125:gl.UNSIGNED_INT,5123:gl.UNSIGNED_SHORT,5121:gl.UNSIGNED_BYTE}[accessor.componentType];
+  return {size,data:new Type(buffer,binaryOffset+(part.byteOffset||0)+(accessor.byteOffset||0),accessor.count*size),type:glType,normalized:Boolean(accessor.normalized)};
+ };
+ const primitive=data.meshes[0].primitives[0];
+ if(primitive.attributes._RIG===undefined)throw new Error('Character eye rig is missing');
+ const geometry=new Geometry(gl,{position:read(primitive.attributes.POSITION),normal:read(primitive.attributes.NORMAL),uv:read(primitive.attributes.TEXCOORD_0),rig:read(primitive.attributes._RIG),index:read(primitive.indices)});
+ const textures=[];
+ for(const image of data.images){
+  const part=data.bufferViews[image.bufferView];
+  const blob=new Blob([new Uint8Array(buffer,binaryOffset+(part.byteOffset||0),part.byteLength)],{type:image.mimeType});
+  const bitmap=await createImageBitmap(blob,{imageOrientation:'none',premultiplyAlpha:'none'});
+  textures.push(new Texture(gl,{image:bitmap,flipY:false,minFilter:gl.LINEAR_MIPMAP_LINEAR,generateMipmaps:true,anisotropy:4}));
+ }
+ const material=data.materials[primitive.material].pbrMetallicRoughness;
+ return {geometry,textures,color:textures[data.textures[material.baseColorTexture.index].source],material:textures[data.textures[material.metallicRoughnessTexture.index].source]};
+}
 
 export default function Character3D(container){
-  if(!container)return null;
-  const renderer=new Renderer({dpr:Math.min(devicePixelRatio||1,1.8),alpha:false,antialias:true,premultipliedAlpha:false});
-  const gl=renderer.gl;
-  gl.clearColor(.055,.043,.038,1);
-  container.replaceChildren(gl.canvas);
-  gl.canvas.setAttribute('aria-hidden','true');
-
-  const camera=new Camera(gl,{fov:40,near:.1,far:50});
-  camera.position.set(0,0,5.77);
-  camera.lookAt(new Vec3(0,0,0));
-  const scene=new Transform();
-  const portraitTexture=new Texture(gl,{width:1,height:1,generateMipmaps:false,minFilter:gl.LINEAR,magFilter:gl.LINEAR,flipY:true});
-  portraitTexture.image=new Uint8Array([14,11,10,255]);
-  const look=new Vec2(0,0);
-  const program=new Program(gl,{vertex,fragment,cullFace:false,uniforms:{uMap:{value:portraitTexture},uReady:{value:0},uLook:{value:look}}});
-  const geometry=new Plane(gl,{width:7.4666667,height:4.2,widthSegments:128,heightSegments:80});
-  const portraitMesh=new Mesh(gl,{geometry,program});portraitMesh.setParent(scene);
-
-  const portrait=new Image();
-  portrait.decoding='async';
-  portrait.onload=()=>{portraitTexture.image=portrait;portraitTexture.needsUpdate=true;program.uniforms.uReady.value=1};
-  portrait.src='assets/who-am-i-character-v1.png';
-
-  let targetX=0,targetY=0,currentX=0,currentY=0,frame=0,last=performance.now();
-  const resize=()=>{
-    const width=Math.max(1,container.clientWidth),height=Math.max(1,container.clientHeight),aspect=width/height;
-    renderer.setSize(width,height);camera.perspective({aspect});
-    const cover=Math.max(1,aspect/(16/9));
-    portraitMesh.scale.set(cover,cover,cover);
-  };
-  const resizeObserver=new ResizeObserver(resize);resizeObserver.observe(container);resize();
-  const setPointer=(clientX,clientY)=>{
-    const rect=container.getBoundingClientRect();
-    targetX=Math.max(-1,Math.min(1,(clientX-rect.left)/Math.max(1,rect.width)*2-1));
-    targetY=Math.max(-1,Math.min(1,(clientY-rect.top)/Math.max(1,rect.height)*2-1));
-  };
-  const reset=()=>{targetX=0;targetY=0};
-  const render=now=>{
-    frame=requestAnimationFrame(render);
-    if(!container.getClientRects().length)return;
-    const dt=Math.min(.05,(now-last)/1000),follow=1-Math.pow(.002,dt);last=now;
-    currentX+=(targetX-currentX)*follow;currentY+=(targetY-currentY)*follow;
-    look.set(currentX,currentY);
-    portraitMesh.position.y=Math.sin(now*.00115)*.006;
-    renderer.render({scene,camera});
-  };
+ const renderer=new Renderer({dpr:Math.min(devicePixelRatio||1,1.5),alpha:true,antialias:true});
+ const gl=renderer.gl;gl.clearColor(0,0,0,0);
+ container.replaceChildren(gl.canvas);
+ const status=document.createElement('span');status.textContent='Loading 3D portrait…';
+ status.setAttribute('role','status');
+ Object.assign(status.style,{position:'absolute',right:'8%',top:'44%',color:'#d9c5b5',font:'13px sans-serif',letterSpacing:'.08em'});
+ container.appendChild(status);
+ gl.canvas.setAttribute('role','img');gl.canvas.setAttribute('aria-label','Textured three-dimensional portrait with cursor-responsive head');
+ const scene=new Transform(),camera=new Camera(gl,{fov:32,near:.01,far:20});
+ camera.position.set(0,0,1.85);camera.lookAt(new Vec3(0,0,0));
+ const controller=new AbortController();
+ let asset,program,mesh,disposed=false,frame=0,last=0,visible=true;
+ const look=[0,0],target=[0,0];
+ const gaze=[0,0],gazeTarget=[0,0];
+ const resize=()=>{
+  const w=container.clientWidth||1,h=container.clientHeight||1;
+  renderer.setSize(w,h);camera.perspective({aspect:w/h});
+  if(mesh){mesh.position.x=w/h>1.15?Math.min(.42,(w/h-1)*.65):0;mesh.position.y=-.07;}
+ };
+ const observer=new ResizeObserver(resize);observer.observe(container);resize();
+ const visibility=new IntersectionObserver(entries=>{visible=entries[0].isIntersecting});visibility.observe(container);
+ const ready=loadAsset(gl,controller.signal).then(loaded=>{
+  asset=loaded;if(disposed){asset.geometry.remove();asset.textures.forEach(t=>{t.image.close();gl.deleteTexture(t.texture)});return;}
+  program=new Program(gl,{vertex,fragment,cullFace:false,uniforms:{uColor:{value:asset.color},uMaterial:{value:asset.material},uLook:{value:look},uGaze:{value:gaze}}});
+  mesh=new Mesh(gl,{geometry:asset.geometry,program});mesh.setParent(scene);resize();
+  container.dataset.characterReady='true';
+  status.remove();
+ }).catch(error=>{if(error.name!=='AbortError'){container.dataset.characterReady='error';status.textContent='Portrait could not load. Please reload to retry.';console.error('Character could not load',error)}});
+ const render=now=>{
+  if(disposed)return;
   frame=requestAnimationFrame(render);
-  return{setPointer,reset,destroy(){cancelAnimationFrame(frame);resizeObserver.disconnect();if(gl.canvas.parentNode===container)container.removeChild(gl.canvas)}};
+  const delta=Math.min((now-last)/1000,.05);last=now;
+  if(!mesh||!visible||document.hidden)return;
+  const ease=1-Math.exp(-delta*10);
+  look[0]+=(target[0]-look[0])*ease;look[1]+=(target[1]-look[1])*ease;
+  const eyeEase=1-Math.exp(-delta*14);
+  gaze[0]+=(gazeTarget[0]-gaze[0])*eyeEase;gaze[1]+=(gazeTarget[1]-gaze[1])*eyeEase;
+  renderer.render({scene,camera});
+ };frame=requestAnimationFrame(render);
+ return {ready,setPointer(x,y){
+  const r=container.getBoundingClientRect(),w=Math.max(1,r.width),h=Math.max(1,r.height);
+  target[0]=Math.max(-1,Math.min(1,(x-r.left)/w*2-1));
+  target[1]=Math.max(-1,Math.min(1,(y-r.top)/h*2-1));
+  const focal=h/(2*Math.tan(16*Math.PI/180));
+  const faceX=w/2+((mesh?.position.x||0)+.05)*focal/(1.85-.225);
+  const faceY=h/2-(.181-.07)*focal/(1.85-.225);
+  gazeTarget[0]=Math.atan2(x-r.left-faceX,focal)*.6;
+  gazeTarget[1]=Math.atan2(y-r.top-faceY,focal)*.6;
+ },reset(){target.fill(0);gazeTarget.fill(0)},destroy(){disposed=true;controller.abort();cancelAnimationFrame(frame);observer.disconnect();visibility.disconnect();asset?.geometry.remove();asset?.textures.forEach(texture=>{texture.image.close();gl.deleteTexture(texture.texture)});program?.remove();gl.canvas.remove();status.remove()}};
 }
+

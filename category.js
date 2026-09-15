@@ -258,13 +258,19 @@ try {
 if (!returnAnchor && location.hash) {
   history.replaceState(null, '', `${location.pathname}${location.search}`);
 }
+let entryPositionResolved = false;
 const applyEntryPosition = () => {
+  if (entryPositionResolved) return;
   const target = returnAnchor ? document.getElementById(returnAnchor) : null;
   if (target) {
     target.scrollIntoView({ behavior: 'auto', block: 'start' });
+    entryPositionResolved = true;
     return;
   }
-  if (!returnAnchor) window.scrollTo({ top: 0, left: 0, behavior: 'auto' });
+  if (!returnAnchor) {
+    if (window.scrollY <= 1) window.scrollTo({ top: 0, left: 0, behavior: 'auto' });
+    entryPositionResolved = true;
+  }
 };
 applyEntryPosition();
 requestAnimationFrame(applyEntryPosition);
@@ -273,11 +279,6 @@ window.addEventListener('pageshow', applyEntryPosition);
 
 const key = document.body.dataset.category;
 const data = categoryData[key] || categoryData.architecture;
-const recencyScore = value => {
-  const year = Number((value || '').match(/\d{4}/)?.[0] || 0);
-  const term = /fall/i.test(value) ? 3 : /summer/i.test(value) ? 2 : /spring/i.test(value) ? 1 : 0;
-  return year * 10 + term;
-};
 if (key === 'architecture') {
   const architectureOrder = ['re-serv-oir', 'how-to-build-a-ruin', 'convergence-environmental-middle-school', 'radical-empathy', 'the-tinkerers-imaginarium', 'call-of-the-sea'];
   const archiveSlug = title => title.normalize('NFKD').toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '');
@@ -374,7 +375,7 @@ const pmWorkMarkup = key === 'pm' ? data.experiences.map((experience, index) => 
     <div><h3>${experience.title}</h3><time>${experience.date}</time><p>${experience.type}</p></div>
   </a>`).join('') : '';
 
-const pmIndexLabels = ['Sankofa Delivery', 'Mentorship Feedback', 'AI Workflow'];
+const pmIndexLabels = ['Sankofa Delivery'];
 const pmArchiveMarkup = key === 'pm' ? `
   <section class="arch-lens-work pm-lens-work category-pm-archive" id="experience" aria-labelledby="pm-archive-title">
     <aside class="arch-work-index">
@@ -456,8 +457,8 @@ const categorySkillGroups = {
       lead: 'Turning spatial ideas into coordinated models, drawings, and buildable systems.', mode: '3D modeling + BIM', use: 'Design development, documentation, fabrication', note: 'SPACE → SYSTEM → DETAIL'
     },
     {
-      code: 'CR—02', title: 'Creative Production', subtitle: 'Graphics / drawing / editorial systems', result: '02 tools', domain: 'Visual communication',
-      tools: [['adobe', 'Adobe Creative Suite'], ['autocad', 'AutoCAD']],
+      code: 'CR—02', title: 'Creative Production', subtitle: 'Graphics / drawing / editorial systems', result: '03 tools', domain: 'Visual communication',
+      tools: [['adobe', 'Adobe Creative Suite'], ['autocad', 'AutoCAD'], ['figma', 'Figma']],
       lead: 'Building visual narratives that make architectural research, systems, and design intent immediately understandable.', mode: 'Drawing + image production', use: 'Diagrams, layouts, presentations, post-production', note: 'INFORMATION → IMAGE → STORY'
     },
     {
@@ -849,3 +850,4 @@ const observer = new IntersectionObserver(entries => {
 document.querySelectorAll('.reveal, .architecture-practice, .arch-lens-work, .career-ledger, .projects, .category-hero, .category-qr-contact').forEach(element => observer.observe(element));
 
 requestAnimationFrame(() => document.body.classList.add('category-ready'));
+

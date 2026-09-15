@@ -173,7 +173,7 @@ const transitionNames = {
 const categoryRoutes = {
   about: { url: 'about/', label: 'ABOUT / TIMELINE' },
   architecture: { url: 'architecture/', label: 'ARCHITECTURE' },
-  pm: { url: 'project/?lens=pm&project=sankofa-multi-stakeholder-delivery', label: 'SANKOFA / GREENHOUSE' },
+  pm: { url: 'pm/', label: 'PRODUCT MANAGEMENT' },
   hci: { url: 'hci/', label: 'HUMAN-COMPUTER INTERACTION' },
   contact: { url: 'contact/', label: 'CONTACT / OPEN CHANNEL' }
 };

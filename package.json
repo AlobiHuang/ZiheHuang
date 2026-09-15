@@ -5,8 +5,5 @@
   "type": "module",
   "scripts": {
     "dev": "node server.mjs"
-  },
-  "dependencies": {
-    "ogl": "^1.0.11"
   }
 }

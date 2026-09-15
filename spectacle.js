@@ -125,6 +125,7 @@
       const previewNumber = contentsPreview.querySelector('i');
       const contentsLinks = [...contentsPanel.querySelectorAll('[data-nav-key]')];
       const showContentsPreview = item => {
+        if (!item) return;
         contentsPanel.dataset.fxPreview = item.dataset.navKey;
         previewTitle.textContent = item.querySelector('b')?.textContent || '';
         previewNumber.textContent = item.querySelector('span')?.textContent || '';
@@ -164,7 +165,7 @@
     addEventListener('scroll', () => { if (!scrollFrame) scrollFrame = requestAnimationFrame(updateScroll); }, { passive: true });
     addEventListener('resize', updateScroll);
 
-    const headings = document.querySelectorAll('.hero h1,.category-hero h1,.about-hero h1,.project-gateway h1,.lens-gateway-title h2,.record-question');
+    const headings = document.querySelectorAll('.hero h1,.category-hero h1:not(.selected-works-title),.about-hero h1,.project-gateway h1,.lens-gateway-title h2,.record-question');
     headings.forEach(heading => {
       heading.classList.add('fx-heading');
       heading.closest('section')?.addEventListener('pointermove', event => {

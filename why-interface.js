@@ -1,9 +1,11 @@
-import Character3D from './Character3D.js?v=20260913-6';
+import Character3D from './Character3D.js?v=20260914-natural-gaze-3';
 
 (()=>{
   const root=document.querySelector('[data-why-interface]');
   const detail=document.querySelector('[data-why-detail]');
   if(!root||!detail)return;
+  // Keep the fullscreen portrait outside transformed/pinned page sections.
+  document.body.appendChild(detail);
   const welcomePage=root.querySelector('.why-welcome-page');
   const welcomeTrigger=root.querySelector('[data-why-enter]');
   const questionPage=root.querySelector('.why-metaball-page');
@@ -72,7 +74,7 @@ import Character3D from './Character3D.js?v=20260913-6';
   deck.addEventListener('pointerleave',()=>{deck.classList.remove('has-pointer');setHover(-1)});
   const openDetail=(index,trigger)=>{
     const state=states[index],rect=trigger.getBoundingClientRect();returnFocus=trigger;clearTimeout(closeTimer);
-    detail.style.setProperty('--why-detail-x',`${rect.left+rect.width/2}px`);detail.style.setProperty('--why-detail-y',`${rect.top+rect.height/2}px`);detail.style.setProperty('--why-detail-accent',state.color);
+    detail.style.setProperty('--why-detail-x',`${Math.max(0,Math.min(innerWidth,rect.left+rect.width/2))}px`);detail.style.setProperty('--why-detail-y',`${Math.max(0,Math.min(innerHeight,rect.top+rect.height/2))}px`);detail.style.setProperty('--why-detail-accent',state.color);
     const useCharacter=Boolean(state.character&&ensureCharacter3D());
     detailImage.src=state.image;detailImage.style.objectPosition=state.position;detail.classList.toggle('is-character',useCharacter);character3D?.reset();detailCount.textContent=`ANSWER / ${String(index+1).padStart(2,'0')}`;detailLabel.textContent=state.label;detailKicker.textContent=state.kicker;detailTitle.textContent=state.title;detailText.textContent=state.text;
     wheelItems.forEach((item,i)=>item.classList.toggle('is-current',i===index));
@@ -188,3 +190,4 @@ import Character3D from './Character3D.js?v=20260913-6';
     },reduced?0:2350);
   });
 })();
+

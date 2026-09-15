@@ -116,13 +116,10 @@ const portfolio = {
 };
 
 const params = new URLSearchParams(location.search);
-const lensKey = portfolio[params.get('lens')] ? params.get('lens') : 'architecture';
+const isPmLanding = /^\/pm\/?$/i.test(location.pathname);
+const requestedLens = params.get('lens') || (isPmLanding ? 'pm' : 'architecture');
+const lensKey = portfolio[requestedLens] ? requestedLens : 'architecture';
 const lens = portfolio[lensKey];
-const recencyScore = value => {
-  const year = Number((value || '').match(/\d{4}/)?.[0] || 0);
-  const term = /fall/i.test(value) ? 3 : /summer/i.test(value) ? 2 : /spring/i.test(value) ? 1 : 0;
-  return year * 10 + term;
-};
 if (lensKey === 'architecture') {
   const architectureOrder = ['re-serv-oir', 'how-to-build-a-ruin', 'convergence-environmental-middle-school', 'the-tinkerers-imaginarium', 'radical-empathy', 'call-of-the-sea'];
   lens.projects = lens.projects.slice().sort((a, b) => architectureOrder.indexOf(a.slug) - architectureOrder.indexOf(b.slug)).map((item, index) => ({ ...item, no: `A—${String(index + 1).padStart(2, '0')}` }));
@@ -131,7 +128,7 @@ const projectAliases = {
   convergence: 'convergence-environmental-middle-school',
   'the-tinkerer-s-imaginarium': 'the-tinkerers-imaginarium'
 };
-const requestedProjectSlug = params.get('project');
+const requestedProjectSlug = params.get('project') || (isPmLanding ? 'sankofa-multi-stakeholder-delivery' : null);
 const requestedSlug = projectAliases[requestedProjectSlug] || requestedProjectSlug;
 const projectIndex = Math.max(0, lens.projects.findIndex(item => item.slug === requestedSlug));
 const project = lens.projects[projectIndex];
@@ -197,6 +194,15 @@ const processSteps = lensKey === 'architecture'
     : 'Observe → Frame → Prototype → Test → Share';
 const projectMetaLabel = lensKey === 'pm' ? 'Team' : 'Mode';
 const projectMetaValue = lensKey === 'pm' ? 'Vicky Achnani, Zihe Huang, Shirley Xie, Victor Teng' : project.type;
+const impactHeading = isSankofaProject
+  ? 'Moving the Sankofa Bamboo Greenhouse from research prototype to full-scale construction.'
+  : project.summary;
+const impactCopy = isSankofaProject
+  ? 'Presented the project to USDA staff, supported a $4,000 annual award and eligibility for an additional $8,000 implementation award in 2027, and designed more than 10 original joinery details with structural engineer John M. Schneider, P.E.'
+  : 'The work leaves a record of what changed, what was learned, and what the next decision can build on.';
+const impactStats = isSankofaProject
+  ? [['$4K', 'annual award'], ['$8K', '2027 eligibility'], ['10+', 'unique joinery details']]
+  : [[sectionCount, 'visual studies'], [project.evidence.length, 'key decisions'], [project.tags.length, 'working lenses']];
 const architectureGalleryMarkup = isPairedSpreadProject
   ? Array.from({ length: Math.ceil(projectMedia.length / 2) }, (_, spreadIndex) => {
       const pages = projectMedia.slice(spreadIndex * 2, spreadIndex * 2 + 2);
@@ -207,17 +213,27 @@ const architectureGalleryMarkup = isPairedSpreadProject
     }).join('')
   : projectMedia.map((image, index) => `<figure class="gallery-item gallery-item-${index + 1}"><img src="../assets/portfolio/${image}" alt="${project.title} portfolio image ${index + 1}"${projectPageDimensions ? ` width="${projectPageDimensions[0]}" height="${projectPageDimensions[1]}"` : ''} loading="${isPdfPortfolioProject && index === 0 ? 'eager' : 'lazy'}" decoding="async"></figure>`).join('');
 
+const pmLandingHeroMarkup=isPmLanding?`
+  <section class="pm-spatial-hero" aria-label="Projects and leadership">
+    <div class="pm-spatial-field" data-pm-spatial aria-hidden="true"><canvas class="pm-spatial-canvas"></canvas></div>
+    <p class="pm-spatial-kicker">10⁰ / PRODUCT MANAGEMENT<br>DECISIONS · TEAMS · DELIVERY</p>
+    <h1 class="pm-spatial-title" aria-label="Projects"><span data-pm-title-type></span></h1>
+  </section>`:'';
+
 document.body.dataset.lens = lensKey;
 document.body.style.setProperty('--project-accent', lens.accent);
 document.body.style.setProperty('--project-index', projectIndex);
 document.title = `${project.title} — Zihe Huang`;
 document.querySelector('meta[name="description"]')?.setAttribute('content', `${project.title}: ${project.summary}`);
 document.querySelector('.transition-label').textContent = `PROJECT / ${project.no}`;
-document.getElementById('project-coordinates').innerHTML = `${lens.code} / ${lens.name.toUpperCase()}<br />${project.no} / PROJECT RECORD`;
+document.getElementById('project-coordinates').innerHTML = isPmLanding
+  ? `${lens.code} / ${lens.name.toUpperCase()}<br />PROJECTS / LEADERSHIP`
+  : `${lens.code} / ${lens.name.toUpperCase()}<br />${project.no} / PROJECT RECORD`;
 document.getElementById('project-index-copy').textContent = lens.copy;
 document.querySelector(`[data-lens-link="${lensKey}"]`)?.setAttribute('aria-current', 'page');
 
 document.getElementById('project-root').innerHTML = `
+  ${pmLandingHeroMarkup}
   <section class="project-gateway${isPdfPortfolioProject ? ' project-gateway-pdf' : ''}" id="top">
     <div class="project-gateway-grid" aria-hidden="true"></div>
     <p class="project-gateway-kicker">01 / WORK GATEWAY<br>${lens.code} / ${lens.name.toUpperCase()}</p>
@@ -227,7 +243,7 @@ document.getElementById('project-root').innerHTML = `
       <h1>${project.title}</h1>
       ${lensKey === 'architecture' ? (sourceOverview ? `<p class="project-hook">${sourceOverview}</p>` : '') : `<p class="project-hook">${project.summary}</p>`}
     </div>
-    ${lensKey === 'pm' ? `<figure class="project-hero-media project-hero-media-pm"><img src="../assets/portfolio/${projectMedia[0]}" alt="${mediaAlt(0)}" fetchpriority="high"></figure>` : ''}
+    ${lensKey === 'pm' && !isSankofaProject ? `<figure class="project-hero-media project-hero-media-pm"><img src="../assets/portfolio/${projectMedia[0]}" alt="${mediaAlt(0)}" fetchpriority="high"></figure>` : ''}
     ${lensKey === 'architecture' ? '' : `<dl class="project-gateway-meta">
       <div><dt>Role</dt><dd>${project.role}</dd></div>
       <div><dt>Time</dt><dd>${project.date}</dd></div>
@@ -266,8 +282,8 @@ document.getElementById('project-root').innerHTML = `
 
   ${lensKey === 'architecture' ? '' : `<section class="case-impact">
     <p class="case-framing-index">04 / IMPACT</p>
-    <div class="case-impact-copy"><h2>${project.summary}</h2><p>The work leaves a record of what changed, what was learned, and what the next decision can build on.</p></div>
-    <div class="case-impact-stats"><div><b>${sectionCount}</b><span>visual studies</span></div><div><b>${project.evidence.length}</b><span>key decisions</span></div><div><b>${project.tags.length}</b><span>working lenses</span></div></div>
+    <div class="case-impact-copy"><h2>${impactHeading}</h2><p>${impactCopy}</p></div>
+    <div class="case-impact-stats">${impactStats.map(([value, label]) => `<div><b>${value}</b><span>${label}</span></div>`).join('')}</div>
   </section>`}
 
   ${isInProgressArchitecture ? `<section class="project-in-progress" aria-label="Project status"><p>2026 / IN PROGRESS</p><h2>Work in progress.</h2><span>More from this project will be shared soon.</span></section>` : `<section class="project-gallery ${isPdfPortfolioProject ? 'project-gallery-pdf' : ''}" aria-label="Additional project visuals">
