@@ -1,5 +1,3 @@
-import Character3D from './Character3D.js?v=20260914-natural-gaze-3';
-
 (()=>{
   const root=document.querySelector('[data-why-interface]');
   const detail=document.querySelector('[data-why-detail]');
@@ -14,7 +12,6 @@ import Character3D from './Character3D.js?v=20260914-natural-gaze-3';
   const items=[...root.querySelectorAll('[data-why-index]')];
   const typeTarget=root.querySelector('[data-why-type]');
   const detailImage=detail.querySelector('[data-why-detail-image]');
-  const detailCharacter=detail.querySelector('[data-why-character-3d]');
   const detailCount=detail.querySelector('[data-why-detail-count]');
   const detailLabel=detail.querySelector('[data-why-detail-label]');
   const detailKicker=detail.querySelector('[data-why-detail-kicker]');
@@ -23,18 +20,12 @@ import Character3D from './Character3D.js?v=20260914-natural-gaze-3';
   const wheelItems=[...detail.querySelectorAll('.why-option-wheel span')];
   const reduced=matchMedia('(prefers-reduced-motion: reduce)').matches;
   const states=[
-    {label:'WHO AM I?',title:'ALOBI.',kicker:'PERSON / PROCESS / PLACE',text:'I’m Zihe Huang—an architecture and HCI student who follows curiosity across physical and digital spaces.',color:'#d55336',image:'assets/who-am-i-character-v1.png',position:'50% 50%',character:true},
+    {label:'WHO AM I?',title:'ALOBI.',kicker:'PERSON / PROCESS / PLACE',text:'I’m Zihe Huang—an architecture and HCI student who follows curiosity across physical and digital spaces.',color:'#d55336',image:'assets/who-am-i-character-v1.png',position:'50% 50%'},
     {label:'WHAT I DO?',title:'I DESIGN CONNECTIONS.',kicker:'ARCHITECTURE / HCI / AI',text:'I design places, interfaces, and systems around how people actually move, meet, and make decisions.',color:'#0879f9',image:'assets/portfolio/teaser-final-dark-foreground.webp',position:'50% 52%'},
     {label:"WHERE I'M FROM?",title:'BETWEEN PLACES.',kicker:'SHENZHEN / PITTSBURGH / BEYOND',text:'I’m from Shenzhen and now study in Pittsburgh. Travel keeps widening the way I understand place.',color:'#ff477e',image:'assets/personal-gallery/personal-35.jpg',position:'50% 54%'},
     {label:'WHAT I WORK ON?',title:'IDEAS MADE VISIBLE.',kicker:'COMMUNITY / SPACE / INTERACTION',text:'My projects move between community building, spatial research, digital products, and visual experiments.',color:'#ff5a36',image:'assets/portfolio/about-parallel-study.webp',position:'50% 48%'},
     {label:'WHAT I LIKE?',title:'MOVED BY CURIOSITY.',kicker:'MUSIC / TRAVEL / PEOPLE',text:'Music, movement, photography, food, and the people close to me keep life playful and my work grounded.',color:'#ffc83d',image:'assets/personal-gallery/personal-46.jpg',position:'50% 48%'}
   ];
-  let character3D=null,characterFailed=false;
-  const ensureCharacter3D=()=>{
-    if(character3D||characterFailed)return character3D;
-    try{character3D=Character3D(detailCharacter)}catch(error){characterFailed=true;console.error('Unable to initialize the 3D portrait.',error)}
-    return character3D;
-  };
   let active=-1,returnFocus=null,closeTimer=0,gateLocked=false,gateSettled=false,gateOpened=false,gateTargetY=0,lockedScrollY=0;
   const lockDocument=()=>{
     lockedScrollY=window.scrollY;
@@ -75,8 +66,7 @@ import Character3D from './Character3D.js?v=20260914-natural-gaze-3';
   const openDetail=(index,trigger)=>{
     const state=states[index],rect=trigger.getBoundingClientRect();returnFocus=trigger;clearTimeout(closeTimer);
     detail.style.setProperty('--why-detail-x',`${Math.max(0,Math.min(innerWidth,rect.left+rect.width/2))}px`);detail.style.setProperty('--why-detail-y',`${Math.max(0,Math.min(innerHeight,rect.top+rect.height/2))}px`);detail.style.setProperty('--why-detail-accent',state.color);
-    const useCharacter=Boolean(state.character&&ensureCharacter3D());
-    detailImage.src=state.image;detailImage.style.objectPosition=state.position;detail.classList.toggle('is-character',useCharacter);character3D?.reset();detailCount.textContent=`ANSWER / ${String(index+1).padStart(2,'0')}`;detailLabel.textContent=state.label;detailKicker.textContent=state.kicker;detailTitle.textContent=state.title;detailText.textContent=state.text;
+    detailImage.src=state.image;detailImage.style.objectPosition=state.position;detail.classList.remove('is-character');detailCount.textContent=`ANSWER / ${String(index+1).padStart(2,'0')}`;detailLabel.textContent=state.label;detailKicker.textContent=state.kicker;detailTitle.textContent=state.title;detailText.textContent=state.text;
     wheelItems.forEach((item,i)=>item.classList.toggle('is-current',i===index));
     lockDocument();detail.setAttribute('aria-hidden','false');detail.classList.remove('is-closing');
     requestAnimationFrame(()=>{detail.classList.add('is-open');setTimeout(()=>detail.focus({preventScroll:true}),reduced?0:720)});
@@ -89,11 +79,6 @@ import Character3D from './Character3D.js?v=20260914-natural-gaze-3';
   items.forEach((item,index)=>{item.addEventListener('pointerenter',event=>{if(event.pointerType!=='touch')setHover(index)});item.addEventListener('click',()=>openDetail(index,item))});
   deck.addEventListener('keydown',event=>{if(!['ArrowLeft','ArrowRight','ArrowUp','ArrowDown'].includes(event.key))return;event.preventDefault();const current=Math.max(0,items.indexOf(document.activeElement));const delta=event.key==='ArrowRight'||event.key==='ArrowDown'?1:-1;items[(current+delta+items.length)%items.length].focus()});
   detail.addEventListener('click',closeDetail);
-  detail.addEventListener('pointermove',event=>{
-    if(!detail.classList.contains('is-character')||!detail.classList.contains('is-open'))return;
-    character3D?.setPointer(event.clientX,event.clientY);
-  });
-  detail.addEventListener('pointerleave',()=>character3D?.reset());
   document.addEventListener('keydown',event=>{if(event.key==='Escape'&&detail.classList.contains('is-open'))closeDetail()});
   questionPage.addEventListener('pointermove',event=>{const rect=questionPage.getBoundingClientRect();questionPage.style.setProperty('--why-x',`${event.clientX-rect.left}px`);questionPage.style.setProperty('--why-y',`${event.clientY-rect.top}px`)});
   const typeLine=(line,prefix,speed,done)=>{let index=0;const tick=()=>{typeTarget.textContent=prefix+line.slice(0,index++);if(index<=line.length){setTimeout(tick,speed+Math.random()*18);return}done()};tick()};
