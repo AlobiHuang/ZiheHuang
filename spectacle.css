@@ -239,3 +239,5 @@ body[data-category="architecture"] .category-hero .figure-architecture{display:n
 .category-architecture-archive .arch-work-image:before,
 .category-architecture-archive .arch-work-image:after{display:none!important}
 .category-architecture-archive .arch-work-image img{position:relative;z-index:1}
+/* The interaction language is carried by motion and shape; helper words stay out of the interface. */
+.fx-cursor span{display:none!important}

@@ -140,3 +140,8 @@ h1,h2,h3{letter-spacing:-.055em!important;text-wrap:balance}
 }
 
 @media(prefers-reduced-motion:reduce){*{scroll-behavior:auto!important;animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important}}
+
+/* Keep all page surfaces clean: decorative grid overlays are intentionally disabled. */
+.fx-grid,.why-grid,.intro-play-grid,.lens-gateway-grid,.project-gateway-grid,.project-record-grid,.transition-grid{display:none!important}
+.hero-grid,.category-grid,.contact-grid,.pm-story-grid,.hci-holding-grid,.about-grid,.resume-grid{background-image:none!important;mask-image:none!important;-webkit-mask-image:none!important}
+.dream-sticky:before{display:none!important}

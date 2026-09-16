@@ -8,11 +8,12 @@
     <script src="../route-entry.js"></script>
     <link rel="icon" type="image/svg+xml" href="../assets/alobi-mark.svg" />
     <link rel="stylesheet" href="../styles.css" />
-    <link rel="stylesheet" href="../animations.css?v=20260914-4" />
-    <link rel="stylesheet" href="../apple-system.css?v=20260912-1" />
+    <link rel="stylesheet" href="../animations.css?v=20260915-edge-fix-1" />
+    <link rel="stylesheet" href="../apple-system.css?v=20260915-zh-home-1" />
     <link rel="stylesheet" href="./resume.css" />
   </head>
   <body class="resume-page">
+    <div class="page-transition" aria-hidden="true"><div class="transition-panel"></div><div class="transition-grid"></div><div class="transition-scan"></div><span class="transition-label">RESUME / SELECTED EXPERIENCE</span></div>
     <div class="grain" aria-hidden="true"></div>
     <header class="site-head">
       <a class="identity" href="../" data-route data-route-label="ALOBI / HOME" aria-label="Zihe Huang — home">
@@ -36,7 +37,39 @@
       </section>
     </main>
     <script>
-      document.querySelectorAll('[data-route]').forEach(link => link.addEventListener('click', () => document.body.classList.add('is-leaving')));
+      (() => {
+        const transition = document.querySelector('.page-transition');
+        let state = null;
+        try {
+          const raw = sessionStorage.getItem('alobi-route-reveal');
+          state = raw ? JSON.parse(raw) : null;
+          sessionStorage.removeItem('alobi-route-reveal');
+        } catch {}
+        transition.className = 'page-transition';
+        document.documentElement.classList.remove('route-enter-pending');
+        document.getElementById('route-prepaint-style')?.remove();
+
+        document.querySelectorAll('[data-route]').forEach(link => link.addEventListener('click', event => {
+          event.preventDefault();
+          if (/ALOBI\s*\/\s*HOME/i.test(link.dataset.routeLabel || link.textContent.trim())) {
+            try { sessionStorage.setItem('alobi-home-line-return', '1'); } catch {}
+          }
+          document.body.classList.add('is-leaving');
+          document.documentElement.classList.add('route-leaving');
+          transition.className = 'page-transition is-active effect-cleaner-down';
+          try {
+            sessionStorage.setItem('alobi-route-reveal', JSON.stringify({
+              label: link.dataset.routeLabel || link.textContent.trim(),
+              effect: 'line',
+              createdAt: Date.now()
+            }));
+          } catch {}
+          window.setTimeout(() => {
+            transition.classList.add('is-holding');
+            window.setTimeout(() => location.assign(link.href), 170);
+          }, 780);
+        }));
+      })();
     </script>
   </body>
 </html>

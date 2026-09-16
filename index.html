@@ -8,61 +8,18 @@
     <script src="route-entry.js"></script>
     <link rel="icon" type="image/svg+xml" href="assets/alobi-mark.svg" />
     <link rel="stylesheet" href="styles.css" />
-    <link rel="stylesheet" href="animations.css?v=20260914-4" />
-    <link rel="stylesheet" href="apple-system.css?v=20260914-2" />
-    <link rel="stylesheet" href="spectacle.css?v=20260914-1" />
+    <link rel="stylesheet" href="animations.css?v=20260915-edge-fix-1" />
+    <link rel="stylesheet" href="apple-system.css?v=20260915-practice-shift-1" />
+    <link rel="stylesheet" href="spectacle.css?v=20260915-no-instructions-1" />
     <link rel="stylesheet" href="intro-play.css?v=20260914-3" />
-    <link rel="stylesheet" href="playground.css?v=20260914-5" />
+    <link rel="stylesheet" href="playground.css?v=20260915-6" />
     <link rel="stylesheet" href="why-interface.css?v=20260914-7" />
     <link rel="stylesheet" href="MetaBalls.css?v=20260912-1" />
+    <link rel="stylesheet" href="me-portal.css?v=20260915-static-me-1" />
+      <link rel="stylesheet" href="home-arrival.css?v=20260915-practice-shift-1" />
+    <script type="module" src="home-arrival.js?v=20260915-home-return-1"></script>
   </head>
   <body class="home-page">
-    <div class="loader" role="status" aria-live="polite" aria-label="Loading portfolio">
-      <div class="loader-core">
-        <div class="loader-symbol" aria-hidden="true">
-        <div class="morph-frame">
-          <svg viewBox="0 0 100 100" role="presentation">
-            <g class="symbol-icon icon-personal">
-              <path d="M20 27H80L20 73H80M36 20V80M64 20V80M36 50H64" />
-              <circle class="solid" cx="50" cy="50" r="3" />
-            </g>
-            <g class="symbol-icon icon-music">
-              <rect x="18" y="25" width="64" height="50" rx="2" />
-              <path d="M31 26v49M44 26v49M57 26v49M70 26v49" />
-              <path class="solid" d="M27 25h8v28h-8zM40 25h8v28h-8zM66 25h8v28h-8z" />
-            </g>
-            <g class="symbol-icon icon-architecture">
-              <path d="M18 76h64M24 76V43l26-20 26 20v33M37 76V48h26v28M44 37h12" />
-              <path d="M31 76V59M69 76V59" />
-            </g>
-            <g class="symbol-icon icon-film">
-              <rect x="20" y="34" width="60" height="43" rx="3" />
-              <path d="M20 45h60M24 34l10-12h14L38 34M48 34l10-12h14L62 34" />
-              <path class="solid play" d="M45 52l16 9-16 9z" />
-            </g>
-            <g class="symbol-icon icon-soccer">
-              <circle cx="50" cy="50" r="29" />
-              <path d="M50 36l13 9-5 15H42l-5-15zM50 36V21M37 45l-14-5M42 60l-9 13M58 60l9 13M63 45l14-5" />
-            </g>
-            <g class="symbol-icon icon-travel">
-              <path d="M17 55l26-9V25c0-6 3-10 7-10s7 4 7 10v21l26 9v7l-26-5v17l11 7v5l-18-5-18 5v-5l11-7V57l-26 5z" />
-              <path d="M50 18v58" />
-            </g>
-            <g class="symbol-icon icon-reading">
-              <path d="M50 29C41 22 31 19 19 20v44c12-1 22 2 31 9zM50 29c9-7 19-10 31-9v44c-12-1-22 2-31 9z" />
-              <path d="M50 29v44M27 31c7 0 12 2 17 5M73 31c-7 0-12 2-17 5" />
-            </g>
-          </svg>
-        </div>
-          <span class="symbol-caption"><i>01</i> ALOBI</span>
-        </div>
-        <div class="loader-word" aria-hidden="true">
-          <span class="loader-base">ALOBI</span>
-          <span class="loader-fill">ALOBI</span>
-        </div>
-      </div>
-      <div class="loader-status"><span>LOADING PORTFOLIO</span><span class="loader-value">0%</span></div>
-    </div>
     <div class="page-transition" aria-hidden="true">
       <div class="transition-panel"></div>
       <div class="transition-grid"></div>
@@ -110,30 +67,21 @@
     </aside>
 
     <main id="top">
-      <section class="hero">
-        <div class="hero-grid" aria-hidden="true"></div>
-        <p class="edition">PORTFOLIO / 2026<br />SELECTED PRACTICE</p>
-        <h1><span class="line">How do we</span><span class="line line-two">design what</span><span class="line line-three"><em>people</em> truly need<span class="period">?</span></span></h1>
-        <p class="hero-intro">Solve what matters.</p>
+      <section class="hero continuous-hero" aria-label="Zihe Huang — portfolio">
+        <div class="landing-field"><canvas aria-hidden="true"></canvas><p class="landing-caption">ZIHE HUANG / PORTFOLIO 2026<br>ARCHITECTURE · HCI · AI</p></div>
+        <div class="landing-rule" aria-hidden="true"></div>
+        <div class="landing-title"><h1 aria-label="Alobi"><span>ALOBI<span class="landing-period">.</span></span></h1></div>
         <div class="scale-map" aria-label="Three areas of practice">
           <button class="scale active" data-discipline="architecture"><b>10²</b><span>ARCH</span><small>Built environments</small></button>
           <button class="scale" data-discipline="pm"><b>10⁰</b><span>PM</span><small>Strategy and delivery</small></button>
           <button class="scale" data-discipline="hci"><b>10⁻²</b><span>HCI</span><small>Human-centered systems</small></button>
           <div class="scale-axis"><i></i></div>
         </div>
-        <a class="scroll-cue hero-scroll-prompt" href="#portfolio-showcase" aria-label="Scroll to begin exploring the portfolio">
-          <span class="scroll-marker" aria-hidden="true">
-            <span class="scroll-marker-rail"></span>
-            <span class="scroll-marker-body"><span>↓</span></span>
-          </span>
-          <span class="scroll-message"><strong>Scroll to begin</strong><small>Move slowly · details respond</small></span>
-        </a>
       </section>
 
       <section class="portfolio-showcase" id="portfolio-showcase" aria-label="Selected project photo wall">
         <div class="photo-wall-heading">
           <p><span>00.2 / VISUAL FIELD</span><strong>Selected fragments</strong></p>
-          <span>Drag to explore <i>↔</i></span>
         </div>
         <div class="photo-wall-viewport" tabindex="0" role="region" aria-label="Draggable horizontal gallery of selected project images">
           <div class="photo-wall-track">
@@ -164,12 +112,12 @@
         </div>
         <div class="photo-wall-mobile-controls" aria-label="Project preview controls">
           <button type="button" data-wall-previous aria-label="Previous project preview">←</button>
-          <span>Swipe or tap</span>
+          <span aria-hidden="true"></span>
           <button type="button" data-wall-next aria-label="Next project preview">→</button>
         </div>
         <div class="photo-wall-arch-cue" aria-hidden="true">
           <span>END OF FRAGMENTS</span>
-          <strong>KEEP<br />PULLING<br /><em>ARCH ↗</em></strong>
+          <strong><em>ARCH ↗</em></strong>
           <b>MORE WORK</b>
           <i></i>
         </div>
@@ -178,45 +126,37 @@
 
       <section class="about-journey" id="profile" aria-label="About Zihe Huang">
       <div class="about-light-flow">
-      <div class="why-interface" id="why-am-i" data-why-interface>
-        <section class="why-welcome-page" aria-label="Hi. Welcome, stranger. Any questions for me?">
-          <div class="why-grid" aria-hidden="true"></div>
-          <button class="why-welcome" type="button" data-why-enter aria-label="Open the question field">
-            <h2><span data-why-type aria-hidden="true"></span><i class="why-type-cursor" aria-hidden="true">|</i></h2>
-          </button>
-          <p class="why-welcome-cue"><span></span> Click the question to continue</p>
-        </section>
-        <section class="why-metaball-page" id="questions" aria-label="Choose a question about Zihe">
-          <div class="why-question-deck" data-why-orbit role="listbox" tabindex="0" aria-label="Choose a question about Zihe">
-            <div class="metaballs-container" data-meta-balls aria-hidden="true"></div>
-            <button type="button" class="why-question-card" data-why-index="0" role="option" aria-selected="false"><small>01</small><strong>WHO AM I?</strong><i>↗</i></button>
-            <button type="button" class="why-question-card" data-why-index="1" role="option" aria-selected="false"><small>02</small><strong>WHAT I DO?</strong><i>↗</i></button>
-            <button type="button" class="why-question-card" data-why-index="2" role="option" aria-selected="false"><small>03</small><strong>WHERE I'M FROM?</strong><i>↗</i></button>
-            <button type="button" class="why-question-card" data-why-index="3" role="option" aria-selected="false"><small>04</small><strong>WHAT I WORK ON?</strong><i>↗</i></button>
-            <button type="button" class="why-question-card" data-why-index="4" role="option" aria-selected="false"><small>05</small><strong>WHAT I LIKE?</strong><i>↗</i></button>
+      <section class="me-portal me-portal-entry" id="why-am-i" aria-label="Enter my story">
+        <div class="me-portal-stage"><canvas data-me-portal="entry" aria-hidden="true"></canvas><h2 class="me-accessible">ME</h2></div>
+      </section>
+      <section class="me-room" id="questions" aria-label="About me">
+        <div class="me-room-space" aria-hidden="true"><canvas data-me-room></canvas></div>
+        <div class="me-story">
+          <article><h2>WHO AM I</h2><div><small>01 / PERSON · PROCESS · PLACE</small><h3>Alobi.<br />Zihe Huang.</h3><p>I’m Zihe Huang—an architecture and HCI student who follows curiosity across physical and digital spaces.</p><p>Between places, people, and ideas, I’m interested in how design shapes the way we live.</p></div></article>
+      <div class="dream-lab" id="play-lab" aria-labelledby="dream-lab-title" data-dream-lab>
+        <div class="dream-scroll">
+          <div class="dream-sticky">
+
+            <header class="dream-header">
+              <p><span>00.7 / A NAME FROM A DREAM</span><strong id="dream-lab-title">The secret life of my name.</strong></p>
+            </header>
+            <div class="dream-scenes" aria-live="polite">
+              <article class="dream-scene is-active" data-dream-scene="0"><small>01 / AT HOME</small><h3>小A</h3><p>My parents call me “Little A.” The A became the beginning of another name.</p></article>
+              <article class="dream-scene" data-dream-scene="1"><small>02 / THE DREAM</small><h3>ALOBI</h3><p>I remembered hearing it in a dream. Strange, specific, and somehow mine.</p></article>
+              <article class="dream-scene" data-dream-scene="2"><small>03 / THE TWIST</small><h3>SNOOPY?</h3><p>Maybe that was the sound I heard. But Alobi was the version that stayed.</p></article>
+            </div>
+            <div class="dream-meter" aria-label="Dream story progress"><i></i><span data-dream-count>01</span><b>03</b></div>
           </div>
-        </section>
+        </div>
       </div>
-      <section class="why-detail" data-why-detail role="dialog" aria-modal="true" aria-labelledby="why-detail-title" aria-hidden="true" tabindex="-1">
-        <img data-why-detail-image src="assets/profile-position-v2.png" alt="" />
-        <div class="why-character-stage" data-why-character-3d role="img" aria-label="Interactive three-dimensional portrait of Zihe"></div>
-        <div class="why-detail-shade" aria-hidden="true"></div>
-        <div class="why-character-interface" aria-hidden="true">
-          <span class="why-character-orbit"></span>
-          <p><i></i> Move left or right — I’ll turn with you</p>
-          <small>AN INTERACTIVE SELF PORTRAIT / 2026</small>
+          <article id="me-what-i-do"><h2>WHAT I DO</h2><div><small>02 / ARCHITECTURE · HCI · AI</small><h3>I design<br />connections.</h3><p>I design places, interfaces, and systems around how people actually move, meet, and make decisions.</p></div></article>
+          <article><h2>WHERE I’M FROM</h2><div><small>03 / SHENZHEN · PITTSBURGH · BEYOND</small><h3>Between<br />places.</h3><p>I’m from Shenzhen and now study in Pittsburgh. Travel keeps widening the way I understand place.</p></div></article>
+          <article><h2>WHAT I WORK ON</h2><div><small>04 / COMMUNITY · SPACE · INTERACTION</small><h3>Ideas made<br />visible.</h3><p>My projects move between community building, spatial research, digital products, and visual experiments.</p><p><a href="architecture/">Architecture ↗</a><br /><a href="pm/">Projects ↗</a></p></div></article>
+          <article><h2>WHAT I LIKE</h2><div><small>05 / MUSIC · TRAVEL · PEOPLE</small><h3>Moved by<br />curiosity.</h3><p>Music, movement, photography, food, and the people close to me keep life playful and my work grounded.</p></div></article>
         </div>
-        <header class="why-detail-header">
-          <p><span data-why-detail-count>ANSWER / 01</span><strong data-why-detail-label>WHO AM I?</strong></p>
-        </header>
-        <div class="why-option-wheel" aria-hidden="true">
-          <span>WHO AM I?</span><span>WHAT I DO?</span><span>WHERE I'M FROM?</span><span>WHAT I WORK ON?</span><span>WHAT I LIKE?</span>
-        </div>
-        <article class="why-detail-copy">
-          <small data-why-detail-kicker>PERSON / PROCESS / PLACE</small>
-          <h3 id="why-detail-title" data-why-detail-title>ALOBI.</h3>
-          <p data-why-detail-text>I’m Zihe Huang—an architecture and HCI student who follows curiosity across physical and digital spaces.</p>
-        </article>
+      </section>
+      <section class="me-portal me-portal-exit" aria-label="Leave my story">
+        <div class="me-portal-stage"><canvas data-me-portal="exit" aria-hidden="true"></canvas><h2 class="me-accessible">ME</h2></div>
       </section>
       <div class="intro-brief" id="field-notes">
         <div class="intro-playground intro-photo-playground" aria-label="Selected moments from Zihe's personal photo archive">
@@ -230,7 +170,7 @@
             <button class="intro-photo-card intro-photo-card-entry intro-gallery-open" type="button" aria-controls="note-gallery" style="--card-x:450px;--card-y:18px;--card-r:-5deg;--card-z:7;--card-delay:420ms" aria-label="Open the full personal photo archive">
               <img src="assets/personal-gallery/personal-46.jpg" alt="" loading="lazy" decoding="async" />
               <span class="intro-photo-entry-shade" aria-hidden="true"></span>
-              <span class="intro-photo-entry-copy" aria-hidden="true"><small>PERSONAL ARCHIVE</small><strong>OPEN<br />THE REST</strong></span>
+              <span class="intro-photo-entry-copy" aria-hidden="true"><small>PERSONAL ARCHIVE</small><strong>01—47</strong></span>
               <span class="intro-photo-hand" aria-hidden="true">👆🏻</span>
             </button>
           </div>
@@ -239,41 +179,7 @@
       </div>
       </div>
 
-      <div class="dream-lab" id="play-lab" aria-labelledby="dream-lab-title" data-dream-lab>
-        <div class="dream-scroll">
-          <div class="dream-sticky">
-            <canvas class="dream-canvas" aria-hidden="true"></canvas>
-            <header class="dream-header">
-              <p><span>00.7 / A NAME FROM A DREAM</span><strong id="dream-lab-title">The secret life of my name.</strong></p>
-              <a href="#lens-gateway">Wake up ↓</a>
-            </header>
-            <div class="dream-scenes" aria-live="polite">
-              <article class="dream-scene is-active" data-dream-scene="0"><small>01 / AT HOME</small><h3>小A</h3><p>My parents call me “Little A.” The A became the beginning of another name.</p></article>
-              <article class="dream-scene" data-dream-scene="1"><small>02 / THE DREAM</small><h3>ALOBI</h3><p>I remembered hearing it in a dream. Strange, specific, and somehow mine.</p></article>
-              <article class="dream-scene" data-dream-scene="2"><small>03 / THE TWIST</small><h3>SNOOPY?</h3><p>Maybe that was the sound I heard. But Alobi was the version that stayed.</p></article>
-            </div>
-            <div class="dream-meter" aria-label="Dream story progress"><i></i><span data-dream-count>01</span><b>03</b></div>
-            <p class="dream-scroll-note"><span></span> Scroll slowly · the memory moves</p>
-            <div class="memory-orbs" aria-label="Breakable memories">
-              <button type="button" class="memory-orb" data-memory="work" style="--orb-x:72%;--orb-y:22%"><i></i><span>WHAT I DO</span></button>
-              <button type="button" class="memory-orb" data-memory="like" style="--orb-x:86%;--orb-y:56%"><i></i><span>WHAT I LIKE</span></button>
-              <button type="button" class="memory-orb" data-memory="home" style="--orb-x:64%;--orb-y:74%"><i></i><span>WHERE I’M FROM</span></button>
-            </div>
-            <div class="dream-hanging-light" data-hanging-light aria-hidden="true">
-              <div class="dream-light-cord" data-light-cord aria-hidden="true"></div>
-              <div class="dream-light-beam" data-light-beam aria-hidden="true"></div>
-              <button class="dream-light-pull" data-light-pull type="button" tabindex="-1" aria-label="Pull the hanging light down to restore color">
-                <span class="dream-light-cap" aria-hidden="true"></span>
-                <span class="dream-light-shade" aria-hidden="true"></span>
-                <i class="dream-light-bulb" aria-hidden="true"></i>
-              </button>
-            </div>
-            <aside class="memory-reveal" data-memory-reveal aria-live="polite" aria-hidden="true">
-              <button type="button" data-memory-close aria-label="Close memory">×</button><small data-memory-kicker>MEMORY 01</small><strong data-memory-title>Across scales.</strong><p data-memory-copy></p>
-            </aside>
-          </div>
-        </div>
-      </div>
+
       </section>
 
       <section class="lens-gateway" id="lens-gateway" aria-labelledby="lens-gateway-title">
@@ -288,16 +194,13 @@
             <span class="lens-choice-number">01 / BUILT</span>
             <strong>ARCH</strong>
             <p>Space, systems, material decisions, and the built environment.</p>
-            <i>Enter architecture ↘</i>
           </button>
           <button class="lens-choice lens-choice-pm" type="button" data-lens-choice="pm" aria-pressed="false">
             <span class="lens-choice-number">02 / DELIVERY</span>
             <strong>PM</strong>
             <p>Strategy, coordination, product decisions, and measurable outcomes.</p>
-            <i>Enter product management ↘</i>
           </button>
         </div>
-        <p class="lens-gateway-note"><span></span> Select one lens to continue</p>
       </section>
 
     </main>
@@ -360,14 +263,13 @@
           <button class="note-gallery-card photo-card" type="button" style="--photo-ratio:0.75;--r:1deg" aria-label="Personal gallery image 47"><img data-src="assets/personal-gallery/personal-47.jpg" alt="" width="960" height="1280" loading="lazy" decoding="async"></button>
         </div>
       </div>
-      <p class="note-gallery-hint"><span></span> Drag in any direction · Images continue forever · Esc to return</p>
     </section>
-    <script type="module" src="app.js?v=20260914-2"></script>
-    <script src="spectacle.js?v=20260914-2"></script>
+    <script type="module" src="app.js?v=20260915-cleaner-1"></script>
+    <script src="spectacle.js?v=20260915-no-instructions-1"></script>
     <script src="intro-play.js?v=20260914-5"></script>
-    <script src="playground.js?v=20260914-1"></script>
-    <script type="module" src="why-interface.js?v=20260914-natural-gaze-3"></script>
-    <script type="module" src="meta-balls-init.js?v=20260914-3"></script>
+    <script type="module" src="me-names.js?v=4"></script>
+    <script type="module" src="me-portal.js?v=20260915-static-me-1"></script>
+
   </body>
 </html>
 

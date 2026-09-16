@@ -7,11 +7,8 @@
     const body = document.body;
     if (!document.querySelector('.loader')) body.classList.add('fx-no-loader');
 
-    const aura = document.createElement('div');
-    aura.className = 'fx-aura';
-    const grid = document.createElement('div');
-    grid.className = 'fx-grid';
-    body.append(aura, grid);
+    // The former full-screen cursor aura and masked grid forced a large repaint
+    // on every pointer movement. Their removal keeps interaction responsive.
 
     const sections = [...document.querySelectorAll('main > section')];
     const counter = document.createElement('div');
@@ -118,7 +115,7 @@
       const contentsPreview = document.createElement('div');
       contentsPreview.className = 'fx-index-preview';
       contentsPreview.setAttribute('aria-hidden', 'true');
-      contentsPreview.innerHTML = '<span class="fx-index-orbit"></span><small>SELECT / EXPLORE</small><strong></strong><i></i>';
+      contentsPreview.innerHTML = '<span class="fx-index-orbit"></span><strong></strong><i></i>';
       contentsPanel.append(contentsPreview);
 
       const previewTitle = contentsPreview.querySelector('strong');

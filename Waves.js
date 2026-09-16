@@ -71,6 +71,8 @@ class Noise {
 export default function Waves({
   container,
   canvas,
+  radial = false,
+  radialCenters = null,
   lineColor = 'black',
   backgroundColor = 'transparent',
   waveSpeedX = 0.0125,
@@ -92,6 +94,7 @@ export default function Waves({
   const bounds = { width: 0, height: 0, left: 0, top: 0 };
   const mouse = { x: -10, y: 0, lx: 0, ly: 0, sx: 0, sy: 0, v: 0, vs: 0, a: 0, set: false };
   let lines = [];
+  let centers = [];
   let frame = 0;
   let visible = true;
   let destroyed = false;
@@ -100,6 +103,32 @@ export default function Waves({
 
   const setLines = () => {
     lines = [];
+    if (radial) {
+      const diagonal = Math.hypot(bounds.width, bounds.height);
+      const shortest = Math.min(bounds.width, bounds.height);
+      const sourceCenters = radialCenters?.length ? radialCenters : [{ x: .5, y: .5, radius: diagonal / 2 + 100, gravity: 1 }];
+      centers = sourceCenters.map((source, index) => ({
+        x: Math.abs(source.x) <= 1 ? source.x * bounds.width : source.x,
+        y: Math.abs(source.y) <= 1 ? source.y * bounds.height : source.y,
+        radius: source.radius == null ? diagonal / 2 + 100 : source.radius <= 1 ? source.radius * shortest : source.radius,
+        gravity: source.gravity ?? 1,
+        phase: source.phase ?? index * 1.73
+      }));
+      centers.forEach((center, family) => {
+        const gap = xGap / (.72 + center.gravity * .38);
+        for (let r = gap; r <= center.radius; r += gap) {
+          const count = Math.max(28, Math.ceil(2 * Math.PI * r / 18));
+          lines.push(Array.from({ length: count }, (_, i) => {
+            const angle = i / count * Math.PI * 2;
+            return { x: center.x + Math.cos(angle) * r,
+              y: center.y + Math.sin(angle) * r,
+              radius: r, family, center,
+              wave: { x: 0, y: 0 }, cursor: { x: 0, y: 0, vx: 0, vy: 0 } };
+          }));
+        }
+      });
+      return;
+    }
     const outerWidth = bounds.width + 200;
     const outerHeight = bounds.height + 30;
     const totalLines = Math.ceil(outerWidth / xGap);
@@ -143,9 +172,24 @@ export default function Waves({
 
   const movePoints = time => {
     lines.forEach(points => points.forEach(point => {
-      const move = noise.perlin2((point.x + time * waveSpeedX) * .002, (point.y + time * waveSpeedY) * .0015) * 12;
-      point.wave.x = Math.cos(move) * waveAmpX;
-      point.wave.y = Math.sin(move) * waveAmpY;
+      const move = noise.perlin2((point.x + time * waveSpeedX) * .002, (point.y + time * waveSpeedY) * .0015) * (radial ? 4 : 12);
+      const amplitude = radial ? Math.min(1, point.radius / (72 / Math.max(.35, point.center.gravity))) : 1;
+      const familyForce = radial ? .5 + point.center.gravity * .5 : 1;
+      point.wave.x = Math.cos(move + (point.center?.phase || 0)) * waveAmpX * amplitude * familyForce;
+      point.wave.y = Math.sin(move + (point.center?.phase || 0)) * waveAmpY * amplitude * familyForce;
+      if (radial && centers.length > 1) {
+        centers.forEach((center, index) => {
+          if (index === point.family) return;
+          const gx = center.x - point.x;
+          const gy = center.y - point.y;
+          const distance = Math.max(1, Math.hypot(gx, gy));
+          const reach = Math.max(90, center.radius * 1.12);
+          const falloff = Math.exp(-distance / reach) * (1 - Math.exp(-distance / 34));
+          const pull = falloff * center.gravity * 15;
+          point.wave.x += gx / distance * pull;
+          point.wave.y += gy / distance * pull;
+        });
+      }
       const dx = point.x - mouse.sx;
       const dy = point.y - mouse.sy;
       const distance = Math.hypot(dx, dy);
@@ -170,13 +214,14 @@ export default function Waves({
     context.beginPath();
     context.strokeStyle = lineColor;
     lines.forEach(points => {
-      const first = moved(points[0], false);
+      const first = moved(points[0], radial);
       context.moveTo(first.x, first.y);
       points.forEach((point, index) => {
         const last = index === points.length - 1;
-        const current = moved(point, !last);
+        const current = moved(point, radial || !last);
         context.lineTo(current.x, current.y);
       });
+      if (radial) context.closePath();
     });
     context.stroke();
   };

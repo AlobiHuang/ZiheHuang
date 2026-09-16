@@ -32,8 +32,8 @@ for (let index = 0; index < 12; index += 1) {
 
 let routing = false;
 const routeStorageKey = 'alobi-route-reveal';
-const rememberRouteReveal = label => {
-  try { sessionStorage.setItem(routeStorageKey, JSON.stringify({ label, createdAt: Date.now() })); } catch {}
+const rememberRouteReveal = (label, effect = 'line') => {
+  try { sessionStorage.setItem(routeStorageKey, JSON.stringify({ label, effect, createdAt: Date.now() })); } catch {}
 };
 const playIncomingRouteReveal = () => {
   let state = null;
@@ -44,6 +44,12 @@ const playIncomingRouteReveal = () => {
   } catch {}
   if (!state || matchMedia('(prefers-reduced-motion: reduce)').matches) {
     document.documentElement.classList.remove('route-enter-pending');
+    return;
+  }
+  if (state.effect === 'line' || state.effect === 'cleaner') {
+    transition.className = 'page-transition';
+    document.documentElement.classList.remove('route-enter-pending');
+    document.getElementById('route-prepaint-style')?.remove();
     return;
   }
   routing = true;
@@ -69,14 +75,17 @@ const routeTo = (url, label) => {
     return;
   }
   routing = true;
+  if (/ALOBI\s*\/\s*HOME/i.test(label)) {
+    try { sessionStorage.setItem('alobi-home-line-return', '1'); } catch {}
+  }
   document.documentElement.classList.add('route-leaving');
-  transition.className = 'page-transition is-active effect-route';
+  transition.className = 'page-transition is-active effect-cleaner-down';
   transitionLabel.textContent = label;
   window.setTimeout(() => {
     transition.classList.add('is-holding');
     rememberRouteReveal(label);
     requestAnimationFrame(() => window.setTimeout(() => location.assign(url), 170));
-  }, 690);
+  }, 780);
 };
 
 document.querySelectorAll('[data-route]').forEach(link => link.addEventListener('click', event => {

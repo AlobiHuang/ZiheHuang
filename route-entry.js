@@ -10,11 +10,11 @@
       prepaintStyle.id = 'route-prepaint-style';
       prepaintStyle.textContent = `
         html.route-enter-pending,
-        html.route-enter-pending body { background: #171816 !important; }
+        html.route-enter-pending body { background: ${state.effect === 'line' ? '#f5f5f7' : '#171816'} !important; }
         html.route-enter-pending body > *:not(.page-transition) { visibility: hidden !important; }
         html.route-enter-pending .page-transition {
           visibility: visible !important;
-          background: #171816 !important;
+          background: ${state.effect === 'line' ? '#f5f5f7' : '#171816'} !important;
         }
       `;
       document.head.append(prepaintStyle);

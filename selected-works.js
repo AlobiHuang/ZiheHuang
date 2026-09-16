@@ -1,4 +1,5 @@
-import Waves from './Waves.js?v=20260914-2';
+import heroEntrance from './hero-entrance.js?v=20260915-edge-fix-1';
+import Waves from './Waves.js?v=20260915-loops';
 
 const startSelectedWorks = () => {
   const field = document.querySelector('[data-selected-waves]');
@@ -7,7 +8,7 @@ const startSelectedWorks = () => {
   const title = typeTarget?.closest('.selected-works-title');
   if (!field || !canvas || !typeTarget || !title) return;
 
-  Waves({
+  const stopWaves = Waves({
     container: field,
     canvas,
     lineColor: 'rgba(29, 29, 31, 0.32)',
@@ -23,45 +24,7 @@ const startSelectedWorks = () => {
     yGap: 36
   });
 
-  const text = 'SELECTED WORKS';
-  const reduced = matchMedia('(prefers-reduced-motion: reduce)').matches;
-  let started = false;
-
-  const typeLine = (line, prefix, speed, done) => {
-    let index = 0;
-    const tick = () => {
-      typeTarget.textContent = prefix + line.slice(0, index++);
-      if (index <= line.length) {
-        setTimeout(tick, speed + Math.random() * 18);
-        return;
-      }
-      done();
-    };
-    tick();
-  };
-
-  const typeTitle = () => {
-    if (started) return;
-    started = true;
-    title.classList.add('is-typing');
-    if (reduced) {
-      typeTarget.textContent = text;
-      title.classList.add('is-typed');
-      return;
-    }
-    typeLine(text, '', 38, () => title.classList.add('is-typed'));
-  };
-
-  if (reduced || !('IntersectionObserver' in window)) {
-    typeTitle();
-    return;
-  }
-  const observer = new IntersectionObserver(entries => {
-    if (!entries.some(entry => entry.isIntersecting)) return;
-    typeTitle();
-    observer.disconnect();
-  }, { threshold: .35, rootMargin: '0px 0px -8%' });
-  observer.observe(title);
+  heroEntrance({field,typeTarget,title,hero:field.closest('.architecture-waves-hero'),text:'SELECTED WORKS',onDispose:stopWaves});
 };
 
 if (document.readyState === 'loading') {

@@ -865,3 +865,41 @@ a,button,[role="button"]{cursor:pointer!important}
 .symbol-icon{stroke:#d55336}
 .symbol-icon .solid{fill:#d55336}
 .symbol-caption i{color:#d55336}
+
+/* One cleaner stroke for every document change. The dark edge travels first;
+   the white panel attached behind it erases the current page. */
+.page-transition.effect-cleaner-down,
+.page-transition.effect-line-down{
+  background:transparent;
+  pointer-events:auto;
+  overflow:hidden;
+}
+.effect-cleaner-down .transition-grid,
+.effect-cleaner-down .transition-label,
+.effect-line-down .transition-grid,
+.effect-line-down .transition-label{display:none}
+.effect-cleaner-down .transition-panel,
+.effect-line-down .transition-panel{
+  z-index:1;
+  background:#f5f5f7;
+  transform:scaleY(0);
+  transform-origin:top center;
+  animation:cleaner-cover-down .74s cubic-bezier(.76,0,.2,1) both;
+  will-change:transform;
+}
+.effect-cleaner-down .transition-scan,
+.effect-line-down .transition-scan{
+  inset:0 0 auto;
+  z-index:2;
+  height:1px;
+  background:#1d1d1f;
+  box-shadow:none;
+  transform:translateY(-2px);
+  animation:cleaner-edge-down .74s cubic-bezier(.76,0,.2,1) both;
+  will-change:transform;
+}
+.page-transition.effect-cleaner-down.is-holding,
+.page-transition.effect-line-down.is-holding{background:#f5f5f7}
+html.route-leaving,html.route-leaving body{background:#f5f5f7!important}
+@keyframes cleaner-cover-down{from{transform:scaleY(0)}to{transform:scaleY(1)}}
+@keyframes cleaner-edge-down{from{transform:translateY(-2px)}to{transform:translateY(calc(100svh + 2px))}}

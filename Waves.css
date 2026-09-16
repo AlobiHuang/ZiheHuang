@@ -59,3 +59,4 @@
   .category-architecture-archive .arch-work-card:nth-child(odd){left:0}
 }
 @media(prefers-reduced-motion:reduce){.architecture-wave-field .selected-works-waves{opacity:.5}}
+

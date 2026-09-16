@@ -8,7 +8,7 @@
 
 /* One concise name chapter: three beats, one immersive canvas. */
 .dream-lab{padding:clamp(12px,1.5vw,24px)!important}
-.dream-scroll{height:300vh!important}
+.dream-scroll{height:260vh!important}
 .dream-scene[data-dream-scene="0"]{--scene-color:var(--pink)}
 .dream-scene[data-dream-scene="1"]{--scene-color:var(--acid)}
 .dream-scene[data-dream-scene="2"]{--scene-color:#ff7d45}

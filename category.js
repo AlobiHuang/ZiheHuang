@@ -328,7 +328,6 @@ const experienceMarkup = data.experiences.map((experience, index) => {
       <figure class="arch-work-image arch-work-image-0${index + 1}${isInProgress ? ' arch-work-image-progress' : ''}">
         ${isInProgress ? '<div class="arch-progress-cover" aria-hidden="true"><small>ONGOING / 2026</small><strong>IN<br>PROGRESS</strong><i>TOROSIAJE · INDONESIA</i></div>' : `<img src="../assets/portfolio/${workImages[experience.slug || projectSlug(experience.title)]}" alt="Selected portfolio visual for ${experience.title}" loading="eager" decoding="async">`}
         <span>${experience.no}</span>
-        <figcaption>OPEN PROJECT ↗</figcaption>
       </figure>
       <div><h3>${experience.title}</h3><time>${experience.date}</time><p>${experience.type}</p></div>
     </a>`;
@@ -370,7 +369,6 @@ const pmWorkMarkup = key === 'pm' ? data.experiences.map((experience, index) => 
     <figure class="arch-work-image arch-work-image-0${index + 1}">
       <img src="../assets/portfolio/${workImages[index % workImages.length]}" alt="Selected portfolio visual for ${experience.title}" loading="lazy" decoding="async">
       <span>${experience.no}</span>
-      <figcaption>OPEN PROJECT ↗</figcaption>
     </figure>
     <div><h3>${experience.title}</h3><time>${experience.date}</time><p>${experience.type}</p></div>
   </a>`).join('') : '';
@@ -397,7 +395,6 @@ const hciWorkMarkup = key === 'hci' ? data.experiences.map((experience, index) =
     <figure class="arch-work-image arch-work-image-0${index + 1}">
       <img src="../assets/portfolio/${workImages[index % workImages.length]}" alt="Selected portfolio visual for ${experience.title}" loading="lazy" decoding="async">
       <span>${experience.no}</span>
-      <figcaption>OPEN PROJECT ↗</figcaption>
     </figure>
     <div><h3>${experience.title}</h3><time>${experience.date}</time><p>${experience.type}</p></div>
   </a>`).join('') : '';
@@ -540,7 +537,7 @@ const standardCategoryMarkup = `
     ${isArchitecture ? '' : `<figure class="category-image-stage" aria-hidden="true"><img src="../assets/portfolio/${categoryHeroImage[key]}" alt="" fetchpriority="high"></figure>`}
     ${isArchitecture ? '' : `<p class="category-intro">${data.intro}</p>`}
     ${isArchitecture ? '' : `<div class="category-lenses">${data.lens.map((lens, index) => `<span><i>0${index + 1}</i>${lens}</span>`).join('')}</div>`}
-    ${isArchitecture ? '' : `<a class="category-scroll" href="#experience"><span>Enter ${data.short}</span><i>↓</i></a>`}
+    ${isArchitecture ? '' : `<a class="category-scroll" href="#experience" aria-label="${data.short} selected work"><i>↓</i></a>`}
   </section>
 
   ${isArchitecture ? architectureArchiveMarkup : key === 'pm' ? pmArchiveMarkup : key === 'hci' ? hciArchiveMarkup : `
@@ -661,15 +658,15 @@ root.innerHTML = `
     <div class="contact-qr-grid" aria-label="Social media QR codes">
       <article class="qr-card">
         <a class="qr-image-frame" href="https://www.linkedin.com/in/zihe-huang/" target="_blank" rel="noreferrer" aria-label="Open Zihe Huang's LinkedIn profile"><img class="qr-image" src="../assets/qr-linkedin.png" alt="QR code for Zihe Huang's LinkedIn profile" /></a>
-        <div><small>01 / PROFESSIONAL</small><h3><a href="https://www.linkedin.com/in/zihe-huang/" target="_blank" rel="noreferrer">LinkedIn ↗</a></h3><p>Scan or open profile</p></div>
+        <div><small>01 / PROFESSIONAL</small><h3><a href="https://www.linkedin.com/in/zihe-huang/" target="_blank" rel="noreferrer">LinkedIn ↗</a></h3></div>
       </article>
       <article class="qr-card">
         <a class="qr-image-frame" href="https://www.instagram.com/zihealobi/" target="_blank" rel="noreferrer" aria-label="Open Zihe Huang's Instagram profile"><img class="qr-image" src="../assets/qr-instagram.png" alt="QR code for Zihe Huang's Instagram profile" /></a>
-        <div><small>02 / VISUAL</small><h3><a href="https://www.instagram.com/zihealobi/" target="_blank" rel="noreferrer">Instagram ↗</a></h3><p>Scan or open profile</p></div>
+        <div><small>02 / VISUAL</small><h3><a href="https://www.instagram.com/zihealobi/" target="_blank" rel="noreferrer">Instagram ↗</a></h3></div>
       </article>
       <article class="qr-card">
         <div class="qr-image-frame"><img class="qr-image" src="../assets/qr-wechat.png" alt="WeChat QR code for Zihe Huang" /></div>
-        <div><small>03 / DIRECT</small><h3>WeChat</h3><p>Scan to add on WeChat</p></div>
+        <div><small>03 / DIRECT</small><h3>WeChat</h3></div>
       </article>
     </div>
 
@@ -760,7 +757,7 @@ for (let index = 0; index < 12; index += 1) {
 }
 
 let routing = false;
-const routeTransitionDuration = 690;
+const routeTransitionDuration = 780;
 const routeHoldDuration = 170;
 const routeRevealDuration = 1050;
 const routeStorageKey = 'alobi-route-reveal';
@@ -784,6 +781,13 @@ const playIncomingRouteReveal = () => {
     return;
   }
 
+  if (state.effect === 'line' || state.effect === 'cleaner') {
+    transition.className = 'page-transition';
+    document.documentElement.classList.remove('route-enter-pending');
+    document.getElementById('route-prepaint-style')?.remove();
+    applyEntryPosition();
+    return;
+  }
   routing = true;
   transitionLabel.textContent = state.label || data.name;
   transition.className = `page-transition is-active ${state.effect === 'arch-slide' ? 'effect-arch-slide-reveal' : 'effect-route-reveal'}`;
@@ -809,12 +813,15 @@ const routeTo = (url, label) => {
     return;
   }
   routing = true;
+  if (/ALOBI\s*\/\s*HOME/i.test(label)) {
+    try { sessionStorage.setItem('alobi-home-line-return', '1'); } catch {}
+  }
   document.documentElement.classList.add('route-leaving');
-  transition.className = 'page-transition is-active effect-route';
+  transition.className = 'page-transition is-active effect-cleaner-down';
   transitionLabel.textContent = label;
   window.setTimeout(() => {
     transition.classList.add('is-holding');
-    rememberRouteReveal(label);
+    rememberRouteReveal(label, 'line');
     requestAnimationFrame(() => window.setTimeout(() => location.assign(url), routeHoldDuration));
   }, routeTransitionDuration);
 };

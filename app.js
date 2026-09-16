@@ -14,6 +14,7 @@ requestAnimationFrame(resetEntryPosition);
 window.addEventListener('load', resetEntryPosition, { once: true });
 window.addEventListener('pageshow', resetEntryPosition);
 
+if (!document.querySelector(".continuous-hero")) {
 // ALOBI loading signature: progress follows document readiness, with a short
 // minimum duration so the identity has time to register visually.
 const loader = document.querySelector('.loader');
@@ -62,6 +63,8 @@ if (incomingRouteReveal || returningVisitor) {
   try { sessionStorage.setItem('alobi-visited', '1'); } catch {}
 } else {
   requestAnimationFrame(updateLoader);
+}
+
 }
 
 // Keep browser-style section movement available even when the custom motion
@@ -175,9 +178,10 @@ const categoryRoutes = {
   architecture: { url: 'architecture/', label: 'ARCHITECTURE' },
   pm: { url: 'pm/', label: 'PRODUCT MANAGEMENT' },
   hci: { url: 'hci/', label: 'HUMAN-COMPUTER INTERACTION' },
+  resume: { url: 'resume/', label: 'RESUME / SELECTED EXPERIENCE' },
   contact: { url: 'contact/', label: 'CONTACT / OPEN CHANNEL' }
 };
-const categoryTransitionDuration = 690;
+const categoryTransitionDuration = 780;
 const routeHoldDuration = 170;
 const routeRevealDuration = 1050;
 const routeStorageKey = 'alobi-route-reveal';
@@ -199,6 +203,13 @@ function playIncomingRouteReveal() {
 
   if (!state || matchMedia('(prefers-reduced-motion: reduce)').matches) {
     document.documentElement.classList.remove('route-enter-pending');
+    return;
+  }
+
+  if (state.effect === 'line' || state.effect === 'cleaner') {
+    transition.className = 'page-transition';
+    document.documentElement.classList.remove('route-enter-pending');
+    document.getElementById('route-prepaint-style')?.remove();
     return;
   }
 
@@ -245,11 +256,11 @@ function navigateToCategory(discipline) {
   }
   transitioning = true;
   document.documentElement.classList.add('route-leaving');
-  transition.className = 'page-transition is-active effect-route';
+  transition.className = 'page-transition is-active effect-cleaner-down';
   transitionLabel.textContent = destination.label;
   window.setTimeout(() => {
     transition.classList.add('is-holding');
-    rememberRouteReveal(destination.label);
+    rememberRouteReveal(destination.label, 'line');
     requestAnimationFrame(() => window.setTimeout(() => location.assign(destination.url), routeHoldDuration));
   }, categoryTransitionDuration);
 }
@@ -262,13 +273,13 @@ window.alobiNavigateToArchitectureSlide = () => {
     return;
   }
   transitioning = true;
-  transition.className = 'page-transition is-active effect-arch-slide';
+  transition.className = 'page-transition is-active effect-cleaner-down';
   transitionLabel.textContent = 'ARCHITECTURE / SELECTED WORKS';
   window.setTimeout(() => {
     transition.classList.add('is-holding');
-    rememberRouteReveal(destination.label, 'arch-slide');
+    rememberRouteReveal(destination.label, 'line');
     requestAnimationFrame(() => window.setTimeout(() => location.assign(destination.url), routeHoldDuration));
-  }, 620);
+  }, 780);
 };
 
 document.querySelectorAll('[data-site-route]').forEach(link => {

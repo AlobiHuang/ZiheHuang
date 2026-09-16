@@ -8,10 +8,10 @@
     <script src="../route-entry.js"></script>
     <link rel="icon" type="image/svg+xml" href="../assets/alobi-mark.svg" />
     <link rel="stylesheet" href="../styles.css" />
-    <link rel="stylesheet" href="../animations.css?v=20260914-4" />
+    <link rel="stylesheet" href="../animations.css?v=20260915-edge-fix-1" />
     <link rel="stylesheet" href="../category.css" />
-    <link rel="stylesheet" href="../apple-system.css?v=20260912-1" />
-    <link rel="stylesheet" href="../spectacle.css?v=20260914-1" />
+    <link rel="stylesheet" href="../apple-system.css?v=20260915-zh-home-1" />
+    <link rel="stylesheet" href="../spectacle.css?v=20260915-no-instructions-1" />
     <link rel="stylesheet" href="./hci.css?v=20260912-1" />
   </head>
   <body class="hci-holding-page">
@@ -47,7 +47,7 @@
       <div class="hci-workshop-buddy" aria-hidden="true">
         <span class="buddy-spark spark-one">✦</span><span class="buddy-spark spark-two">+</span>
         <div class="buddy-note note-a">TESTING<br />IDEAS</div><div class="buddy-note note-b">v0.1</div>
-        <div class="buddy-bubble"><b>still making!</b><span>come back soon</span></div>
+        <div class="buddy-bubble"><b>still making!</b><span>archive in progress</span></div>
         <div class="buddy-antenna"></div>
         <div class="buddy-head"><i></i><i></i><b></b></div>
         <div class="buddy-body"><span>HCI</span></div>
@@ -57,12 +57,12 @@
       <section class="hci-holding-copy">
         <p class="hci-holding-kicker">HUMAN-COMPUTER INTERACTION / 2026</p>
         <h1 id="hci-title">SITE UNDER<br /><em>CONSTRUCTION.</em></h1>
-        <p class="hci-holding-note">The HCI archive is still taking shape. Come back soon to explore research, prototypes, and systems in progress.</p>
+        <p class="hci-holding-note">The HCI archive is taking shape around research, prototypes, and systems in progress.</p>
         <a class="hci-home-button" href="../" data-route data-route-label="ALOBI / HOME">Back to main page <span aria-hidden="true">↗</span></a>
       </section>
-      <p class="hci-holding-footer">BUILDING THE NEXT ITERATION <span>—</span> CHECK BACK SOON</p>
+      <p class="hci-holding-footer">BUILDING THE NEXT ITERATION <span>—</span> ARCHIVE IN PROGRESS</p>
     </main>
-    <script src="../spectacle.js?v=20260914-2"></script>
+    <script src="../spectacle.js?v=20260915-no-instructions-1"></script>
     <script>
       (() => {
         const transition = document.querySelector('.page-transition');
@@ -73,7 +73,22 @@
           cell.style.setProperty('--reverse-cell', 11 - index);
           grid?.append(cell);
         }
+        let hasRevealed = false;
         const reveal = () => {
+          if (hasRevealed) return;
+          hasRevealed = true;
+          let state = null;
+          try {
+            const raw = sessionStorage.getItem('alobi-route-reveal');
+            state = raw ? JSON.parse(raw) : null;
+          } catch {}
+          if (state?.effect === 'line' || state?.effect === 'cleaner') {
+            transition.className = 'page-transition';
+            document.documentElement.classList.remove('route-enter-pending');
+            document.getElementById('route-prepaint-style')?.remove();
+            try { sessionStorage.removeItem('alobi-route-reveal'); } catch {}
+            return;
+          }
           if (transition && grid?.children.length) {
             transition.className = 'page-transition is-active effect-route-reveal';
             requestAnimationFrame(() => {
@@ -89,6 +104,27 @@
         };
         requestAnimationFrame(() => requestAnimationFrame(reveal));
         window.addEventListener('pageshow', reveal, { once: true });
+
+        document.querySelectorAll('[data-route]').forEach(link => link.addEventListener('click', event => {
+          if (link.href === location.href) return;
+          event.preventDefault();
+          if (/ALOBI\s*\/\s*HOME/i.test(link.dataset.routeLabel || link.textContent.trim())) {
+            try { sessionStorage.setItem('alobi-home-line-return', '1'); } catch {}
+          }
+          document.documentElement.classList.add('route-leaving');
+          transition.className = 'page-transition is-active effect-cleaner-down';
+          try {
+            sessionStorage.setItem('alobi-route-reveal', JSON.stringify({
+              label: link.dataset.routeLabel || link.textContent.trim(),
+              effect: 'line',
+              createdAt: Date.now()
+            }));
+          } catch {}
+          window.setTimeout(() => {
+            transition.classList.add('is-holding');
+            window.setTimeout(() => location.assign(link.href), 170);
+          }, 780);
+        }));
       })();
     </script>
   </body>
