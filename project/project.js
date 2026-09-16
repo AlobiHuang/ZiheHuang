@@ -293,11 +293,11 @@ document.getElementById('project-root').innerHTML = `
     </div>
   </section>`}
 
-  <nav class="project-sequence" aria-label="Project navigation">
+  ${isPmLanding ? '' : `<nav class="project-sequence" aria-label="Project navigation">
     <a href="${projectHref(previous)}" data-route data-route-label="PROJECT / ${previous.title.toUpperCase()}"><span>Previous</span><b>← ${previous.title}</b></a>
     <a class="project-sequence-index" href="${lensHref}#experience" data-route data-route-label="${lens.name.toUpperCase()}" data-return-anchor="experience"><span>${lens.short}</span><b>All selected work</b></a>
     <a href="${projectHref(next)}" data-route data-route-label="PROJECT / ${next.title.toUpperCase()}"><span>Next</span><b>${next.title} →</b></a>
-  </nav>`;
+  </nav>`}`;
 
 if ('scrollRestoration' in history) history.scrollRestoration = 'manual';
 window.scrollTo({ top: 0, left: 0, behavior: 'auto' });

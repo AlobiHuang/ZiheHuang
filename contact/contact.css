@@ -26,13 +26,13 @@ body.contact-page{background:var(--contact-paper);color:var(--contact-ink)}
 .contact-compose button:hover,.contact-compose button:focus-visible{outline:0;background:#0071e3;border-color:#0071e3;transform:translateY(-3px);box-shadow:none}
 .form-status{grid-column:1;margin:0;min-height:14px;color:var(--contact-muted);font:600 9px/1.4 "DM Mono",monospace;text-transform:uppercase}
 
-.contact-methods{grid-column:1/-1;margin-top:clamp(72px,10vh,124px);display:grid;grid-template-columns:repeat(3,1fr);border-top:1px solid var(--contact-ink);border-bottom:1px solid var(--contact-ink);border-radius:0;overflow:visible}
-.contact-methods a{box-sizing:border-box;min-height:clamp(112px,15vh,166px);padding:18px 20px;display:grid;grid-template-columns:1fr auto;grid-template-rows:auto 1fr;color:inherit;text-decoration:none;border-right:1px solid var(--contact-ink);transition:background-color .3s ease,color .3s ease}
+.contact-methods{grid-column:1/-1;margin-top:clamp(72px,10vh,124px);display:grid;grid-template-columns:repeat(3,1fr);border:0!important;border-top:1px solid var(--contact-ink)!important;border-bottom:1px solid var(--contact-ink)!important;border-radius:0!important;background:transparent!important;box-shadow:none!important;overflow:visible}
+.contact-methods a{box-sizing:border-box;min-height:clamp(112px,15vh,166px);padding:18px 20px;display:grid;grid-template-columns:1fr auto;grid-template-rows:auto 1fr;background:transparent!important;color:var(--contact-ink)!important;text-decoration:none;border-right:1px solid var(--contact-ink);transition:padding .35s cubic-bezier(.16,1,.3,1)}
 .contact-methods a:last-child{border-right:0}
 .contact-methods span,.contact-methods i{font:600 8px/1 "DM Mono",monospace;font-style:normal;letter-spacing:.06em}
 .contact-methods i{justify-self:end}
 .contact-methods b{grid-column:1/-1;align-self:end;font:680 clamp(28px,3vw,46px)/.9 -apple-system,BlinkMacSystemFont,"SF Pro Display","Helvetica Neue",Arial,sans-serif;letter-spacing:-.055em}
-.contact-methods a:hover,.contact-methods a:focus-visible{outline:0;background:var(--contact-ink);color:var(--contact-paper)}
+.contact-methods a:hover,.contact-methods a:focus-visible{outline:0;background:transparent!important;color:var(--contact-ink)!important;padding-left:28px}
 
 .contact-page:not(.contact-ready) .contact-form-panel>*{opacity:0;transform:translateY(18px)}
 .contact-page.contact-ready .contact-form-panel>*{animation:contact-rise .72s both}
