@@ -83,7 +83,9 @@ export default function Waves({
   yGap = 32,
   friction = 0.925,
   tension = 0.005,
-  maxCursorMove = 100
+  maxCursorMove = 100,
+  pixelRatioCap = 2,
+  targetFPS = 60
 } = {}) {
   if (!container || !canvas) return () => {};
   const context = canvas.getContext('2d');
@@ -96,6 +98,7 @@ export default function Waves({
   let lines = [];
   let centers = [];
   let frame = 0;
+  let lastRender = -Infinity;
   let visible = true;
   let destroyed = false;
 
@@ -155,7 +158,7 @@ export default function Waves({
     bounds.height = Math.max(1, rect.height);
     bounds.left = rect.left;
     bounds.top = rect.top;
-    const pixelRatio = Math.min(2, devicePixelRatio || 1);
+    const pixelRatio = Math.min(pixelRatioCap, devicePixelRatio || 1);
     canvas.width = Math.round(bounds.width * pixelRatio);
     canvas.height = Math.round(bounds.height * pixelRatio);
     canvas.style.width = `${bounds.width}px`;
@@ -192,9 +195,10 @@ export default function Waves({
       }
       const dx = point.x - mouse.sx;
       const dy = point.y - mouse.sy;
-      const distance = Math.hypot(dx, dy);
       const influence = Math.max(175, mouse.vs);
-      if (mouse.set && distance < influence) {
+      const distanceSquared = dx * dx + dy * dy;
+      if (mouse.set && distanceSquared < influence * influence) {
+        const distance = Math.sqrt(distanceSquared);
         const strength = 1 - distance / influence;
         const force = Math.cos(distance * .001) * strength;
         point.cursor.vx += Math.cos(mouse.a) * force * influence * mouse.vs * .00065;
@@ -232,6 +236,15 @@ export default function Waves({
       frame = requestAnimationFrame(tick);
       return;
     }
+    const frameInterval = 1000 / Math.max(1, targetFPS);
+    const elapsedSinceRender = time - lastRender;
+    if (!reduced && elapsedSinceRender < frameInterval) {
+      frame = requestAnimationFrame(tick);
+      return;
+    }
+    lastRender = reduced || !Number.isFinite(lastRender)
+      ? time
+      : time - (elapsedSinceRender % frameInterval);
     mouse.sx += (mouse.x - mouse.sx) * .1;
     mouse.sy += (mouse.y - mouse.sy) * .1;
     const dx = mouse.x - mouse.lx;
@@ -249,9 +262,8 @@ export default function Waves({
   };
 
   const updateMouse = event => {
-    const rect = container.getBoundingClientRect();
-    mouse.x = event.clientX - rect.left;
-    mouse.y = event.clientY - rect.top;
+    mouse.x = event.clientX - bounds.left;
+    mouse.y = event.clientY - bounds.top;
     if (!mouse.set) {
       mouse.sx = mouse.lx = mouse.x;
       mouse.sy = mouse.ly = mouse.y;

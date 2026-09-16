@@ -308,7 +308,7 @@ const categoryImages = {
     'the-tinkerers-imaginarium': 'tinkerers-site-model-cover.jpg',
     'radical-empathy': 'radical-empathy-cover.jpg',
     're-serv-oir': 'reservoir-exterior.png',
-    'how-to-build-a-ruin': 'ruin-hero.jpg',
+    'how-to-build-a-ruin': 'ruin-hero-cover.jpg',
     'call-of-the-sea': 'sea-hero.png'
   },
   pm: ['stepping-massing-05.webp', 'conceptual-timeline-01.webp', 'new-circulation.webp'],
@@ -326,7 +326,7 @@ const experienceMarkup = data.experiences.map((experience, index) => {
     return `
     <a class="arch-work-card project-gateway-link" id="architecture-project-${index + 1}" href="${projectHref(experience)}" data-route data-route-label="${projectRouteLabel(experience)}" aria-label="Open the ${experience.title} project gateway">
       <figure class="arch-work-image arch-work-image-0${index + 1}${isInProgress ? ' arch-work-image-progress' : ''}">
-        ${isInProgress ? '<div class="arch-progress-cover" aria-hidden="true"><small>ONGOING / 2026</small><strong>IN<br>PROGRESS</strong><i>TOROSIAJE · INDONESIA</i></div>' : `<img src="../assets/portfolio/${workImages[experience.slug || projectSlug(experience.title)]}" alt="Selected portfolio visual for ${experience.title}" loading="eager" decoding="async">`}
+        ${isInProgress ? '<div class="arch-progress-cover" aria-hidden="true"><small>ONGOING / 2026</small><strong>IN<br>PROGRESS</strong><i>TOROSIAJE · INDONESIA</i></div>' : `<img src="../assets/portfolio/${workImages[experience.slug || projectSlug(experience.title)]}" alt="Selected portfolio visual for ${experience.title}" loading="lazy" fetchpriority="low" decoding="async">`}
         <span>${experience.no}</span>
       </figure>
       <div><h3>${experience.title}</h3><time>${experience.date}</time><p>${experience.type}</p></div>

@@ -43,6 +43,8 @@
 .category-architecture-archive .arch-work-card{
   width:min(100%,500px);
   justify-self:center;
+  content-visibility:auto;
+  contain-intrinsic-size:auto 720px;
 }
 .category-architecture-archive .arch-work-index{
   margin-left:clamp(54px,4vw,76px);
@@ -59,4 +61,3 @@
   .category-architecture-archive .arch-work-card:nth-child(odd){left:0}
 }
 @media(prefers-reduced-motion:reduce){.architecture-wave-field .selected-works-waves{opacity:.5}}
-

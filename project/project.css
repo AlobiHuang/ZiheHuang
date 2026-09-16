@@ -83,7 +83,7 @@
 .project-page[data-lens="architecture"] .project-gateway{display:block;min-height:auto;padding:clamp(140px,14vw,220px) var(--pad) 0;background:#080809;color:#f5f5f7;overflow:visible}
 .project-page[data-lens="architecture"] .project-gateway-grid{inset:0 var(--pad);opacity:.1;background-size:calc((100vw - var(--pad)*2)/12) 100%,100% 140px}
 .project-page[data-lens="architecture"] .project-gateway-kicker{margin:0 0 clamp(52px,8vw,120px);font-size:10px;line-height:1.5}
-.project-page[data-lens="architecture"] .project-back{position:absolute;right:var(--pad);top:clamp(105px,10vw,150px);color:#f5f5f7;border-color:rgba(245,245,247,.55)}
+.project-page[data-lens="architecture"] .project-back{position:absolute;right:max(var(--pad),calc((100vw - var(--max))/2));top:clamp(105px,10vw,150px);color:#f5f5f7;border-color:rgba(245,245,247,.55)}
 .project-page[data-lens="architecture"] .project-gateway-heading{max-width:1200px;margin:0}
 .project-page[data-lens="architecture"] .project-gateway-heading>span{margin-bottom:20px;color:#ff5a36}
 .project-page[data-lens="architecture"] .project-gateway-heading h1{max-width:12ch;font-size:clamp(64px,10.6vw,172px);font-weight:450;line-height:.84;letter-spacing:-.085em}
@@ -125,7 +125,7 @@
 @media(max-width:800px){
   .project-page[data-lens="architecture"] .project-gateway{padding:110px 20px 0}
   .project-page[data-lens="architecture"] .project-gateway-kicker{margin-bottom:62px}
-  .project-page[data-lens="architecture"] .project-back{right:20px;top:88px}
+  .project-page[data-lens="architecture"] .project-back{right:18px;top:88px}
   .project-page[data-lens="architecture"] .project-gateway-heading h1{font-size:clamp(54px,15vw,92px)}
   .project-page[data-lens="architecture"] .project-hero-media{height:72vw;margin-top:58px}
   .project-page[data-lens="architecture"] .project-gateway-summary,.project-page[data-lens="architecture"] .project-gateway-meta{margin-top:42px}

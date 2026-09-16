@@ -1,5 +1,5 @@
 import heroEntrance from './hero-entrance.js?v=20260916-speed-115';
-import Waves from './Waves.js?v=20260915-loops';
+import Waves from './Waves.js?v=20260916-arch-performance-2';
 
 const startSelectedWorks = () => {
   const field = document.querySelector('[data-selected-waves]');
@@ -20,15 +20,18 @@ const startSelectedWorks = () => {
     friction: 0.9,
     tension: 0.01,
     maxCursorMove: 120,
-    xGap: 12,
-    yGap: 36
+    xGap: 13,
+    yGap: 38,
+    pixelRatioCap: 1.25,
+    targetFPS: 50
   });
 
   heroEntrance({field,typeTarget,title,hero:field.closest('.architecture-waves-hero'),text:'SELECTED WORKS',onDispose:stopWaves});
 };
 
+const scheduleSelectedWorks = () => requestAnimationFrame(() => requestAnimationFrame(startSelectedWorks));
 if (document.readyState === 'loading') {
-  document.addEventListener('DOMContentLoaded', startSelectedWorks, { once: true });
+  document.addEventListener('DOMContentLoaded', scheduleSelectedWorks, { once: true });
 } else {
-  startSelectedWorks();
+  scheduleSelectedWorks();
 }
