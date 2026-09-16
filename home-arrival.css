@@ -2,13 +2,13 @@
 .home-page.arrival-done .continuous-hero{background:#f5f5f7!important}
 .landing-field{position:absolute;inset:0;overflow:hidden}
 .landing-field canvas{width:100%;height:100%;display:block}
-.landing-caption{position:absolute;top:110px;left:5%;font:10px/1.65 monospace;letter-spacing:.07em;opacity:var(--details);text-align:left;color:#6e6e73}
+.landing-caption{position:absolute;top:110px;left:max(var(--pad),calc((100vw - var(--max))/2));font:10px/1.65 monospace;letter-spacing:.07em;opacity:var(--details);text-align:left;color:#6e6e73}
 .landing-rule{position:absolute;top:62%;left:0;right:0;height:1px;background:#1d1d1f;opacity:var(--bar-opacity,0)}
 .arrival-sweep{position:absolute;z-index:8;left:0;right:0;top:0;height:var(--sweep-weight,1px);background:#1d1d1f;transform:translateY(var(--sweep-y,100svh));opacity:var(--sweep-opacity,0);pointer-events:none;will-change:transform,height}
 .arrival-cursor{position:fixed;z-index:10005;left:0;top:0;width:52px;height:52px;border:1px solid #1d1d1f;border-radius:50%;background:rgba(255,255,255,.2);pointer-events:none;opacity:var(--arrival-cursor-opacity,0);transform:translate3d(calc(var(--arrival-cursor-x,50vw) - 26px),calc(var(--arrival-cursor-y,110vh) - 26px),0);will-change:transform,opacity}
 .arrival-cursor:after{content:"";position:absolute;left:50%;top:50%;width:4px;height:4px;border-radius:50%;background:#1d1d1f;transform:translate(-50%,-50%)}
 .home-page .continuous-hero .landing-title{position:absolute;top:62%;left:5%;right:5%;height:25%;overflow:hidden;perspective:900px}
-.home-page .continuous-hero h1{position:static!important;max-width:none!important;width:100%!important;margin:0!important;font:700 clamp(90px,15.5vw,245px)/.94 -apple-system,BlinkMacSystemFont,'Segoe UI',Arial,sans-serif!important;letter-spacing:-.075em!important;word-spacing:0!important;text-align:left;transform:none!important;animation:none!important}
+.home-page .continuous-hero h1{position:static!important;max-width:none!important;width:100%!important;margin:0!important;font:700 clamp(90px,15.5vw,245px)/.94 -apple-system,BlinkMacSystemFont,'Segoe UI',Arial,sans-serif!important;letter-spacing:-.075em!important;word-spacing:0!important;text-align:left;transform:translateY(-12px)!important;animation:none!important}
 .landing-title h1>span{display:block;transform:translateY(calc((1 - var(--roll)) * -110%)) rotateX(calc((1 - var(--roll)) * -55deg));transform-origin:50% 0;opacity:var(--roll);will-change:transform}
 .landing-period{color:#0071e3}
 .home-page .continuous-hero .scale-map{position:absolute;left:31%;right:5%;bottom:3%;width:auto;margin:0!important;padding:0!important;display:flex!important;background:transparent!important;border:0!important;border-radius:0!important;box-shadow:none!important;opacity:var(--details);animation:none!important}
@@ -27,8 +27,8 @@
 @media(max-width:700px){
  .home-page .continuous-hero{min-height:640px}
  .landing-rule,.home-page .continuous-hero .landing-title{top:58%}
- .home-page .continuous-hero h1{font-size:25vw!important;line-height:1.1!important}
- .landing-caption{top:90px;font-size:9px}
+ .home-page .continuous-hero h1{font-size:25vw!important;line-height:1.1!important;transform:translateY(-7px)!important}
+ .landing-caption{top:90px;left:18px;font-size:9px}
  .home-page .continuous-hero .scale-map{left:5%;right:5%;width:auto;bottom:3%}
  .home-page .continuous-hero .scale small{display:none}
 }

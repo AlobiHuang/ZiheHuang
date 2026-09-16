@@ -181,9 +181,9 @@ const categoryRoutes = {
   resume: { url: 'resume/', label: 'RESUME / SELECTED EXPERIENCE' },
   contact: { url: 'contact/', label: 'CONTACT / OPEN CHANNEL' }
 };
-const categoryTransitionDuration = 780;
-const routeHoldDuration = 170;
-const routeRevealDuration = 1050;
+const categoryTransitionDuration = 678;
+const routeHoldDuration = 148;
+const routeRevealDuration = 913;
 const routeStorageKey = 'alobi-route-reveal';
 let transitioning = false;
 
@@ -244,7 +244,7 @@ function navigateWithTransition(targetId, target) {
   window.setTimeout(() => {
     transition.className = 'page-transition';
     transitioning = false;
-  }, 1250);
+  }, 1087);
 }
 
 function navigateToCategory(discipline) {
@@ -279,7 +279,7 @@ window.alobiNavigateToArchitectureSlide = () => {
     transition.classList.add('is-holding');
     rememberRouteReveal(destination.label, 'line');
     requestAnimationFrame(() => window.setTimeout(() => location.assign(destination.url), routeHoldDuration));
-  }, 780);
+  }, 678);
 };
 
 document.querySelectorAll('[data-site-route]').forEach(link => {

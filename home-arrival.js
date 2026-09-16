@@ -24,7 +24,8 @@ if (hero) {
  const ease = n => {n=clamp(n);return n*n*(3-2*n)};
  const kinetic = n => {n=clamp(n);return n<.5?16*n**5:1-(-2*n+2)**5/2};
  const mix = (a,b,n) => a+(b-a)*n;
- let w=0,h=0,full=0,raf=0,start=performance.now()-(returningHome?4.28*1000:0),visible=true,finished=false;
+ const motionRate=1.15;
+ let w=0,h=0,full=0,raf=0,start=performance.now()-(returningHome?4.28/motionRate*1000:0),visible=true,finished=false;
  let px=.5,py=.5,mx=.5,my=.5,cursorX=innerWidth*.5,cursorY=innerHeight*.5;
  function resize(){w=hero.clientWidth;full=hero.clientHeight;h=full;const d=Math.min(devicePixelRatio||1,1.25);canvas.width=w*d;canvas.height=h*d;ctx.setTransform(d,0,0,d,0,0);wake()}
  function stroke(x1,y1,x2,y2){ctx.beginPath();ctx.moveTo(x1,y1);ctx.lineTo(x2,y2);ctx.stroke()}
@@ -69,7 +70,7 @@ if (hero) {
  }
  function render(now){
   raf=0;if(document.hidden||!visible)return;
-  const t=skip?8:(now-start)/1000;
+  const t=skip?8:(now-start)/1000*motionRate;
   mx+=(px-mx)*.045;my+=(py-my)*.045;
   const cursorRise=returningHome?1:kinetic((t-3.48)/.74);
   const shownCursorY=mix(innerHeight+34,cursorY,cursorRise);
@@ -107,5 +108,5 @@ if (hero) {
  document.addEventListener('visibilitychange',()=>{if(!document.hidden)wake()});
  addEventListener('resize',resize);resize();
  // Never leave navigation hidden if the browser suspends the opening frames.
- setTimeout(()=>document.body.classList.add('arrival-done','is-ready'),8500);
+ setTimeout(()=>document.body.classList.add('arrival-done','is-ready'),8500/motionRate);
 }

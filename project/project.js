@@ -376,7 +376,7 @@ const playIncomingRouteReveal = () => {
   window.setTimeout(() => {
     transition.className = 'page-transition';
     routing = false;
-  }, 1050);
+  }, 913);
 };
 playIncomingRouteReveal();
 
@@ -397,8 +397,8 @@ const routeTo = (url, label) => {
   window.setTimeout(() => {
     transition.classList.add('is-holding');
     rememberRouteReveal(label);
-    requestAnimationFrame(() => window.setTimeout(() => location.assign(url), 170));
-  }, 780);
+    requestAnimationFrame(() => window.setTimeout(() => location.assign(url), 148));
+  }, 678);
 };
 
 document.querySelectorAll('[data-route]').forEach(link => link.addEventListener('click', event => {

@@ -498,7 +498,7 @@ body:has(.intro-playground:hover) .fx-aura{opacity:0}
     radial-gradient(620px circle at 50% 47%,rgba(199,125,93,.08),transparent 72%),
     transparent!important;
 }
-.intro-photo-playground:after{content:"SELECTED MOMENTS  ·  OPEN THE ARCHIVE"!important;color:#777!important}
+.intro-photo-playground:after{content:none!important;display:none!important}
 .intro-photo-cards{
   position:relative;
   width:min(1220px,96vw);

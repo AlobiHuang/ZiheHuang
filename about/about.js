@@ -45,9 +45,9 @@ for (let index = 0; index < 12; index += 1) {
 }
 
 let routing = false;
-const routeTransitionDuration = 780;
-const routeHoldDuration = 170;
-const routeRevealDuration = 1050;
+const routeTransitionDuration = 678;
+const routeHoldDuration = 148;
+const routeRevealDuration = 913;
 const routeStorageKey = 'alobi-route-reveal';
 
 const rememberRouteReveal = (label, effect = 'line') => {
@@ -113,6 +113,57 @@ const routeTo = (url, label) => {
 };
 
 playIncomingRouteReveal();
+
+const playAboutEntrance = async () => {
+  const hero = document.querySelector('.about-hero');
+  const title = hero?.querySelector('h1');
+  const line = hero?.querySelector('.about-entrance-line');
+  if (!hero || !title || !line) {
+    document.documentElement.classList.remove('about-motion-pending');
+    return;
+  }
+
+  if (matchMedia('(prefers-reduced-motion: reduce)').matches) {
+    line.style.visibility = 'visible';
+    title.style.visibility = 'visible';
+    document.documentElement.classList.add('about-toolbar-ready');
+    document.documentElement.classList.remove('about-motion-pending');
+    return;
+  }
+
+  const curtain = document.querySelector('.page-transition');
+  const waitStart = performance.now();
+  while (curtain?.classList.contains('is-active') && performance.now() - waitStart < 2200) {
+    await new Promise(resolve => setTimeout(resolve, 40));
+  }
+
+  line.style.visibility = 'visible';
+  const lineBounds = line.getBoundingClientRect();
+  const startOffset = Math.max(0, innerHeight - lineBounds.top) + 3;
+  await line.animate([
+    { transform: `translateY(${startOffset}px)` },
+    { transform: 'translateY(0)' }
+  ], {
+    duration: 635,
+    easing: 'cubic-bezier(.65,0,.2,1)',
+    fill: 'forwards'
+  }).finished.catch(() => {});
+
+  title.style.visibility = 'visible';
+  await title.animate([
+    { transform: 'translateY(calc(100% + 34px)) rotateX(-62deg)', opacity: 0 },
+    { transform: 'translateY(0) rotateX(0deg)', opacity: 1 }
+  ], {
+    duration: 1050,
+    easing: 'cubic-bezier(.22,.7,.18,1)',
+    fill: 'forwards'
+  }).finished.catch(() => {});
+
+  document.documentElement.classList.add('about-toolbar-ready');
+  document.documentElement.classList.remove('about-motion-pending');
+};
+
+playAboutEntrance();
 
 document.querySelectorAll('[data-route]').forEach(link => {
   link.addEventListener('click', event => {

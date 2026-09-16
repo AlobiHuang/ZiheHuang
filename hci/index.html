@@ -6,15 +6,17 @@
     <meta name="description" content="Human-computer interaction work and experience by Zihe Huang." />
     <title>Human-Computer Interaction — Zihe Huang</title>
     <script src="../route-entry.js"></script>
+    <script>document.documentElement.classList.add('arch-motion-pending');setTimeout(()=>document.documentElement.classList.remove('arch-motion-pending'),10000);</script>
     <link rel="icon" type="image/svg+xml" href="../assets/alobi-mark.svg" />
     <link rel="stylesheet" href="../styles.css" />
-    <link rel="stylesheet" href="../animations.css?v=20260915-edge-fix-1" />
+    <link rel="stylesheet" href="../animations.css?v=20260916-speed-115" />
     <link rel="stylesheet" href="../category.css" />
     <link rel="stylesheet" href="../apple-system.css?v=20260915-zh-home-1" />
-    <link rel="stylesheet" href="../spectacle.css?v=20260915-no-instructions-1" />
-    <link rel="stylesheet" href="./hci.css?v=20260912-1" />
+    <link rel="stylesheet" href="../spectacle.css?v=20260916-simple-menu-1" />
+    <link rel="stylesheet" href="../hero-entrance.css?v=20260916-hci-blank-1" />
+    <link rel="stylesheet" href="./hci.css?v=20260916-status-1" />
   </head>
-  <body class="hci-holding-page">
+  <body class="hci-page">
     <div class="page-transition" aria-hidden="true"><div class="transition-panel"></div><div class="transition-grid"></div><div class="transition-scan"></div><span class="transition-label">HUMAN-COMPUTER INTERACTION</span></div>
     <div class="cursor" aria-hidden="true"></div><div class="grain" aria-hidden="true"></div>
     <header class="site-head">
@@ -23,7 +25,7 @@
         <span class="identity-copy">Zihe Huang<br />Architecture · HCI · AI</span>
       </a>
       <div class="coordinates" aria-hidden="true">10⁻² / HCI<br />HUMAN SYSTEMS</div>
-      <div class="header-actions"><button class="menu-button" type="button" aria-label="Open contents" aria-expanded="false"><i aria-hidden="true"></i></button><a class="header-contact" href="#category-contact">Contact</a></div>
+      <div class="header-actions"><button class="menu-button" type="button" aria-label="Open contents" aria-expanded="false"><i aria-hidden="true"></i></button><a class="header-contact" href="mailto:ziheh@andrew.cmu.edu">Contact</a></div>
     </header>
     <aside class="index-panel" aria-hidden="true">
       <nav aria-label="Portfolio contents">
@@ -32,7 +34,7 @@
         <a href="../architecture/" data-route data-route-label="ARCHITECTURE"><span>03</span><b>Arch</b></a>
         <a href="../pm/" data-route data-route-label="PRODUCT MANAGEMENT"><span>04</span><b>PM</b></a>
         <a href="./" data-route data-route-label="HUMAN-COMPUTER INTERACTION" aria-current="page"><span>05</span><b>HCI</b></a>
-        <a href="#category-contact"><span>06</span><b>Contact</b></a>
+        <a href="mailto:ziheh@andrew.cmu.edu"><span>06</span><b>Contact</b></a>
       </nav>
       <p>Human-centered work grounded in research, prototyping, feedback, and usable systems.</p>
       <div class="index-socials" aria-label="Contact links">
@@ -41,27 +43,14 @@
         <a class="index-email" href="mailto:ziheh@andrew.cmu.edu" aria-label="Email Zihe Huang"><i></i></a>
       </div>
     </aside>
-    <main class="hci-holding" aria-labelledby="hci-title">
-      <div class="hci-holding-grid" aria-hidden="true"></div>
-      <div class="hci-holding-code">05 / HCI<br />HUMAN SYSTEMS</div>
-      <div class="hci-workshop-buddy" aria-hidden="true">
-        <span class="buddy-spark spark-one">✦</span><span class="buddy-spark spark-two">+</span>
-        <div class="buddy-note note-a">TESTING<br />IDEAS</div><div class="buddy-note note-b">v0.1</div>
-        <div class="buddy-bubble"><b>still making!</b><span>archive in progress</span></div>
-        <div class="buddy-antenna"></div>
-        <div class="buddy-head"><i></i><i></i><b></b></div>
-        <div class="buddy-body"><span>HCI</span></div>
-        <div class="buddy-arm arm-left"></div><div class="buddy-arm arm-right"></div>
-        <div class="buddy-shadow"></div>
-      </div>
-      <section class="hci-holding-copy">
-        <p class="hci-holding-kicker">HUMAN-COMPUTER INTERACTION / 2026</p>
-        <h1 id="hci-title">SITE UNDER<br /><em>CONSTRUCTION.</em></h1>
-        <p class="hci-holding-note">The HCI archive is taking shape around research, prototypes, and systems in progress.</p>
-        <a class="hci-home-button" href="../" data-route data-route-label="ALOBI / HOME">Back to main page <span aria-hidden="true">↗</span></a>
+    <main>
+      <section class="hci-blank-hero" id="top" aria-labelledby="hci-title">
+        <div class="hci-blank-field" data-hci-field aria-hidden="true"></div>
+        <p class="hci-status">SITE UNDER CONSTRUCTION</p>
+        <h1 class="hci-uiux-title" id="hci-title" aria-label="UIUX"><span data-hci-title-type></span></h1>
       </section>
-      <p class="hci-holding-footer">BUILDING THE NEXT ITERATION <span>—</span> ARCHIVE IN PROGRESS</p>
     </main>
+    <script type="module" src="./hci.js?v=20260916-menu-fix-1"></script>
     <script src="../spectacle.js?v=20260915-no-instructions-1"></script>
     <script>
       (() => {
@@ -122,8 +111,8 @@
           } catch {}
           window.setTimeout(() => {
             transition.classList.add('is-holding');
-            window.setTimeout(() => location.assign(link.href), 170);
-          }, 780);
+            window.setTimeout(() => location.assign(link.href), 148);
+          }, 678);
         }));
       })();
     </script>

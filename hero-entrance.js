@@ -1,5 +1,7 @@
 export default function heroEntrance({field,typeTarget,title,hero,text,radial=false,revealCenters=null,onDispose=()=>{}}) {
   const reduced = matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const motionRate = 1.15;
+  const scaled = ms => ms / motionRate;
   const divider = document.createElement('div');
   divider.className = 'arch-entrance-divider';
   divider.setAttribute('aria-hidden', 'true');
@@ -24,7 +26,7 @@ export default function heroEntrance({field,typeTarget,title,hero,text,radial=fa
     const start = performance.now();
     const frame = now => {
       if (disposed) { resolve(); return; }
-      const elapsed = now - start;
+      const elapsed = (now - start) * motionRate;
       if (radial) {
         const progress = ease(elapsed / 1650);
         if (revealCenters?.length) {
@@ -122,17 +124,17 @@ export default function heroEntrance({field,typeTarget,title,hero,text,radial=fa
     await animate(divider, [
       { transform: `translateY(${Math.max(0, innerHeight - heroRect.top - lineY) + 3}px)` },
       { transform: 'translateY(0)' }
-    ], { duration: 730, easing: 'cubic-bezier(.65,0,.2,1)', fill: 'forwards' });
+    ], { duration: scaled(730), easing: 'cubic-bezier(.65,0,.2,1)', fill: 'forwards' });
     if (disposed) return;
     const waves = revealField();
-    await pause(400);
+    await pause(scaled(400));
     const gap = Math.max(0, title.getBoundingClientRect().top - field.getBoundingClientRect().bottom);
     title.style.clipPath = `inset(-${gap}px -5% -30% -5%)`;
     title.style.visibility = 'visible';
     const roll = animate(typeTarget, [
       { transform: `translateY(calc(-100% - ${gap}px)) rotateX(70deg)` },
       { transform: 'translateY(0) rotateX(0deg)' }
-    ], { duration: 1450, easing: 'cubic-bezier(.22,.7,.18,1)', fill: 'forwards' });
+    ], { duration: scaled(1450), easing: 'cubic-bezier(.22,.7,.18,1)', fill: 'forwards' });
     await Promise.all([waves, roll]);
     hero.classList.add('arch-entered');
     hero.classList.remove('arch-entering');

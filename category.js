@@ -757,9 +757,9 @@ for (let index = 0; index < 12; index += 1) {
 }
 
 let routing = false;
-const routeTransitionDuration = 780;
-const routeHoldDuration = 170;
-const routeRevealDuration = 1050;
+const routeTransitionDuration = 678;
+const routeHoldDuration = 148;
+const routeRevealDuration = 913;
 const routeStorageKey = 'alobi-route-reveal';
 
 const rememberRouteReveal = (label, effect = 'route') => {
