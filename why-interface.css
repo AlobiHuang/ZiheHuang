@@ -1,0 +1,259 @@
+.why-interface{--why-accent:#78c900;position:relative;background:#f5f5f7;color:#1d1d1f}
+.why-welcome-page,.why-metaball-page{box-sizing:border-box;position:relative;min-height:100svh;overflow:hidden}
+.why-grid{position:absolute;inset:0;background-image:linear-gradient(rgba(29,29,31,.045) 1px,transparent 1px),linear-gradient(90deg,rgba(29,29,31,.045) 1px,transparent 1px);background-size:64px 64px;mask-image:linear-gradient(to bottom,#000,transparent 96%);opacity:.55;pointer-events:none}
+.why-welcome-page{display:grid;place-items:center;padding:96px var(--shell-edge) 72px;background:radial-gradient(600px circle at 50% 52%,rgba(120,201,0,.12),transparent 72%),#f5f5f7}
+.why-welcome{width:100%;display:grid;place-items:center;text-align:center}
+.why-welcome h2{max-width:11.5ch;min-height:2.05em;margin:0;white-space:pre-wrap;color:#1d1d1f;font:680 clamp(58px,8.1vw,130px)/.89 -apple-system,BlinkMacSystemFont,"SF Pro Display",sans-serif;letter-spacing:-.075em}
+.why-welcome h2 i{color:#78c900;font-style:normal;font-weight:450;animation:why-cursor .82s ease-in-out infinite}
+.why-welcome-cue{position:absolute;left:50%;bottom:34px;transform:translateX(-50%);margin:0;color:#6e6e73;font:700 8px/1 sans-serif;letter-spacing:.1em;text-transform:uppercase;white-space:nowrap;opacity:0;transition:opacity .6s .15s}
+.why-interface.is-typed .why-welcome-cue{opacity:1}.why-welcome-cue span,.why-ball-hint span{display:inline-block;width:7px;height:7px;margin-right:8px;border-radius:50%;background:#78c900;box-shadow:0 0 0 6px rgba(120,201,0,.12)}
+.why-metaball-page{display:grid;grid-template-rows:auto 1fr;padding:clamp(84px,7vw,112px) var(--shell-edge) 44px;background:#100d14;color:#fff;isolation:isolate}
+.why-metaball-page:after{content:"";position:absolute;inset:0;z-index:-2;background:radial-gradient(700px circle at var(--why-x,50%) var(--why-y,50%),rgba(120,201,0,.09),transparent 68%);pointer-events:none}
+body:has(.why-metaball-page:hover) .fx-aura,body:has(.why-metaball-page:hover) .fx-cursor{opacity:0!important}
+.why-header{z-index:4;display:flex;align-items:start;justify-content:space-between;gap:24px}.why-header p{margin:0;display:grid;gap:8px}.why-header p span,.why-header small{color:rgba(255,255,255,.48);font:700 9px/1 sans-serif;letter-spacing:.12em}.why-header p strong{font:650 clamp(22px,2vw,31px)/1 sans-serif;letter-spacing:-.04em}.why-header small{padding-top:5px}
+.why-question-deck{position:relative;min-height:660px;outline:0}.why-question-deck:focus-visible{outline:1px solid rgba(255,255,255,.3);outline-offset:5px}
+.why-goo-filter{position:absolute;width:0;height:0;overflow:hidden}
+.why-metaball-field{position:absolute;inset:0;filter:url(#why-goo);pointer-events:none}
+.why-metaball-field i,.why-metaball-field b{position:absolute;left:var(--ball-left);top:var(--ball-top);width:var(--ball-size);aspect-ratio:1;border-radius:50%;background:#fff;transform:translate(-50%,-50%) scale(1);transition:transform .52s cubic-bezier(.16,1,.3,1);will-change:transform}
+.why-metaball-field i:nth-child(1),.why-question-card:nth-of-type(1){--ball-left:14%;--ball-top:34%;--ball-size:clamp(118px,11vw,168px)}
+.why-metaball-field i:nth-child(2),.why-question-card:nth-of-type(2){--ball-left:37%;--ball-top:67%;--ball-size:clamp(130px,12vw,182px)}
+.why-metaball-field i:nth-child(3),.why-question-card:nth-of-type(3){--ball-left:58%;--ball-top:29%;--ball-size:clamp(112px,10vw,154px)}
+.why-metaball-field i:nth-child(4),.why-question-card:nth-of-type(4){--ball-left:79%;--ball-top:63%;--ball-size:clamp(135px,12.5vw,190px)}
+.why-metaball-field i:nth-child(5),.why-question-card:nth-of-type(5){--ball-left:91%;--ball-top:25%;--ball-size:clamp(100px,9vw,138px)}
+.why-metaball-field b{left:0;top:0;width:clamp(64px,6vw,92px);background:#78c900;opacity:0;transition:opacity .2s,width .35s cubic-bezier(.16,1,.3,1);will-change:transform}
+.why-question-deck.has-pointer .why-metaball-field b{opacity:1}
+.why-question-deck[data-active="0"] .why-metaball-field i:nth-child(1),.why-question-deck[data-active="1"] .why-metaball-field i:nth-child(2),.why-question-deck[data-active="2"] .why-metaball-field i:nth-child(3),.why-question-deck[data-active="3"] .why-metaball-field i:nth-child(4),.why-question-deck[data-active="4"] .why-metaball-field i:nth-child(5){transform:translate(-50%,-50%) scale(1.42)}
+.why-question-deck[data-active] .why-metaball-field b{width:112px}
+.why-question-card{position:absolute;z-index:2;left:var(--ball-left);top:var(--ball-top);width:var(--ball-size);aspect-ratio:1;transform:translate(-50%,-50%);padding:18px;border:0;border-radius:50%;background:transparent;color:#100d14;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;cursor:pointer;transition:transform .52s cubic-bezier(.16,1,.3,1)}
+.why-question-card small,.why-question-card strong,.why-question-card i{opacity:0;transition:opacity .22s ease}.why-question-card small{position:absolute;top:20px;color:rgba(16,13,20,.5);font:700 8px/1 sans-serif;letter-spacing:.12em}.why-question-card strong{max-width:8ch;font:720 clamp(17px,1.7vw,27px)/.9 sans-serif;letter-spacing:-.055em}.why-question-card i{position:absolute;right:17px;bottom:17px;width:28px;height:28px;border:1px solid rgba(16,13,20,.35);border-radius:50%;display:grid;place-items:center;font:600 11px/1 sans-serif;font-style:normal}
+.why-question-card.is-hovered,.why-question-card:focus-visible{z-index:5;transform:translate(-50%,-50%) scale(1.42);outline:none}.why-question-card.is-hovered small,.why-question-card.is-hovered strong,.why-question-card.is-hovered i,.why-question-card:focus-visible small,.why-question-card:focus-visible strong,.why-question-card:focus-visible i{opacity:1}
+.why-ball-hint{position:absolute;left:50%;bottom:8px;transform:translateX(-50%);margin:0;color:rgba(255,255,255,.52);font:700 8px/1 sans-serif;letter-spacing:.1em;text-transform:uppercase;white-space:nowrap}
+html.why-detail-open,body.why-detail-open{overflow:hidden!important;overscroll-behavior:none}.why-detail{--why-detail-accent:#78c900;--why-detail-x:50vw;--why-detail-y:50vh;position:fixed;z-index:10020;inset:0;visibility:hidden;pointer-events:none;overflow:hidden;overscroll-behavior:contain;touch-action:none;color:#fff;background:#1d1d1f;clip-path:circle(0 at var(--why-detail-x) var(--why-detail-y));transition:clip-path .5s cubic-bezier(.16,1,.3,1),visibility 0s .5s}.why-detail.is-open{visibility:visible;pointer-events:auto;clip-path:circle(150vmax at var(--why-detail-x) var(--why-detail-y));transition-delay:0s}.why-detail.is-closing{visibility:visible;clip-path:circle(0 at var(--why-detail-x) var(--why-detail-y));transition:clip-path .5s cubic-bezier(.7,0,.2,1)}
+.why-detail>img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;transform:scale(1.08);filter:saturate(.82) contrast(1.04);transition:transform 1.25s cubic-bezier(.16,1,.3,1)}.why-detail.is-open>img{transform:scale(1)}.why-detail-shade{position:absolute;inset:0;background:linear-gradient(90deg,rgba(0,0,0,.76),rgba(0,0,0,.28) 55%,rgba(0,0,0,.1)),linear-gradient(0deg,rgba(0,0,0,.64),transparent 58%)}
+.why-character-interface{display:none}.why-detail.is-character{--character-x:0px;--character-y:0px;--character-rx:0deg;--character-ry:0deg;background:#171310;perspective:1200px}.why-detail.is-character>img{inset:-3%;width:106%;height:106%;object-position:center!important;transform:translate3d(var(--character-x),var(--character-y),0) rotateX(var(--character-rx)) rotateY(var(--character-ry)) scale(1.06);transform-origin:72% 48%;filter:saturate(.88) contrast(1.02);transition:transform .7s cubic-bezier(.16,1,.3,1)}.why-detail.is-character.is-open>img{transform:translate3d(var(--character-x),var(--character-y),0) rotateX(var(--character-rx)) rotateY(var(--character-ry)) scale(1.02)}.why-detail.is-character .why-detail-shade{background:linear-gradient(90deg,rgba(10,9,8,.7) 0%,rgba(10,9,8,.38) 38%,transparent 68%),linear-gradient(0deg,rgba(9,8,7,.5),transparent 55%)}.why-detail.is-character .why-option-wheel{display:none}.why-detail.is-character .why-character-interface{display:block;position:absolute;z-index:2;inset:0;pointer-events:none}.why-character-interface p{position:absolute;right:var(--shell-edge);bottom:30px;margin:0;color:rgba(255,255,255,.64);font:700 8px/1 sans-serif;letter-spacing:.12em;text-transform:uppercase}.why-character-interface p i{display:inline-block;width:7px;height:7px;margin-right:9px;border-radius:50%;background:var(--why-detail-accent);box-shadow:0 0 0 6px rgba(213,83,54,.16)}.why-character-interface small{position:absolute;right:var(--shell-edge);top:88px;color:rgba(255,255,255,.42);font:700 8px/1 sans-serif;letter-spacing:.13em}.why-character-orbit{position:absolute;right:5vw;top:50%;width:min(49vw,680px);aspect-ratio:1;border:1px solid rgba(255,255,255,.12);border-radius:50%;transform:translateY(-50%);box-shadow:inset 0 0 90px rgba(213,83,54,.05)}.why-character-orbit:before,.why-character-orbit:after{content:"";position:absolute;border-radius:50%}.why-character-orbit:before{inset:12%;border:1px dashed rgba(255,255,255,.1);animation:why-character-spin 22s linear infinite}.why-character-orbit:after{left:50%;top:-4px;width:8px;height:8px;background:var(--why-detail-accent);box-shadow:0 0 0 7px rgba(213,83,54,.13)}
+@keyframes why-character-spin{to{transform:rotate(360deg)}}
+.why-detail-header{position:absolute;z-index:3;left:0;right:0;top:0;padding:22px var(--shell-edge);display:flex;align-items:flex-start;justify-content:space-between}.why-detail-header p{margin:0;display:grid;gap:7px}.why-detail-header p span{color:var(--why-detail-accent);font:750 9px/1 sans-serif;letter-spacing:.12em}.why-detail-header p strong{font:650 15px/1 sans-serif;letter-spacing:-.02em}.why-detail-close{height:46px;padding:0 8px 0 18px;border:1px solid rgba(255,255,255,.3);border-radius:999px;background:rgba(20,20,20,.62);color:#fff;display:flex;align-items:center;gap:14px;font:700 10px/1 sans-serif;cursor:pointer;backdrop-filter:blur(18px);transition:transform .3s,background .25s}.why-detail-close i{width:32px;height:32px;border-radius:50%;background:#fff;color:#1d1d1f;display:grid;place-items:center;font:500 20px/1 sans-serif;font-style:normal}.why-detail-close:hover,.why-detail-close:focus-visible{transform:translateY(-3px);background:var(--why-detail-accent);outline:none}
+.why-detail-copy{position:absolute;z-index:3;left:var(--shell-edge);bottom:clamp(48px,7vw,100px);max-width:min(720px,70vw)}.why-detail-copy small{color:var(--why-detail-accent);font:750 10px/1 sans-serif;letter-spacing:.14em}.why-detail-copy h3{max-width:9ch;margin:18px 0 22px;font:720 clamp(64px,9.5vw,150px)/.78 sans-serif;letter-spacing:-.08em}.why-detail-copy p{max-width:47ch;margin:0;color:rgba(255,255,255,.82);font-size:clamp(16px,1.45vw,22px);line-height:1.35}
+.why-option-wheel{position:absolute;z-index:2;right:var(--shell-edge);top:50%;width:min(38vw,540px);height:62vh;transform:translateY(-50%);overflow:hidden}.why-option-wheel span{position:absolute;right:0;top:50%;color:#fff;font:600 clamp(23px,3vw,46px)/1 sans-serif;letter-spacing:-.05em;white-space:nowrap;transform-origin:right center;filter:blur(6px);opacity:.1}.why-option-wheel span:nth-child(1){transform:translate(-88px,-230px) rotate(-14deg)}.why-option-wheel span:nth-child(2){transform:translate(-30px,-125px) rotate(-7deg)}.why-option-wheel span:nth-child(3){transform:translate(-8px,-15px)}.why-option-wheel span:nth-child(4){transform:translate(-30px,98px) rotate(7deg)}.why-option-wheel span:nth-child(5){transform:translate(-88px,205px) rotate(14deg)}.why-option-wheel span.is-current{filter:none;opacity:.82;color:var(--why-detail-accent)}
+@keyframes why-cursor{0%,45%{opacity:1}55%,100%{opacity:.08}}
+@media(max-width:760px){.why-welcome-page{padding:84px 18px 64px}.why-welcome h2{max-width:9ch;min-height:4.1em;font-size:clamp(48px,14vw,68px);line-height:.91}.why-metaball-page{padding:86px 18px 34px}.why-header small{display:none}.why-question-deck{min-height:690px}.why-metaball-field i:nth-child(1),.why-question-card:nth-of-type(1){--ball-left:25%;--ball-top:19%;--ball-size:128px}.why-metaball-field i:nth-child(2),.why-question-card:nth-of-type(2){--ball-left:72%;--ball-top:31%;--ball-size:140px}.why-metaball-field i:nth-child(3),.why-question-card:nth-of-type(3){--ball-left:27%;--ball-top:50%;--ball-size:120px}.why-metaball-field i:nth-child(4),.why-question-card:nth-of-type(4){--ball-left:71%;--ball-top:65%;--ball-size:144px}.why-metaball-field i:nth-child(5),.why-question-card:nth-of-type(5){--ball-left:30%;--ball-top:82%;--ball-size:126px}.why-metaball-field b{width:68px}.why-question-card strong{font-size:18px}.why-ball-hint{bottom:0;font-size:6.5px}.why-detail-header{padding:18px}.why-detail-copy{left:20px;right:20px;bottom:42px;max-width:none}.why-detail-copy h3{font-size:clamp(54px,17vw,84px)}.why-detail-copy p{max-width:33ch;font-size:15px}.why-option-wheel{right:-28%;width:88vw;opacity:.34}.why-detail-shade{background:linear-gradient(0deg,rgba(0,0,0,.86),rgba(0,0,0,.06) 86%)}.why-detail.is-character>img{inset:-2%;width:104%;height:104%;object-position:67% center!important}.why-detail.is-character .why-detail-shade{background:linear-gradient(0deg,rgba(8,7,6,.88) 0%,rgba(8,7,6,.2) 68%,transparent 100%)}.why-character-orbit,.why-character-interface small{display:none}.why-character-interface p{right:18px;bottom:18px;font-size:6.5px}}
+@media(prefers-reduced-motion:reduce){.why-interface *,.why-detail,.why-detail>img{animation:none!important;transition:none!important}}
+
+/* Living question field: five morphing forms orbit a quiet central core. */
+.why-metaball-page{background:#f5f5f7;color:#1d1d1f}
+.why-metaball-page:after{background:radial-gradient(620px circle at var(--why-x,50%) var(--why-y,50%),rgba(120,201,0,.1),transparent 70%)}
+.why-header p span,.why-header small{color:#6e6e73}
+.why-question-deck:before,.why-question-deck:after{content:"";position:absolute;left:50%;top:50%;border:1px solid rgba(29,29,31,.08);border-radius:50%;transform:translate(-50%,-50%);pointer-events:none}
+.why-question-deck:before{width:min(54vw,690px);aspect-ratio:1}.why-question-deck:after{width:clamp(58px,6vw,88px);aspect-ratio:1;border:0;background:#1d1d1f;outline:1px dashed rgba(120,201,0,.28);outline-offset:clamp(92px,11vw,142px);box-shadow:0 14px 38px rgba(29,29,31,.12)}
+.why-metaball-field i,.why-metaball-field b{background:#1d1d1f;transform:translate(-50%,-50%);scale:1;transition:scale .46s cubic-bezier(.16,1,.3,1);animation-duration:var(--float-time,10s);animation-delay:var(--float-delay,0s);animation-timing-function:ease-in-out;animation-iteration-count:infinite;animation-direction:alternate}
+.why-metaball-field b{background:#1d1d1f;animation:none}
+.why-metaball-field i:nth-child(1),.why-question-card:nth-of-type(1){--ball-left:25%;--ball-top:37%;--ball-size:clamp(118px,11vw,168px);--float-time:9.4s;--float-delay:-2.1s;animation-name:why-float-one}
+.why-metaball-field i:nth-child(2),.why-question-card:nth-of-type(2){--ball-left:38%;--ball-top:70%;--ball-size:clamp(130px,12vw,182px);--float-time:11.2s;--float-delay:-6.4s;animation-name:why-float-two}
+.why-metaball-field i:nth-child(3),.why-question-card:nth-of-type(3){--ball-left:55%;--ball-top:28%;--ball-size:clamp(112px,10vw,154px);--float-time:8.7s;--float-delay:-4.2s;animation-name:why-float-three}
+.why-metaball-field i:nth-child(4),.why-question-card:nth-of-type(4){--ball-left:72%;--ball-top:66%;--ball-size:clamp(135px,12.5vw,190px);--float-time:10.6s;--float-delay:-7.1s;animation-name:why-float-four}
+.why-metaball-field i:nth-child(5),.why-question-card:nth-of-type(5){--ball-left:80%;--ball-top:35%;--ball-size:clamp(100px,9vw,138px);--float-time:9.8s;--float-delay:-1.7s;animation-name:why-float-five}
+.why-question-card{color:#fff;scale:1;transition:scale .46s cubic-bezier(.16,1,.3,1);animation-duration:var(--float-time,10s);animation-delay:var(--float-delay,0s);animation-timing-function:ease-in-out;animation-iteration-count:infinite;animation-direction:alternate}
+.why-question-card small{color:rgba(255,255,255,.55)}.why-question-card i{border-color:rgba(255,255,255,.42)}
+.why-question-card.is-hovered,.why-question-card:focus-visible{transform:translate(-50%,-50%);scale:1.42;animation-play-state:paused}
+.why-question-deck[data-active="0"] .why-metaball-field i:nth-child(1),.why-question-deck[data-active="1"] .why-metaball-field i:nth-child(2),.why-question-deck[data-active="2"] .why-metaball-field i:nth-child(3),.why-question-deck[data-active="3"] .why-metaball-field i:nth-child(4),.why-question-deck[data-active="4"] .why-metaball-field i:nth-child(5){transform:translate(-50%,-50%);scale:1.42;animation-play-state:paused}
+.why-ball-hint{color:#6e6e73}
+@keyframes why-float-one{0%{transform:translate(-50%,-50%) translate(-28px,18px) rotate(-7deg) scale(.88,1.04);border-radius:50% 44% 57% 43%}48%{transform:translate(-50%,-50%) translate(22px,-30px) rotate(8deg) scale(1.1,.93);border-radius:43% 57% 46% 54%}100%{transform:translate(-50%,-50%) translate(46px,14px) rotate(-4deg) scale(.96,1.12);border-radius:58% 42% 55% 45%}}
+@keyframes why-float-two{0%{transform:translate(-50%,-50%) translate(34px,-18px) rotate(6deg) scale(1.08,.9);border-radius:58% 42% 47% 53%}55%{transform:translate(-50%,-50%) translate(-30px,18px) rotate(-8deg) scale(.9,1.1);border-radius:46% 54% 59% 41%}100%{transform:translate(-50%,-50%) translate(12px,38px) rotate(4deg) scale(1.13,.97);border-radius:52% 48% 43% 57%}}
+@keyframes why-float-three{0%{transform:translate(-50%,-50%) translate(-18px,32px) rotate(5deg) scale(.92,1.08);border-radius:44% 56% 52% 48%}50%{transform:translate(-50%,-50%) translate(30px,10px) rotate(-9deg) scale(1.12,.91);border-radius:61% 39% 46% 54%}100%{transform:translate(-50%,-50%) translate(-8px,-34px) rotate(7deg) scale(.96,1.13);border-radius:48% 52% 59% 41%}}
+@keyframes why-float-four{0%{transform:translate(-50%,-50%) translate(-38px,-8px) rotate(-6deg) scale(1.12,.92);border-radius:55% 45% 41% 59%}52%{transform:translate(-50%,-50%) translate(14px,-36px) rotate(7deg) scale(.9,1.08);border-radius:42% 58% 56% 44%}100%{transform:translate(-50%,-50%) translate(36px,20px) rotate(-3deg) scale(1.04,1.14);border-radius:59% 41% 48% 52%}}
+@keyframes why-float-five{0%{transform:translate(-50%,-50%) translate(20px,30px) rotate(8deg) scale(.9,1.06);border-radius:47% 53% 60% 40%}47%{transform:translate(-50%,-50%) translate(-36px,-18px) rotate(-5deg) scale(1.14,.9);border-radius:60% 40% 44% 56%}100%{transform:translate(-50%,-50%) translate(18px,-32px) rotate(4deg) scale(.97,1.12);border-radius:43% 57% 52% 48%}}
+@media(max-width:760px){.why-question-deck:before{width:78vw}.why-question-deck:after{width:54px;outline-offset:58px}.why-metaball-field i:nth-child(1),.why-question-card:nth-of-type(1){--ball-left:25%;--ball-top:21%;--ball-size:118px}.why-metaball-field i:nth-child(2),.why-question-card:nth-of-type(2){--ball-left:70%;--ball-top:33%;--ball-size:130px}.why-metaball-field i:nth-child(3),.why-question-card:nth-of-type(3){--ball-left:29%;--ball-top:51%;--ball-size:112px}.why-metaball-field i:nth-child(4),.why-question-card:nth-of-type(4){--ball-left:69%;--ball-top:66%;--ball-size:134px}.why-metaball-field i:nth-child(5),.why-question-card:nth-of-type(5){--ball-left:31%;--ball-top:83%;--ball-size:116px}}
+
+/* React Bits MetaBalls field */
+.why-metaball-page{background:#100d14;color:#fff}
+.why-metaball-page:after{background:radial-gradient(700px circle at var(--why-x,50%) var(--why-y,50%),rgba(120,201,0,.1),transparent 70%)}
+.why-header p span,.why-header small{color:rgba(255,255,255,.48)}
+.why-question-deck:before,.why-question-deck:after,.why-metaball-field{display:none}
+.why-question-deck .metaballs-container{z-index:0}
+.why-question-card{z-index:2;color:#100d14;animation:none;scale:1;transition:scale .42s cubic-bezier(.16,1,.3,1),background .25s ease}
+.why-question-card small{color:rgba(16,13,20,.52)}
+.why-question-card i{border-color:rgba(16,13,20,.34)}
+.why-question-card.is-hovered,.why-question-card:focus-visible{transform:translate(-50%,-50%);scale:1.18;background:#fff;box-shadow:0 18px 55px rgba(0,0,0,.2)}
+.why-ball-hint{z-index:3;color:rgba(255,255,255,.52)}
+@media(max-width:760px){.why-question-card.is-hovered,.why-question-card:focus-visible{scale:1.08}}
+
+/* One continuous light chapter: the welcome, questions, and notes share one surface. */
+.about-journey{background:#f5f5f7!important}
+.about-light-flow{
+  position:relative;
+  isolation:isolate;
+  background:
+    radial-gradient(ellipse 58% 36% at 50% 31%,rgba(120,201,0,.12),transparent 76%),
+    radial-gradient(ellipse 62% 40% at 48% 72%,rgba(120,201,0,.09),transparent 80%),
+    #f5f5f7!important;
+}
+.why-interface,.why-welcome-page,.why-metaball-page,.intro-brief,.intro-playground{background:transparent!important}
+.why-metaball-page:after{display:none}
+.why-grid,.intro-play-grid{display:none!important}
+.why-header p span,.why-header small{color:#6e6e73}
+.why-question-card{color:#fff}
+.why-question-card small{color:rgba(255,255,255,.56)}
+.why-question-card i{border-color:rgba(255,255,255,.4)}
+.why-question-card.is-hovered,.why-question-card:focus-visible{background:#1d1d1f;box-shadow:0 18px 55px rgba(29,29,31,.2)}
+.why-ball-hint{color:#6e6e73}
+
+/* The greeting transforms in place into the question field. */
+html.why-gate-locked,body.why-gate-locked{overflow:hidden!important;overscroll-behavior:none}
+.why-interface{height:100svh;min-height:680px;overflow:hidden}
+.why-pixel-transition{position:absolute;z-index:5;inset:0;pointer-events:none}
+.why-welcome-page,.why-metaball-page{position:absolute!important;inset:0;min-height:0!important;height:100%;width:100%}
+.why-welcome{position:relative;width:min(1180px,92vw);min-height:68vh;padding:0;border:0;background:transparent;color:inherit;display:grid;place-items:center;text-align:center;cursor:pointer;isolation:isolate}
+.why-welcome-page{z-index:2}
+.why-welcome:before{display:none}
+.why-welcome:hover h2,.why-welcome:focus-visible h2{transform:none}
+.why-welcome:focus-visible{outline:1px solid rgba(29,29,31,.22);outline-offset:16px;border-radius:28px}
+.why-welcome h2{width:100%;max-width:none;min-height:3.05em;font-size:clamp(58px,7vw,112px);transition:opacity .38s ease .08s,filter .5s ease .04s}
+.why-interface.is-launching .why-welcome h2{opacity:0;filter:none;transform:none;transition:opacity .12s linear}
+.why-interface.is-launching .why-welcome-cue{opacity:0;transition-delay:0s}
+.why-interface.is-launched .why-welcome-page{visibility:hidden}
+.why-metaball-page{z-index:1;display:block;padding:0 var(--shell-edge)!important;opacity:0;visibility:hidden;pointer-events:none;transition:opacity .9s ease,visibility 0s .9s}
+.why-question-deck{transform:none;filter:none;transition:none}
+.why-question-card,.why-ball-hint{opacity:0;transition:opacity .46s ease .82s,scale .42s cubic-bezier(.16,1,.3,1),background .25s ease}
+.why-interface.is-launching .why-metaball-page,.why-interface.is-launched .why-metaball-page{opacity:1;visibility:visible;pointer-events:auto;transition-delay:.38s,0s}
+.why-interface.is-launching .why-question-deck,.why-interface.is-launched .why-question-deck{transform:scale(1);filter:blur(0)}
+.why-interface.is-launching .why-question-card,.why-interface.is-launching .why-ball-hint,.why-interface.is-launched .why-question-card,.why-interface.is-launched .why-ball-hint{opacity:1}
+.why-question-deck{height:100svh;min-height:680px}
+@media(max-width:760px){.why-interface{min-height:620px}.why-welcome{width:100%;min-height:72vh}.why-welcome h2{max-width:none;min-height:3.2em;font-size:clamp(40px,11vw,54px)}.why-question-deck{min-height:620px}}
+
+/* Question labels travel with the five leading MetaBalls. */
+.why-question-deck>.why-question-card{left:var(--tracked-x,50%);top:var(--tracked-y,50%);width:var(--tracked-size,140px);color:#171719;text-shadow:0 1px 0 rgba(255,255,255,.18);will-change:left,top,width,transform}
+.why-question-card small,.why-question-card strong,.why-question-card i{opacity:1}
+.why-question-card small{color:rgba(23,23,25,.6)}
+.why-question-card i{border-color:rgba(23,23,25,.35)}
+.why-question-card.is-hovered,.why-question-card:focus-visible{background:rgba(255,255,255,.2);box-shadow:0 14px 42px rgba(29,29,31,.13);backdrop-filter:blur(2px);scale:1.1}
+@media(max-width:760px){.why-question-deck>.why-question-card{width:min(var(--tracked-size,118px),31vw);padding:12px}.why-question-card strong{font-size:clamp(13px,3.8vw,17px)}.why-question-card small{top:13px}.why-question-card i{right:10px;bottom:10px;width:23px;height:23px}}
+
+/* Keep the three greeting sentences optically separate. */
+.why-welcome h2{line-height:1.02}
+
+/* Restrained neutral palette with one warm accent. */
+.about-light-flow{background:radial-gradient(ellipse 58% 36% at 50% 31%,rgba(199,125,93,.075),transparent 76%),radial-gradient(ellipse 62% 40% at 48% 72%,rgba(127,138,146,.055),transparent 80%),#f5f5f7!important}
+.why-type-cursor{color:#c77d5d!important}
+.why-welcome-cue span,.why-ball-hint span{background:#c77d5d;box-shadow:0 0 0 6px rgba(199,125,93,.1)}
+
+/* Monochrome question field. */
+.why-question-deck>.why-question-card{color:#fff;text-shadow:none}
+.why-question-card small{color:rgba(255,255,255,.62)}
+.why-question-card i{color:#fff;border-color:rgba(255,255,255,.45)}
+.why-question-card.is-hovered,.why-question-card:focus-visible{background:rgba(255,255,255,.08);box-shadow:0 14px 42px rgba(29,29,31,.14)}
+
+/* Compact labels for the lighter, more spacious MetaBall field. */
+.why-question-deck>.why-question-card strong{max-width:8.5ch;font-size:clamp(13px,1.25vw,20px);line-height:.94}
+.why-question-deck>.why-question-card small{top:12px;font-size:7px}
+.why-question-deck>.why-question-card i{right:9px;bottom:9px;width:22px;height:22px;font-size:9px}
+
+/* Match the homepage's editorial section language. */
+.why-field-header{position:absolute;z-index:5;left:var(--shell-edge);right:var(--shell-edge);top:clamp(82px,9vh,108px);display:flex;align-items:flex-start;justify-content:space-between;gap:28px;pointer-events:none}
+.why-field-header p{display:grid;gap:10px;margin:0}.why-field-header span,.why-field-header>small{color:#6e6e73;font:700 9px/1 "DM Mono",monospace;letter-spacing:.1em}.why-field-header span{color:#c77d5d}.why-field-header strong{color:#1d1d1f;font:650 clamp(28px,3vw,46px)/.95 -apple-system,BlinkMacSystemFont,"SF Pro Display",sans-serif;letter-spacing:-.055em}.why-field-header>small{padding-top:4px}
+.why-question-deck{border-top:1px solid transparent}
+.why-question-deck .metaballs-container{opacity:.92}
+.why-ball-hint{bottom:28px;padding:12px 16px;border:1px solid rgba(29,29,31,.09);border-radius:999px;background:rgba(255,255,255,.76);box-shadow:0 10px 28px rgba(29,29,31,.06);backdrop-filter:blur(12px)}
+.why-question-card.is-hovered,.why-question-card:focus-visible{background:rgba(255,255,255,.07);box-shadow:inset 0 0 0 2px #c77d5d,0 18px 48px rgba(29,29,31,.18)}
+.why-question-card i{background:rgba(255,255,255,.1)}
+@media(max-width:760px){.why-field-header{left:18px;right:18px;top:72px}.why-field-header strong{font-size:28px}.why-field-header>small{display:none}.why-ball-hint{bottom:16px;padding:10px 12px;max-width:calc(100% - 36px);white-space:normal;text-align:center;line-height:1.35}}
+
+/* Give the moving question forms one shared center and a legible circular orbit. */
+.why-question-deck:before{display:block!important;z-index:1;width:min(70vmin,680px)!important;aspect-ratio:1;border:1px solid rgba(29,29,31,.13)!important;background:transparent;box-shadow:0 0 0 42px rgba(29,29,31,.018),0 0 0 84px rgba(29,29,31,.012)}
+.why-question-deck:after{display:block!important;z-index:1;width:18px!important;aspect-ratio:1;border:0!important;outline:0!important;background:#1d1d1f!important;box-shadow:0 0 0 8px rgba(29,29,31,.07),0 0 0 1px #1d1d1f!important}
+@media(max-width:760px){.why-question-deck:before{width:min(78vw,560px)!important;box-shadow:0 0 0 26px rgba(29,29,31,.018),0 0 0 52px rgba(29,29,31,.012)}.why-question-deck:after{width:14px!important}}
+
+/* Multi-angle character: cursor position blends coordinated head turns. */
+.why-character-views{display:none}
+.why-detail.is-character{--character-left-opacity:0;--character-center-opacity:1;--character-right-opacity:0}
+.why-detail.is-character>img,.why-detail.is-character .why-character-view{
+  inset:-3%;width:106%;height:106%;object-fit:cover;object-position:center!important;
+  transform:translate3d(var(--character-x),var(--character-y),0) rotateX(var(--character-rx)) rotateY(var(--character-ry)) scale(1.06);
+  transform-origin:72% 48%;filter:saturate(.88) contrast(1.02);
+  transition:transform .55s cubic-bezier(.16,1,.3,1),opacity .2s ease;will-change:transform,opacity
+}
+.why-detail.is-character>img{opacity:var(--character-center-opacity)}
+.why-detail.is-character.is-open>img,.why-detail.is-character.is-open .why-character-view{transform:translate3d(var(--character-x),var(--character-y),0) rotateX(var(--character-rx)) rotateY(var(--character-ry)) scale(1.02)}
+.why-detail.is-character .why-character-views{display:block;position:absolute;z-index:0;inset:0;pointer-events:none}
+.why-detail.is-character .why-character-view{position:absolute}
+.why-character-view-left{opacity:var(--character-left-opacity)}
+.why-character-view-right{opacity:var(--character-right-opacity)}
+@media(max-width:760px){.why-detail.is-character .why-character-view{inset:-2%;width:104%;height:104%;object-position:67% center!important}}
+
+/* The greeting pixels finish by becoming the live MetaBalls. */
+.why-metaball-page .metaballs-container,.why-metaball-page .why-question-deck:before,.why-metaball-page .why-question-deck:after{opacity:0;transition:opacity .72s cubic-bezier(.16,1,.3,1)}
+.why-interface.is-forming .why-metaball-page .metaballs-container,.why-interface.is-forming .why-metaball-page .why-question-deck:before,.why-interface.is-forming .why-metaball-page .why-question-deck:after,.why-interface.is-launched .why-metaball-page .metaballs-container,.why-interface.is-launched .why-metaball-page .why-question-deck:before,.why-interface.is-launched .why-metaball-page .why-question-deck:after{opacity:1}
+.why-interface.is-launching .why-question-card{opacity:0!important}
+.why-interface.is-forming .why-question-card{opacity:1!important;transition-delay:.4s}
+.why-interface.is-launched .why-question-card{opacity:1!important;transition-delay:.08s}
+.why-interface.is-launching .why-metaball-page,.why-interface.is-launched .why-metaball-page{transition-delay:0s}
+
+/* The shared center reads as a small record with its original black spindle. */
+.why-question-deck:after{
+  width:clamp(62px,5.5vw,78px)!important;
+  border:1px solid rgba(29,29,31,.12)!important;
+  outline:0!important;
+  background:
+    conic-gradient(from 18deg,transparent 0 24%,rgba(29,29,31,.045) 30%,transparent 36% 72%,rgba(29,29,31,.025) 78%,transparent 84%),
+    radial-gradient(circle,
+      #1d1d1f 0 8px,
+      #fafafa 8.5px 14px,
+      #b8b8bd 14.5px 15.5px,
+      #fafafa 16px 22px,
+      #d2d2d7 22.5px 23.5px,
+      #fafafa 24px 30px,
+      #c7c7cc 30.5px 31.5px,
+      #fafafa 32px 100%)!important;
+  box-shadow:0 12px 30px rgba(29,29,31,.1),inset 0 0 0 1px rgba(255,255,255,.7)!important;
+  animation:why-record-spin 9s linear infinite;
+}
+@keyframes why-record-spin{
+  to{transform:translate(-50%,-50%) rotate(360deg)}
+}
+@media(max-width:760px){
+  .why-question-deck:after{width:56px!important}
+}
+@media(prefers-reduced-motion:reduce){
+  .why-question-deck:after{animation:none!important}
+}
+
+/* The full orbit is the record; the small center is only its spindle. */
+.why-question-deck:before{
+  z-index:0!important;
+  border:1px solid rgba(29,29,31,.14)!important;
+  background:
+    conic-gradient(from 12deg,transparent 0 18%,rgba(29,29,31,.022) 25%,transparent 32% 66%,rgba(29,29,31,.016) 73%,transparent 81%),
+    repeating-radial-gradient(circle,transparent 0 25px,rgba(29,29,31,.075) 26px,transparent 27px 43px),
+    rgba(255,255,255,.28)!important;
+  box-shadow:0 28px 80px rgba(29,29,31,.045),inset 0 0 70px rgba(29,29,31,.018)!important;
+  animation:why-record-spin 18s linear infinite;
+}
+.why-question-deck .metaballs-container{z-index:1!important}
+.why-question-deck:after{
+  z-index:3!important;
+  width:18px!important;
+  border:0!important;
+  outline:0!important;
+  background:#1d1d1f!important;
+  box-shadow:0 0 0 8px rgba(29,29,31,.07),0 0 0 1px #1d1d1f!important;
+  animation:none!important;
+}
+@media(max-width:760px){
+  .why-question-deck:after{width:14px!important}
+}
+@media(prefers-reduced-motion:reduce){
+  .why-question-deck:before{animation:none!important}
+}
+
+/* Question answers grow directly from, and return directly into, the selected black MetaBall. */
+.why-detail:before{content:"";position:absolute;z-index:18;inset:0;background:#1d1d1f;pointer-events:none;opacity:1;transition:opacity .18s ease}
+.why-detail.is-open:before{opacity:0;transition-delay:.12s}
+.why-detail.is-closing:before{opacity:1;transition-delay:0s}
+
+/* The interactive portrait is rendered as one continuous WebGL depth surface. */
+.why-character-stage{display:none;position:absolute;z-index:0;inset:0;background:radial-gradient(circle at 72% 38%,rgba(175,92,51,.34),transparent 30%),radial-gradient(circle at 68% 48%,#34221b 0,#171310 48%,#0d0c0c 100%);overflow:hidden}
+.why-character-stage:after{content:"";position:absolute;inset:0;pointer-events:none;background:radial-gradient(circle at 74% 43%,transparent 0 18%,rgba(7,6,6,.16) 45%,rgba(7,6,6,.5) 100%)}
+.why-character-stage canvas{position:absolute;inset:0;width:100%;height:100%;display:block;touch-action:none}
+.why-detail.is-character{cursor:move}
+.why-detail.is-character>img{display:none!important}
+.why-detail.is-character .why-character-stage{display:block}
+.why-detail.is-character .why-detail-close{cursor:pointer}

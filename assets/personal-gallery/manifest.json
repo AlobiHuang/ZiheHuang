@@ -1,0 +1,284 @@
+[
+  {
+    "index": 1,
+    "file": "personal-01.jpg",
+    "width": 960,
+    "height": 1280
+  },
+  {
+    "index": 2,
+    "file": "personal-02.jpg",
+    "width": 1280,
+    "height": 960
+  },
+  {
+    "index": 3,
+    "file": "personal-03.jpg",
+    "width": 1280,
+    "height": 960
+  },
+  {
+    "index": 4,
+    "file": "personal-04.jpg",
+    "width": 960,
+    "height": 1280
+  },
+  {
+    "index": 5,
+    "file": "personal-05.jpg",
+    "width": 1280,
+    "height": 960
+  },
+  {
+    "index": 6,
+    "file": "personal-06.jpg",
+    "width": 1280,
+    "height": 960
+  },
+  {
+    "index": 7,
+    "file": "personal-07.jpg",
+    "width": 1280,
+    "height": 960
+  },
+  {
+    "index": 8,
+    "file": "personal-08.jpg",
+    "width": 960,
+    "height": 1280
+  },
+  {
+    "index": 9,
+    "file": "personal-09.jpg",
+    "width": 960,
+    "height": 1280
+  },
+  {
+    "index": 10,
+    "file": "personal-10.jpg",
+    "width": 960,
+    "height": 1280
+  },
+  {
+    "index": 11,
+    "file": "personal-11.jpg",
+    "width": 960,
+    "height": 1280
+  },
+  {
+    "index": 12,
+    "file": "personal-12.jpg",
+    "width": 960,
+    "height": 1280
+  },
+  {
+    "index": 13,
+    "file": "personal-13.jpg",
+    "width": 960,
+    "height": 1280
+  },
+  {
+    "index": 14,
+    "file": "personal-14.jpg",
+    "width": 960,
+    "height": 1280
+  },
+  {
+    "index": 15,
+    "file": "personal-15.jpg",
+    "width": 1280,
+    "height": 960
+  },
+  {
+    "index": 16,
+    "file": "personal-16.jpg",
+    "width": 960,
+    "height": 1280
+  },
+  {
+    "index": 17,
+    "file": "personal-17.jpg",
+    "width": 960,
+    "height": 1280
+  },
+  {
+    "index": 18,
+    "file": "personal-18.jpg",
+    "width": 1280,
+    "height": 960
+  },
+  {
+    "index": 19,
+    "file": "personal-19.jpg",
+    "width": 960,
+    "height": 1280
+  },
+  {
+    "index": 20,
+    "file": "personal-20.jpg",
+    "width": 960,
+    "height": 1280
+  },
+  {
+    "index": 21,
+    "file": "personal-21.jpg",
+    "width": 1280,
+    "height": 960
+  },
+  {
+    "index": 22,
+    "file": "personal-22.jpg",
+    "width": 960,
+    "height": 1280
+  },
+  {
+    "index": 23,
+    "file": "personal-23.jpg",
+    "width": 960,
+    "height": 1280
+  },
+  {
+    "index": 24,
+    "file": "personal-24.jpg",
+    "width": 1280,
+    "height": 960
+  },
+  {
+    "index": 25,
+    "file": "personal-25.jpg",
+    "width": 1280,
+    "height": 960
+  },
+  {
+    "index": 26,
+    "file": "personal-26.jpg",
+    "width": 1280,
+    "height": 960
+  },
+  {
+    "index": 27,
+    "file": "personal-27.jpg",
+    "width": 960,
+    "height": 1280
+  },
+  {
+    "index": 28,
+    "file": "personal-28.jpg",
+    "width": 960,
+    "height": 1280
+  },
+  {
+    "index": 29,
+    "file": "personal-29.jpg",
+    "width": 960,
+    "height": 1280
+  },
+  {
+    "index": 30,
+    "file": "personal-30.jpg",
+    "width": 1280,
+    "height": 960
+  },
+  {
+    "index": 31,
+    "file": "personal-31.jpg",
+    "width": 960,
+    "height": 1280
+  },
+  {
+    "index": 32,
+    "file": "personal-32.jpg",
+    "width": 1280,
+    "height": 960
+  },
+  {
+    "index": 33,
+    "file": "personal-33.jpg",
+    "width": 960,
+    "height": 1280
+  },
+  {
+    "index": 34,
+    "file": "personal-34.jpg",
+    "width": 960,
+    "height": 1280
+  },
+  {
+    "index": 35,
+    "file": "personal-35.jpg",
+    "width": 960,
+    "height": 1280
+  },
+  {
+    "index": 36,
+    "file": "personal-36.jpg",
+    "width": 1280,
+    "height": 960
+  },
+  {
+    "index": 37,
+    "file": "personal-37.jpg",
+    "width": 960,
+    "height": 1280
+  },
+  {
+    "index": 38,
+    "file": "personal-38.jpg",
+    "width": 960,
+    "height": 1280
+  },
+  {
+    "index": 39,
+    "file": "personal-39.jpg",
+    "width": 1280,
+    "height": 960
+  },
+  {
+    "index": 40,
+    "file": "personal-40.jpg",
+    "width": 1280,
+    "height": 960
+  },
+  {
+    "index": 41,
+    "file": "personal-41.jpg",
+    "width": 960,
+    "height": 1280
+  },
+  {
+    "index": 42,
+    "file": "personal-42.jpg",
+    "width": 960,
+    "height": 1280
+  },
+  {
+    "index": 43,
+    "file": "personal-43.jpg",
+    "width": 960,
+    "height": 1280
+  },
+  {
+    "index": 44,
+    "file": "personal-44.jpg",
+    "width": 1280,
+    "height": 960
+  },
+  {
+    "index": 45,
+    "file": "personal-45.jpg",
+    "width": 1280,
+    "height": 960
+  },
+  {
+    "index": 46,
+    "file": "personal-46.jpg",
+    "width": 1280,
+    "height": 960
+  },
+  {
+    "index": 47,
+    "file": "personal-47.jpg",
+    "width": 960,
+    "height": 1280
+  }
+]
