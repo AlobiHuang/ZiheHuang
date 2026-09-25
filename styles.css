@@ -7,14 +7,15 @@ body{margin:0;background:var(--paper);color:var(--ink);font-family:Manrope,Arial
 .cursor{width:13px;height:13px;border-radius:50%;background:var(--signal);position:fixed;z-index:100;pointer-events:none;left:-30px;top:-30px;mix-blend-mode:multiply;transition:width .18s,height .18s,margin .18s}
 .cursor.large{width:48px;height:48px;margin:-18px}
 .site-head{height:100px;padding:0 var(--pad);display:grid;grid-template-columns:1fr 1fr 1fr;align-items:center;position:absolute;inset:0 0 auto;z-index:20}
+.site-head.menu-open{z-index:220!important}
 .identity{display:flex;align-items:center;gap:14px;text-decoration:none;color:inherit}
 .identity strong{width:44px;height:44px;background:var(--ink);color:var(--paper);display:grid;place-items:center;font:500 15px/1 DM Mono}
 .identity span,.coordinates{font:400 10px/1.45 DM Mono;letter-spacing:.04em;text-transform:uppercase}
 .coordinates{text-align:center}
 .menu-button{justify-self:end;border:0;background:transparent;text-transform:uppercase;font:500 12px DM Mono;display:flex;align-items:center;gap:12px;cursor:none}
 .menu-button i{display:block;width:28px;height:1px;background:var(--ink);box-shadow:0 6px var(--ink)}
-.index-panel{position:fixed;inset:0 0 0 auto;width:min(540px,100%);z-index:80;background:var(--ink);color:var(--paper);padding:40px;display:flex;flex-direction:column;transform:translateX(101%);transition:transform .5s cubic-bezier(.77,0,.18,1)}
-.index-panel.open{transform:none}
+.index-panel{position:fixed;inset:0 0 0 auto;width:min(540px,100%);z-index:80;background:var(--ink);color:var(--paper);padding:40px;display:flex;flex-direction:column;transform:translateX(101%);transition:transform .5s cubic-bezier(.77,0,.18,1);pointer-events:none}
+.index-panel.open{transform:none;pointer-events:auto}
 .index-close{align-self:flex-end;background:none;border:0;color:inherit;font:12px DM Mono;cursor:none}
 .index-panel nav{display:flex;flex-direction:column;margin:auto 0}
 .index-panel nav a{font-size:clamp(34px,5vw,62px);letter-spacing:-.05em;color:inherit;text-decoration:none;border-bottom:1px solid #444;padding:18px 0}
@@ -106,3 +107,13 @@ body{margin:0;background:var(--paper);color:var(--ink);font-family:Manrope,Arial
 }
 @media(prefers-reduced-motion:reduce){*{scroll-behavior:auto!important;animation:none!important;transition:none!important}
 }
+@media(max-width:900px),(hover:none),(pointer:coarse){
+body,body *{cursor:auto!important}
+.cursor,.fx-cursor,.arrival-cursor,.fx-aura{display:none!important;opacity:0!important;visibility:hidden!important}
+}
+/* The home link only reacts on the logo (and its name when shown), plus a
+   small margin, rather than across the whole left part of the header. */
+.site-head .identity{justify-self:start;pointer-events:none}
+.site-head .identity>*{pointer-events:auto}
+.site-head .identity{position:relative}
+.site-head .identity:before{content:"";position:absolute;left:-8px;top:-8px;height:calc(100% + 16px);aspect-ratio:1;pointer-events:auto}

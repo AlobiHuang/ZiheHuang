@@ -31,6 +31,10 @@ for (let index = 0; index < 12; index += 1) {
 }
 
 let routing = false;
+
+window.addEventListener('pageshow', event => {
+  if (event.persisted) routing = false;
+});
 const routeStorageKey = 'alobi-route-reveal';
 const rememberRouteReveal = (label, effect = 'line') => {
   try { sessionStorage.setItem(routeStorageKey, JSON.stringify({ label, effect, createdAt: Date.now() })); } catch {}

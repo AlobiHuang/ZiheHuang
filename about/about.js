@@ -45,6 +45,10 @@ for (let index = 0; index < 12; index += 1) {
 }
 
 let routing = false;
+
+window.addEventListener('pageshow', event => {
+  if (event.persisted) routing = false;
+});
 const routeTransitionDuration = 616;
 const routeHoldDuration = 135;
 const routeRevealDuration = 913;

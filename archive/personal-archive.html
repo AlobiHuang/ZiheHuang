@@ -1,0 +1,100 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="robots" content="noindex" />
+    <title>Personal archive gallery — archived</title>
+    <!-- Archived from the home page on 2026-09-23. The stack of personal photo cards and the infinite, draggable personal archive (01-47) that opens from it. To bring it back, paste the intro-brief block into index.html (it used to sit right after the ME exit) and the note-gallery section just before the scripts, and keep intro-play.css / intro-play.js loaded. -->
+    <link rel="stylesheet" href="../styles.css?v=20260922-logo-hit-1" />
+    <link rel="stylesheet" href="../animations.css?v=20260916-speed-1265" />
+    <link rel="stylesheet" href="../apple-system.css?v=20260915-practice-shift-1" />
+    <link rel="stylesheet" href="../spectacle.css?v=20260916-simple-menu-1" />
+    <link rel="stylesheet" href="../intro-play.css?v=20260916-home-copy-cleanup-1" />
+    <link rel="stylesheet" href="../playground.css?v=20260915-6" />
+    <link rel="stylesheet" href="../why-interface.css?v=20260914-7" />
+  </head>
+  <body class="home-page arrival-done is-ready">
+    <main>
+      <div class="intro-brief" id="field-notes">
+        <div class="intro-playground intro-photo-playground" aria-label="Selected moments from Zihe's personal photo archive">
+          <div class="intro-photo-cards" aria-label="A small stack of selected personal photographs">
+            <figure class="intro-photo-card" style="--card-x:-450px;--card-y:22px;--card-r:-9deg;--card-z:1;--card-delay:0ms"><img src="../assets/personal-gallery/personal-01.jpg" alt="A selected moment from Zihe's personal archive" loading="lazy" decoding="async" /></figure>
+            <figure class="intro-photo-card" style="--card-x:-300px;--card-y:-12px;--card-r:5deg;--card-z:2;--card-delay:70ms"><img src="../assets/personal-gallery/personal-05.jpg" alt="A selected moment from Zihe's personal archive" loading="lazy" decoding="async" /></figure>
+            <figure class="intro-photo-card" style="--card-x:-150px;--card-y:14px;--card-r:-3deg;--card-z:3;--card-delay:140ms"><img src="../assets/personal-gallery/personal-10.jpg" alt="A selected moment from Zihe's personal archive" loading="lazy" decoding="async" /></figure>
+            <figure class="intro-photo-card" style="--card-x:0px;--card-y:-8px;--card-r:6deg;--card-z:4;--card-delay:210ms"><img src="../assets/personal-gallery/personal-15.jpg" alt="A fine dining moment from Zihe's personal archive" loading="lazy" decoding="async" /></figure>
+            <figure class="intro-photo-card" style="--card-x:150px;--card-y:17px;--card-r:-5deg;--card-z:5;--card-delay:280ms"><img src="../assets/personal-gallery/personal-43.jpg" alt="A shared shadow portrait with Zihe's girlfriend" loading="lazy" decoding="async" /></figure>
+            <figure class="intro-photo-card" style="--card-x:300px;--card-y:-10px;--card-r:5deg;--card-z:6;--card-delay:350ms"><img src="../assets/personal-gallery/personal-33.jpg" alt="A cathedral photographed while travelling" loading="lazy" decoding="async" /></figure>
+            <button class="intro-photo-card intro-photo-card-entry intro-gallery-open" type="button" aria-controls="note-gallery" style="--card-x:450px;--card-y:18px;--card-r:-5deg;--card-z:7;--card-delay:420ms" aria-label="Open the full personal photo archive">
+              <img src="../assets/personal-gallery/personal-46.jpg" alt="" loading="lazy" decoding="async" />
+              <span class="intro-photo-entry-shade" aria-hidden="true"></span>
+              <span class="intro-photo-entry-copy" aria-hidden="true"><small>PERSONAL ARCHIVE</small><strong>01—47</strong></span>
+              <span class="intro-photo-hand" aria-hidden="true">👆🏻</span>
+            </button>
+          </div>
+        </div>
+      </div>
+    </main>
+    <section class="note-gallery" id="note-gallery" role="dialog" aria-modal="true" aria-labelledby="note-gallery-title" aria-hidden="true">
+      <div class="note-gallery-noise" aria-hidden="true"></div>
+      <div class="note-gallery-burst" aria-hidden="true"></div>
+      <header class="note-gallery-header">
+        <p><span>PERSONAL ARCHIVE / 01—47</span><strong id="note-gallery-title">Fragments of a life in motion.</strong></p>
+        <button class="note-gallery-close" type="button">Back to website <i>×</i></button>
+      </header>
+      <div class="note-gallery-field" tabindex="0" aria-label="Infinite draggable personal photo gallery">
+        <div class="note-gallery-plane" aria-live="off"></div>
+        <div class="note-gallery-templates" hidden>
+          <button class="note-gallery-card photo-card" type="button" style="--photo-ratio:0.75;--r:3deg" aria-label="Personal gallery image 01"><img data-src="../assets/personal-gallery/personal-01.jpg" alt="" width="960" height="1280" loading="lazy" decoding="async"></button>
+          <button class="note-gallery-card photo-card" type="button" style="--photo-ratio:1.3333;--r:1deg" aria-label="Personal gallery image 02"><img data-src="../assets/personal-gallery/personal-02.jpg" alt="" width="1280" height="960" loading="lazy" decoding="async"></button>
+          <button class="note-gallery-card photo-card" type="button" style="--photo-ratio:1.3333;--r:-1deg" aria-label="Personal gallery image 03"><img data-src="../assets/personal-gallery/personal-03.jpg" alt="" width="1280" height="960" loading="lazy" decoding="async"></button>
+          <button class="note-gallery-card photo-card" type="button" style="--photo-ratio:0.75;--r:-3deg" aria-label="Personal gallery image 04"><img data-src="../assets/personal-gallery/personal-04.jpg" alt="" width="960" height="1280" loading="lazy" decoding="async"></button>
+          <button class="note-gallery-card photo-card" type="button" style="--photo-ratio:1.3333;--r:4deg" aria-label="Personal gallery image 05"><img data-src="../assets/personal-gallery/personal-05.jpg" alt="" width="1280" height="960" loading="lazy" decoding="async"></button>
+          <button class="note-gallery-card photo-card" type="button" style="--photo-ratio:1.3333;--r:2deg" aria-label="Personal gallery image 06"><img data-src="../assets/personal-gallery/personal-06.jpg" alt="" width="1280" height="960" loading="lazy" decoding="async"></button>
+          <button class="note-gallery-card photo-card" type="button" style="--photo-ratio:1.3333;--r:0deg" aria-label="Personal gallery image 07"><img data-src="../assets/personal-gallery/personal-07.jpg" alt="" width="1280" height="960" loading="lazy" decoding="async"></button>
+          <button class="note-gallery-card photo-card" type="button" style="--photo-ratio:0.75;--r:-2deg" aria-label="Personal gallery image 08"><img data-src="../assets/personal-gallery/personal-08.jpg" alt="" width="960" height="1280" loading="lazy" decoding="async"></button>
+          <button class="note-gallery-card photo-card" type="button" style="--photo-ratio:0.75;--r:-4deg" aria-label="Personal gallery image 09"><img data-src="../assets/personal-gallery/personal-09.jpg" alt="" width="960" height="1280" loading="lazy" decoding="async"></button>
+          <button class="note-gallery-card photo-card" type="button" style="--photo-ratio:0.75;--r:3deg" aria-label="Personal gallery image 10"><img data-src="../assets/personal-gallery/personal-10.jpg" alt="" width="960" height="1280" loading="lazy" decoding="async"></button>
+          <button class="note-gallery-card photo-card" type="button" style="--photo-ratio:0.75;--r:1deg" aria-label="Personal gallery image 11"><img data-src="../assets/personal-gallery/personal-11.jpg" alt="" width="960" height="1280" loading="lazy" decoding="async"></button>
+          <button class="note-gallery-card photo-card" type="button" style="--photo-ratio:0.75;--r:-1deg" aria-label="Personal gallery image 12"><img data-src="../assets/personal-gallery/personal-12.jpg" alt="" width="960" height="1280" loading="lazy" decoding="async"></button>
+          <button class="note-gallery-card photo-card" type="button" style="--photo-ratio:0.75;--r:-3deg" aria-label="Personal gallery image 13"><img data-src="../assets/personal-gallery/personal-13.jpg" alt="" width="960" height="1280" loading="lazy" decoding="async"></button>
+          <button class="note-gallery-card photo-card" type="button" style="--photo-ratio:0.75;--r:4deg" aria-label="Personal gallery image 14"><img data-src="../assets/personal-gallery/personal-14.jpg" alt="" width="960" height="1280" loading="lazy" decoding="async"></button>
+          <button class="note-gallery-card photo-card" type="button" style="--photo-ratio:1.3333;--r:2deg" aria-label="Personal gallery image 15"><img data-src="../assets/personal-gallery/personal-15.jpg" alt="" width="1280" height="960" loading="lazy" decoding="async"></button>
+          <button class="note-gallery-card photo-card" type="button" style="--photo-ratio:0.75;--r:0deg" aria-label="Personal gallery image 16"><img data-src="../assets/personal-gallery/personal-16.jpg" alt="" width="960" height="1280" loading="lazy" decoding="async"></button>
+          <button class="note-gallery-card photo-card" type="button" style="--photo-ratio:0.75;--r:-2deg" aria-label="Personal gallery image 17"><img data-src="../assets/personal-gallery/personal-17.jpg" alt="" width="960" height="1280" loading="lazy" decoding="async"></button>
+          <button class="note-gallery-card photo-card" type="button" style="--photo-ratio:1.3333;--r:-4deg" aria-label="Personal gallery image 18"><img data-src="../assets/personal-gallery/personal-18.jpg" alt="" width="1280" height="960" loading="lazy" decoding="async"></button>
+          <button class="note-gallery-card photo-card" type="button" style="--photo-ratio:0.75;--r:3deg" aria-label="Personal gallery image 19"><img data-src="../assets/personal-gallery/personal-19.jpg" alt="" width="960" height="1280" loading="lazy" decoding="async"></button>
+          <button class="note-gallery-card photo-card" type="button" style="--photo-ratio:0.75;--r:1deg" aria-label="Personal gallery image 20"><img data-src="../assets/personal-gallery/personal-20.jpg" alt="" width="960" height="1280" loading="lazy" decoding="async"></button>
+          <button class="note-gallery-card photo-card" type="button" style="--photo-ratio:1.3333;--r:-1deg" aria-label="Personal gallery image 21"><img data-src="../assets/personal-gallery/personal-21.jpg" alt="" width="1280" height="960" loading="lazy" decoding="async"></button>
+          <button class="note-gallery-card photo-card" type="button" style="--photo-ratio:0.75;--r:-3deg" aria-label="Personal gallery image 22"><img data-src="../assets/personal-gallery/personal-22.jpg" alt="" width="960" height="1280" loading="lazy" decoding="async"></button>
+          <button class="note-gallery-card photo-card" type="button" style="--photo-ratio:0.75;--r:4deg" aria-label="Personal gallery image 23"><img data-src="../assets/personal-gallery/personal-23.jpg" alt="" width="960" height="1280" loading="lazy" decoding="async"></button>
+          <button class="note-gallery-card photo-card" type="button" style="--photo-ratio:1.3333;--r:2deg" aria-label="Personal gallery image 24"><img data-src="../assets/personal-gallery/personal-24.jpg" alt="" width="1280" height="960" loading="lazy" decoding="async"></button>
+          <button class="note-gallery-card photo-card" type="button" style="--photo-ratio:1.3333;--r:0deg" aria-label="Personal gallery image 25"><img data-src="../assets/personal-gallery/personal-25.jpg" alt="" width="1280" height="960" loading="lazy" decoding="async"></button>
+          <button class="note-gallery-card photo-card" type="button" style="--photo-ratio:1.3333;--r:-2deg" aria-label="Personal gallery image 26"><img data-src="../assets/personal-gallery/personal-26.jpg" alt="" width="1280" height="960" loading="lazy" decoding="async"></button>
+          <button class="note-gallery-card photo-card" type="button" style="--photo-ratio:0.75;--r:-4deg" aria-label="Personal gallery image 27"><img data-src="../assets/personal-gallery/personal-27.jpg" alt="" width="960" height="1280" loading="lazy" decoding="async"></button>
+          <button class="note-gallery-card photo-card" type="button" style="--photo-ratio:0.75;--r:3deg" aria-label="Personal gallery image 28"><img data-src="../assets/personal-gallery/personal-28.jpg" alt="" width="960" height="1280" loading="lazy" decoding="async"></button>
+          <button class="note-gallery-card photo-card" type="button" style="--photo-ratio:0.75;--r:1deg" aria-label="Personal gallery image 29"><img data-src="../assets/personal-gallery/personal-29.jpg" alt="" width="960" height="1280" loading="lazy" decoding="async"></button>
+          <button class="note-gallery-card photo-card" type="button" style="--photo-ratio:1.3333;--r:-1deg" aria-label="Personal gallery image 30"><img data-src="../assets/personal-gallery/personal-30.jpg" alt="" width="1280" height="960" loading="lazy" decoding="async"></button>
+          <button class="note-gallery-card photo-card" type="button" style="--photo-ratio:0.75;--r:-3deg" aria-label="Personal gallery image 31"><img data-src="../assets/personal-gallery/personal-31.jpg" alt="" width="960" height="1280" loading="lazy" decoding="async"></button>
+          <button class="note-gallery-card photo-card" type="button" style="--photo-ratio:1.3333;--r:4deg" aria-label="Personal gallery image 32"><img data-src="../assets/personal-gallery/personal-32.jpg" alt="" width="1280" height="960" loading="lazy" decoding="async"></button>
+          <button class="note-gallery-card photo-card" type="button" style="--photo-ratio:0.75;--r:2deg" aria-label="Personal gallery image 33"><img data-src="../assets/personal-gallery/personal-33.jpg" alt="" width="960" height="1280" loading="lazy" decoding="async"></button>
+          <button class="note-gallery-card photo-card" type="button" style="--photo-ratio:0.75;--r:0deg" aria-label="Personal gallery image 34"><img data-src="../assets/personal-gallery/personal-34.jpg" alt="" width="960" height="1280" loading="lazy" decoding="async"></button>
+          <button class="note-gallery-card photo-card" type="button" style="--photo-ratio:0.75;--r:-2deg" aria-label="Personal gallery image 35"><img data-src="../assets/personal-gallery/personal-35.jpg" alt="" width="960" height="1280" loading="lazy" decoding="async"></button>
+          <button class="note-gallery-card photo-card" type="button" style="--photo-ratio:1.3333;--r:-4deg" aria-label="Personal gallery image 36"><img data-src="../assets/personal-gallery/personal-36.jpg" alt="" width="1280" height="960" loading="lazy" decoding="async"></button>
+          <button class="note-gallery-card photo-card" type="button" style="--photo-ratio:0.75;--r:3deg" aria-label="Personal gallery image 37"><img data-src="../assets/personal-gallery/personal-37.jpg" alt="" width="960" height="1280" loading="lazy" decoding="async"></button>
+          <button class="note-gallery-card photo-card" type="button" style="--photo-ratio:0.75;--r:1deg" aria-label="Personal gallery image 38"><img data-src="../assets/personal-gallery/personal-38.jpg" alt="" width="960" height="1280" loading="lazy" decoding="async"></button>
+          <button class="note-gallery-card photo-card" type="button" style="--photo-ratio:1.3333;--r:-1deg" aria-label="Personal gallery image 39"><img data-src="../assets/personal-gallery/personal-39.jpg" alt="" width="1280" height="960" loading="lazy" decoding="async"></button>
+          <button class="note-gallery-card photo-card" type="button" style="--photo-ratio:1.3333;--r:-3deg" aria-label="Personal gallery image 40"><img data-src="../assets/personal-gallery/personal-40.jpg" alt="" width="1280" height="960" loading="lazy" decoding="async"></button>
+          <button class="note-gallery-card photo-card" type="button" style="--photo-ratio:0.75;--r:4deg" aria-label="Personal gallery image 41"><img data-src="../assets/personal-gallery/personal-41.jpg" alt="" width="960" height="1280" loading="lazy" decoding="async"></button>
+          <button class="note-gallery-card photo-card" type="button" style="--photo-ratio:0.75;--r:2deg" aria-label="Personal gallery image 42"><img data-src="../assets/personal-gallery/personal-42.jpg" alt="" width="960" height="1280" loading="lazy" decoding="async"></button>
+          <button class="note-gallery-card photo-card" type="button" style="--photo-ratio:0.75;--r:0deg" aria-label="Personal gallery image 43"><img data-src="../assets/personal-gallery/personal-43.jpg" alt="" width="960" height="1280" loading="lazy" decoding="async"></button>
+          <button class="note-gallery-card photo-card" type="button" style="--photo-ratio:1.3333;--r:-2deg" aria-label="Personal gallery image 44"><img data-src="../assets/personal-gallery/personal-44.jpg" alt="" width="1280" height="960" loading="lazy" decoding="async"></button>
+          <button class="note-gallery-card photo-card" type="button" style="--photo-ratio:1.3333;--r:-4deg" aria-label="Personal gallery image 45"><img data-src="../assets/personal-gallery/personal-45.jpg" alt="" width="1280" height="960" loading="lazy" decoding="async"></button>
+          <button class="note-gallery-card photo-card" type="button" style="--photo-ratio:1.3333;--r:3deg" aria-label="Personal gallery image 46"><img data-src="../assets/personal-gallery/personal-46.jpg" alt="" width="1280" height="960" loading="lazy" decoding="async"></button>
+          <button class="note-gallery-card photo-card" type="button" style="--photo-ratio:0.75;--r:1deg" aria-label="Personal gallery image 47"><img data-src="../assets/personal-gallery/personal-47.jpg" alt="" width="960" height="1280" loading="lazy" decoding="async"></button>
+        </div>
+      </div>
+    </section>
+    <script src="../intro-play.js?v=20260914-5"></script>
+  </body>
+</html>

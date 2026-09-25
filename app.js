@@ -2,7 +2,24 @@
 // restored scroll position.
 if ('scrollRestoration' in history) history.scrollRestoration = 'manual';
 
-const resetEntryPosition = () => {
+// Except when the visitor uses the browser's Back button after opening a
+// project from the home page (walk-gallery.js saves the spot): then the page
+// returns to where they left it.
+const readReturnPoint = () => {
+  try {
+    const saved = JSON.parse(sessionStorage.getItem('alobi-return-scroll') || 'null');
+    return saved && Date.now() - saved.at < 60 * 60 * 1000 ? saved.y : null;
+  } catch { return null; }
+};
+const navigationType = performance.getEntriesByType?.('navigation')?.[0]?.type;
+let returnPoint = navigationType === 'back_forward' ? readReturnPoint() : null;
+
+const resetEntryPosition = event => {
+  if (event?.persisted) returnPoint = readReturnPoint();
+  if (returnPoint !== null) {
+    window.scrollTo({ top: returnPoint, left: 0, behavior: 'instant' });
+    return;
+  }
   // Preserve real anchors so keyboard navigation and deep links can land on
   // the requested section instead of being erased during the initial paint.
   if (location.hash && location.hash !== '#top') return;
@@ -10,9 +27,16 @@ const resetEntryPosition = () => {
 };
 
 resetEntryPosition();
-requestAnimationFrame(resetEntryPosition);
-window.addEventListener('load', resetEntryPosition, { once: true });
-window.addEventListener('pageshow', resetEntryPosition);
+requestAnimationFrame(() => resetEntryPosition());
+window.addEventListener('load', () => {
+  resetEntryPosition();
+  // Hold the spot through the first layout passes, then let go.
+  setTimeout(() => { resetEntryPosition(); returnPoint = null; }, 400);
+}, { once: true });
+window.addEventListener('pageshow', event => {
+  resetEntryPosition(event);
+  if (event.persisted) setTimeout(() => { returnPoint = null; }, 400);
+});
 
 if (!document.querySelector(".continuous-hero")) {
 // ALOBI loading signature: progress follows document readiness, with a short
@@ -116,7 +140,7 @@ const updateHeader = () => {
     headerCompact = shouldCompact;
     siteHeader.classList.toggle('is-compact', shouldCompact);
   }
-  setContentsActive('home');
+  if (activeContentsKey !== 'home') setContentsActive('home');
   headerFrame = 0;
 };
 window.addEventListener('scroll', () => {
@@ -177,7 +201,7 @@ const categoryRoutes = {
   about: { url: 'about/', label: 'ABOUT / TIMELINE' },
   architecture: { url: 'architecture/', label: 'ARCHITECTURE' },
   pm: { url: 'pm/', label: 'PRODUCT MANAGEMENT' },
-  hci: { url: 'hci/', label: 'HUMAN-COMPUTER INTERACTION' },
+  hci: { url: 'hci/', label: 'PRODUCT DESIGN' },
   resume: { url: 'resume/', label: 'RESUME / SELECTED EXPERIENCE' },
   contact: { url: 'contact/', label: 'CONTACT / OPEN CHANNEL' }
 };
@@ -186,6 +210,10 @@ const routeHoldDuration = 135;
 const routeRevealDuration = 913;
 const routeStorageKey = 'alobi-route-reveal';
 let transitioning = false;
+
+window.addEventListener('pageshow', event => {
+  if (event.persisted) transitioning = false;
+});
 
 function rememberRouteReveal(label, effect = 'route') {
   try {
@@ -349,7 +377,7 @@ const disciplineControls = [...document.querySelectorAll('.scale')];
 const scaleMap = document.querySelector('.scale-map');
 const scaleIndicator = document.querySelector('.scale-axis i');
 const indicatorPositions = [16.67, 50, 83.33];
-const indicatorColors = ['#ff3d16', '#171816', '#4038ff'];
+const indicatorColors = ['#ff3d16', '#4038ff', '#171816'];
 
 const moveScaleIndicator = index => {
   scaleIndicator.style.left = `${indicatorPositions[index]}%`;

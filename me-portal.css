@@ -12,8 +12,13 @@
 .me-spread-panel{height:100svh;overflow:hidden;background:var(--me-ink);border-block:1px solid var(--me-ink)}
 .me-spread-panel:after{content:"";position:absolute;z-index:2;left:0;right:0;bottom:0;height:2px;background:var(--me-ink)}
 
-/* One continuous perspective drawing sits behind the fixed-width reading strip. */
-.me-room{position:relative;background:var(--me-paper);border-top:1px solid var(--me-ink)}
+/* One continuous perspective drawing sits behind the fixed-width reading strip.
+   On the home page the room begins on the WORK walk's last screen: the walk's
+   turning room becomes this room, which pins in as the walk lets go (see
+   walk-gallery.css), and the reading strip rises in straight after. */
+.me-room{position:relative;z-index:1;background:var(--me-paper)}
+.me-room.me-room-waiting .me-room-space{visibility:hidden}
+.me-room>.me-story{margin-top:100svh}
 .me-room-space{position:sticky;z-index:0;top:0;height:100svh;margin-bottom:-100svh;pointer-events:none;background:var(--me-paper)}
 .me-story{--me-display:"SF Pro Display",-apple-system,BlinkMacSystemFont,"Helvetica Neue",Arial,sans-serif;--me-text:"SF Pro Text",-apple-system,BlinkMacSystemFont,"Helvetica Neue",Arial,sans-serif;--me-label:"DM Mono",ui-monospace,SFMono-Regular,Consolas,monospace;position:relative;z-index:1;width:44%;margin:auto;border-inline:1px solid var(--me-ink);background:var(--me-paper);font-family:var(--me-text)!important}
 .me-story article{min-height:80svh}
@@ -36,7 +41,7 @@
 
 /* The names are a chapter inside the same reading corridor. */
 .me-story .dream-lab{overflow:visible;background:var(--me-paper)!important;border-block:1px solid var(--me-ink)}
-.me-story .dream-scroll{height:460svh!important}
+.me-story .dream-scroll{height:412svh!important}
 .me-story .dream-sticky{min-height:0;height:100svh!important;background:var(--me-paper)!important;color:var(--me-ink)}
 .me-story .dream-sticky:before,.me-story .dream-sticky:after{display:none!important}
 .me-story .dream-header{left:9%;right:9%;top:90px;display:block}
@@ -77,7 +82,7 @@
 .name-color-inversion{position:fixed;inset:0;z-index:2147483647;pointer-events:none;background:#fff;mix-blend-mode:difference;visibility:hidden}
 .name-color-inversion.is-active{visibility:visible}
 @media(max-width:700px){
- .me-story .dream-scroll{height:400svh!important}
+ .me-story .dream-scroll{height:358svh!important}
  .me-story .dream-header{left:9%;right:9%;top:80px}
  .me-story .dream-header strong{font-size:25px}
  .me-story .dream-scene h3{font-size:clamp(34px,8vw,55px)}

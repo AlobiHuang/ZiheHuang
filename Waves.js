@@ -262,6 +262,10 @@ export default function Waves({
   };
 
   const updateMouse = event => {
+    // Measured on every move, so fields further down a scrolled page line up.
+    const rect = container.getBoundingClientRect();
+    bounds.left = rect.left;
+    bounds.top = rect.top;
     mouse.x = event.clientX - bounds.left;
     mouse.y = event.clientY - bounds.top;
     if (!mouse.set) {

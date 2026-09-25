@@ -110,7 +110,7 @@ const categoryData = {
   pm: {
     name: 'Product Management',
     short: 'PM',
-    code: '10⁰',
+    code: '10⁻²',
     accent: '#171816',
     question: ['One project.', 'Many stakeholders.', 'A shared outcome'],
     intro: 'The Sankofa Bamboo Greenhouse is a long-form study in turning community ambition, research, engineering, and fabrication into one coordinated path toward construction.',
@@ -143,9 +143,9 @@ const categoryData = {
     capabilities: ['Product discovery', 'Stakeholder coordination', 'User interviews', 'Prototyping', 'Excel', 'Tableau', 'PowerPoint', 'Python', 'HTML/CSS/JavaScript']
   },
   hci: {
-    name: 'Human-Computer Interaction',
-    short: 'HCI',
-    code: '10⁻²',
+    name: 'Product Design',
+    short: 'PD',
+    code: '10⁰',
     accent: '#4038ff',
     question: ['How can technology', 'respond to how people', 'actually think and act'],
     intro: 'I use research, prototyping, and systems thinking to make complex tools more legible, useful, and responsive to real human behavior.',
@@ -674,8 +674,8 @@ root.innerHTML = `
       <nav class="contact-practice" aria-label="Practice quick links">
         <span>Practice /</span>
         <a href="../architecture/" data-route data-route-label="ARCHITECTURE">ARCH</a>
+        <a href="../hci/" data-route data-route-label="PRODUCT DESIGN">PD</a>
         <a href="../pm/" data-route data-route-label="PRODUCT MANAGEMENT">PM</a>
-        <a href="../hci/" data-route data-route-label="HUMAN-COMPUTER INTERACTION">HCI</a>
       </nav>
       <p>Pittsburgh ↔ Worldwide<br />© 2026 Zihe Huang</p>
       <div class="contact-icons" aria-label="Social links">
@@ -757,6 +757,10 @@ for (let index = 0; index < 12; index += 1) {
 }
 
 let routing = false;
+
+window.addEventListener('pageshow', event => {
+  if (event.persisted) routing = false;
+});
 const routeTransitionDuration = 616;
 const routeHoldDuration = 135;
 const routeRevealDuration = 913;

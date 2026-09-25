@@ -2,9 +2,11 @@
   const ready = callback => document.readyState === 'loading' ? document.addEventListener('DOMContentLoaded', callback, { once: true }) : callback();
   ready(() => requestAnimationFrame(() => {
     const reduced = matchMedia('(prefers-reduced-motion: reduce)').matches;
-    const finePointer = matchMedia('(pointer:fine)').matches;
+    const mobilePointer = matchMedia('(hover:none), (pointer:coarse)').matches || (navigator.maxTouchPoints > 0 && innerWidth <= 1024);
+    const finePointer = matchMedia('(hover:hover) and (pointer:fine)').matches && !mobilePointer;
     const root = document.documentElement;
     const body = document.body;
+    body.classList.toggle('fx-touch-input', mobilePointer);
     if (!document.querySelector('.loader')) body.classList.add('fx-no-loader');
 
     // The former full-screen cursor aura and masked grid forced a large repaint
@@ -36,6 +38,7 @@
       }
     }), { rootMargin: '0px 0px -8%', threshold: .02 });
     sections.slice(1).forEach(section => {
+      if (section.classList.contains('walk-gallery')) return;
       section.classList.add('fx-section');
       const dark = getComputedStyle(section).backgroundColor.match(/rgb\((\d+)/)?.[1] < 60;
       section.style.setProperty('--fx-section-cover', dark ? '#000' : '#f5f5f7');
@@ -69,7 +72,25 @@
       copy.classList.add('fx-kinetic-copy');
     });
 
-    let mouseX = innerWidth / 2, mouseY = innerHeight / 2, targetX = mouseX, targetY = mouseY;
+    // The pointer is remembered across pages, so the cursor starts where the
+    // mouse really is instead of in the middle of the screen. With nothing
+    // remembered it stays hidden until the mouse first moves.
+    let remembered = null;
+    try {
+      const saved = JSON.parse(sessionStorage.getItem('alobi-pointer') || 'null');
+      if (saved && Number.isFinite(saved.x) && Number.isFinite(saved.y)) {
+        remembered = saved.w && saved.h && (saved.w !== innerWidth || saved.h !== innerHeight)
+          ? { x: saved.x / saved.w * innerWidth, y: saved.y / saved.h * innerHeight }
+          : { x: saved.x, y: saved.y };
+      }
+    } catch {}
+    window.alobiPointer = remembered;
+    let placed = !!remembered;
+    let mouseX = remembered ? remembered.x : innerWidth / 2, mouseY = remembered ? remembered.y : innerHeight / 2, targetX = mouseX, targetY = mouseY;
+    const rememberPointer = () => { try { sessionStorage.setItem('alobi-pointer', JSON.stringify({ x: Math.round(targetX), y: Math.round(targetY), w: innerWidth, h: innerHeight })); } catch {} };
+    let lastSave = 0;
+    addEventListener('pagehide', () => { if (placed) rememberPointer(); });
+    document.addEventListener('visibilitychange', () => { if (document.hidden && placed) rememberPointer(); });
     let previousX = mouseX, previousY = mouseY;
     let pointerFrame = 0;
     const updatePointer = () => {
@@ -82,13 +103,17 @@
       if (cursor) {
         cursor.style.setProperty('--cursor-x', `${mouseX}px`);
         cursor.style.setProperty('--cursor-y', `${mouseY}px`);
+        cursor.style.visibility = placed ? '' : 'hidden';
       }
+      if (placed && performance.now() - lastSave > 200) { lastSave = performance.now(); rememberPointer(); }
       previousX = mouseX; previousY = mouseY;
       pointerFrame = 0;
     };
     window.addEventListener('pointermove', event => {
       targetX = event.clientX;
       targetY = event.clientY;
+      placed = true;
+      window.alobiPointer = { x: targetX, y: targetY };
       if (!pointerFrame) pointerFrame = requestAnimationFrame(updatePointer);
     }, { passive: true });
 
@@ -147,22 +172,36 @@
     }
 
     let scrollFrame = 0;
+    // Runs on every scroll frame, so it stays cheap: the progress value is set
+    // on the counter (its only user) instead of the root, which would restyle
+    // the whole page each frame; image frames are all measured first and only
+    // then updated, and only when their value actually changes.
+    let fxImages = null;
+    let pageMax = 1;
+    const measurePage = () => { pageMax = Math.max(1, document.documentElement.scrollHeight - innerHeight); };
     const updateScroll = () => {
-      const max = Math.max(1, document.documentElement.scrollHeight - innerHeight);
-      const value = Math.max(0, Math.min(1, scrollY / max));
-      root.style.setProperty('--fx-scroll', value.toFixed(4));
-      counter.classList.toggle('is-visible', !homeHero || scrollY > 24);
-      document.querySelectorAll('.fx-image').forEach(frame => {
-        const bounds = frame.getBoundingClientRect();
-        const shift = Math.max(-34, Math.min(34, (innerHeight * .5 - (bounds.top + bounds.height * .5)) * .055));
-        frame.style.setProperty('--image-shift', `${shift}px`);
-      });
       scrollFrame = 0;
+      const value = Math.max(0, Math.min(1, scrollY / pageMax));
+      counter.style.setProperty('--fx-scroll', value.toFixed(4));
+      counter.classList.toggle('is-visible', !homeHero || scrollY > 24);
+      fxImages ||= [...document.querySelectorAll('.fx-image')];
+      const shifts = fxImages.map(frame => {
+        const bounds = frame.getBoundingClientRect();
+        return Math.round(Math.max(-34, Math.min(34, (innerHeight * .5 - (bounds.top + bounds.height * .5)) * .055)) * 2) / 2;
+      });
+      fxImages.forEach((frame, index) => {
+        if (frame.__fxShift === shifts[index]) return;
+        frame.__fxShift = shifts[index];
+        frame.style.setProperty('--image-shift', `${shifts[index]}px`);
+      });
     };
+    measurePage();
+    new ResizeObserver(measurePage).observe(document.body);
     addEventListener('scroll', () => { if (!scrollFrame) scrollFrame = requestAnimationFrame(updateScroll); }, { passive: true });
-    addEventListener('resize', updateScroll);
+    addEventListener('resize', () => { measurePage(); updateScroll(); });
 
-    const headings = document.querySelectorAll('.hero h1,.category-hero h1:not(.selected-works-title),.about-hero h1,.project-gateway h1,.lens-gateway-title h2,.record-question');
+    // Project titles stay put (no drift toward the pointer).
+    const headings = document.querySelectorAll('.hero h1,.category-hero h1:not(.selected-works-title),.about-hero h1,.lens-gateway-title h2,.record-question');
     headings.forEach(heading => {
       heading.classList.add('fx-heading');
       heading.closest('section')?.addEventListener('pointermove', event => {
@@ -375,20 +414,7 @@
       updatePhotoWall();
     }
 
-    body.addEventListener('click', event => {
-      if (reduced) return;
-      const ripple = document.createElement('i');
-      ripple.className = 'fx-ripple'; ripple.style.left = `${event.clientX}px`; ripple.style.top = `${event.clientY}px`;
-      body.append(ripple); setTimeout(() => ripple.remove(), 900);
-      for (let i = 0; i < 7; i += 1) {
-        const spark = document.createElement('i');
-        const angle = (Math.PI * 2 * i) / 7;
-        const distance = 26 + Math.random() * 38;
-        spark.className = 'fx-spark'; spark.style.left = `${event.clientX}px`; spark.style.top = `${event.clientY}px`;
-        spark.style.setProperty('--spark-x', `${Math.cos(angle) * distance}px`); spark.style.setProperty('--spark-y', `${Math.sin(angle) * distance}px`);
-        body.append(spark); setTimeout(() => spark.remove(), 760);
-      }
-    });
+    // (Clicks used to leave a blue ring and sparks here; removed.)
 
     const galleryImages = [...document.querySelectorAll('.gallery-item img,.portfolio-showcase img')];
     if (galleryImages.length) {

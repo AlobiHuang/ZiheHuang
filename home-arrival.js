@@ -1,4 +1,4 @@
-import ShapeWaves from './ShapeWaves.js?v=20260916-hover-only-1';
+import ShapeWaves from './ShapeWaves.js?v=20260924-nolid-1';
 
 const hero = document.querySelector('.continuous-hero');
 if (hero) {
@@ -8,10 +8,13 @@ if (hero) {
  sweep.className = 'arrival-sweep';
  sweep.setAttribute('aria-hidden','true');
  hero.append(sweep);
- const arrivalCursor = document.createElement('div');
- arrivalCursor.className = 'arrival-cursor';
- arrivalCursor.setAttribute('aria-hidden','true');
- hero.append(arrivalCursor);
+ const mobilePointer = matchMedia('(hover:none), (pointer:coarse)').matches || (navigator.maxTouchPoints > 0 && innerWidth <= 1024);
+ const arrivalCursor = mobilePointer ? null : document.createElement('div');
+ if (arrivalCursor) {
+  arrivalCursor.className = 'arrival-cursor';
+  arrivalCursor.setAttribute('aria-hidden','true');
+  hero.append(arrivalCursor);
+ }
  const status = document.createElement('span');status.className='arrival-status';status.setAttribute('role','status');status.textContent='Opening portfolio';hero.append(status);
  const reduced = matchMedia('(prefers-reduced-motion: reduce)').matches;
  let arrivalSeen = false;
@@ -22,16 +25,43 @@ if (hero) {
   sessionStorage.removeItem('alobi-home-line-return');
   if (!arrivalSeen) sessionStorage.setItem('alobi-home-arrival-seen', '1');
  } catch {}
- const skip = reduced || (!returningHome && (arrivalSeen || (location.hash && location.hash !== '#top')));
+ // Back to the home page with the browser's Back button: play the same short
+ // return as the site's own HOME link, unless we are going back into the room
+ // (walk-gallery.js shrinks the project's picture back into its frame then).
+ const navType=performance.getEntriesByType?.('navigation')?.[0]?.type||'';
+ const roomReturn=()=>{try{const r=JSON.parse(sessionStorage.getItem('alobi-zoom-return')||'null');return !!r&&Date.now()-r.at<3600000}catch{return false}};
+ if(navType==='back_forward'&&!roomReturn())returningHome=true;
+ let skip = reduced || (!returningHome && (arrivalSeen || (location.hash && location.hash !== '#top')));
  const clamp = n => Math.max(0,Math.min(1,n));
  const ease = n => {n=clamp(n);return n*n*(3-2*n)};
  const kinetic = n => {n=clamp(n);return n<.5?16*n**5:1-(-2*n+2)**5/2};
  const mix = (a,b,n) => a+(b-a)*n;
  const motionRate=1.265;
- const mountWaves=()=>{if(!wavesRoot||wavesRoot.dataset.mounted)return;wavesRoot.dataset.mounted='true';try{ShapeWaves(wavesRoot,{text:'ALOBI',fontFamily:'Geist, "Geist Sans", system-ui, sans-serif',fontWeight:500,textSize:.6,shapes:'squares',cellSize:8,dotSize:.75,color:'#000000',hoverColor:'#7b6f6f',backgroundColor:'#ffffff',speed:1,scale:1,contrast:.95,brightness:.37,flow:0,direction:0,fade:0,interactive:true,splashRadius:62,splashStrength:.4,glow:.35,intro:false,introDuration:1.6,paused:false})}catch(error){wavesRoot.dataset.failed='true';console.error(error)}};
+ let waves=null;
+ const mountWaves=()=>{if(!wavesRoot||wavesRoot.dataset.mounted)return;wavesRoot.dataset.mounted='true';try{waves=ShapeWaves(wavesRoot,{text:'ALOBI',fontFamily:'Geist, "Geist Sans", system-ui, sans-serif',fontWeight:500,textSize:.6,shapes:'squares',pattern:'lines',cellSize:innerWidth<700?5:8,dotSize:1,lineDrift:30,color:'#1d1d1f',hoverColor:'#1d1d1f',backgroundColor:'#ffffff',speed:1,scale:1,contrast:1.1,brightness:.4,flow:0,direction:0,fade:0,interactive:true,splashRadius:120,splashStrength:.4,glow:.35,intro:false,introDuration:1.6,paused:false,eye:'O'});wavesRoot.alobiSnapshot=()=>waves.snapshot()}catch(error){wavesRoot.dataset.failed='true';console.error(error)}};
+ // Hovering ARCH / PD / PM retypes the big word to match, straight away.
+ const scaleButtons=[...hero.querySelectorAll('.scale')],scaleMap=hero.querySelector('.scale-map');
+ let wordTimer=0,wordShown='ALOBI';
+ const showWord=(word,delay)=>{
+  clearTimeout(wordTimer);
+  wordTimer=setTimeout(()=>{if(waves&&word!==wordShown){wordShown=word;waves.retype(word)}},delay);
+ };
+ scaleButtons.forEach(button=>{
+  const word=button.querySelector('span')?.textContent.trim()||'';
+  if(!word)return;
+  button.addEventListener('pointerenter',event=>{if(event.pointerType!=='touch')showWord(word,0)});
+  button.addEventListener('focus',()=>showWord(word,0));
+ });
+ scaleMap?.addEventListener('pointerleave',event=>{if(event.pointerType!=='touch')showWord('ALOBI',160)});
+ scaleMap?.addEventListener('focusout',event=>{if(!scaleMap.contains(event.relatedTarget))showWord('ALOBI',200)});
  if(skip)mountWaves();else setTimeout(mountWaves,(returningHome?.91:4.27)*1000);
  let w=0,h=0,full=0,raf=0,start=performance.now()-(returningHome?4.28/motionRate*1000:0),visible=true,finished=false,scrollProgress=0;
- let px=.5,py=.5,mx=.5,my=.5,cursorX=innerWidth*.5,cursorY=innerHeight*.5;
+ let px=.5,py=.5,mx=.5,my=.5,cursorX=innerWidth*.5,cursorY=innerHeight*.5,pointerKnown=false;
+ // Start the arrival cursor where the mouse really is (remembered from the
+ // last page by spectacle.js); with nothing remembered it waits, hidden,
+ // for the first movement instead of sitting in the middle of the screen.
+ try{const saved=JSON.parse(sessionStorage.getItem('alobi-pointer')||'null');if(saved&&Number.isFinite(saved.x)&&Number.isFinite(saved.y)){const sx=saved.w?innerWidth/saved.w:1,sy=saved.h?innerHeight/saved.h:1;cursorX=saved.x*sx;cursorY=saved.y*sy;pointerKnown=true}}catch{}
+ addEventListener('pointermove',e=>{cursorX=e.clientX;cursorY=e.clientY;pointerKnown=true},{passive:true});
  const field=hero.querySelector('.magnetic-field'),fieldGroup=field?.querySelector('g');
  let fieldX=500,fieldY=255,targetFieldX=500,targetFieldY=255,fieldRaf=0,fieldCount=0;
  const svgNS='http://www.w3.org/2000/svg';
@@ -193,9 +223,11 @@ if (hero) {
   mx+=(px-mx)*.045;my+=(py-my)*.045;
   const cursorRise=returningHome?1:kinetic((t-3.48)/.74);
   const shownCursorY=mix(innerHeight+34,cursorY,cursorRise);
-  arrivalCursor.style.setProperty('--arrival-cursor-x',`${cursorX}px`);
-  arrivalCursor.style.setProperty('--arrival-cursor-y',`${shownCursorY}px`);
-  arrivalCursor.style.setProperty('--arrival-cursor-opacity',String(ease((cursorRise-.04)/.22)));
+   if(arrivalCursor){
+    arrivalCursor.style.setProperty('--arrival-cursor-x',`${cursorX}px`);
+    arrivalCursor.style.setProperty('--arrival-cursor-y',`${shownCursorY}px`);
+    arrivalCursor.style.setProperty('--arrival-cursor-opacity',pointerKnown?String(ease((cursorRise-.04)/.22)):'0');
+   }
   const paper=Math.round(mix(255,245,ease((t-5.12)/1.3)));
   ctx.fillStyle=`rgb(${paper},${paper},${Math.min(255,paper+2)})`;ctx.fillRect(0,0,w,h);
   const fold=kinetic((t-4.3)/1.18),rise=kinetic((t-4.3)/1.18),drop=kinetic((t-5.54)/1.16);
@@ -232,6 +264,28 @@ if (hero) {
  new IntersectionObserver(entries=>{visible=entries[0].isIntersecting;if(visible)wake()}).observe(hero);
  document.addEventListener('visibilitychange',()=>{if(!document.hidden)wake()});
  addEventListener('resize',resize);resize();
+ // Restored from the browser's page cache (Back button): the page comes back
+ // exactly as it was left, so replay the return: the field rises again at the
+ // top of the page, or further down a sheet of paper lifts off the page.
+ function replayReturn(){
+  skip=false;returningHome=true;finished=false;
+  start=performance.now()-4.28/motionRate*1000;
+  document.body.classList.remove('arrival-done','is-ready');
+  if(wavesRoot)wavesRoot.style.clipPath='polygon(0 100%,100% 100%,100% 100%,0 100%)';
+  hero.style.setProperty('--field-opacity','0');hero.style.setProperty('--details','0');
+  cancelAnimationFrame(raf);raf=0;wake();
+  setTimeout(()=>document.body.classList.add('arrival-done','is-ready'),3600);
+ }
+ function liftSheet(){
+  const sheet=document.createElement('div');sheet.className='return-sheet';sheet.setAttribute('aria-hidden','true');
+  document.body.append(sheet);
+  sheet.animate([{transform:'translateY(0)'},{transform:'translateY(-101%)'}],{duration:820,delay:80,easing:'cubic-bezier(.76,0,.24,1)',fill:'forwards'}).finished.then(()=>sheet.remove(),()=>sheet.remove());
+ }
+ addEventListener('pageshow',event=>{
+  if(!event.persisted||reduced)return;
+  if(document.querySelector('.walk-zoom'))return; // the room takes it from here
+  if(scrollY<innerHeight*.5)replayReturn();else liftSheet();
+ });
  // Never leave navigation hidden if the browser suspends the opening frames.
  setTimeout(()=>document.body.classList.add('arrival-done','is-ready'),8500/motionRate);
 }

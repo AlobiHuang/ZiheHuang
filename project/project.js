@@ -54,7 +54,7 @@ const portfolio = {
     ]
   },
   pm: {
-    name: 'Product Management', short: 'PM', code: '10⁰', accent: '#171816',
+    name: 'Product Management', short: 'PM', code: '10⁻²', accent: '#171816',
     copy: 'Product thinking as disciplined translation across people, evidence, constraints, and delivery.',
     projects: [
       {
@@ -84,7 +84,7 @@ const portfolio = {
     ]
   },
   hci: {
-    name: 'Human-Computer Interaction', short: 'HCI', code: '10⁻²', accent: '#4038ff',
+    name: 'Product Design', short: 'PD', code: '10⁰', accent: '#4038ff',
     copy: 'Human-centered systems grounded in behavior, context, prototyping, and evaluation.',
     projects: [
       {
@@ -344,6 +344,10 @@ for (let index = 0; index < 12; index += 1) {
 }
 
 let routing = false;
+
+window.addEventListener('pageshow', event => {
+  if (event.persisted) routing = false;
+});
 const routeStorageKey = 'alobi-route-reveal';
 const rememberRouteReveal = (label, effect = 'line') => {
   try { sessionStorage.setItem(routeStorageKey, JSON.stringify({ label, effect, createdAt: Date.now() })); } catch {}

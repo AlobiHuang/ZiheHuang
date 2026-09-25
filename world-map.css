@@ -1,0 +1,60 @@
+/* Pixel world map in "Where I'm from" (world-map.js). */
+.world-map{--wm-ink:#180400;--wm-paper:#f5f5f7;--wm-signal:#e1251b;position:relative;margin-top:44px;aspect-ratio:100/37;width:100%}
+.world-map svg{position:absolute;inset:0;width:100%;height:100%;display:block;overflow:visible}
+/* The Europe inset (bottom left, over the empty Pacific), the frame around
+   Europe on the main map, and the hairline that links them. */
+.wm-frame{fill:none;stroke:var(--wm-ink);stroke-width:1;stroke-dasharray:2 2;vector-effect:non-scaling-stroke}
+.world-map .wm-leader{bottom:auto;pointer-events:none}
+.wm-leader line{stroke:var(--wm-ink);stroke-width:1;stroke-dasharray:2 2}
+.wm-inset{position:absolute;left:4px;bottom:4px;width:22%;aspect-ratio:var(--inset-ratio);outline:1px solid var(--wm-ink);outline-offset:4px;background:var(--wm-paper)}
+.world-map .wm-inset small{position:absolute;inset:auto auto calc(100% + 9px) -4px;margin:0;padding:0;display:block;font:500 8px/1 "DM Mono",ui-monospace,SFMono-Regular,Consolas,monospace;letter-spacing:.1em;color:var(--wm-ink)}
+.wm-inset:hover,.wm-inset:focus-within{z-index:3}
+.world-map path{fill:var(--wm-ink)}
+
+/* Over the map the site cursor stays a small plain ring (no colour flip, no
+   enlarged disc), so names and photos stay readable. */
+body:has(.world-map:hover) .fx-cursor{width:18px!important;height:18px!important;margin:17px!important;background:transparent!important;border-color:var(--wm-ink,#180400)!important;color:#180400!important;mix-blend-mode:normal!important}
+body:has(.world-map:hover) .fx-cursor span{opacity:0!important}
+body:has(.world-map:hover) .fx-aura{opacity:0!important}
+
+/* A place: a red diamond with a slow pulse. Groups are larger and carry a count. */
+.wm-place{position:absolute;z-index:1;left:var(--x);top:var(--y);width:0;height:0;transform:translate(var(--dx,0px),var(--dy,0px));color:var(--wm-ink);font:500 10px/1 "DM Mono",ui-monospace,SFMono-Regular,Consolas,monospace;letter-spacing:.06em}
+.wm-place:hover,.wm-place:focus-within,.wm-place.is-open{z-index:3}
+.wm-pin{position:absolute;z-index:2;left:-7px;top:-7px;width:14px;height:14px;padding:0;border:0;background:none;cursor:pointer}
+.wm-pin:before{content:"";position:absolute;inset:3px;background:var(--wm-signal);box-shadow:0 0 0 1.5px var(--wm-paper);transform:rotate(45deg);transition:transform .3s cubic-bezier(.16,1,.3,1)}
+.wm-pin:after{content:"";position:absolute;inset:1px;border:1px solid var(--wm-signal);transform:rotate(45deg) scale(.6);opacity:0;animation:wm-pulse 2.6s cubic-bezier(.2,.6,.3,1) infinite;pointer-events:none}
+.wm-place.is-group .wm-pin{left:-11px;top:-11px;width:22px;height:22px}
+.wm-pin b{position:absolute;left:50%;bottom:100%;transform:translateX(-50%);font:600 9px/1 "DM Mono",ui-monospace,monospace;color:var(--wm-signal);background:var(--wm-paper);padding:1px 2px}
+.wm-place:hover .wm-pin:before,.wm-place.is-open .wm-pin:before,.wm-pin:focus-visible:before{transform:rotate(45deg) scale(1.25)}
+.wm-pin:focus-visible{outline:1px solid var(--wm-ink);outline-offset:2px}
+@keyframes wm-pulse{0%{opacity:.9;transform:rotate(45deg) scale(.6)}70%,100%{opacity:0;transform:rotate(45deg) scale(1.9)}}
+
+/* The name tag (hover) and billboard (click) grow out of the marker. */
+.wm-box{position:absolute;left:10px;bottom:6px;width:0;height:0;overflow:hidden;opacity:0;background:var(--wm-paper);box-shadow:0 0 0 1px var(--wm-ink);transition:width .4s cubic-bezier(.16,1,.3,1),height .4s cubic-bezier(.16,1,.3,1),bottom .4s cubic-bezier(.16,1,.3,1),opacity .2s ease}
+.wm-place.is-east .wm-box{left:auto;right:10px}
+.wm-label{position:absolute;left:8px;right:8px;height:22px;bottom:0;display:flex;align-items:center;white-space:nowrap;opacity:0;transition:opacity .2s ease}
+.wm-place.is-east .wm-label{justify-content:flex-end}
+.wm-current{display:none}
+.wm-photo{position:absolute;left:6px;right:6px;top:6px;height:100px;overflow:hidden;opacity:0;transition:opacity .25s ease;background:repeating-linear-gradient(135deg,transparent 0 6px,rgba(24,4,0,.14) 6px 7px),var(--wm-paper);box-shadow:inset 0 0 0 1px rgba(24,4,0,.35)}
+.wm-photo i{position:absolute;inset:0;display:grid;place-items:center;font-style:normal;font-size:9px;letter-spacing:.1em;color:rgba(24,4,0,.55)}
+.wm-photo img{width:100%;height:100%;object-fit:cover;display:block}
+.wm-list{position:absolute;left:6px;right:6px;top:136px;display:grid;grid-template-columns:1fr 1fr;gap:2px;opacity:0;transition:opacity .25s ease}
+.wm-list button{padding:4px 5px;border:0;background:transparent;color:var(--wm-ink);font:inherit;font-size:9px;text-align:left;cursor:pointer;box-shadow:inset 0 0 0 1px rgba(24,4,0,.18)}
+.wm-list button:hover,.wm-list button:focus-visible{box-shadow:inset 0 0 0 1px var(--wm-ink);outline:none}
+.wm-list button.is-active{background:var(--wm-ink);color:var(--wm-paper)}
+
+.wm-place:hover .wm-box,.wm-place:focus-within .wm-box{width:calc(var(--chars) * (1ch + .06em) + 18px);height:22px;opacity:1}
+.wm-place:hover .wm-label,.wm-place:focus-within .wm-label,.wm-place.is-open .wm-label{opacity:1;transition-delay:.1s}
+.wm-place.is-open .wm-box{width:max(184px,calc(var(--chars) * (1ch + .06em) + 18px));height:132px;bottom:16px;opacity:1}
+.wm-place.is-open .wm-label{bottom:auto;top:108px}
+.wm-place.is-open.is-group .wm-box{width:210px;height:calc(142px + var(--rows) * 22px)}
+.wm-place.is-open.is-group .wm-title{display:none}
+.wm-place.is-open.is-group .wm-current{display:inline}
+.wm-place.is-open .wm-photo,.wm-place.is-open .wm-list{opacity:1;transition-delay:.18s}
+.wm-place:after{content:"";position:absolute;left:0;top:0;width:1px;height:0;background:var(--wm-ink);transform:translateY(-100%);transition:height .4s cubic-bezier(.16,1,.3,1)}
+.wm-place.is-open:after{height:16px}
+
+@media(max-width:700px){.world-map{margin-top:32px;margin-bottom:calc(42% + 30px)}.wm-inset{left:4px;bottom:auto;top:calc(100% + 26px);width:56%}.wm-place.is-open .wm-box{width:max(150px,calc(var(--chars) * (1ch + .06em) + 18px))}.wm-place.is-open.is-group .wm-box{width:180px}}
+@media(prefers-reduced-motion:reduce){.wm-box,.wm-place:after,.wm-label,.wm-photo,.wm-list,.wm-pin:before{transition:none}.wm-pin:after{animation:none}}
+.wm-place.is-open .wm-box{left:-6px}
+.wm-place.is-open.is-east .wm-box{left:auto;right:-6px}

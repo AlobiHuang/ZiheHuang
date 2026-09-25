@@ -10,15 +10,24 @@ if (lab) {
   let frame = 0;
   let active = -1;
 
+  // Each scene gets a share of the scroll and holds still for most of it,
+  // changing only near the boundaries. ALOBI (the dream) gets the longest share.
+  const weights = scenes.map(scene => (scene.dataset.dreamScene === '1' ? 1.63 : 1));
+  const total = weights.reduce((sum, weight) => sum + weight, 0);
+  const boundaries = weights.slice(0, -1).map((_, index) => weights.slice(0, index + 1).reduce((sum, weight) => sum + weight, 0));
+  const FADE = .46; // half-width of each change-over, in scene units
+  const ease = value => { const t = clamp(value, 0, 1); return t * t * (3 - 2 * t); };
+
   function update() {
     frame = 0;
     const rect = stage.getBoundingClientRect();
     const progress = clamp(-rect.top / Math.max(1, rect.height - sticky.clientHeight), 0, 1);
-    const timeline = progress * scenes.length;
-    const next = Math.min(scenes.length - 1, Math.floor(timeline));
+    const position = progress * total;
+    const timeline = boundaries.reduce((sum, boundary) => sum + ease((position - boundary + FADE) / (2 * FADE)), 0);
+    const next = Math.min(scenes.length - 1, Math.round(timeline));
 
     scenes.forEach((scene, index) => {
-      const offset = clamp(index - clamp(timeline - .5, 0, scenes.length - 1), -1, 1);
+      const offset = clamp(index - timeline, -1, 1);
       const opacity = clamp(1 - Math.abs(offset), 0, 1);
       scene.style.opacity = reduced ? String(index === next ? 1 : 0) : String(opacity);
       scene.style.transform = reduced ? 'none' : `translateY(${offset * 90}px)`;
