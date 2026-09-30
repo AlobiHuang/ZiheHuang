@@ -117,3 +117,5 @@
 .cm-anatomy-card{border-radius:11px;background:none}
 .cm-anatomy{grid-template-columns:minmax(0,300px) minmax(0,300px)}
 .cm-anatomy{grid-template-columns:minmax(0,300px) minmax(0,230px)}
+/* Credits (Oct 1): the original team, on its own row under the facts. */
+.cm .cm-facts .cm-fact-wide{grid-column:1/-1}
