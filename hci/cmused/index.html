@@ -1,0 +1,226 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="CMUsed, a second-hand marketplace for the Carnegie Mellon community: the product and its numbers." />
+    <title>CMUsed — Product Design — Zihe Huang</title>
+    <script src="../../route-entry.js?v=20260925-flow-2"></script>
+    <script src="../../project/zoom-arrive.js?v=3"></script>
+    <script src="../../smooth-scroll.js?v=2" defer></script>
+    <script src="../../scroll-rail.js?v=2" defer></script>
+    <script>document.documentElement.classList.add('arch-motion-pending');setTimeout(()=>document.documentElement.classList.remove('arch-motion-pending'),10000);</script>
+    <link rel="icon" type="image/svg+xml" href="../../assets/alobi-mark.svg" />
+    <link rel="stylesheet" href="../../styles.css?v=20260922-logo-hit-1" />
+    <link rel="stylesheet" href="../../animations.css?v=20260916-speed-1265" />
+    <link rel="stylesheet" href="../../category.css" />
+    <link rel="stylesheet" href="../../apple-system.css?v=20260915-zh-home-1" />
+    <link rel="stylesheet" href="../../spectacle.css?v=20260916-simple-menu-1" />
+    <link rel="stylesheet" href="../../hero-entrance.css?v=20260922-head-grow-1" />
+    <link rel="stylesheet" href="../hci.css?v=20260928-mbp-1" />
+    <link rel="stylesheet" href="./cmused.css?v=9" />
+      <link rel="stylesheet" href="../../menu.css?v=20260925-paper-1" />
+      <link rel="stylesheet" href="../../page-flow.css?v=4" />
+    <link rel="expect" href="#top" blocking="render" />
+    <script type="module" src="../../menu.js?v=20260928-pm-1"></script>
+  </head>
+  <body class="hci-page cm-page">
+    <div class="page-transition" aria-hidden="true"><div class="transition-panel"></div><div class="transition-grid"></div><div class="transition-scan"></div><span class="transition-label">CMUSED</span></div>
+    <div class="cursor" aria-hidden="true"></div><div class="grain" aria-hidden="true"></div>
+    <header class="site-head">
+      <a class="identity" href="../../" data-route data-route-label="ALOBI / HOME" aria-label="Zihe Huang — home">
+        <span class="logo-tile" aria-hidden="true"><span class="logo-initials">ZH</span><svg class="personal-mark" viewBox="0 0 48 48" role="presentation"><path class="mark-z" d="M9 12H39L9 36H39"/><path class="mark-h" d="M17 9V39M31 9V39M17 24H31"/><circle cx="24" cy="24" r="2"/></svg></span>
+        <span class="identity-copy">Zihe Huang<br />Architecture · HCI · AI</span>
+      </a>
+      <div class="coordinates" aria-hidden="true">10⁰ / PD<br />PRODUCT DESIGN</div>
+      <div class="header-actions"><button class="menu-button" type="button" aria-label="Open contents" aria-expanded="false"><i aria-hidden="true"></i></button><a class="header-contact" href="../../contact/" data-route data-route-label="CONTACT / OPEN CHANNEL">Contact</a></div>
+    </header>
+    <aside class="index-panel" aria-hidden="true">
+      <nav aria-label="Portfolio contents">
+        <a href="../../" data-route data-route-label="ALOBI / HOME"><span>01</span><b>Home</b></a>
+        <a href="../../about/" data-route data-route-label="ABOUT / TIMELINE"><span>02</span><b>About me</b></a>
+        <a href="../../architecture/" data-route data-route-label="ARCHITECTURE"><span>03</span><b>Arch</b></a>
+        <a href="../" data-route data-route-label="PRODUCT DESIGN"><span>04</span><b>PD</b></a>
+        <a href="../../pm/" data-route data-route-label="PROJECT MANAGEMENT"><span>05</span><b>PM</b></a>
+        <a href="../../contact/" data-route data-route-label="CONTACT / OPEN CHANNEL"><span>06</span><b>Contact</b></a>
+      </nav>
+      <p>Human-centered work grounded in research, prototyping, feedback, and usable systems.</p>
+      <div class="index-socials" aria-label="Contact links">
+        <a class="index-linkedin" href="https://www.linkedin.com/in/zihe-huang/" target="_blank" rel="noreferrer" aria-label="LinkedIn">in</a>
+        <a class="index-instagram" href="https://www.instagram.com/zihealobi/" target="_blank" rel="noreferrer" aria-label="Instagram"><i></i></a>
+        <a class="index-email" href="mailto:ziheh@andrew.cmu.edu" aria-label="Email Zihe Huang"><i></i></a>
+      </div>
+    </aside>
+    <main>
+      <article class="cm" id="top" aria-labelledby="cm-title">
+        <header class="cm-head" data-rail="CMUSED">
+          <p class="cm-crumb"><a href="../" data-route data-route-label="PRODUCT DESIGN">← Product design</a><span>P—01</span></p>
+          <h1 id="cm-title">CMUsed</h1>
+          <p class="cm-lede">A second-hand marketplace for the Carnegie Mellon community, where students buy from and sell to each other in one place: browse by category, contact the seller directly, and list an item in three short steps.</p>
+          <dl class="cm-facts cm-facts-4">
+            <div><dt>Studio</dt><dd>BTG Product Studio</dd></div>
+            <div><dt>Role</dt><dd>Product designer</dd></div>
+            <div><dt>Type</dt><dd>Product design · Web · Mobile</dd></div>
+            <div><dt>Year</dt><dd>2026 — present</dd></div>
+          </dl>
+        </header>
+
+        <div class="pd-plate cm-plate">
+          <figure class="pd-screen pd-laptop" aria-label="CMUsed, a short loop: home, search, a listing, a category and the selling flow">
+            <div class="pd-lid"><i class="pd-cam" aria-hidden="true"></i><div class="pd-screen-view" data-pd-loop>
+            <img src="../../assets/pd/cmused-home.webp?v=3" alt="CMUsed home page: category banners for clothing and furniture, then recent listings" decoding="async" />
+            <img src="../../assets/pd/cmused-search.webp?v=3" alt="CMUsed search results for “sofa”: filters for price, quality and category beside the listing cards" decoding="async" loading="lazy" />
+            <img src="../../assets/pd/cmused-item.webp?v=3" alt="CMUsed listing page: photos, price, condition, the seller and a Contact Seller button" decoding="async" loading="lazy" />
+            <img src="../../assets/pd/cmused-clothing.webp?v=2" alt="CMUsed clothing category with filters and listing cards" decoding="async" loading="lazy" />
+            <img src="../../assets/pd/cmused-sell.webp?v=2" alt="CMUsed listing flow: basic info step with photos, item details and a Generate with AI description" decoding="async" loading="lazy" />
+          </div></div>
+            <div class="pd-base" aria-hidden="true"></div>
+          </figure>
+        </div>
+
+
+        <section class="cm-section" data-rail="WHY" aria-labelledby="cm-why">
+          <header class="cm-section-head"><p><span>01 / THE PROBLEM</span></p><h2 id="cm-why">Why CMUsed?</h2></header>
+          <div class="cm-prose">
+            <p>Students already trade with each other all the time, but it happens in scattered places: group chats, and general marketplaces built for strangers rather than classmates. Listings get buried, prices are guesswork, and it is hard to tell who is on the other end.</p>
+            <p>CMUsed gathers that trade into one place made for campus: listings sorted by what students actually move, like clothing, furniture, electronics and rideables, and a direct line to the person selling.</p>
+          </div>
+        </section>
+
+        <section class="cm-section" data-rail="FLOW" aria-labelledby="cm-flow">
+          <header class="cm-section-head"><p><span>02 / THE BUYER JOURNEY</span></p><h2 id="cm-flow">From browsing to a deal.</h2></header>
+          <p class="cm-intro">The site follows the moments a buyer goes through, and each screen carries only what that moment needs.</p>
+          <ol class="cm-steps">
+            <li><figure><img src="../../assets/pd/cmused-home.webp?v=3" alt="CMUsed home page with Clothing and Furniture banners and recent listings" loading="lazy" decoding="async" /></figure><span>01</span><b>Browse.</b><p>Two large ways in, clothing and furniture, then the most recent listings.</p></li>
+            <li><figure><img src="../../assets/pd/cmused-search.webp?v=3" alt="CMUsed search results for sofa with price, quality and category filters" loading="lazy" decoding="async" /></figure><span>02</span><b>Search and filter.</b><p>Results beside filters for price, quality and category, with sorting on the right.</p></li>
+            <li><figure><img src="../../assets/pd/cmused-item.webp?v=3" alt="CMUsed listing page for a loveseat with photos, price, condition, seller and Contact Seller" loading="lazy" decoding="async" /></figure><span>03</span><b>Decide.</b><p>The listing expands the card: more photos, price and whether it is negotiable, condition, when it was posted, who is selling, and one clear Contact Seller button.</p></li>
+            <li><figure><img src="../../assets/pd/cmused-sell.webp?v=2" alt="CMUsed selling flow, basic info step" loading="lazy" decoding="async" /></figure><span>04</span><b>Sell.</b><p>Listing an item in three steps, basic info, pricing and preview, with AI help writing the description.</p></li>
+          </ol>
+          <div class="cm-sub">
+            <h3>The card at a glance</h3>
+            <p>Most of the time on CMUsed is spent scrolling through listings, so the card only carries what it takes to decide whether to look closer: a big photo, the item's condition, its category, the name and price, and the two things you can do next.</p>
+          </div>
+          <figure class="cm-anatomy" aria-label="Anatomy of a CMUsed listing card">
+            <div class="cm-anatomy-card"><img src="../../assets/pd/cmused-card.webp?v=2" alt="A CMUsed listing card: a photo of a sherpa throw blanket with a New tag and a share button, the Home Decor category, the name and $18 price, and Contact Seller and save buttons" loading="lazy" decoding="async" /></div>
+            <ol class="cm-anatomy-notes">
+              <li style="--y:5%"><i></i>condition tag &amp; share</li>
+              <li class="is-span" style="--y:10%;--h:53%"><i></i>primary product image</li>
+              <li style="--y:70.6%"><i></i>category</li>
+              <li style="--y:81%"><i></i>name &amp; price</li>
+              <li class="is-span" style="--y:88.5%;--h:8.5%"><i></i>primary actions (contact &amp; save)</li>
+            </ol>
+          </figure>
+          <div class="cm-sub">
+            <h3>From card to listing</h3>
+            <p>Everything else waits for the listing page. Once a card catches someone's eye, the listing opens it up: every photo, the description, whether the price is negotiable, when it was posted and who is selling. The same order holds on a phone, where the pieces stack into a single column.</p>
+          </div>
+          <div class="cm-phones" aria-label="CMUsed on a phone">
+            <figure class="cm-phone"><div class="cm-phone-body"><i class="cm-phone-island" aria-hidden="true"></i><div class="cm-phone-screen"><img src="../../assets/pd/cmused-m-home.webp" alt="CMUsed on a phone: the home page with Clothing and Furniture banners stacked, then recent listings two to a row" loading="lazy" decoding="async" /></div></div><figcaption>Mobile web · Home</figcaption></figure>
+            <figure class="cm-phone"><div class="cm-phone-body"><i class="cm-phone-island" aria-hidden="true"></i><div class="cm-phone-screen"><img src="../../assets/pd/cmused-m-item.webp" alt="CMUsed on a phone: a listing for white platform combat boots with photos, price, condition and when it was posted" loading="lazy" decoding="async" /></div></div><figcaption>Mobile web · Listing</figcaption></figure>
+          </div>
+
+        </section>
+
+        <section class="cm-section" data-rail="ROLE" aria-labelledby="cm-role">
+          <header class="cm-section-head"><p><span>03 / MY ROLE</span><span>PRODUCT DESIGNER · 2026</span></p><h2 id="cm-role">What I work on.</h2></header>
+          <p class="cm-intro">I joined CMUsed as a product designer. My work is making the marketplace easier to use from end to end: how it flows, how it looks, what it can do, and where it lives.</p>
+          <ol class="cm-notes cm-notes-4">
+            <li><span>01</span><b>Redesigning user flow.</b><p>Redesigning and refining the paths people take, from browsing and searching to contacting a seller and listing an item.</p></li>
+            <li><span>02</span><b>UI/UX.</b><p>Reworking how the website is designed: layouts, components and the details that make each page clear.</p></li>
+            <li><span>03</span><b>Messaging function.</b><p>Improving what the site can do, including the messaging system buyers and sellers use to reach each other.</p></li>
+            <li><span>04</span><b>Mobile app.</b><p>Developing a CMUsed app, so people can buy and sell from their phones. In progress.</p></li>
+          </ol>
+        </section>
+
+        <section class="cm-section" data-rail="NUMBERS" aria-labelledby="cm-start">
+          <header class="cm-section-head"><p data-cm-stamp></p><h2 id="cm-start" data-cm-title>Where it stood when I joined.</h2></header>
+          <dl class="cm-grid cm-grid-4 cm-headline" data-cm-group="headline"></dl>
+          <ol class="cm-notes" data-cm-notes aria-label="Reading the numbers"></ol>
+        </section>
+
+        <section class="cm-section" aria-labelledby="cm-people">
+          <header class="cm-section-head"><p><span>04 / PEOPLE</span></p><h2 id="cm-people">Who uses it.</h2></header>
+          <dl class="cm-grid cm-grid-4" data-cm-group="people"></dl>
+        </section>
+
+        <section class="cm-section" aria-labelledby="cm-listings">
+          <header class="cm-section-head"><p><span>05 / LISTINGS</span></p><h2 id="cm-listings">What is for sale.</h2></header>
+          <dl class="cm-grid cm-grid-3" data-cm-group="listings"></dl>
+          <figure class="cm-chart" aria-labelledby="cm-cat-title">
+            <figcaption><b id="cm-cat-title">Active listings by category</b><span><span data-cm-categories-key></span><span data-cm-categories-total></span></span></figcaption>
+            <ol data-cm-categories></ol>
+          </figure>
+        </section>
+
+        <footer class="cm-end"><a href="../" data-route data-route-label="PRODUCT DESIGN">← Back to product design</a><span>CMUSED / 2026</span></footer>
+      </article>
+    </main>
+    <script type="module" src="./cmused.js?v=1"></script>
+    <script src="../../spectacle.js?v=20260925-perf-1"></script>
+    <script src="../../cursor-shape.js?v=3"></script>
+    <script>
+      (() => {
+        const transition = document.querySelector('.page-transition');
+        const grid = transition?.querySelector('.transition-grid');
+        for (let index = 0; index < 12; index += 1) {
+          const cell = document.createElement('span');
+          cell.style.setProperty('--cell', index);
+          cell.style.setProperty('--reverse-cell', 11 - index);
+          grid?.append(cell);
+        }
+        let hasRevealed = false;
+        const reveal = () => {
+          if (hasRevealed) return;
+          hasRevealed = true;
+          let state = null;
+          try {
+            const raw = sessionStorage.getItem('alobi-route-reveal');
+            state = raw ? JSON.parse(raw) : null;
+          } catch {}
+          if (state?.effect === 'line' || state?.effect === 'cleaner') {
+            transition.className = 'page-transition';
+            document.documentElement.classList.remove('route-enter-pending');
+            document.getElementById('route-prepaint-style')?.remove();
+            try { sessionStorage.removeItem('alobi-route-reveal'); } catch {}
+            return;
+          }
+          if (transition && grid?.children.length) {
+            transition.className = 'page-transition is-active effect-route-reveal';
+            requestAnimationFrame(() => {
+              document.documentElement.classList.remove('route-enter-pending');
+              document.getElementById('route-prepaint-style')?.remove();
+            });
+            window.setTimeout(() => { transition.className = 'page-transition'; }, 1100);
+          } else {
+            document.documentElement.classList.remove('route-enter-pending');
+            document.getElementById('route-prepaint-style')?.remove();
+          }
+          try { sessionStorage.removeItem('alobi-route-reveal'); } catch {}
+        };
+        requestAnimationFrame(() => requestAnimationFrame(reveal));
+        window.addEventListener('pageshow', reveal, { once: true });
+
+        document.querySelectorAll('[data-route]').forEach(link => link.addEventListener('click', event => {
+          if (link.href === location.href) return;
+          event.preventDefault();
+          if (/ALOBI\s*\/\s*HOME/i.test(link.dataset.routeLabel || link.textContent.trim())) {
+            try { sessionStorage.setItem('alobi-home-line-return', '1'); } catch {}
+          }
+          document.documentElement.classList.add('route-leaving');
+          transition.className = 'page-transition is-active effect-cleaner-down';
+          try {
+            sessionStorage.setItem('alobi-route-reveal', JSON.stringify({
+              label: link.dataset.routeLabel || link.textContent.trim(),
+              effect: 'line',
+              createdAt: Date.now()
+            }));
+          } catch {}
+          window.setTimeout(() => {
+            transition.classList.add('is-holding');
+            window.setTimeout(() => location.assign(link.href), 135);
+          }, 616);
+        }));
+      })();
+    </script>
+  </body>
+</html>

@@ -2,81 +2,54 @@ import { drawSharedPortal, drawRoomLines } from './me-portal.js?v=20260923-curso
 const gallery=document.querySelector('.walk-gallery');
 if(gallery){
  const world=gallery.querySelector('.walk-world');
- // The six architecture projects, in the same order as the ARCH page
- // (category.js). Each frame opens that project's page.
+ // The two product design projects, then the architecture projects in the
+ // same order as the ARCH page (category.js). Each frame opens that project's page.
+ //
+ // Every frame's picture window is 16:9, ready for screen recordings. A frame
+ // can play a video instead of a still: video:'file.mp4' (the image, if
+ // given, is its poster). Website projects also get web:true and
+ // desc:'...': held under the pointer, their frame keeps the 16:9 video as it
+ // is at the top and grows downward to show the description underneath,
+ // instead of stretching the picture.
  const works=[
-  {slug:'re-serv-oir',title:'RE.SERV.OIR',meta:'2026 · DESIGN STUDIO',image:'reservoir-exterior.png'},
+  // Product design, newest work first.
+  {title:'CMUsed',meta:'2026 · PRODUCT DESIGN',lens:'PD',field:'PRODUCT DESIGN',href:'hci/cmused/',src:'assets/pd/cmused-home.webp?v=3',web:true,desc:'A second-hand marketplace for the Carnegie Mellon community. Browse by category, contact sellers directly, and list an item in three short steps, with AI help writing the description.'},
+  {title:'OpenGym',meta:'2026 · PRODUCT DESIGN',lens:'PD',field:'PRODUCT DESIGN',href:'hci/opengym/',src:'assets/pd/opengym-home.webp?v=1',web:true,desc:'Live occupancy for Carnegie Mellon\'s gyms. OpenGym already existed; I\'m redesigning its user flow, interface and product logic together with the hardware team behind its live counts.'},
+  {slug:'re-serv-oir',title:'RE.SERV.OIR',meta:'2026 · DESIGN STUDIO',image:'reservoir-exterior.webp'},
   {slug:'how-to-build-a-ruin',title:'How to Build a Ruin',meta:'2026 · OPTION STUDIO',image:'ruin-hero-cover.jpg'},
   {slug:'convergence-environmental-middle-school',title:'Convergence',meta:'2025 FALL · STUDIO PROJECT',image:'convergence-pdf-02.jpg'},
   {slug:'radical-empathy',title:'Radical Empathy',meta:'2025 SPRING · STUDIO PROJECT',image:'radical-empathy-cover.jpg'},
-  {slug:'the-tinkerers-imaginarium',title:"The Tinkerer's Imaginarium",meta:'2025 SPRING · STUDIO PROJECT',image:'tinkerers-site-model-cover.jpg'},
+  // (The Tinkerer's Imaginarium is left out here; it stays on the ARCH page.)
   {slug:'call-of-the-sea',title:'Call of the Sea',meta:'2026—PRESENT · IN PROGRESS',image:null}
  ];
  works.forEach((work,i)=>{
   const panel=document.createElement('a');panel.className='walk-panel';
-  panel.href=`project/?lens=architecture&project=${work.slug}`;
+  panel.href=work.href||`project/?lens=architecture&project=${work.slug}`;
   panel.setAttribute('aria-label',`Open the ${work.title} project`);
   const number=String(i+1).padStart(2,'0');
-  const visual=work.image
-   ?`<img src="assets/portfolio/${work.image}" alt="" loading="lazy" decoding="async">`
+  const visual=work.video
+   ?`<video src="assets/portfolio/${work.video}"${work.image?` poster="assets/portfolio/${work.image}"`:''} muted loop playsinline autoplay preload="metadata"></video>`
+   :(work.src||work.image)
+   ?`<img src="${work.src||`assets/portfolio/${work.image}`}" alt="" loading="lazy" decoding="async">`
    :'<div class="walk-progress-cover" aria-hidden="true"><small>ONGOING / 2026</small><strong>IN<br>PROGRESS</strong><em>TOROSIAJE · INDONESIA</em></div>';
-  panel.innerHTML=`<header><div><small>ARCH / ${work.meta}</small><h2>${number}</h2></div><h3>${work.title}</h3></header><div class="walk-placeholder">${visual}</div><footer><span>ARCHITECTURE / ${number}</span><span>VIEW PROJECT →</span></footer>`;
+  panel.innerHTML=`<header><div><small>${work.lens||'ARCH'} / ${work.meta}</small><h2>${number}</h2></div><h3>${work.title}</h3></header><div class="walk-placeholder">${visual}</div>${work.web&&work.desc?`<div class="walk-desc"><p>${work.desc}</p></div>`:''}<footer><span>${work.field||'ARCHITECTURE'} / ${number}</span><span>VIEW PROJECT →</span></footer>`;
+  if(work.web)panel.classList.add('walk-web');
   world.append(panel);
  });
  const panels=[...world.children],canvas=gallery.querySelector('.walk-space'),ctx=canvas.getContext('2d');
- // Opening a project: remember where we are (so the browser's Back button
- // returns here, see app.js), then lift the frame's picture out of the room
- // and grow it to fill the screen while the room fades to paper. The project
- // page opens on that same full-screen picture (project/zoom-arrive.js) and
- // settles it into place, so the two pages read as one movement.
+ // Opening a project: no zoom. The project page slides up over this one
+ // (the site's usual page change, page-flow.css), the same movement as the
+ // slide back down on the way out. Remember where we are, so the browser's
+ // Back button returns here (app.js). The earlier zoom-in version is kept in
+ // archive/walk-gallery-zoom-open.js.
  let opening=false;
  function openProject(panel){
-  if(opening)return;
-  const at=scrollY;
-  try{sessionStorage.setItem('alobi-return-scroll',JSON.stringify({y:at,at:Date.now()}))}catch{}
-  const href=panel.href;
-  if(reduced.matches){location.assign(href);return}
-  // Hold the room still while the picture lifts out: no hover growing or
-  // shrinking underneath, no glide still carrying the page along.
-  opening=true;window.siteScroll?.stop?.();
-  const source=panel.querySelector('.walk-placeholder');
-  const from=source.getBoundingClientRect();
-  const layer=document.createElement('div');layer.className='walk-zoom';layer.setAttribute('aria-hidden','true');
-  const veil=document.createElement('div');veil.className='walk-zoom-veil';
-  const box=document.createElement('div');box.className='walk-zoom-box';
-  const original=source.firstElementChild;
-  const visual=original?.cloneNode(true);
-  // The copy starts exactly as the frame's picture looks right now (in colour
-  // and slightly enlarged while hovered, grey otherwise), so nothing jumps.
-  let startFilter='grayscale(1)',startTransform='none';
-  if(original?.tagName==='IMG'){const cs=getComputedStyle(original);startFilter=cs.filter&&cs.filter!=='none'?cs.filter:'grayscale(0)';startTransform=cs.transform||'none'}
-  if(visual){visual.removeAttribute('loading');visual.style.transition='none';visual.style.filter=startFilter;visual.style.transform=startTransform;box.append(visual)}
-  layer.append(veil,box);document.body.append(layer);
-  const ease='cubic-bezier(.76,0,.2,1)',duration=900;
-  // A small lift first (the frame comes forward), then the long grow.
-  const grow=box.animate([
-   {left:`${from.left}px`,top:`${from.top}px`,width:`${from.width}px`,height:`${from.height}px`,boxShadow:'0 0 0 .75px #180400, 0 0 0 rgba(0,0,0,0)',offset:0},
-   {left:`${from.left-6}px`,top:`${from.top-8}px`,width:`${from.width+12}px`,height:`${from.height+12}px`,boxShadow:'0 0 0 .75px #180400, 0 24px 60px -24px rgba(0,0,0,.35)',offset:.16},
-   {left:'0px',top:'0px',width:`${innerWidth}px`,height:`${innerHeight}px`,boxShadow:'0 0 0 0 #180400, 0 0 0 rgba(0,0,0,0)',offset:1}
-  ],{duration,easing:ease,fill:'forwards'});
-  veil.animate([{opacity:0},{opacity:1}],{duration:duration*.7,delay:120,easing:'ease-out',fill:'forwards'});
-  visual?.animate([{filter:startFilter,transform:startTransform==='none'?'scale(1)':startTransform},{filter:'grayscale(0)',transform:'scale(1)'}],{duration,easing:ease,fill:'forwards'});
-  const image=visual?.tagName==='IMG'?visual.currentSrc||visual.src:'';
-  let gone=false;const go=()=>{
-   if(gone)return;gone=true;
-   try{
-    sessionStorage.setItem('alobi-zoom-hand',JSON.stringify({src:image,at:Date.now()}));
-    // For the way back: which frame, its picture and the exact scroll spot
-    // (see zoomBack below).
-    sessionStorage.setItem('alobi-zoom-return',JSON.stringify({index:panels.indexOf(panel),src:image,y:at,at:Date.now()}));
-   }catch{}
-   location.assign(href);
-  };
-  // Without a picture (the project in progress) the frame gives way to paper.
-  const settle=image?grow.finished:grow.finished.then(()=>box.animate([{opacity:1},{opacity:0}],{duration:260,fill:'forwards'}).finished);
-  settle.then(go,go);
-  setTimeout(go,duration+800);
+  if(opening)return;opening=true;
+  try{sessionStorage.setItem('alobi-return-scroll',JSON.stringify({y:scrollY,at:Date.now()}))}catch{}
+  location.assign(panel.href);
  }
+ // Back from the project (restored from the page cache): frames work again.
+ addEventListener('pageshow',event=>{if(event.persisted)opening=false});
  panels.forEach(panel=>panel.addEventListener('click',event=>{
   if(event.defaultPrevented||event.button!==0||event.metaKey||event.ctrlKey||event.shiftKey||event.altKey)return;
   event.preventDefault();openProject(panel);
@@ -144,7 +117,6 @@ if(gallery){
     {left:`${to.left}px`,top:`${to.top}px`,width:`${to.width}px`,height:`${to.height}px`}
    ],{duration:shrinkTime,easing:ease,fill:'forwards'});
    veil?.animate([{opacity:1},{opacity:0}],{duration:shrinkTime*.75,delay:shrinkTime*.2,easing:'ease-in-out',fill:'forwards'});
-   visual?.animate([{filter:'grayscale(0)'},{filter:'grayscale(1)'}],{duration:shrinkTime,easing:ease,fill:'forwards'});
    shrink.finished.then(()=>layer.animate([{opacity:1},{opacity:0}],{duration:160,fill:'forwards'}).finished).then(finish,finish);
   }));
  }
@@ -182,10 +154,17 @@ if(gallery){
  // The scene is laid out in screens of scrolling (this section is 745svh, so
  // 6.45 screens of travel): WORK opens and the walk passes the six frames.
  // With 06 in the middle of the screen the room turns a quarter, slowly; the
- // walk carries on through the turn, so 06 swings from sliding left to
+ // walk carries on through the turn, so the last frame swings from sliding left to
  // drifting up and out. The vertical room then runs empty for a moment before
  // the ME room's reading strip rises in, and the room becomes the ME room.
- const RANGE=6.45;          // screens of scroll through this section (745svh)
+ // Two more frames, a little more walk: 6.45 screens for six frames, plus
+ // about half a screen for each frame after that (the section's height is set
+ // to match below).
+ // PAIRS: how many pair-steps the camera takes before the last frame is centred
+ // (half a step more when the number of frames is odd).
+ const COUNT=panels.length,LAST=COUNT-1,PAIRS=Math.max(1,(LAST-1)/2);
+ const RANGE=6.45+Math.max(0,COUNT-6)*.46;
+ gallery.style.height=`${((RANGE+1)*100).toFixed(1)}svh`;
  // WORK's letters settle about 1.4 screens in; the room and the walk follow
  // straight after, with no still stretch in between.
  const WALK_FROM=1.45;      // WORK has slid away and the walk begins
@@ -216,15 +195,15 @@ if(gallery){
   // this section lets go, so they drift at the same rate before, during and
   // after the turn and line up with the ME room's own drawing at the handover.
   const roomScroll=room?-room.getBoundingClientRect().top:0;
-  const mobile=w<701,halfWidth=mobile?200:380,halfHeight=mobile?285:255;
-  const scale=Math.min(w*(mobile?.43:.46)/(halfWidth*2),h*(mobile?.32:.42)/(halfHeight*2));
+  const mobile=w<701,halfWidth=mobile?200:460,halfHeight=mobile?215:343; // frames sized so the picture window is 16:10, a laptop screen (1512:945), with even 40px edges
+  const scale=Math.min(w*(mobile?.43:.4)/(halfWidth*2),h*(mobile?.32:.42)/(halfHeight*2));
   const spacing=halfWidth*2+(mobile?70:120);
-  // WORK slides away and the walk passes all six frames at one constant
-  // on-screen speed, set so 06 is centred when the turn starts. Through the
+  // WORK slides away and the walk passes all the frames at one constant
+  // on-screen speed, set so the last one is centred when the turn starts. Through the
   // turn the walk slows down evenly, just enough for 06 to drift out past
   // the top edge as the turn finishes.
   const frameStep=spacing*scale;
-  const turnDistance=w+4.5*frameStep;
+  const turnDistance=w+(LAST-.5)*frameStep;
   const speed=turnDistance/((TURN_AT-WALK_FROM)*h); // on-screen px per px of scroll
   const turnScroll=TURN*h,outDistance=(h/2+halfWidth*scale+30)*1.05;
   const endSpeed=Math.max(.12,2*outDistance/turnScroll-speed);
@@ -234,8 +213,8 @@ if(gallery){
    :Math.max(0,screens-WALK_FROM)/(TURN_AT-WALK_FROM)*turnDistance;
   const slide=clamp(walked/w);
   const sliding=slide<1;
-  const travel=Math.min(2,Math.max(0,walked-w)/(2*frameStep));
-  const beyond=Math.max(0,walked-w-4*frameStep); // on-screen distance walked after frame 06 is centred
+  const travel=Math.min(PAIRS,Math.max(0,walked-w)/(2*frameStep));
+  const beyond=Math.max(0,walked-w-(LAST-1)*frameStep); // on-screen distance walked after the last frame is centred
   const angle=turn*Math.PI/2;
   portal.style.opacity=1;
   portal.style.transform=sliding?`translate3d(${-slide*w}px,0,0)`:'none';
@@ -258,7 +237,7 @@ if(gallery){
   ctx.translate(w/2,h/2);ctx.rotate(-Math.PI/2+angle);ctx.translate(-roomWidth/2,-roomHeight/2);
   drawRoomLines(ctx,roomWidth,roomHeight,roomScroll);
   ctx.restore();
-  const selected=Math.min(2,Math.round(travel));
+  const selected=Math.min(Math.ceil(PAIRS),Math.round(travel));
   const now=performance.now(),dt=Math.min(.05,Math.max(.001,(now-(lastFrame||now))/1000));lastFrame=now;
   let growing=false;
   panels.forEach((panel,i)=>{
@@ -273,7 +252,11 @@ if(gallery){
    if(Math.abs(g.target-g.value)<.002)g.value=g.target;else growing=true;
    const e=g.value*g.value*(3-2*g.value);
    const baseW=halfWidth*2,baseH=halfHeight*2;
-   const tallH=Math.max(baseH,h*.82/scale),tallW=baseW*1.08;
+   const tallW=baseW*1.08;
+   let tallH=Math.max(baseH,h*.82/scale);
+   // A website frame grows only as far as its description needs.
+   const desc=panel.classList.contains('walk-web')&&panel.querySelector('.walk-desc p');
+   if(desc)tallH=Math.max(baseH,Math.min(tallH,(mobile?145:120)+(tallW-(mobile?56:80))*945/1512+26+desc.offsetHeight+80));
    const fw=baseW+(tallW-baseW)*e,fh=baseH+(tallH-baseH)*e;
    const cxp=left+baseW*scale/2,cyp=up+baseH*scale/2;
    const cyNow=cyp+(h/2-cyp)*e;
@@ -281,12 +264,13 @@ if(gallery){
    if(e>0||panel.dataset.grown){panel.style.width=`${fw}px`;panel.style.height=`${fh}px`;if(e>0)panel.dataset.grown='1';else{delete panel.dataset.grown;panel.style.width='';panel.style.height=''}}
    panel.style.visibility=shown?'visible':'hidden';
    panel.style.transform=`translate3d(${x0}px,${y0}px,0) scale(${scale})`;
+   panel.style.setProperty('--grow',e.toFixed(3));
    panel.style.opacity=roomReveal;
    panel.style.zIndex=String(e>0?30:10-i);
    // Any frame on screen can be clicked; frames off screen are skipped by keyboard and screen readers.
    panel.inert=!shown;panel.setAttribute('aria-hidden',String(!shown));
   });
-  if(active!==selected){active=selected;count.textContent=`0${selected*2+1} — 0${selected*2+2} / 06`;}
+  if(active!==selected){active=selected;const first=Math.min(selected*2+1,COUNT-1);count.textContent=`${String(first).padStart(2,'0')} — ${String(first+1).padStart(2,'0')} / ${String(COUNT).padStart(2,'0')}`;}
   gallery.style.setProperty('--walk-progress',p);
   if(growing)schedule();
  }

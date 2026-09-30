@@ -46,21 +46,15 @@ if (section) {
 
   // Each preview is drawn with plain HTML/CSS inside a square (see my-picker.css).
   const styles = [
-    { name: 'Swiss / International', years: '1950s—', note: 'A strict grid, one sans-serif family, asymmetric balance and a lot of white. Order carries the meaning.', tags: ['Grid', 'Helvetica', 'Objectivity'],
-      preview: '<b>A</b><i></i><span>Kunst&shy;gewerbe&shy;museum<br>Zürich</span><em></em>' },
-    { name: 'Brutalism', years: '2014—', note: 'Raw HTML on purpose: default fonts, hard borders, visible structure and no polish to hide behind.', tags: ['Raw', 'Honest', 'Anti-template'],
-      preview: '<h6>index.html</h6><p><u>about</u> <u>work</u> <u>contact</u></p><button>SUBMIT</button><code>&lt;/body&gt;</code>' },
-    { name: 'Glassmorphism', years: '2020—', note: 'Frosted, translucent panels floating over soft colour, so depth comes from blur and light.', tags: ['Blur', 'Depth', 'Translucency'],
-      preview: '<i></i><i></i><div><span></span><b></b><b></b></div>' },
-    { name: 'Neumorphism', years: '2019—', note: 'Controls pushed out of, or pressed into, one soft surface with twin light and shadow.', tags: ['Soft UI', 'Extruded', 'Tactile'],
+    { cls: 'min', name: 'Refined Minimalism', years: '2010s—', note: 'Few elements, generous space and exact type, so the product is the hero. Calm and confident, never decorative. The school of Apple.', tags: ['Clarity', 'Whitespace', 'Precision'],
+      preview: '<small>New</small><b>Made quiet.</b><span>Nothing extra. Everything considered.</span><em>Learn more&nbsp;›</em><i></i>' },
+    { cls: 'glitch', name: 'Glitch / Cyberpunk', years: '1980s— · revived', note: 'Broken signal as a look: split RGB channels, torn scan lines and neon on black. Bold, loud and deliberately imperfect.', tags: ['Glitch art', 'Neon', 'Distortion'],
+      preview: '<b data-t="SIGNAL">SIGNAL</b><i></i><i></i><i></i><code>ERR_0x2F // NO CARRIER</code>' },
+    { cls: 'brut', name: 'Brutalism', years: '1950s— · béton brut', note: 'Raw concrete left as it was poured: heavy mass, deep openings and the grain of the formwork on every surface. Structure with nothing hidden.', tags: ['Béton brut', 'Mass', 'Honesty'],
+      preview: '<b>BÉTON<br>BRUT</b><i></i><i></i><i></i><em></em>' },
+    { cls: '4', name: 'Neumorphism', years: '2019—', note: 'Controls pushed out of, or pressed into, one soft surface with twin light and shadow.', tags: ['Soft UI', 'Extruded', 'Tactile'],
       preview: '<span></span><i><b></b></i><em></em>' },
-    { name: 'Bento Grid', years: '2022—', note: 'Content packed into rounded tiles of different sizes, like a lunch box. Everything in its compartment.', tags: ['Modular', 'Rounded', 'Overview'],
-      preview: '<i></i><i></i><i></i><i></i><i></i>' },
-    { name: 'Skeuomorphism', years: '2007—2013', note: 'Interfaces dressed as real objects: stitched leather, brushed metal, glossy buttons that look pressable.', tags: ['Texture', 'Metaphor', 'Gloss'],
-      preview: '<div><span></span></div><b>ON</b>' },
-    { name: 'Y2K Chrome', years: '1998—2003 · revived', note: 'Liquid metal type, sparkles and iridescent gradients: the future as imagined around the millennium.', tags: ['Chrome', 'Iridescent', 'Optimism'],
-      preview: '<b>Y2K</b><i>✦</i><i>✦</i>' },
-    { name: 'Halftone Ink', years: 'this site', note: 'Paper, ink and square halftone dots; drawn like an architectural plate. The house style you are reading.', tags: ['Print', 'Drawing', 'Monochrome'],
+    { cls: 'contour', name: 'Contour Drafting', years: 'this site', note: 'Paper, ink hairlines and a landscape of contour lines, drawn like an architectural plate. The house style you are reading.', tags: ['Drawing', 'Topography', 'Monochrome'],
       preview: '<span>ALOBI</span>' }
   ];
 
@@ -70,6 +64,8 @@ if (section) {
     ['grasshopper', 'Grasshopper', 'Spatial design & BIM', 'Parametric design'],
     ['revit', 'Revit', 'Spatial design & BIM', 'BIM documentation'],
     ['3dsmax', '3ds Max', 'Spatial design & BIM', 'Modelling & rendering'],
+    ['vray', 'V-Ray', 'Spatial design & BIM', 'Photoreal rendering'],
+    ['d5render', 'D5 Render', 'Spatial design & BIM', 'Real-time rendering'],
     ['autocad', 'AutoCAD', 'Creative production', 'Drawings'],
     ['adobe', 'Adobe Creative Suite', 'Creative production', 'Layout & post-production'],
     ['figma', 'Figma', 'Research & prototyping', 'Interfaces & flows'],
@@ -81,11 +77,7 @@ if (section) {
     ['excel', 'Excel', 'Data & decisions', 'Analysis'],
     ['tableau', 'Tableau', 'Data & decisions', 'Dashboards'],
     ['powerpoint', 'PowerPoint', 'Alignment & communication', 'Stories & decks'],
-    ['word', 'Word', 'Alignment & communication', 'Briefs & reports'],
-    ['laser-cutting', 'Laser cutting', 'Physical fabrication', 'Precise parts'],
-    ['cnc-milling', 'CNC milling', 'Physical fabrication', 'Carved forms'],
-    ['3d-printing', '3D printing', 'Physical fabrication', 'Quick prototypes'],
-    ['woodworking', 'Woodworking', 'Physical fabrication', 'Joinery & assembly']
+    ['word', 'Word', 'Alignment & communication', 'Briefs & reports']
   ];
 
   const process = [
@@ -127,7 +119,7 @@ if (section) {
   makeTrack('style', styles.map((item, index) => `
     <article class="my-record">
       <header><span>S—${String(index + 1).padStart(2, '0')}</span><span>${item.years}</span></header>
-      <div class="my-preview my-preview-${index + 1}" aria-hidden="true">${item.preview}</div>
+      <div class="my-preview my-preview-${item.cls}" aria-hidden="true">${item.preview}</div>
       <h3>${item.name}</h3>
       <p>${item.note}</p>
       <footer>${item.tags.map(tag => `<i>${tag}</i>`).join('')}</footer>
@@ -202,6 +194,8 @@ if (section) {
   // turned: the old records rush off, a blur of travel, and the new ones slow
   // into place (see render). The very first choice simply fades in.
   let swap = null;
+  // Switching topic: the old records leave, then the new ones arrive.
+  const MOVE_MS = 725, FADE_MS = 150, IN_AT = 650, SWAP_MS = IN_AT + MOVE_MS;
   const choose = (topic, dir = 1) => {
     const previous = drumState.choice;
     drumState.choiceRot = drumState.rot;
@@ -428,7 +422,7 @@ if (section) {
     column.style.visibility = sweep > 0 ? 'visible' : 'hidden';
     const progress = clamp((screens - RECORDS_AT + SWEEP * .5) / (RECORDS + SWEEP * .5));
     let swapT = null;
-    if (swap) { swapT = clamp((now - swap.at) / 1250); if (swapT >= 1) { finishSwap(); swapT = null; } }
+    if (swap) { swapT = now - swap.at; if (swapT >= SWAP_MS) { finishSwap(); swapT = null; } }
     Object.values(tracks).forEach(track => {
       if (!track.classList.contains('is-current')) return;
       // During a switch: the leaving records speed off in the wheel's
@@ -437,9 +431,12 @@ if (section) {
       let travel = 0;
       if (swapT !== null && (track.dataset.topic === swap.from || track.dataset.topic === swap.to)) {
         const leaving = track.dataset.topic === swap.from;
-        const k = leaving ? clamp(swapT / .5) ** 2.2 : (1 - clamp((swapT - .42) / .58)) ** 2.6;
+        // The way out is the way in played backwards, so both move at the
+        // same speed: each takes MOVE_MS, fading over its outer FADE_MS.
+        const inT = swapT - IN_AT;
+        const k = leaving ? clamp(swapT / MOVE_MS) ** 2.6 : (1 - clamp(inT / MOVE_MS)) ** 2.6;
         travel = (leaving ? -1 : 1) * swap.dir * k * h * 2.6;
-        track.style.opacity = String(leaving ? 1 - clamp((swapT - .3) / .18) : clamp((swapT - .42) / .12));
+        track.style.opacity = String(leaving ? 1 - clamp((swapT - (MOVE_MS - FADE_MS)) / FADE_MS) : clamp(inT / FADE_MS));
         track.style.filter = k > .02 ? `blur(${(k * 9).toFixed(1)}px)` : '';
       }
       if (track.dataset.topic === 'skills') {

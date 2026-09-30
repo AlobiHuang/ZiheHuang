@@ -27,7 +27,7 @@ body.about-page{margin:0;background:var(--about-paper);color:var(--about-ink);fo
 .timeline-console:after{display:none}
 .timeline-console>p:first-child{margin:0 0 clamp(34px,6vh,68px);color:var(--about-muted);font:600 8px/1 "DM Mono",monospace;letter-spacing:.08em}
 .timeline-console>p:first-child span{color:var(--about-blue);animation:none}
-.console-year{display:block;color:var(--about-ink)!important;font:680 clamp(34px,3.8vw,60px)/.9 -apple-system,BlinkMacSystemFont,"SF Pro Display",sans-serif;letter-spacing:-.06em;transition:opacity .18s,transform .3s}
+.console-year{display:block;max-width:100%;overflow-wrap:anywhere;color:var(--about-ink)!important;font:680 clamp(28px,3vw,48px)/.94 -apple-system,BlinkMacSystemFont,"SF Pro Display","Helvetica Neue",Arial,sans-serif;letter-spacing:-.06em;transition:opacity .18s,transform .3s}
 .console-title{max-width:310px;margin:16px 0 30px;color:var(--about-muted);font-size:clamp(17px,1.55vw,24px);font-weight:500;line-height:1.18;letter-spacing:-.035em;transition:opacity .18s,transform .3s}
 .timeline-console.is-updating .console-year,.timeline-console.is-updating .console-title{opacity:0;transform:translateY(8px)}
 .timeline-progress{position:relative;width:100%;height:1px;margin-bottom:28px;background:var(--about-line)}
@@ -45,11 +45,11 @@ body.about-page{margin:0;background:var(--about-paper);color:var(--about-ink);fo
 .timeline-event.is-active{opacity:1}
 .event-index{grid-column:1/-1;align-self:start;color:var(--about-muted)!important;font:600 8px/1 "DM Mono",monospace;letter-spacing:.07em}
 .event-card{align-self:center}.event-heading{display:flex;justify-content:space-between;gap:20px;padding-bottom:14px;border-bottom:1px solid var(--about-ink);color:var(--about-muted);font:600 7px/1.45 "DM Mono",monospace;letter-spacing:.06em}
-.event-card h2{max-width:700px;margin:30px 0 24px;color:var(--about-ink);font:680 clamp(36px,4vw,62px)/.95 -apple-system,BlinkMacSystemFont,"SF Pro Display",sans-serif;letter-spacing:-.058em}
+.event-card h2{max-width:700px;margin:30px 0 24px;color:var(--about-ink);font:680 clamp(36px,4vw,62px)/1.02 -apple-system,BlinkMacSystemFont,"SF Pro Display","Helvetica Neue",Arial,sans-serif;letter-spacing:-.045em}
 .event-card>p{max-width:650px;margin:0;color:var(--about-muted)!important;font-size:clamp(14px,1.15vw,18px);line-height:1.6}
 .event-tags{display:flex;flex-wrap:wrap;gap:7px;margin-top:26px}.event-tags span{padding:7px 10px;border:1px solid var(--about-line)!important;border-radius:999px;color:var(--about-muted);font:600 7px/1 "DM Mono",monospace;letter-spacing:.06em}
 .event-metrics{display:flex;gap:0;margin-top:28px;border-top:1px solid var(--about-line);border-bottom:1px solid var(--about-line)}
-.event-metrics span{min-width:118px;padding:14px 16px;border-left:0!important;border-right:1px solid var(--about-line);background:transparent!important;color:var(--about-muted);font:600 7px/1.3 "DM Mono",monospace}.event-metrics span:last-child{border-right:0}.event-metrics b{display:block;margin-bottom:7px;color:var(--about-ink)!important;font:680 28px/1 -apple-system,BlinkMacSystemFont,"SF Pro Display",sans-serif;letter-spacing:-.055em}
+.event-metrics span{min-width:118px;padding:14px 16px;border-left:0!important;border-right:1px solid var(--about-line);background:transparent!important;color:var(--about-muted);font:600 7px/1.3 "DM Mono",monospace}.event-metrics span:last-child{border-right:0}.event-metrics b{display:block;margin-bottom:7px;color:var(--about-ink)!important;font:680 28px/1 -apple-system,BlinkMacSystemFont,"SF Pro Display","Helvetica Neue",Arial,sans-serif;letter-spacing:-.055em}
 .event-reveal{max-height:none;margin-top:28px;padding-top:17px;overflow:visible;border-top:1px solid var(--about-line);opacity:1}
 .event-reveal span{color:var(--about-muted)!important;font:600 7px/1 "DM Mono",monospace}.event-reveal p{margin:8px 0 0;color:var(--about-ink);font-size:12px;line-height:1.5}
 .event-visual{position:relative;box-sizing:border-box;align-self:center;aspect-ratio:1;overflow:hidden;border:1px solid var(--about-ink)!important;border-radius:0!important;background:#1d1d1f!important;transform:translateY(18px)!important;transition:transform .8s cubic-bezier(.16,1,.3,1),opacity .5s;opacity:.72}
@@ -57,21 +57,21 @@ body.about-page{margin:0;background:var(--about-paper);color:var(--about-ink);fo
 .event-visual:after{display:none}
 .event-visual img{display:block;width:100%;height:100%;object-fit:cover;filter:grayscale(1);transform:none!important}
 .visual-foundation{background:#dedee2!important}.visual-foundation img{filter:grayscale(1) contrast(1.04)!important;opacity:1!important}
-.visual-huayi{box-sizing:border-box;padding:clamp(30px,4vw,58px);display:flex;flex-direction:column;justify-content:space-between;gap:clamp(38px,6vw,84px)}.visual-huayi span{display:block;max-width:100%;color:#fff;font:680 clamp(34px,4vw,64px)/.86 -apple-system,BlinkMacSystemFont,"SF Pro Display",sans-serif;letter-spacing:-.065em}.visual-huayi b{position:static;align-self:flex-end;width:100%;padding-top:clamp(18px,2vw,30px);border-top:1px solid rgba(255,255,255,.48);color:#fff;font:680 clamp(54px,7vw,105px)/.82 -apple-system,BlinkMacSystemFont,"SF Pro Display",sans-serif;letter-spacing:-.08em;text-align:right}
+.visual-huayi{box-sizing:border-box;padding:clamp(30px,4vw,58px);display:flex;flex-direction:column;justify-content:space-between;gap:clamp(38px,6vw,84px)}.visual-huayi span{display:block;max-width:100%;color:#fff;font:680 clamp(34px,4vw,64px)/.86 -apple-system,BlinkMacSystemFont,"SF Pro Display","Helvetica Neue",Arial,sans-serif;letter-spacing:-.065em}.visual-huayi b{position:static;align-self:flex-end;width:100%;padding-top:clamp(18px,2vw,30px);border-top:1px solid rgba(255,255,255,.48);color:#fff;font:680 clamp(54px,7vw,105px)/.82 -apple-system,BlinkMacSystemFont,"SF Pro Display","Helvetica Neue",Arial,sans-serif;letter-spacing:-.08em;text-align:right}
 .visual-cmu{display:grid;place-items:center;padding:0;background:#fff!important}.visual-cmu img{width:100%;height:100%;aspect-ratio:auto;object-fit:contain;filter:grayscale(1)!important}
 .visual-mentor,.visual-cote{margin:0}.visual-mentor img,.visual-cote img{object-position:center}
 .visual-sankofa span{position:absolute;left:12%;right:12%;height:1px;background:#fff;transform-origin:left}.visual-sankofa span:nth-child(1){top:24%;transform:rotate(32deg)}.visual-sankofa span:nth-child(2){top:45%;transform:rotate(-28deg)}.visual-sankofa span:nth-child(3){top:63%;transform:rotate(21deg)}.visual-sankofa span:nth-child(4){top:78%;transform:rotate(-15deg)}.visual-sankofa b{position:absolute;right:8%;bottom:7%;color:#fff;font:680 clamp(24px,3.5vw,52px)/1 "DM Mono",monospace;letter-spacing:-.06em}
 
 .about-now{box-sizing:border-box;min-height:82svh;padding:clamp(100px,10vw,150px) var(--shell-edge);display:grid;grid-template-columns:repeat(12,minmax(0,1fr));gap:28px;align-content:center;background:var(--about-paper)!important;border-top:0;border-bottom:1px solid var(--about-ink)}
 .about-now>p{grid-column:1/3;margin:0;color:var(--about-muted);font:600 8px/1.5 "DM Mono",monospace}
-.about-now h2{grid-column:3/12;margin:0;color:var(--about-ink);font:680 clamp(62px,8.5vw,132px)/.84 -apple-system,BlinkMacSystemFont,"SF Pro Display",sans-serif;letter-spacing:-.075em}
+.about-now h2{grid-column:3/12;margin:0;color:var(--about-ink);font:680 clamp(62px,8.5vw,132px)/.94 -apple-system,BlinkMacSystemFont,"SF Pro Display","Helvetica Neue",Arial,sans-serif;letter-spacing:-.06em}
 .about-now h2 em{font:inherit;font-style:normal;color:inherit!important}
 .about-now-copy{grid-column:7/12;margin-top:56px;padding-top:18px;border-top:1px solid var(--about-ink)!important}.about-now-copy p{max-width:660px;margin:0;color:var(--about-muted);font-size:clamp(16px,1.35vw,20px);line-height:1.6}.about-now-copy a{display:inline-block;margin-top:32px;padding-bottom:5px;border-bottom:1px solid var(--about-ink);color:inherit;text-decoration:none;font:600 9px/1 "DM Mono",monospace;text-transform:uppercase}
 
 .about-qr-contact{box-sizing:border-box;min-height:100svh;padding:clamp(92px,9vw,140px) var(--shell-edge) 34px!important;background:var(--about-paper)!important;color:var(--about-ink)!important;scroll-margin-top:52px}
 .about-qr-contact .contact-heading{min-height:52vh;border-bottom:1px solid var(--about-ink)}
 .about-qr-contact .contact-heading>p{top:0;color:var(--about-muted);font:600 9px/1 "DM Mono",monospace}
-.about-qr-contact .contact-heading h2{margin:30px 0 28px;color:var(--about-ink);font:680 clamp(72px,12vw,174px)/.78 -apple-system,BlinkMacSystemFont,"SF Pro Display",sans-serif;letter-spacing:-.075em;text-transform:uppercase}
+.about-qr-contact .contact-heading h2{margin:30px 0 28px;color:var(--about-ink);font:680 clamp(72px,12vw,174px)/.86 -apple-system,BlinkMacSystemFont,"SF Pro Display","Helvetica Neue",Arial,sans-serif;letter-spacing:-.065em;text-transform:uppercase}
 .about-qr-contact .contact-heading h2 em{font:inherit;font-style:normal;text-transform:inherit}.about-qr-contact .contact-heading h2 span{color:inherit}
 .about-qr-contact .contact-heading>a{color:inherit;border-bottom:1px solid var(--about-ink);font:600 clamp(14px,1.3vw,19px)/1 "DM Mono",monospace}
 .about-qr-contact .contact-back-top{color:var(--about-muted)}
@@ -88,12 +88,12 @@ body.about-page{margin:0;background:var(--about-paper);color:var(--about-ink);fo
 @media(prefers-reduced-motion:reduce){.about-page *{animation:none!important;transition:none!important}.about-motion-pending .about-hero h1,.about-motion-pending .about-entrance-line{visibility:visible}.about-motion-pending .about-kicker,.about-motion-pending .about-portrait{opacity:1;transform:none;clip-path:none}.timeline-event{opacity:1}.event-visual{transform:none!important;opacity:1}}
 /* Chapters added 2026-09-25: Shenzhen, Product Studio, and the open end. */
 .visual-place,.visual-product,.visual-next{box-sizing:border-box;padding:clamp(30px,4vw,58px);display:flex;flex-direction:column;justify-content:space-between;gap:clamp(38px,6vw,84px)}
-.visual-place span,.visual-product span,.visual-next span{display:block;max-width:100%;color:#fff;font:680 clamp(34px,4vw,64px)/.86 -apple-system,BlinkMacSystemFont,"SF Pro Display",sans-serif;letter-spacing:-.065em}
+.visual-place span,.visual-product span,.visual-next span{display:block;max-width:100%;color:#fff;font:680 clamp(28px,3.1vw,52px)/.9 -apple-system,BlinkMacSystemFont,"SF Pro Display","Helvetica Neue",Arial,sans-serif;letter-spacing:-.065em}
 .visual-place b,.visual-product b{align-self:stretch;padding-top:clamp(18px,2vw,30px);border-top:1px solid rgba(255,255,255,.48);color:#fff;font:500 clamp(14px,1.4vw,20px)/1.3 "DM Mono",ui-monospace,monospace;letter-spacing:.04em}
-.visual-product b{font:680 clamp(36px,4.6vw,72px)/.82 -apple-system,BlinkMacSystemFont,"SF Pro Display",sans-serif;letter-spacing:-.065em}
+.visual-product b{font:680 clamp(36px,4.6vw,72px)/.82 -apple-system,BlinkMacSystemFont,"SF Pro Display","Helvetica Neue",Arial,sans-serif;letter-spacing:-.065em}
 .visual-next{background:#f5f5f7!important}
 .visual-next span{color:#1d1d1f}
-.visual-next b{align-self:flex-start;color:#1d1d1f;font:680 clamp(80px,10vw,150px)/.7 -apple-system,BlinkMacSystemFont,"SF Pro Display",sans-serif;animation:about-caret 1.05s steps(1,end) infinite}
+.visual-next b{align-self:flex-start;color:#1d1d1f;font:680 clamp(80px,10vw,150px)/.7 -apple-system,BlinkMacSystemFont,"SF Pro Display","Helvetica Neue",Arial,sans-serif;animation:about-caret 1.05s steps(1,end) infinite}
 @keyframes about-caret{50%{opacity:0}}
 .event-reveal a{color:inherit;text-decoration:none;border-bottom:1px solid currentColor}
 @media(prefers-reduced-motion:reduce){.visual-next b{animation:none}}
@@ -105,12 +105,36 @@ body.about-page{margin:0;background:var(--about-paper);color:var(--about-ink);fo
 .event-visual.visual-logo img{filter:none!important}
 .visual-cmu-seal{margin:0;display:grid;place-items:center;background:#fff!important}
 .event-visual.visual-cmu-seal img{width:84%;height:84%;object-fit:contain}
-.visual-btg{margin:0;background:#ff3045!important}
-.event-visual.visual-btg img{width:100%;height:100%;object-fit:cover}
+.visual-btg{margin:0;display:grid;place-items:center;background:#fff!important}
+.event-visual.visual-btg img{width:68%;height:auto;aspect-ratio:1;object-fit:contain}
 /* CMU's university logo: the red square kept whole, with clear space around it. */
 .visual-cmu-logo{margin:0;display:grid;place-items:center;background:#fff!important}
-.event-visual.visual-cmu-logo img{width:52%;height:auto;aspect-ratio:1;object-fit:contain}
+.event-visual.visual-cmu-logo img{width:68%;height:auto;aspect-ratio:1;object-fit:contain}
 /* Quieter chapters: the date alone on the rule above each heading. */
 .event-heading{justify-content:flex-end!important}
 .event-link{margin:28px 0 0;font:500 10px/1 "DM Mono",ui-monospace,monospace;letter-spacing:.08em;text-transform:uppercase}
 .event-link a{color:#1d1d1f;text-decoration:none;border-bottom:1px solid currentColor;padding-bottom:3px}
+
+/* AIA COTE Top Ten: a type panel until the official logo file is added. */
+.visual-cote b{animation:none!important;font:500 clamp(12px,1vw,14px)/1 "DM Mono",ui-monospace,monospace!important;letter-spacing:.08em;align-self:flex-start}
+/* With the official logo file in assets/aia-logo.png, the panel shows it the way the CMU and BTG logos are shown. */
+.visual-cote{margin:0;position:relative}
+.visual-cote>img{display:none}
+.visual-cote.has-logo{display:grid!important;place-items:center;padding:0!important;background:#fff!important}
+.event-visual.visual-cote.has-logo>img{display:block;position:absolute;inset:13%;width:74%;height:74%;object-fit:contain;filter:none!important}
+.visual-cote.has-logo>span,.visual-cote.has-logo>b{display:none}
+
+/* The cover: the ARCH / PD / PM / Resume opening (hci.css, hero-entrance.css). The
+   earlier portrait cover is kept in archive/about-v2/. */
+.about-page .about-cover .about-field canvas{position:absolute;inset:0;display:block;width:100%;height:100%;opacity:.82;mix-blend-mode:multiply}
+.about-page .about-cover .about-field:after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(245,245,247,.08),rgba(245,245,247,.3));pointer-events:none}
+
+/* AIA COTE: three organisations, three separate cells divided by ink rules,
+   each logo on its own with a small label, so they read as three marks rather
+   than one lock-up. */
+.visual-cote-orgs{margin:0;padding:0!important;display:grid!important;grid-template-rows:1fr 1fr 1fr;background:#fff!important}
+.visual-cote-orgs>div{position:relative;display:grid;place-items:center;min-height:0;overflow:hidden}
+.visual-cote-orgs>div+div{border-top:1px solid rgba(29,29,31,.22)}
+.visual-cote-orgs span{position:absolute;left:clamp(12px,1.6vw,20px);top:clamp(10px,1.4vw,16px);color:#6e6e73;font:500 9px/1 "DM Mono",ui-monospace,monospace;letter-spacing:.08em}
+.event-visual.visual-cote-orgs img{position:absolute;left:18%;top:30%;width:64%;height:50%;object-fit:contain;filter:none!important}
+.event-visual.visual-cote-orgs>div:first-child img{top:24%;height:62%}

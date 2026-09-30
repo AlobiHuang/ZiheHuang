@@ -91,3 +91,18 @@
  .me-story .memory-orb:nth-child(2){--orb-y:34%!important}
  .me-story .dream-scroll-note{font-size:8px}
 }
+
+/* ME: the awards ledger and the ARCH / PD / PM fields. */
+.me-story ul.me-awards,.me-story ul.me-fields{margin:8px 0 0;padding:0;list-style:none;border-top:1px solid var(--me-ink)}
+.me-awards li{display:grid;grid-template-columns:5.5em 1fr auto;gap:18px;align-items:baseline;padding:20px 0;border-bottom:1px solid var(--me-ink)}
+.me-awards time{font:600 11px/1.4 var(--me-label);letter-spacing:.08em}
+.me-awards span{font:450 clamp(13px,1vw,15px)/1.45 var(--me-text);letter-spacing:-.005em}
+.me-awards b{display:block;margin-bottom:4px;font:650 clamp(20px,1.9vw,30px)/1.1 var(--me-display);letter-spacing:-.035em}
+.me-awards a{text-decoration:none;font:400 22px/1 var(--me-text)}
+.me-fields li{border-bottom:1px solid var(--me-ink)}
+.me-fields a{display:grid;grid-template-columns:clamp(84px,7vw,120px) 1fr auto;gap:18px;align-items:baseline;padding:16px 0;text-decoration:none;transition:padding .35s cubic-bezier(.16,1,.3,1)}
+.me-fields b{font:650 clamp(26px,2.4vw,40px)/1 var(--me-display);letter-spacing:-.045em}
+.me-fields span{font:450 clamp(15px,1.2vw,19px)/1.3 var(--me-text);letter-spacing:-.01em}
+.me-fields i{font-style:normal;font:400 22px/1 var(--me-text);transition:transform .35s cubic-bezier(.16,1,.3,1)}
+.me-fields a:hover,.me-fields a:focus-visible{padding-left:10px}
+.me-fields a:hover i,.me-fields a:focus-visible i{transform:translate(3px,-3px)}

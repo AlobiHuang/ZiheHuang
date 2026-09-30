@@ -1,5 +1,5 @@
 import heroEntrance from './hero-entrance.js?v=20260916-speed-1265';
-import Waves from './Waves.js?v=20260915-inverted-pm-1';
+import Waves from './Waves.js?v=20260925-perf-1';
 const start = () => {
  const field = document.querySelector('[data-pm-spatial]');
  const canvas = field?.querySelector('canvas');

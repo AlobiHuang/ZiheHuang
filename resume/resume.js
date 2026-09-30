@@ -1,7 +1,7 @@
 // Resume page: the same opening as the ARCH, PD and PM pages (the field rises
 // from the rule and the title spins in), over ARCH's light line field.
 import heroEntrance from '../hero-entrance.js?v=20260916-speed-1265';
-import Waves from '../Waves.js?v=20260924-live-rect-1';
+import Waves from '../Waves.js?v=20260925-perf-1';
 
 const hero = document.querySelector('.resume-hero');
 const field = document.querySelector('[data-resume-field]');

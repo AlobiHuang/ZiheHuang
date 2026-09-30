@@ -54,7 +54,7 @@ const portfolio = {
     ]
   },
   pm: {
-    name: 'Product Management', short: 'PM', code: '10⁻²', accent: '#171816',
+    name: 'Project Management', short: 'PM', code: '10⁻²', accent: '#171816',
     copy: 'Product thinking as disciplined translation across people, evidence, constraints, and delivery.',
     projects: [
       {
@@ -142,7 +142,7 @@ const mediaByProject = {
   'radical-empathy': ['radical-empathy-pdf-01.jpg', 'radical-empathy-pdf-02.jpg', 'radical-empathy-pdf-03.jpg', 'radical-empathy-pdf-04.jpg', 'radical-empathy-pdf-05.jpg', 'radical-empathy-pdf-06.jpg'],
   're-serv-oir': ['reservoir-pdf-01.jpg', 'reservoir-pdf-02.jpg', 'reservoir-pdf-03.jpg', 'reservoir-pdf-04.jpg', 'reservoir-pdf-05.jpg'],
   'how-to-build-a-ruin': ['ruin-pdf-01.jpg', 'ruin-pdf-02.jpg', 'ruin-pdf-03.jpg', 'ruin-pdf-04.jpg', 'ruin-pdf-05.jpg'],
-  'call-of-the-sea': ['sea-hero.png', 'sea-map.png', 'sea-section.png', 'ruin-parti-01.jpg', 'ruin-parti-03.jpg'],
+  'call-of-the-sea': ['sea-hero.webp', 'sea-map.webp', 'sea-section.webp', 'ruin-parti-01.jpg', 'ruin-parti-03.jpg'],
   'sankofa-multi-stakeholder-delivery': ['sankofa-full-scale-assembly.webp', 'sankofa-build-progress.webp', 'sankofa-project-team.webp', 'sankofa-joinery-detail.webp', 'sankofa-community-presentation.webp', 'sankofa-community-dialogue.webp', 'sankofa-design-review.webp'],
   'mentorship-as-a-feedback-system': ['1-img-9736.webp', '19-img-9665.webp', '21-img-9647.webp'],
   'ai-workflow-from-opportunity-to-adoption': ['conceptual-timeline-03.webp', 'parti-01.webp', 'parti-03.webp', 'parti-04.webp'],
@@ -216,7 +216,7 @@ const architectureGalleryMarkup = isPairedSpreadProject
 const pmLandingHeroMarkup=isPmLanding?`
   <section class="pm-spatial-hero" aria-label="Projects and leadership">
     <div class="pm-spatial-field" data-pm-spatial aria-hidden="true"><canvas class="pm-spatial-canvas"></canvas></div>
-    <p class="pm-spatial-kicker">10⁰ / PRODUCT MANAGEMENT<br>DECISIONS · TEAMS · DELIVERY</p>
+    <p class="pm-spatial-kicker">10⁰ / PROJECT MANAGEMENT<br>DECISIONS · TEAMS · DELIVERY</p>
     <h1 class="pm-spatial-title" aria-label="Projects"><span data-pm-title-type></span></h1>
   </section>`:'';
 

@@ -1,14 +1,13 @@
 // The contents menu: a sheet of paper that drops from the header with a
 // short index on the left and one large window on the right. Pointing at an
 // entry types its name into the window (with the same underscore caret as the
-// home page) over a preview of that page's own field: ARCH's grey lines, PM's
-// dark lines, PD blank while it is under construction.
+// home page) on a plain white window.
 //
 // It replaces the old full-screen list. The old panel (.index-panel) stays in
 // each page's markup, hidden, and its links still do the navigating: choosing
 // an entry here clicks the matching one there, so every page keeps its own
 // route transitions.
-import Waves from './Waves.js?v=20260924-live-rect-1';
+import Waves from './Waves.js?v=20260925-perf-1';
 
 const oldPanel = document.querySelector('.index-panel');
 const menuButton = document.querySelector('.menu-button');
@@ -19,13 +18,13 @@ if (oldPanel && menuButton) {
   const fine = matchMedia('(hover: hover) and (pointer: fine)');
 
   const info = {
-    home: { word: 'HOME', scale: 'COVER', note: 'Back to the start.', theme: 'paper' },
-    about: { word: 'ABOUT', scale: 'PROFILE', note: 'Who I am, and how I got here.', theme: 'paper' },
-    architecture: { word: 'ARCH', scale: '10²', note: 'Built environments.', theme: 'lines' },
+    home: { word: 'HOME', scale: 'COVER', note: 'Back to the start.', theme: 'blank' },
+    about: { word: 'ABOUT', scale: 'PROFILE', note: 'Who I am, and how I got here.', theme: 'blank' },
+    architecture: { word: 'ARCH', scale: '10²', note: 'Built environments.', theme: 'blank' },
     hci: { word: 'PD', scale: '10⁰', note: 'Product design. Under construction.', theme: 'blank' },
-    pm: { word: 'PM', scale: '10⁻²', note: 'Product management.', theme: 'dark' },
-    resume: { word: 'RESUME', scale: 'RECORD', note: 'Selected experience.', theme: 'paper' },
-    contact: { word: 'CONTACT', scale: 'CHANNEL', note: 'ziheh@andrew.cmu.edu', theme: 'paper' }
+    pm: { word: 'PM', scale: '10⁻²', note: 'Project management.', theme: 'blank' },
+    resume: { word: 'RESUME', scale: 'RECORD', note: 'Selected experience.', theme: 'blank' },
+    contact: { word: 'CONTACT', scale: 'CHANNEL', note: 'ziheh@andrew.cmu.edu', theme: 'blank' }
   };
   const keyOf = element => {
     const key = element.dataset.navKey || element.dataset.discipline || '';
@@ -44,7 +43,7 @@ if (oldPanel && menuButton) {
   const entries = sources.map((source, index) => {
     const key = keyOf(source);
     const label = source.querySelector('b')?.textContent.trim() || source.textContent.trim();
-    return { source, key, label, number: String(index + 1).padStart(2, '0'), current: source.getAttribute('aria-current') === 'page', ...(info[key] || { word: label.toUpperCase(), scale: '', note: '', theme: 'paper' }) };
+    return { source, key, label, number: String(index + 1).padStart(2, '0'), current: source.getAttribute('aria-current') === 'page', ...(info[key] || { word: label.toUpperCase(), scale: '', note: '', theme: 'blank' }) };
   });
   const socials = [...oldPanel.querySelectorAll('.index-socials a')];
 
@@ -161,7 +160,7 @@ if (oldPanel && menuButton) {
       shown = null; text = ''; typed.textContent = '';
       void menu.offsetWidth;
       menu.classList.add('is-open');
-      startFields();
+      // (The windows are plain paper now; the line fields are not started.)
       setTimeout(() => { if (open) show(home); }, reduced.matches ? 0 : 380);
       (home.control || entries[0]?.control)?.focus({ preventScroll: true });
     } else {
@@ -182,6 +181,22 @@ if (oldPanel && menuButton) {
   // Take the menu button before the older handlers in route-entry.js and the
   // page scripts, which would open the old panel.
   addEventListener('click', event => {
+    // The ZH logo always goes back to the main page. On the home page itself
+    // its link only points at #top, so with the menu open close the menu and
+    // jump to the top underneath it as the sheet lifts.
+    const logo = open && event.target.closest?.('.site-head .identity');
+    if (logo) {
+      const url = new URL(logo.href, location.href);
+      if (url.pathname === location.pathname) {
+        event.preventDefault();
+        event.stopImmediatePropagation();
+        setOpen(false);
+        if (window.siteScroll?.scrollTo) window.siteScroll.scrollTo(0, { immediate: true });
+        else scrollTo(0, 0);
+        if (location.hash) history.replaceState(null, '', location.pathname + location.search);
+        return;
+      }
+    }
     const button = event.target.closest?.('.menu-button');
     if (!button) return;
     event.preventDefault();

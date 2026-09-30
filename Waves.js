@@ -213,26 +213,34 @@ export default function Waves({
     }));
   };
 
+  // Same drawing as moved() above, without allocating a point per vertex
+  // per frame.
+  const px = (point, withCursor) => Math.round((point.x + point.wave.x + (withCursor ? point.cursor.x : 0)) * 10) / 10;
+  const py = (point, withCursor) => Math.round((point.y + point.wave.y + (withCursor ? point.cursor.y : 0)) * 10) / 10;
   const drawLines = () => {
     context.clearRect(0, 0, bounds.width, bounds.height);
     context.beginPath();
     context.strokeStyle = lineColor;
-    lines.forEach(points => {
-      const first = moved(points[0], radial);
-      context.moveTo(first.x, first.y);
-      points.forEach((point, index) => {
-        const last = index === points.length - 1;
-        const current = moved(point, radial || !last);
-        context.lineTo(current.x, current.y);
-      });
+    for (let l = 0; l < lines.length; l += 1) {
+      const points = lines[l];
+      const count = points.length;
+      context.moveTo(px(points[0], radial), py(points[0], radial));
+      for (let index = 0; index < count; index += 1) {
+        const point = points[index];
+        const withCursor = radial || index !== count - 1;
+        context.lineTo(px(point, withCursor), py(point, withCursor));
+      }
       if (radial) context.closePath();
-    });
+    }
     context.stroke();
   };
 
   const tick = time => {
     if (destroyed) return;
-    if (!visible || document.hidden) {
+    // Off screen: stop asking for frames; the visibility observer starts
+    // them again when the field comes back.
+    if (!visible) { frame = 0; return; }
+    if (document.hidden) {
       frame = requestAnimationFrame(tick);
       return;
     }
@@ -262,6 +270,8 @@ export default function Waves({
   };
 
   const updateMouse = event => {
+    // Off screen the field is not drawn, so there is nothing to measure.
+    if (!visible) return;
     // Measured on every move, so fields further down a scrolled page line up.
     const rect = container.getBoundingClientRect();
     bounds.left = rect.left;
@@ -278,6 +288,7 @@ export default function Waves({
   const resizeObserver = new ResizeObserver(setSize);
   const visibilityObserver = new IntersectionObserver(entries => {
     visible = entries.some(entry => entry.isIntersecting);
+    if (visible && !frame && !destroyed) frame = requestAnimationFrame(tick);
   }, { rootMargin: '160px' });
   resizeObserver.observe(container);
   visibilityObserver.observe(container);

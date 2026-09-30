@@ -16,11 +16,11 @@
     <link rel="stylesheet" href="../apple-system.css?v=20260915-zh-home-1" />
     <link rel="stylesheet" href="../spectacle.css?v=20260916-simple-menu-1" />
     <link rel="stylesheet" href="../hero-entrance.css?v=20260922-head-grow-1" />
-    <link rel="stylesheet" href="./hci.css?v=20260916-status-centered-1" />
-      <link rel="stylesheet" href="../menu.css?v=3" />
+    <link rel="stylesheet" href="./hci.css?v=20260928-mbp-1" />
+      <link rel="stylesheet" href="../menu.css?v=20260925-paper-1" />
       <link rel="stylesheet" href="../page-flow.css?v=4" />
     <link rel="expect" href="#top" blocking="render" />
-    <script type="module" src="../menu.js?v=3"></script>
+    <script type="module" src="../menu.js?v=20260928-pm-1"></script>
   </head>
   <body class="hci-page">
     <div class="page-transition" aria-hidden="true"><div class="transition-panel"></div><div class="transition-grid"></div><div class="transition-scan"></div><span class="transition-label">PRODUCT DESIGN</span></div>
@@ -31,7 +31,7 @@
         <span class="identity-copy">Zihe Huang<br />Architecture · HCI · AI</span>
       </a>
       <div class="coordinates" aria-hidden="true">10⁰ / PD<br />PRODUCT DESIGN</div>
-      <div class="header-actions"><button class="menu-button" type="button" aria-label="Open contents" aria-expanded="false"><i aria-hidden="true"></i></button><a class="header-contact" href="mailto:ziheh@andrew.cmu.edu">Contact</a></div>
+      <div class="header-actions"><button class="menu-button" type="button" aria-label="Open contents" aria-expanded="false"><i aria-hidden="true"></i></button><a class="header-contact" href="../contact/" data-route data-route-label="CONTACT / OPEN CHANNEL">Contact</a></div>
     </header>
     <aside class="index-panel" aria-hidden="true">
       <nav aria-label="Portfolio contents">
@@ -39,8 +39,8 @@
         <a href="../about/" data-route data-route-label="ABOUT / TIMELINE"><span>02</span><b>About me</b></a>
         <a href="../architecture/" data-route data-route-label="ARCHITECTURE"><span>03</span><b>Arch</b></a>
         <a href="./" data-route data-route-label="PRODUCT DESIGN" aria-current="page"><span>04</span><b>PD</b></a>
-        <a href="../pm/" data-route data-route-label="PRODUCT MANAGEMENT"><span>05</span><b>PM</b></a>
-        <a href="mailto:ziheh@andrew.cmu.edu"><span>06</span><b>Contact</b></a>
+        <a href="../pm/" data-route data-route-label="PROJECT MANAGEMENT"><span>05</span><b>PM</b></a>
+        <a href="../contact/" data-route data-route-label="CONTACT / OPEN CHANNEL"><span>06</span><b>Contact</b></a>
       </nav>
       <p>Human-centered work grounded in research, prototyping, feedback, and usable systems.</p>
       <div class="index-socials" aria-label="Contact links">
@@ -50,14 +50,59 @@
       </div>
     </aside>
     <main>
-      <section class="hci-blank-hero" id="top" aria-labelledby="hci-title">
-        <div class="hci-blank-field" data-hci-field aria-hidden="true"></div>
-        <p class="hci-status">SITE UNDER CONSTRUCTION</p>
-        <h1 class="hci-uiux-title" id="hci-title" aria-label="UIUX"><span data-hci-title-type></span></h1>
+      <section class="hci-blank-hero pd-cover" id="top" aria-labelledby="hci-title" data-rail="PD">
+        <div class="hci-blank-field pd-field" data-hci-field aria-hidden="true"><canvas></canvas></div>
+        <h1 class="hci-uiux-title pd-title" id="hci-title" aria-label="Product design"><span data-hci-title-type></span></h1>
+      </section>
+
+      <section class="pd-work" id="work" data-rail="WORK" aria-label="Selected product design work">
+
+        <!-- Projects, two to a row. Each card: a grey plate with the product's
+             screen in it (a short loop of screenshots; to use a screen recording,
+             replace the images in .pd-screen-view with
+             <video src="../assets/pd/NAME.mp4" autoplay muted loop playsinline></video>),
+             then the name, one line, and tags. -->
+        <div class="pd-grid">
+          <article class="pd-project" aria-labelledby="pd-cmused-title">
+            <div class="pd-plate">
+              <figure class="pd-screen pd-laptop" aria-label="CMUsed, a short loop: home, search, a listing, a category and the selling flow">
+                <div class="pd-lid"><i class="pd-cam" aria-hidden="true"></i><div class="pd-screen-view" data-pd-loop>
+                  <img src="../assets/pd/cmused-home.webp?v=3" alt="CMUsed home page: category banners for clothing and furniture, then recent listings" decoding="async" />
+                  <img src="../assets/pd/cmused-search.webp?v=3" alt="CMUsed search results for “sofa”: filters for price, quality and category beside the listing cards" decoding="async" loading="lazy" />
+                  <img src="../assets/pd/cmused-item.webp?v=3" alt="CMUsed listing page: photos, price, condition, the seller and a Contact Seller button" decoding="async" loading="lazy" />
+                  <img src="../assets/pd/cmused-clothing.webp?v=2" alt="CMUsed clothing category with filters and listing cards" decoding="async" loading="lazy" />
+                  <img src="../assets/pd/cmused-sell.webp?v=2" alt="CMUsed listing flow: basic info step with photos, item details and a Generate with AI description" decoding="async" loading="lazy" />
+                </div></div>
+                <div class="pd-base" aria-hidden="true"></div>
+              </figure>
+            </div>
+            <div class="pd-card-cap">
+              <h3 id="pd-cmused-title"><a class="pd-project-link" href="./cmused/" data-route data-route-label="PD / CMUSED">CMUsed</a><span>: a second-hand marketplace for Carnegie Mellon</span></h3>
+              <p>Product design · Web · Mobile app · 2026</p>
+            </div>
+          </article>
+
+          <article class="pd-project" aria-labelledby="pd-opengym-title">
+            <div class="pd-plate">
+              <figure class="pd-screen pd-laptop" aria-label="OpenGym, the existing app: the gym list, a gym page and its map">
+                <div class="pd-lid"><i class="pd-cam" aria-hidden="true"></i><div class="pd-screen-view" data-pd-loop>
+                  <img src="../assets/pd/opengym-home.webp?v=1" alt="OpenGym home: the three campus gyms, each with a photo, its name and when it next opens" decoding="async" />
+                  <img src="../assets/pd/opengym-detail.webp?v=2" alt="OpenGym gym page for Cohon Fitness Center Lower: operating hours, a live occupancy gauge reading 0 of 94 while offline, and how busy it usually is" decoding="async" loading="lazy" />
+                  <img src="../assets/pd/opengym-map.webp?v=1" alt="OpenGym gym page, bottom: an amenity photo and a map of the Cohon University Center" decoding="async" loading="lazy" />
+                </div></div>
+                <div class="pd-base" aria-hidden="true"></div>
+              </figure>
+            </div>
+            <div class="pd-card-cap">
+              <h3 id="pd-opengym-title"><a class="pd-project-link" href="./opengym/" data-route data-route-label="PD / OPENGYM">OpenGym</a><span>: live gym occupancy, redesigned with hardware</span></h3>
+              <p>Product design · User flow · Web · 2026</p>
+            </div>
+          </article>
+        </div>
       </section>
     </main>
-    <script type="module" src="./hci.js?v=20260916-menu-fix-1"></script>
-    <script src="../spectacle.js?v=20260925-title-1"></script>
+    <script type="module" src="./hci.js?v=20260928-og-1"></script>
+    <script src="../spectacle.js?v=20260925-perf-1"></script>
     <script src="../cursor-shape.js?v=3"></script>
     <script>
       (() => {

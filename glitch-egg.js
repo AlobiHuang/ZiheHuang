@@ -141,13 +141,31 @@ let found = false;
 let state = 'idle'; // idle → tearing → falling → world → idle
 let tear = null;
 
-// The crack first appears at the top of the page; once there it stays put
-// (it scrolls away with the page and is still there on the way back) until
-// it is clicked. Leaving the page or reloading starts over.
+// The crack appears at the top of the page. If it is ignored it seals itself
+// and fades away: after a few seconds without a click, or as soon as the page
+// is scrolled away from the top, whichever comes first (resting the pointer
+// on it holds it open). The next one is then left to chance. Leaving the page
+// or reloading starts over.
+const IGNORED_AFTER = 6000;
+const SCROLLED_AWAY = 24;
+let ignoreTimer = 0;
+let hovering = false;
+const dismissHint = () => {
+  clearTimeout(ignoreTimer); ignoreTimer = 0;
+  if (!hint.classList.contains('is-showing') || state !== 'idle') return;
+  hint.classList.remove('is-showing');
+  found = false; arrivals = 0; away = false; needed = laterChance();
+};
+const armIgnore = () => {
+  clearTimeout(ignoreTimer);
+  ignoreTimer = hovering ? 0 : setTimeout(dismissHint, IGNORED_AFTER);
+};
 const showHint = () => {
   const showing = hint.classList.contains('is-showing');
+  if (showing && state === 'idle' && scrollY > SCROLLED_AWAY) { dismissHint(); return; }
   const show = found && state === 'idle' && ready() && (showing || atTop());
-  if (show && !hint.classList.contains('is-showing')) { makeCrack(); drawHint(); }
+  if (show && !showing) { makeCrack(); drawHint(); hint.classList.add('is-showing'); armIgnore(); return; }
+  if (!show) { clearTimeout(ignoreTimer); ignoreTimer = 0; }
   hint.classList.toggle('is-showing', show);
 };
 
@@ -315,6 +333,7 @@ const startTear = () => {
     requestAnimationFrame(wait);
     return;
   }
+  clearTimeout(ignoreTimer); ignoreTimer = 0;
   hint.classList.remove('is-showing');
   // Opened: the next crack is left to chance again.
   found = false; arrivals = 0; needed = laterChance();
@@ -488,6 +507,9 @@ const heal = () => {
 };
 
 hintParts.hit.addEventListener('click', startTear);
+hintParts.hit.addEventListener('pointerenter', () => { hovering = true; clearTimeout(ignoreTimer); ignoreTimer = 0; });
+hintParts.hit.addEventListener('pointerleave', () => { hovering = false; if (hint.classList.contains('is-showing') && state === 'idle') armIgnore(); });
+hintParts.hit.addEventListener('focus', () => { clearTimeout(ignoreTimer); ignoreTimer = 0; });
 hintParts.hit.addEventListener('keydown', event => { if (event.key === 'Enter' || event.key === ' ') { event.preventDefault(); startTear(); } });
 mend.addEventListener('click', heal);
 addEventListener('keydown', event => { if (event.key === 'Escape') heal(); });
@@ -507,6 +529,16 @@ addEventListener('scroll', () => {
   }
   showHint();
 }, { passive: true });
+
+// Leaving the page clears the crack, including when the browser keeps the
+// page in memory and brings it back with the Back button: it comes back
+// exactly as a fresh visit would, with no crack showing.
+addEventListener('pageshow', event => {
+  if (!event.persisted || state !== 'idle') return;
+  clearTimeout(ignoreTimer); ignoreTimer = 0; hovering = false;
+  hint.classList.remove('is-showing');
+  found = false; arrivals = 0; away = false; needed = 1;
+});
 
 addEventListener('resize', () => {
   if (state === 'idle' && hint.classList.contains('is-showing')) { makeCrack(); drawHint(); }

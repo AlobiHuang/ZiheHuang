@@ -1,4 +1,5 @@
-import ShapeWaves from './ShapeWaves.js?v=20260924-nolid-1';
+import ShapeWaves from './ShapeWaves.js?v=20260925-slow-1';
+import heroExtrude from './hero-extrude.js?v=8';
 
 const hero = document.querySelector('.continuous-hero');
 if (hero) {
@@ -37,8 +38,19 @@ if (hero) {
  const kinetic = n => {n=clamp(n);return n<.5?16*n**5:1-(-2*n+2)**5/2};
  const mix = (a,b,n) => a+(b-a)*n;
  const motionRate=1.265;
- let waves=null;
- const mountWaves=()=>{if(!wavesRoot||wavesRoot.dataset.mounted)return;wavesRoot.dataset.mounted='true';try{waves=ShapeWaves(wavesRoot,{text:'ALOBI',fontFamily:'Geist, "Geist Sans", system-ui, sans-serif',fontWeight:500,textSize:.6,shapes:'squares',pattern:'lines',cellSize:innerWidth<700?5:8,dotSize:1,lineDrift:30,color:'#1d1d1f',hoverColor:'#1d1d1f',backgroundColor:'#ffffff',speed:1,scale:1,contrast:1.1,brightness:.4,flow:0,direction:0,fade:0,interactive:true,splashRadius:120,splashStrength:.4,glow:.35,intro:false,introDuration:1.6,paused:false,eye:'O'});wavesRoot.alobiSnapshot=()=>waves.snapshot()}catch(error){wavesRoot.dataset.failed='true';console.error(error)}};
+ // Tightened opening: guide lines grow faster (S1), the pause after ZH is
+ // shorter (S2), and the sweep's drop overlaps its rise (S3). Each is how far
+ // (in the timings below) that part now comes earlier than it used to.
+ const S1=.3,S2=.85,S3=1.09;
+ let waves=null,extrude=null,extrudeReady=false;
+ // The solid's opening plays once the field has risen into view.
+ const playExtrude=()=>{if(extrudeReady)return;extrudeReady=true;extrude?.play()};
+ // The hero's field: a contour map of the word (the default), or the earlier
+ // fine vertical lines with ?field=lines, kept for comparison.
+ const heroField=new URLSearchParams(location.search).get('field')==='lines'?'lines':'contour';
+ const mountWaves=()=>{if(!wavesRoot||wavesRoot.dataset.mounted)return;wavesRoot.dataset.mounted='true';try{waves=ShapeWaves(wavesRoot,{text:'ALOBI',fontFamily:'Geist, "Geist Sans", system-ui, sans-serif',fontWeight:500,textSize:.6,shapes:'squares',pattern:heroField,levels:20,cellSize:innerWidth<700?5:8,dotSize:1,lineDrift:30,color:'#1d1d1f',hoverColor:'#1d1d1f',backgroundColor:heroField==='contour'?'#f5f5f7':'#ffffff',speed:1,scale:1,contrast:1.1,brightness:.4,flow:0,direction:0,fade:0,interactive:true,splashRadius:120,splashStrength:.4,glow:.35,intro:false,introDuration:1.6,paused:false,eye:'O'});wavesRoot.alobiSnapshot=()=>{const still=waves.snapshot();const solid=wavesRoot.querySelector('.hero-extrude');if(still&&solid){try{still.getContext('2d').drawImage(solid,0,0,still.width,still.height)}catch{}}return still};
+  // The word as a solid standing on the contour map (hero-extrude.js).
+  if(heroField==='contour'&&waves.maskInfo){extrude=heroExtrude(wavesRoot,waves,{reduced});if(extrudeReady)extrude.play()}}catch(error){wavesRoot.dataset.failed='true';console.error(error)}};
  // Hovering ARCH / PD / PM retypes the big word to match, straight away.
  const scaleButtons=[...hero.querySelectorAll('.scale')],scaleMap=hero.querySelector('.scale-map');
  let wordTimer=0,wordShown='ALOBI';
@@ -54,8 +66,8 @@ if (hero) {
  });
  scaleMap?.addEventListener('pointerleave',event=>{if(event.pointerType!=='touch')showWord('ALOBI',160)});
  scaleMap?.addEventListener('focusout',event=>{if(!scaleMap.contains(event.relatedTarget))showWord('ALOBI',200)});
- if(skip)mountWaves();else setTimeout(mountWaves,(returningHome?.91:4.27)*1000);
- let w=0,h=0,full=0,raf=0,start=performance.now()-(returningHome?4.28/motionRate*1000:0),visible=true,finished=false,scrollProgress=0;
+ if(skip)mountWaves();else setTimeout(mountWaves,(returningHome?.72:3.41)*1000);
+ let w=0,h=0,full=0,raf=0,start=performance.now()-(returningHome?(4.28-S2)/motionRate*1000:0),visible=true,finished=false,scrollProgress=0;
  let px=.5,py=.5,mx=.5,my=.5,cursorX=innerWidth*.5,cursorY=innerHeight*.5,pointerKnown=false;
  // Start the arrival cursor where the mouse really is (remembered from the
  // last page by spectacle.js); with nothing remembered it waits, hidden,
@@ -188,14 +200,14 @@ if (hero) {
   ctx.save();
   if(fold>.001){ctx.beginPath();ctx.rect(0,exitLineY+1,w,full-exitLineY);ctx.clip()}
   const markAlpha=1;
-  const cornerGrow=kinetic((t-.12)/.82),cornerFade=1-ease((t-2.12)/.44);
+  const cornerGrow=kinetic((t-.12)/.82),cornerFade=1-ease((t-2.12+S1)/.44);
   const cornerSize=3*scale*cornerGrow;
   ctx.globalAlpha=markAlpha*cornerFade*.9;ctx.fillStyle='#1d1d1f';
   const corners=[[zL,yT],[zR,yT],[zL,yB],[zR,yB],[hL,yT],[hR,yT],[hL,yM],[hR,yM],[hL,yB],[hR,yB]];
   corners.forEach(([cx,cy])=>ctx.fillRect(cx-cornerSize*.5,yy(cy)-cornerSize*.5,cornerSize,cornerSize));
   strokes.forEach(item=>{
-   const grow=kinetic((t-.72-item.delay)/1.42);
-   const cut=kinetic((t-2.34-item.delay*.35)/1.02);
+   const grow=kinetic((t-.72-item.delay)/1.1);
+   const cut=kinetic((t-2.34+S1-item.delay*.35)/1.02);
    const ax=item.a[0],ay=item.a[1],bx=item.b[0],by=item.b[1];
    const dx=bx-ax,dy=by-ay,length=Math.hypot(dx,dy),ux=dx/length,uy=dy/length;
    const guideLength=item.kind==='d'?Math.hypot(w,h)*2:item.kind==='v'?h*2:w*2;
@@ -221,27 +233,29 @@ if (hero) {
   raf=0;if(document.hidden||!visible)return;
   const t=skip?8:(now-start)/1000*motionRate;
   mx+=(px-mx)*.045;my+=(py-my)*.045;
-  const cursorRise=returningHome?1:kinetic((t-3.48)/.74);
+  const cursorRise=returningHome?1:kinetic((t-2.3)/.74);
   const shownCursorY=mix(innerHeight+34,cursorY,cursorRise);
    if(arrivalCursor){
     arrivalCursor.style.setProperty('--arrival-cursor-x',`${cursorX}px`);
     arrivalCursor.style.setProperty('--arrival-cursor-y',`${shownCursorY}px`);
     arrivalCursor.style.setProperty('--arrival-cursor-opacity',pointerKnown?String(ease((cursorRise-.04)/.22)):'0');
    }
-  const paper=Math.round(mix(255,245,ease((t-5.12)/1.3)));
+  const paper=Math.round(mix(255,245,ease((t-5.12+S2)/1.3)));
   ctx.fillStyle=`rgb(${paper},${paper},${Math.min(255,paper+2)})`;ctx.fillRect(0,0,w,h);
-  const fold=kinetic((t-4.3)/1.18),rise=kinetic((t-4.3)/1.18),drop=kinetic((t-5.54)/1.16);
-  const reveal=kinetic((t-5.4)/1.58),roll=kinetic((t-5.82)/.98),details=kinetic((t-6.02)/.86);
-  const dividerY=full*(w<700?.78:.82),sweepY=rise<1?full+(dividerY-full)*rise:dividerY+(full-dividerY)*drop;
-  hero.style.setProperty('--bar-opacity',String(ease((t-5.44)/.16)));
+  const fold=kinetic((t-4.3+S2)/1.18),rise=kinetic((t-4.3+S2)/1.18),drop=kinetic((t-5.54+S3)/1.16);
+  const reveal=kinetic((t-5.4+S3)/1.58),roll=kinetic((t-5.82+S3)/.98),details=kinetic((t-6.02+S3)/.86);
+  const dividerY=full*(w<700?.78:.82),sweepY=full+(dividerY-full)*rise+(full-dividerY)*drop; // the drop starts just before the rise ends: one bounce
+  hero.style.setProperty('--bar-opacity',String(ease((t-5.44+S2)/.16)));
   hero.style.setProperty('--sweep-y',`${sweepY}px`);
-  hero.style.setProperty('--sweep-opacity',String(t>4.26&&drop<1?1:0));
+  hero.style.setProperty('--sweep-opacity',String(t>4.26-S2&&drop<1?1:0));
   hero.style.setProperty('--sweep-weight',`${4.6+Math.sin(Math.PI*(rise<1?rise:drop))*1.9}px`);
   hero.style.setProperty('--roll',String(roll));hero.style.setProperty('--details',String(details));
-  const fieldElapsed=Math.max(0,(t-5.62)*1000);
-  hero.style.setProperty('--field-opacity',String(ease((t-5.6)/.14)));
+  const fieldElapsed=Math.max(0,(t-5.62+S3)*1000);
+  hero.style.setProperty('--field-opacity',String(ease((t-5.6+S3)/.14)));
   if(wavesRoot){
-   if(fieldElapsed>=1770)wavesRoot.style.clipPath='none';
+   // ALOBI starts tracing once the field is about 60% risen, not fully.
+   if(fieldElapsed>=1060)playExtrude();
+   if(fieldElapsed>=1770){wavesRoot.style.clipPath='none'}
    else{
     const points=[];
     for(let i=0;i<=60;i++){
@@ -253,14 +267,16 @@ if (hero) {
     wavesRoot.style.clipPath=`polygon(0% 100%,${points.join(',')},100% 100%)`;
    }
   }
-  if(!returningHome&&t<5.52)drawMark(t,fold);
-  if(t>=7.48&&!finished){finished=true;document.body.classList.add('arrival-done','is-ready');status.textContent='Portfolio ready'}
+  if(!returningHome&&t<5.52-S2)drawMark(t,fold);
+  if(t>=7.48-S3&&!finished){finished=true;document.body.classList.add('arrival-done','is-ready');status.textContent='Portfolio ready'}
   if(!reduced&&!finished)raf=requestAnimationFrame(render);
  }
  function wake(){if(!raf)raf=requestAnimationFrame(render)}
  hero.addEventListener('pointermove',e=>{const r=hero.getBoundingClientRect();cursorX=e.clientX;cursorY=e.clientY;px=e.clientX/w;py=(e.clientY-r.top)/h;if(e.clientY<r.top+r.height*(w<700?.58:.62))aimField(e.clientX,e.clientY)},{passive:true});
  hero.addEventListener('pointerleave',()=>{px=.5;py=.5;targetFieldX=500;targetFieldY=255;if(!fieldRaf)fieldRaf=requestAnimationFrame(animateField)});
- addEventListener('scroll',()=>{scrollProgress=clamp(scrollY/(Math.max(1,hero.offsetHeight)*.48));wake()},{passive:true});
+ // Once the opening has finished the drawing no longer changes with scroll,
+ // so there is nothing to redraw.
+ addEventListener('scroll',()=>{scrollProgress=clamp(scrollY/(Math.max(1,hero.offsetHeight)*.48));if(!finished)wake()},{passive:true});
  new IntersectionObserver(entries=>{visible=entries[0].isIntersecting;if(visible)wake()}).observe(hero);
  document.addEventListener('visibilitychange',()=>{if(!document.hidden)wake()});
  addEventListener('resize',resize);resize();
@@ -269,12 +285,12 @@ if (hero) {
  // top of the page, or further down a sheet of paper lifts off the page.
  function replayReturn(){
   skip=false;returningHome=true;finished=false;
-  start=performance.now()-4.28/motionRate*1000;
+  start=performance.now()-(4.28-S2)/motionRate*1000;
   document.body.classList.remove('arrival-done','is-ready');
   if(wavesRoot)wavesRoot.style.clipPath='polygon(0 100%,100% 100%,100% 100%,0 100%)';
   hero.style.setProperty('--field-opacity','0');hero.style.setProperty('--details','0');
   cancelAnimationFrame(raf);raf=0;wake();
-  setTimeout(()=>document.body.classList.add('arrival-done','is-ready'),3600);
+  setTimeout(()=>document.body.classList.add('arrival-done','is-ready'),3400);
  }
  function liftSheet(){
   const sheet=document.createElement('div');sheet.className='return-sheet';sheet.setAttribute('aria-hidden','true');
@@ -287,5 +303,5 @@ if (hero) {
   if(scrollY<innerHeight*.5)replayReturn();else liftSheet();
  });
  // Never leave navigation hidden if the browser suspends the opening frames.
- setTimeout(()=>document.body.classList.add('arrival-done','is-ready'),8500/motionRate);
+ setTimeout(()=>document.body.classList.add('arrival-done','is-ready'),(8.5-S3)*1000/motionRate);
 }

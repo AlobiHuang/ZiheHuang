@@ -118,3 +118,38 @@
 
 /* The site cursor says DRAG over the wheel (its words are otherwise hidden). */
 .fx-cursor.is-label span{display:block!important;opacity:1!important;transform:none!important;color:#000!important;font:750 10px/1 -apple-system,BlinkMacSystemFont,"Helvetica Neue",Arial,sans-serif;letter-spacing:.1em}
+
+/* ---- STYLE previews, second set -------------------------------------------- */
+/* Refined minimalism: product-page calm. */
+.my-preview-min{background:linear-gradient(180deg,#fbfbfd 0%,#f0f0f3 100%);text-align:center;font-family:-apple-system,BlinkMacSystemFont,"SF Pro Display","Helvetica Neue",Arial,sans-serif;color:#1d1d1f}
+.my-preview-min small{position:absolute;left:0;right:0;top:15cqw;font:600 3.6cqw/1 inherit;color:#bf4800;letter-spacing:.01em}
+.my-preview-min b{position:absolute;left:0;right:0;top:21cqw;font:600 12cqw/1 -apple-system,BlinkMacSystemFont,"SF Pro Display","Helvetica Neue",Arial,sans-serif;letter-spacing:-.035em}
+.my-preview-min span{position:absolute;left:0;right:0;top:35cqw;font:400 4.2cqw/1.2 -apple-system,BlinkMacSystemFont,"Helvetica Neue",Arial,sans-serif;color:#6e6e73}
+.my-preview-min em{position:absolute;left:0;right:0;top:44cqw;font:400 3.8cqw/1 -apple-system,BlinkMacSystemFont,"Helvetica Neue",Arial,sans-serif;font-style:normal;color:#0066cc}
+.my-preview-min i{position:absolute;left:24cqw;right:24cqw;bottom:-6cqw;height:40cqw;border-radius:5cqw 5cqw 0 0;background:linear-gradient(180deg,#d9d9de,#b6b6bd 60%,#9c9ca4);box-shadow:inset 0 0 0 .7cqw #8e8e96,0 -2cqw 6cqw rgba(0,0,0,.08)}
+.my-preview-min i:after{content:"";position:absolute;inset:2.4cqw 2.4cqw 0;border-radius:3cqw 3cqw 0 0;background:linear-gradient(160deg,#20243a 0%,#3c3f70 45%,#9a6ad6 100%)}
+/* Glitch / cyberpunk: a torn, channel-split signal. */
+.my-preview-glitch{background:#07070c;background-image:repeating-linear-gradient(180deg,rgba(255,255,255,.045) 0 1px,transparent 1px 3px)}
+.my-preview-glitch b{position:absolute;left:0;right:0;top:38cqw;text-align:center;font:900 21cqw/1 "Arial Black","Helvetica Neue",Arial,sans-serif;letter-spacing:-.02em;color:#f4f4f6;text-shadow:-1.4cqw 0 #ff2bd6,1.4cqw 0 #00f0ff;animation:my-glitch 2.6s steps(1) infinite}
+.my-preview-glitch b:before,.my-preview-glitch b:after{content:attr(data-t);position:absolute;left:0;right:0;top:0;color:#f4f4f6;background:#07070c;overflow:hidden}
+.my-preview-glitch b:before{clip-path:inset(18% 0 58% 0);transform:translateX(-4cqw);text-shadow:1.4cqw 0 #00f0ff}
+.my-preview-glitch b:after{clip-path:inset(62% 0 14% 0);transform:translateX(3cqw);text-shadow:-1.4cqw 0 #ff2bd6}
+.my-preview-glitch i{position:absolute;left:0;height:1.4cqw;background:#00f0ff;mix-blend-mode:screen}
+.my-preview-glitch i:nth-of-type(1){top:22cqw;width:46cqw;left:8cqw}
+.my-preview-glitch i:nth-of-type(2){top:66cqw;width:30cqw;left:58cqw;background:#ff2bd6}
+.my-preview-glitch i:nth-of-type(3){top:72cqw;width:14cqw;left:20cqw;height:.8cqw;background:#f4f4f6}
+.my-preview-glitch code{position:absolute;left:7cqw;bottom:7cqw;font:500 3.4cqw/1 "DM Mono",ui-monospace,monospace;color:#00f0ff;letter-spacing:.06em}
+@keyframes my-glitch{0%,86%,100%{transform:none}88%{transform:translate(-1.5cqw,.6cqw) skewX(-6deg)}90%{transform:translate(2cqw,-.4cqw)}92%{transform:none}}
+/* Brutalism: béton brut, mass and formwork grain. */
+.my-preview-brut{background:#cfccc4;background-image:repeating-linear-gradient(180deg,rgba(0,0,0,.05) 0 .3cqw,transparent .3cqw 5cqw),repeating-linear-gradient(90deg,rgba(0,0,0,.035) 0 .25cqw,transparent .25cqw 22cqw)}
+.my-preview-brut b{position:absolute;left:7cqw;top:7cqw;font:900 11cqw/.86 "Arial Black","Helvetica Neue",Arial,sans-serif;letter-spacing:-.04em;color:#1b1b1b}
+.my-preview-brut i{position:absolute;background:#8f8b83;background-image:repeating-linear-gradient(180deg,rgba(0,0,0,.1) 0 .3cqw,transparent .3cqw 4.4cqw);box-shadow:inset -2cqw -2cqw 0 rgba(0,0,0,.18)}
+.my-preview-brut i:nth-of-type(1){left:34cqw;right:42cqw;bottom:0;height:32cqw;box-shadow:inset -3cqw 0 0 rgba(0,0,0,.28)}
+.my-preview-brut i:nth-of-type(2){left:8cqw;right:6cqw;bottom:32cqw;height:24cqw;background-color:#a39f96;box-shadow:inset -2cqw -2cqw 0 rgba(0,0,0,.18),0 2.5cqw 0 rgba(0,0,0,.32)}
+.my-preview-brut i:nth-of-type(3){left:56cqw;right:14cqw;bottom:56cqw;height:13cqw;background-color:#b2aea5}
+.my-preview-brut em{position:absolute;left:13cqw;right:12cqw;bottom:39cqw;height:8cqw;background:repeating-linear-gradient(90deg,#161616 0 7cqw,transparent 7cqw 10cqw)}
+.my-preview-brut:after{content:"";position:absolute;left:0;right:0;bottom:0;height:.8cqw;background:#1b1b1b}
+/* This site: contour lines. */
+.my-preview-contour{background:#f5f5f7;background-image:repeating-radial-gradient(ellipse at 62% 44%,transparent 0 3.6cqw,rgba(29,29,31,.28) 3.6cqw 3.85cqw),repeating-radial-gradient(ellipse at 18% 88%,transparent 0 3.6cqw,rgba(29,29,31,.18) 3.6cqw 3.85cqw)}
+.my-preview-contour span{position:absolute;inset:0;display:grid;place-items:center;font:700 22cqw/1 var(--my-display);letter-spacing:-.05em;color:#f5f5f7;-webkit-text-stroke:.5cqw #1d1d1f;text-shadow:1.4cqw 1.6cqw 0 #1d1d1f}
+@media(prefers-reduced-motion:reduce){.my-preview-glitch b{animation:none}}

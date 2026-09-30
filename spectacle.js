@@ -96,10 +96,8 @@
     const updatePointer = () => {
       mouseX = targetX;
       mouseY = targetY;
-      const velocity = Math.min(1, Math.hypot(mouseX - previousX, mouseY - previousY) / 30);
-      root.style.setProperty('--fx-x', `${mouseX}px`);
-      root.style.setProperty('--fx-y', `${mouseY}px`);
-      root.style.setProperty('--fx-velocity', velocity.toFixed(3));
+      // (The page-wide --fx-x/--fx-y/--fx-velocity variables fed the removed
+      // aura and grid; writing them restyled the whole page on every move.)
       if (cursor) {
         cursor.style.setProperty('--cursor-x', `${mouseX}px`);
         cursor.style.setProperty('--cursor-y', `${mouseY}px`);

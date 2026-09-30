@@ -1,0 +1,54 @@
+.hci-page{min-height:100svh;overflow-x:hidden;background:#f5f5f7;color:#1d1d1f}
+.hci-blank-hero{position:relative;isolation:isolate;min-height:100svh;overflow:hidden;border-bottom:1px solid #1d1d1f;background:#f5f5f7}
+.hci-blank-field{position:absolute;z-index:1;inset:52px 0 25.5svh;overflow:hidden;border-bottom:1px solid #1d1d1f;background:#f5f5f7;pointer-events:none}
+.hci-status{position:absolute;z-index:3;left:50%;top:calc(37.25svh + 26px);bottom:auto;margin:0;display:flex;align-items:center;gap:12px;color:#6e6e73;font:600 9px/1 "DM Mono",monospace;letter-spacing:.1em;white-space:nowrap;opacity:0;transform:translate(-50%,-50%)}.hci-status:before{content:"";width:34px;height:1px;background:#1d1d1f}.arch-toolbar-ready .hci-status{animation:hci-status-in .55s .18s ease both}@keyframes hci-status-in{from{opacity:0;transform:translate(-50%,calc(-50% + 8px))}to{opacity:1;transform:translate(-50%,-50%)}}
+.hci-uiux-title{position:absolute;z-index:3;left:0;right:0;bottom:clamp(26px,4vh,58px);box-sizing:border-box;width:100%;min-height:1em;margin:0;padding-inline:var(--pad);font-family:-apple-system,BlinkMacSystemFont,"SF Pro Display","Helvetica Neue",Arial,sans-serif!important;font-size:clamp(60px,9vw,136px);font-weight:650;line-height:.9;letter-spacing:-.075em;text-align:center;white-space:nowrap}
+@media(max-width:900px){.hci-blank-field{inset:52px 0 34svh}.hci-status{left:50%;top:calc(33svh + 26px);bottom:auto}.hci-uiux-title{padding-inline:20px;white-space:normal}}
+@media(max-width:560px){.hci-page{cursor:auto}.hci-page .cursor{display:none}.hci-page .identity-copy{display:none}.hci-page .coordinates{display:none}.hci-page .site-head{grid-template-columns:1fr auto}.hci-page .header-actions{grid-column:2;gap:16px}.hci-uiux-title{font-size:clamp(58px,20vw,92px)}}
+@media(prefers-reduced-motion:reduce){.hci-blank-field{clip-path:none}.hci-uiux-title{visibility:visible}.hci-status{opacity:1;animation:none!important}}
+
+/* ---- PD (Sept 28): line-field cover, then one clear project block ---- */
+/* No orange PRODUCT DESIGN tag while the page loads. */
+.hci-page .page-transition .transition-label{display:none!important}
+.hci-page .pd-field canvas{position:absolute;inset:0;display:block;width:100%;height:100%;opacity:.82;mix-blend-mode:multiply}
+.hci-page .pd-field:after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(245,245,247,.08),rgba(245,245,247,.3));pointer-events:none}
+.pd-title{font-size:clamp(46px,8.2vw,136px)!important}
+.pd-work{--pd-ink:#1d1d1f;--pd-mono:"DM Mono",ui-monospace,SFMono-Regular,Consolas,monospace;--pd-display:-apple-system,BlinkMacSystemFont,"SF Pro Display","Helvetica Neue",Arial,sans-serif;padding:clamp(90px,11vw,160px) var(--pad,5vw) clamp(100px,12vw,180px);background:#f5f5f7;color:var(--pd-ink)}
+.pd-work-head{max-width:1320px;margin:0 auto clamp(48px,6vw,84px)}
+.pd-work-head p{display:flex;justify-content:space-between;margin:0 0 26px;padding-bottom:12px;border-bottom:1px solid var(--pd-ink);font:600 10px/1.4 var(--pd-mono);letter-spacing:.08em}
+.pd-work-head h2{margin:0;font:650 clamp(38px,4.6vw,72px)/.98 var(--pd-display);letter-spacing:-.055em}
+.pd-project{max-width:1320px;margin:0 auto}
+/* The screen: a plain browser frame around the product. */
+.pd-screen{margin:0;overflow:hidden;background:#fff;box-shadow:0 0 0 .75px var(--pd-ink),0 40px 80px -48px rgba(24,4,0,.35)}
+.pd-screen-bar{display:flex;align-items:center;gap:7px;height:30px;padding:0 14px;border-bottom:.75px solid var(--pd-ink);background:#f5f5f7}
+.pd-screen-bar i{width:8px;height:8px;border-radius:50%;box-shadow:0 0 0 .75px var(--pd-ink)}
+.pd-screen-bar span{margin-left:auto;margin-right:auto;transform:translateX(-24px);font:500 10px/1 var(--pd-mono);letter-spacing:.08em}
+.pd-screen-view{position:relative;aspect-ratio:1800/899;overflow:hidden;background:#fff}
+.pd-screen-view img,.pd-screen-view video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:50% 0}
+.pd-screen-view img{opacity:0;transition:opacity .7s ease}
+.pd-screen-view img.is-shown{opacity:1}
+/* The words under it: name, one line of what it is, three facts. */
+.pd-project-info{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.5fr) minmax(0,1fr);gap:clamp(24px,4vw,64px);margin-top:28px;padding-top:18px;border-top:1px solid var(--pd-ink)}
+.pd-project-name small{display:block;margin-bottom:10px;font:600 10px/1 var(--pd-mono);letter-spacing:.08em}
+.pd-project-name h3{margin:0;font:650 clamp(30px,3vw,46px)/1 var(--pd-display);letter-spacing:-.05em}
+.pd-project-desc{margin:0;font:450 clamp(16px,1.3vw,20px)/1.5 -apple-system,BlinkMacSystemFont,"SF Pro Text","Helvetica Neue",Arial,sans-serif;letter-spacing:-.015em}
+.pd-project-meta{margin:0;display:grid;gap:0;align-content:start}
+.pd-project-meta div{display:flex;justify-content:space-between;gap:16px;padding:9px 0;border-bottom:1px solid rgba(29,29,31,.18)}
+.pd-project-meta div:first-child{padding-top:0}
+.pd-project-meta dt{font:600 10px/1.4 var(--pd-mono);letter-spacing:.08em;text-transform:uppercase}
+.pd-project-meta dd{margin:0;font:450 14px/1.4 -apple-system,BlinkMacSystemFont,"SF Pro Text","Helvetica Neue",Arial,sans-serif;text-align:right}
+@media(max-width:900px){.pd-project-info{grid-template-columns:1fr;gap:20px}}
+@media(prefers-reduced-motion:reduce){.pd-screen-view img{transition:none}}
+/* The whole project block opens the CMUsed page. */
+.pd-project{position:relative}
+.pd-project-link{color:inherit;text-decoration:none}
+.pd-project-link:after{content:"";position:absolute;inset:0;z-index:2}
+.pd-project-link:focus-visible{outline:none}
+.pd-project:has(.pd-project-link:focus-visible){outline:2px solid #1d1d1f;outline-offset:8px}
+.pd-project-more{display:inline-block;margin-top:14px;padding-bottom:3px;border-bottom:1px solid #1d1d1f;font:600 10px/1 "DM Mono",monospace;letter-spacing:.08em;text-transform:uppercase;transition:transform .35s cubic-bezier(.16,1,.3,1)}
+.pd-screen{transition:transform .55s cubic-bezier(.16,1,.3,1),box-shadow .55s cubic-bezier(.16,1,.3,1)}
+@media(hover:hover){.pd-project:hover .pd-screen{transform:translateY(-6px);box-shadow:0 0 0 .75px #1d1d1f,0 50px 90px -48px rgba(24,4,0,.45)}.pd-project:hover .pd-project-more{transform:translateX(6px)}}
+/* The ENTER word inside the black square cursor over the project. */
+.fx-cursor.is-enter span{display:block!important;opacity:1!important;transform:none!important;color:#000!important;font:600 10px/1 "DM Mono",ui-monospace,monospace!important;letter-spacing:.12em!important}
+/* More than one project: a clear gap between them. */
+.pd-project+.pd-project{margin-top:clamp(90px,10vw,150px)}

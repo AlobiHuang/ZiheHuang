@@ -1,6 +1,6 @@
 // The lens section's three windows, each running the line field of the page
 // it opens. Clicking a window is handled by app.js (data-lens-choice).
-import Waves from './Waves.js?v=20260924-live-rect-1';
+import Waves from './Waves.js?v=20260925-perf-1';
 
 const section = document.querySelector('.lens-trio');
 if (section) {

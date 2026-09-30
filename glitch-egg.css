@@ -2,7 +2,10 @@
 
 /* ---- The crack: half the screen tall, splitting from the middle ---------- */
 /* Drawn on the page itself (not fixed to the screen), so it scrolls away with the hero. */
-.gp-hint{position:absolute;left:0;top:0;z-index:2147483001;width:100%;height:100vh;pointer-events:none;visibility:hidden;opacity:0;transition:opacity .5s ease,visibility 0s linear .5s;overflow:visible}
+/* The crack sits on the page itself, just under the header (120): anything
+   that appears over the page (menu, page transitions, galleries, the room's
+   zoom, the cursor) covers it. */
+.gp-hint{position:absolute;left:0;top:0;z-index:110;width:100%;height:100vh;pointer-events:none;visibility:hidden;opacity:0;transition:opacity .5s ease,visibility 0s linear .5s;overflow:visible}
 .gp-hint.is-showing{visibility:visible;opacity:1;transition:opacity .2s ease}
 .gp-hint path{fill:none;stroke-linecap:round;stroke-linejoin:round}
 .gp-hint-cut{stroke:#f5f5f7;stroke-width:7}

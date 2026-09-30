@@ -1,5 +1,5 @@
 import heroEntrance from './hero-entrance.js?v=20260916-speed-1265';
-import Waves from './Waves.js?v=20260916-arch-performance-2';
+import Waves from './Waves.js?v=20260925-perf-1';
 
 const startSelectedWorks = () => {
   const field = document.querySelector('[data-selected-waves]');
