@@ -138,3 +138,11 @@ body.about-page{margin:0;background:var(--about-paper);color:var(--about-ink);fo
 .visual-cote-orgs span{position:absolute;left:clamp(12px,1.6vw,20px);top:clamp(10px,1.4vw,16px);color:#6e6e73;font:500 9px/1 "DM Mono",ui-monospace,monospace;letter-spacing:.08em}
 .event-visual.visual-cote-orgs img{position:absolute;left:18%;top:30%;width:64%;height:50%;object-fit:contain;filter:none!important}
 .event-visual.visual-cote-orgs>div:first-child img{top:24%;height:62%}
+/* Wide screens (Oct 1): the left legend keeps a readable width. Its column is
+   the page edge plus a fixed strip, instead of a quarter of the screen that
+   the wide page edge mostly used up. */
+@media(min-width:981px){
+ .timeline-shell{grid-template-columns:calc(var(--shell-edge) + clamp(250px,19vw,330px)) minmax(0,1fr)}
+ .timeline-console{grid-column:1}
+ .timeline-events{grid-column:2}
+}

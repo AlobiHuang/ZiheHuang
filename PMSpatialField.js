@@ -17,8 +17,13 @@ const start = () => {
   friction: 0.9,
   tension: 0.01,
   maxCursorMove: 120,
-  xGap: 12,
-  yGap: 36
+  // Same settings as the other line fields (PD, About, résumé, menu): a
+  // lighter canvas (pixel ratio 1.25) and 50 frames a second, so it stays
+  // smooth on large and high-resolution screens.
+  xGap: 13,
+  yGap: 38,
+  pixelRatioCap: 1.25,
+  targetFPS: 50
  });
  heroEntrance({field,typeTarget,title:typeTarget.closest('.pm-spatial-title'),
  hero:field.closest('.pm-spatial-hero'),text:'PROJECTS',onDispose:stop});

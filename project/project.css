@@ -178,3 +178,132 @@
 .project-page[data-lens="architecture"] .project-gallery-pdf .gallery-spread{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));align-items:start;gap:0;aspect-ratio:2140/827;overflow:hidden!important;background:#fff!important}.project-page[data-lens="architecture"] .project-gallery-pdf .gallery-spread-page{display:block;min-width:0;height:100%;overflow:hidden}.project-page[data-lens="architecture"] .project-gallery-pdf .gallery-spread-page img{width:100%!important;height:100%!important;object-fit:fill!important;margin:0!important}.project-page[data-lens="architecture"] .project-gallery-pdf .gallery-spread-page+ .gallery-spread-page{border-left:1px solid rgba(29,29,31,.08)}
 .project-page[data-lens="architecture"] .project-gateway.project-gateway-pdf{min-height:0;padding:clamp(106px,10vw,152px) var(--pad) clamp(34px,4vw,58px);background:#f5f5f7;color:#1d1d1f}.project-page[data-lens="architecture"] .project-gateway-pdf .project-gateway-grid,.project-page[data-lens="architecture"] .project-gateway-pdf .project-aperture{display:none}.project-page[data-lens="architecture"] .project-gateway-pdf .project-gateway-kicker{margin:0 0 clamp(26px,3vw,40px);color:#6e6e73}.project-page[data-lens="architecture"] .project-gateway-pdf .project-back{top:clamp(90px,8vw,118px);color:#1d1d1f;border-color:rgba(29,29,31,.3)}.project-page[data-lens="architecture"] .project-gateway-pdf .project-gateway-heading{max-width:none}.project-page[data-lens="architecture"] .project-gateway-pdf .project-gateway-heading>span{margin-bottom:12px;color:#ff5a36}.project-page[data-lens="architecture"] .project-gateway-pdf .project-gateway-heading h1{max-width:none;font-size:clamp(54px,8vw,124px);line-height:.86;color:#1d1d1f!important;-webkit-text-fill-color:#1d1d1f!important}.project-page[data-lens="architecture"] .project-gateway-pdf .project-hook{display:none}
 .project-page[data-lens="pm"] .project-enter{margin:clamp(24px,3vw,42px) 0 0!important}
+/* Sankofa (Oct 1): the title sits left, in line with Role / Time / Team below
+   it, sized so Greenhouse fits its column; the picture (drawing or photo) sits
+   in the column to its right. */
+.project-page[data-lens="pm"] .project-gateway-split{display:grid!important;grid-template-columns:minmax(0,1.12fr) minmax(0,.88fr);column-gap:clamp(28px,4vw,72px);align-items:stretch}
+.project-gateway-split>.project-gateway-grid,.project-gateway-split>.project-aperture{grid-column:1/-1}
+.project-gateway-split>.project-gateway-kicker{grid-column:1/-1;grid-row:1}
+.project-page[data-lens="pm"] .project-gateway-split .project-gateway-heading{grid-column:1;grid-row:2;align-self:center;max-width:none;container-type:inline-size;text-align:left}
+.project-page[data-lens="pm"] .project-gateway-split .project-gateway-heading h1{max-width:none;margin:0;font-size:min(18.4cqi,172px);text-align:left;text-wrap:initial}
+.project-gateway-split .project-hero-side{grid-column:2;grid-row:2/4;align-self:stretch;position:relative;min-height:clamp(280px,32vw,560px);margin:0;overflow:hidden;background:#fff;box-shadow:0 0 0 .75px rgba(29,29,31,.28)}
+.project-gateway-split .project-hero-side img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block}
+.project-gateway-split .project-hero-side.is-empty{background:repeating-linear-gradient(135deg,transparent 0 14px,rgba(29,29,31,.035) 14px 15px),#fbfbfc}
+.project-gateway-split .project-hero-side.is-empty span{position:absolute;left:14px;top:12px;font:500 9px/1 DM Mono,monospace;letter-spacing:.08em;color:#8e8e93}
+.project-page[data-lens="pm"] .project-gateway-split .project-gateway-meta{grid-column:1;grid-row:3;align-self:end}
+.project-page[data-lens="pm"] .project-gateway-split .project-enter{grid-column:1;grid-row:4}
+@media(max-width:800px){
+ .project-page[data-lens="pm"] .project-gateway-split{grid-template-columns:1fr}
+ .project-gateway-split .project-hero-side{grid-column:1;grid-row:3;min-height:0;aspect-ratio:4/3;margin-top:28px}
+ .project-page[data-lens="pm"] .project-gateway-split .project-gateway-meta{grid-row:4}
+ .project-page[data-lens="pm"] .project-gateway-split .project-enter{grid-row:5}
+}
+/* Sankofa's visual record: one row of drawings to drag through. */
+.project-gallery-strip{--strip-progress:0;overflow:hidden}
+.project-gallery-strip .strip-viewport{margin:0 calc(var(--pad) * -1);overflow-x:auto;overflow-y:hidden;scrollbar-width:none;overscroll-behavior-x:contain;cursor:grab;user-select:none;-webkit-user-select:none;outline:0}
+.project-gallery-strip .strip-viewport::-webkit-scrollbar{display:none}
+.project-gallery-strip .strip-viewport:focus-visible{box-shadow:inset 0 0 0 1px #1d1d1f}
+.project-gallery-strip .strip-viewport.is-dragging{cursor:grabbing}
+.project-gallery-strip .strip-track{display:flex;gap:clamp(14px,1.6vw,24px);width:max-content;padding:0 var(--pad)}
+.project-page .project-gallery-strip .gallery-item.strip-item{--strip-h:clamp(280px,58vh,660px);flex:none;display:block;height:auto!important;width:max-content;min-height:0;margin:0;background:none!important;box-shadow:none!important;border-radius:0!important;overflow:visible!important;clip-path:none!important;padding:0!important;transform:none!important}
+.project-page .project-gallery-strip .gallery-item.strip-item img{display:block;height:var(--strip-h)!important;width:auto!important;max-width:none!important;background:#fff;box-shadow:0 0 0 .75px rgba(29,29,31,.22);-webkit-user-drag:none;cursor:zoom-in;border-radius:0!important;object-fit:contain;transform:none!important}
+.project-gallery-strip .strip-viewport.is-dragging img{cursor:grabbing}
+.project-page .project-gallery-strip .strip-item figcaption{display:flex;gap:14px;width:0;min-width:min(100%,62ch);margin-top:12px;position:static!important;opacity:1!important;transform:none!important;background:none!important;padding:0!important;font:450 12px/1.45 -apple-system,BlinkMacSystemFont,"SF Pro Text",sans-serif;color:#48484a}
+.project-page .project-gallery-strip .strip-item figcaption span{flex:none;font:500 9px/1.6 DM Mono,monospace;letter-spacing:.06em;color:#1d1d1f}
+.project-page .project-gallery-strip .strip-item figcaption b{font-weight:450}
+.project-gallery-strip .strip-status{display:grid;grid-template-columns:1fr auto;align-items:center;gap:18px;margin-top:22px}
+.project-gallery-strip .strip-status>span{height:1px;background:rgba(29,29,31,.18);overflow:hidden}
+.project-gallery-strip .strip-status i{display:block;height:100%;background:#1d1d1f;transform:scaleX(max(.04,var(--strip-progress)));transform-origin:left;transition:transform .1s linear}
+.project-gallery-strip .strip-status b{font:500 9px/1 DM Mono,monospace;letter-spacing:.08em}
+@media(max-width:800px){.project-page .project-gallery-strip .gallery-item.strip-item{--strip-h:clamp(200px,56vw,340px)}.project-gallery-strip .strip-viewport{margin-inline:-20px}.project-gallery-strip .strip-track{padding:0 20px}.project-gallery-strip .strip-viewport{scroll-snap-type:x mandatory}.project-page .project-gallery-strip .gallery-item.strip-item{scroll-snap-align:start}.project-gallery-strip .strip-status b{font-size:0}.project-gallery-strip .strip-status b:before{content:"SWIPE →";font-size:9px}}
+/* PM facts (Oct 1): Role, Time, Team and Instructor in one row; on Sankofa the
+   row runs under both the title and the picture. The time can carry a second,
+   quieter line (my part of a longer project). */
+.project-page[data-lens="pm"] .project-gateway-meta{grid-template-columns:repeat(4,minmax(0,1fr))}
+.project-page[data-lens="pm"] .project-gateway-meta dd small{display:block;margin-top:.35rem;font-size:.78em;color:#6e6e73}
+.project-page[data-lens="pm"] .project-gateway-split .project-gateway-meta{grid-column:1/-1;grid-row:3;max-width:none;width:auto}
+.project-gateway-split .project-hero-side{grid-row:2;min-height:0}
+@media(max-width:760px){.project-page[data-lens="pm"] .project-gateway-meta{grid-template-columns:1fr 1fr}.project-page[data-lens="pm"] .project-gateway-meta div:last-child{grid-column:auto}}
+@media(max-width:800px){.project-gateway-split .project-hero-side{grid-row:3}.project-page[data-lens="pm"] .project-gateway-split .project-gateway-meta{grid-row:4}}
+/* Time on Sankofa (Oct 1): the whole project on one line, my period marked. */
+.project-gateway-meta .time-span{display:inline-block;white-space:nowrap}
+.project-gateway-meta .time-span mark{position:relative;display:inline-block;padding:0 0 3px;background:none;color:inherit;font-weight:600;border-bottom:2px solid currentColor}
+.project-gateway-meta .time-span mark em{position:absolute;left:0;top:calc(100% + 6px);font:500 8px/1 DM Mono,monospace;letter-spacing:.08em;font-style:normal;font-weight:500;color:#6e6e73;white-space:nowrap}
+.project-page[data-lens="pm"] .project-gateway-meta div:has(.time-span){padding-bottom:28px}
+
+/* Sankofa recognition, up front (Oct 1): a short list under the facts. */
+.project-gateway-split .project-recognition{grid-column:1/-1;grid-row:4;margin:clamp(28px,3.4vw,48px) 0 0;text-align:left}
+.project-recognition>p{margin:0 0 10px;font:500 9px/1.4 DM Mono,monospace;letter-spacing:.08em;color:#6e6e73}
+.project-recognition ul{list-style:none;margin:0;padding:0;border-top:1px solid rgba(29,29,31,.28)}
+.project-recognition li{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr) minmax(0,6fr) 24px;gap:20px;align-items:baseline;padding:11px 0;border-bottom:1px solid rgba(29,29,31,.14)}
+.project-recognition time,.project-recognition .recognition-kind{font:500 9px/1.4 DM Mono,monospace;text-transform:uppercase;letter-spacing:.06em}
+.project-recognition .recognition-kind{color:#8e8e93}
+.project-recognition .recognition-copy{font-size:14px;line-height:1.45;color:#6e6e73}
+.project-recognition .recognition-copy b{font-weight:500;color:#1d1d1f}
+.project-recognition li a{justify-self:end;color:#1d1d1f;text-decoration:none;font-size:15px}
+.project-recognition li a:hover{opacity:.5}
+.project-page[data-lens="pm"] .project-gateway-split .project-enter{grid-row:5}
+@media(max-width:800px){.project-gateway-split .project-recognition{grid-row:5}.project-page[data-lens="pm"] .project-gateway-split .project-enter{grid-row:6}.project-recognition li{grid-template-columns:auto 1fr auto;gap:4px 12px}.project-recognition .recognition-copy{grid-column:1/-1;grid-row:2}.project-recognition li a{grid-column:3;grid-row:1}}
+/* PM page (Oct 1): the teaching assistant position, after Sankofa. */
+.pm-teaching{padding:clamp(90px,11vw,170px) var(--pad);background:#f5f5f7;color:#1d1d1f;border-top:1px solid #1d1d1f;text-align:left}
+.pm-teaching-kicker{margin:0 0 clamp(26px,3vw,44px);font:500 10px/1.5 DM Mono,monospace;text-transform:uppercase}
+.pm-teaching h2{margin:0;font-size:clamp(56px,8.6vw,150px);font-weight:450;line-height:.86;letter-spacing:-.08em}
+.pm-teaching-facts{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:1rem;margin:clamp(28px,3.4vw,48px) 0 0;padding-top:.8rem;border-top:1px solid rgba(29,29,31,.28)}
+.pm-teaching-facts div{padding:10px 0 12px;border-bottom:1px solid rgba(29,29,31,.14)}
+.pm-teaching-facts dt{font:600 .62rem/1.2 DM Mono,monospace;text-transform:uppercase;letter-spacing:.1em;opacity:.6}
+.pm-teaching-facts dd{margin:.35rem 0 0;font-size:.9rem}
+.pm-teaching-lede{max-width:46rem;margin:clamp(40px,5vw,72px) 0 0;font-size:clamp(18px,1.6vw,24px);line-height:1.4;letter-spacing:-.02em;color:#3a3a3c}
+.pm-teaching-crews{margin:clamp(48px,6vw,90px) 0 0}
+.pm-teaching-label{margin:0 0 14px;font:500 10px/1.4 DM Mono,monospace;text-transform:uppercase;letter-spacing:.06em;color:#6e6e73}
+.pm-teaching-label b{color:#1d1d1f;font-weight:600}
+.pm-teaching-crews ol{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(5,minmax(0,1fr));border-top:1px solid #1d1d1f}
+.pm-teaching-crews li{padding:16px 16px 20px 0;border-right:1px solid rgba(29,29,31,.14)}
+.pm-teaching-crews li+li{padding-left:16px}
+.pm-teaching-crews li:last-child{border-right:0}
+.pm-teaching-crews span{display:block;margin-bottom:26px;font:500 9px/1 DM Mono,monospace;color:#8e8e93}
+.pm-teaching-crews b{display:block;font-size:clamp(17px,1.5vw,22px);font-weight:500;letter-spacing:-.03em}
+.pm-teaching-crews small{display:block;margin-top:6px;font-size:13px;line-height:1.4;color:#6e6e73}
+.pm-teaching-duties{list-style:none;margin:clamp(48px,6vw,90px) 0 0;padding:0;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:clamp(20px,3vw,48px)}
+.pm-teaching-duties li{padding-top:14px;border-top:1px solid rgba(29,29,31,.28)}
+.pm-teaching-duties b{display:block;margin-bottom:8px;font-size:clamp(17px,1.5vw,22px);font-weight:500;letter-spacing:-.03em}
+.pm-teaching-duties p{margin:0;max-width:26rem;font-size:14px;line-height:1.55;color:#48484a}
+@media(max-width:800px){.pm-teaching{padding:80px 20px}.pm-teaching-facts{grid-template-columns:1fr 1fr}.pm-teaching-crews ol{grid-template-columns:1fr}.pm-teaching-crews li,.pm-teaching-crews li+li{display:grid;grid-template-columns:28px 1fr;gap:2px 10px;padding:14px 0;border-right:0;border-bottom:1px solid rgba(29,29,31,.14)}.pm-teaching-crews span{grid-row:1/3;margin:4px 0 0}.pm-teaching-duties{grid-template-columns:1fr}}
+/* PM page as an index (Oct 1): projects in preview windows, two to a row,
+   like the PD page. A grey plate holds a framed picture loop. */
+.pm-work{padding:clamp(56px,7vw,110px) var(--pad) clamp(90px,10vw,160px);background:#f5f5f7;color:#1d1d1f;text-align:left}
+.pm-grid{max-width:1320px;margin:0 auto;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:clamp(44px,5vw,72px) clamp(18px,2vw,28px)}
+.pm-project{margin:0}
+.pm-plate{display:grid;place-items:center;aspect-ratio:16/10;padding:7% 10%;box-sizing:border-box;background:#e9e9ec;overflow:hidden;transition:background-color .4s ease;cursor:pointer}
+.pm-window{position:relative;display:block;width:100%;aspect-ratio:3/2;overflow:hidden;background:#fff;box-shadow:0 0 0 .75px rgba(24,4,0,.55),0 24px 48px -28px rgba(24,4,0,.35);transition:transform .5s cubic-bezier(.16,1,.3,1)}
+.pm-window img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:50% 55%;opacity:0;transition:opacity .9s ease}
+.pm-window img.is-shown{opacity:1}
+.pm-project.is-drawing .pm-window img{object-fit:contain;padding:4%;box-sizing:border-box}
+@media(hover:hover){.pm-project:hover .pm-plate{background:#e3e3e7}.pm-project:hover .pm-window{transform:translateY(-4px)}}
+.pm-card-cap{display:flex;flex-wrap:wrap;justify-content:space-between;align-items:baseline;gap:4px 16px;margin-top:14px}
+.pm-card-cap h3{margin:0;font:500 clamp(14px,1.1vw,17px)/1.35 -apple-system,BlinkMacSystemFont,"SF Pro Text","Helvetica Neue",Arial,sans-serif;letter-spacing:0}
+.pm-card-cap h3 a{color:#1d1d1f;text-decoration:none}
+.pm-card-cap h3 span{font-weight:300;color:#6e6e73}
+.pm-card-cap p{margin:0;font:400 9px/1.4 DM Mono,monospace;letter-spacing:.06em;text-transform:uppercase;color:#8a8a8f}
+@media(max-width:760px){.pm-work{padding:48px 20px 90px}.pm-grid{grid-template-columns:1fr}.pm-plate{padding:6% 8%}}
+/* Sankofa now has a way back to the PM page, top right of the header. */
+.project-gateway-split>.project-back{grid-column:2;grid-row:1;justify-self:end;align-self:start}
+/* Teaching assistant page: the course section under the header. */
+.pm-teaching[id="case-study"]{border-top:1px solid rgba(29,29,31,.14)}
+.pm-teaching[id="case-study"] .pm-teaching-lede{margin-top:0}
+.project-page[data-lens="pm"] .project-gateway-split>.project-back{position:static;color:#1d1d1f;border-color:rgba(29,29,31,.3)}
+.project-gateway-split .project-hero-side.is-drawing img{object-fit:contain;padding:5%;box-sizing:border-box}
+/* Case study sections share the page edge (Oct 1), so on big monitors they
+   line up with the header and the rest of the page. */
+.project-page{--page-pad:var(--pad)}
+/* Architecture portfolio pages run edge to edge on a laptop; on a big monitor
+   they stop at the same 1440px width as the header instead of filling it. */
+@media(min-width:1609px){.project-page[data-lens="architecture"] .project-gallery-pdf .project-gallery-grid{max-width:var(--max);margin-inline:auto}}
+/* Sankofa (Oct 1): what I did, right before the project's recognition. */
+.project-gateway-split .project-contribution{grid-column:1/-1;grid-row:4;margin:clamp(28px,3.4vw,48px) 0 0;text-align:left}
+.project-gateway-split .project-recognition{grid-row:5}
+.project-page[data-lens="pm"] .project-gateway-split .project-enter{grid-row:6}
+.project-contribution>p{margin:0 0 10px;font:500 9px/1.4 DM Mono,monospace;letter-spacing:.08em;color:#6e6e73}
+.project-contribution ol{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:20px;border-top:1px solid rgba(29,29,31,.28)}
+.project-contribution li{padding:12px 0 0;font-size:14px;line-height:1.45;color:#1d1d1f}
+@media(max-width:800px){.project-gateway-split .project-contribution{grid-row:5}.project-gateway-split .project-recognition{grid-row:6}.project-page[data-lens="pm"] .project-gateway-split .project-enter{grid-row:7}.project-contribution ol{grid-template-columns:1fr;gap:0}.project-contribution li{padding:11px 0;border-bottom:1px solid rgba(29,29,31,.14)}}
+@media(min-width:801px) and (max-width:1100px){.project-contribution ol{grid-template-columns:1fr 1fr}}

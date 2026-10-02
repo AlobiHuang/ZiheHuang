@@ -133,3 +133,34 @@ a.walk-panel:focus-visible { outline:2px solid #180400; outline-offset:6px; }
  .walk-placeholder { inset:120px 40px 40px; }
  .walk-desc { left:40px; right:40px; top:calc(120px + (100cqw - 80px) * .625 + 26px); }
 }
+/* Description under a website frame (Oct 1 fix). 100cqw is the frame's width
+   inside its padding, which on desktop is already the picture's width (both
+   40px in from each side), so the text starts 26px below the picture instead
+   of 50px up inside it. On phones the picture is 6px narrower on each side. */
+.walk-desc { top:calc(145px + (100cqw - 12px) * .625 + 26px); }
+@media(min-width:701px){ .walk-desc { top:calc(120px + 100cqw * .625 + 26px); } }
+/* A short line under the picture of a grown frame (Oct 1), e.g. an award:
+   the bottom edge opens a little and the line fades in as the frame grows. */
+.walk-panel .walk-note { position:absolute; left:28px; right:28px; bottom:22px; margin:0; font:450 15px/1.35 "SF Pro Text",-apple-system,BlinkMacSystemFont,"Helvetica Neue",Arial,sans-serif; letter-spacing:-.01em; color:#180400; opacity:clamp(0, calc(var(--grow, 0) * 3 - 2), 1); pointer-events:none; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; max-width:none; }
+.walk-panel .walk-note b { font-weight:600; }
+@media(min-width:701px){
+ .walk-panel.has-note .walk-placeholder { bottom:calc(40px + var(--grow, 0) * 36px); }
+ .walk-panel .walk-note { left:40px; right:40px; bottom:calc(8px + var(--grow, 0) * 10px); font-size:19px; }
+}
+/* Short introduction (Oct 1): who I am and what I do now, right under the
+   ARCH / PD / PM row, before the WORK walk. */
+.home-intro { position:relative; z-index:2; box-sizing:border-box; padding:13.4svh var(--pad,24px) 0; background:#f5f5f7; text-align:center; color:#1d1d1f; }
+.home-intro { --hello:clamp(34px,3.3vw,54px); padding-top:max(32px, calc(13.4svh - var(--hello) * 1.3)); }
+.home-intro-hello { margin:0 0 calc(var(--hello) * .3); font:600 var(--hello)/1 "SF Pro Display",-apple-system,BlinkMacSystemFont,"Helvetica Neue",Arial,sans-serif; letter-spacing:-.045em; color:#1d1d1f; }
+.home-intro-lede { max-width:44rem; margin:0 auto; font:450 clamp(16px,1.35vw,21px)/1.45 "SF Pro Text",-apple-system,BlinkMacSystemFont,"Helvetica Neue",Arial,sans-serif; letter-spacing:-.015em; color:#48484a; text-wrap:balance; }
+.home-intro-lede a { white-space:nowrap; color:#1d1d1f; text-decoration:underline; text-decoration-thickness:1px; text-underline-offset:.2em; text-decoration-skip-ink:auto; transition:opacity .2s ease; }
+.home-intro-lede a:hover { opacity:.55; }
+.home-intro-lede b { font-weight:600; color:#1d1d1f; }
+.home-intro-now { list-style:none; margin:18px auto 0; padding:0; display:flex; flex-wrap:wrap; justify-content:center; gap:6px 28px; font:400 13px/1.4 "SF Pro Text",-apple-system,BlinkMacSystemFont,sans-serif; color:#6e6e73; }
+.home-intro-now span { color:#1d1d1f; font-weight:500; margin-right:4px; }
+.home-intro-links { display:flex; justify-content:center; gap:22px; margin:18px 0 0; font:500 10px/1 "DM Mono",ui-monospace,monospace; letter-spacing:.08em; text-transform:uppercase; }
+.home-intro-links a { color:#1d1d1f; text-decoration:none; border-bottom:1px solid currentColor; padding-bottom:3px; }
+.home-intro-links a:hover { opacity:.55; }
+@media(max-width:700px){ .home-intro { --hello:34px; padding:max(28px, calc(11.3svh - var(--hello) * 1.3)) 20px 0; } .home-intro-lede { font-size:15px; } .home-intro-now { flex-direction:column; gap:4px; font-size:12px; } .home-intro-links { gap:16px; } }
+/* The intro is simply there: no cover wiping up as it scrolls in. */
+.home-intro.fx-section::after { display:none !important; }

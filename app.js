@@ -2,15 +2,25 @@
 // restored scroll position.
 if ('scrollRestoration' in history) history.scrollRestoration = 'manual';
 
-// Except when the visitor uses the browser's Back button after opening a
-// project from the home page (walk-gallery.js saves the spot): then the page
-// returns to where they left it.
+// Except when the visitor comes back with the browser's Back button: then the
+// page returns to exactly where they left it. The spot is kept in this page's
+// own history entry, so Back always lands where that visit left off: from a
+// WORK project back to WORK, from a section page opened near the top back to
+// the top.
 const readReturnPoint = () => {
-  try {
-    const saved = JSON.parse(sessionStorage.getItem('alobi-return-scroll') || 'null');
-    return saved && Date.now() - saved.at < 60 * 60 * 1000 ? saved.y : null;
-  } catch { return null; }
+  const y = history.state && history.state.alobiY;
+  return typeof y === 'number' && y >= 0 ? y : null;
 };
+const saveSpot = () => {
+  try { history.replaceState({ ...(history.state || {}), alobiY: Math.round(scrollY) }, ''); } catch {}
+};
+let saveTimer = 0;
+addEventListener('scroll', () => { clearTimeout(saveTimer); saveTimer = setTimeout(saveSpot, 160); }, { passive: true });
+addEventListener('pagehide', saveSpot);
+// Right before any click that may leave the page.
+document.addEventListener('pointerdown', saveSpot, true);
+document.addEventListener('keydown', event => { if (event.key === 'Enter' || event.key === ' ') saveSpot(); }, true);
+
 const navigationType = performance.getEntriesByType?.('navigation')?.[0]?.type;
 let returnPoint = navigationType === 'back_forward' ? readReturnPoint() : null;
 

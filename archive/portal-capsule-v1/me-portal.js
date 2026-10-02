@@ -104,182 +104,7 @@ const buildSprites = () => {
   glyphs = new Map([...new Set('MEWORK')].map(character => [character, makeGlyph(character)]));
 };
 
-// Portal style. 'door' (Oct 2): an architectural doorway in elevation, a
-// framed opening with a lintel and threshold, two hatched door leaves and the
-// word set upright along the seam; scrolling opens the leaves and you walk
-// through the frame. 'capsule' is the earlier rounded capsule, kept as it
-// was: use ?portal=capsule to see it, or set the line below to 'capsule'.
-const PORTAL_STYLE = new URLSearchParams(location.search).get('portal') === 'capsule' ? 'capsule' : 'door';
-
-const mix = (a, b, t) => a + (b - a) * t;
-const doorWidth = () => Math.min(height * .22, Math.max(width / 5.2, 110));
-const doorHeight = () => height * .62;
-
-// The doorway in perspective (Oct 2, v2). A camera rushes towards a framed
-// opening; the two leaves swing inward on their hinges; through the opening
-// you already see the room you are about to enter, drawn exactly as the room
-// beyond draws it, so once you are through, the two pictures are the same.
-// (The flat first version is in archive/portal-door-v1.)
-const drawDoor = (canvas, progress, word, options) => {
-  const context = contexts.get(canvas);
-  const p = clamp(progress);
-  const cx = width / 2, cy = height / 2;
-  context.fillStyle = paper;
-  context.fillRect(0, 0, width, height);
-
-  // The room beyond, full screen, in the orientation the next view uses.
-  const behind = options.behind || { turn: word === 'WORK' ? 0 : 1, scroll: 0 };
-  // fit: the room is shown small, as if far beyond the doorway, and reaches
-  // its full size exactly as you pass through.
-  const paintRoom = (fit = 1) => {
-    const turn = behind.turn ?? 1;
-    const roomWidth = height + (width - height) * turn;
-    const roomHeight = width + (height - width) * turn;
-    context.save();
-    context.translate(cx, cy);
-    context.scale(fit, fit);
-    context.rotate(-Math.PI / 2 + turn * Math.PI / 2);
-    context.translate(-roomWidth / 2, -roomHeight / 2);
-    drawRoomLines(context, roomWidth, roomHeight, behind.scroll || 0);
-    context.restore();
-  };
-  if (p >= .999) { paintRoom(); return { through: true }; }
-
-  // Camera: the door (1 unit wide) starts at its resting size, then the
-  // camera speeds up towards it, faster and faster, and passes through.
-  const focal = height * 1.15;
-  const W = 1, H = doorHeight() / doorWidth(), depth = .16, casing = .09;
-  const Z0 = focal * W / doorWidth();
-  // Slow at first, then gathering speed. The distance shrinks by a steady
-  // ratio (how the eye reads approach speed), eased in, so the rush builds
-  // over the whole approach instead of snapping in the last instant.
-  // Stepping back out (ME exit), the walk ends with the doorway's inner edge
-  // just beyond the screen's edges, so its frame slides in from the edges of
-  // your view as soon as you move; going in, the camera passes right through.
-  const leaving = !!(options.behind && options.behind.leaving);
-  const rim = Math.min(focal * W / 2 / (width * .52), focal * H / 2 / (height * .52)) - depth;
-  const end = leaving ? Math.max(.02, Math.min(Z0 * .5, rim)) : .02;
-  const dolly = clamp((p - .25) / .75);
-  const d = Z0 * Math.pow(end / Z0, Math.pow(dolly, leaving ? 1.6 : 2.4)); // distance to the door's face
-  // Things beyond the doorway sit at a real depth behind it, so they grow
-  // with the same camera move as the door and reach full size exactly as
-  // the camera arrives, never before: a plane that looks `rest` times its
-  // full size from the starting position sits this far behind the door.
-  const beyond = rest => { rest = clamp(rest); const depthBehind = (rest * Z0 - end) / Math.max(.001, 1 - rest); return (end + depthBehind) / (d + depthBehind); };
-  const roomScale = beyond(.55);
-  const at = (x, y, z) => { const zz = Math.max(.0004, d + z); return [cx + focal * x / zz, cy + focal * y / zz]; };
-  const poly = points => { context.beginPath(); points.forEach(([x, y], i) => (i ? context.lineTo(x, y) : context.moveTo(x, y))); context.closePath(); };
-  const seg = (a, b) => line(context, a[0], a[1], b[0], b[1]);
-  const L = -W / 2, R = W / 2, T = -H / 2, B = H / 2;
-
-  // Through the opening (its back edge), the room.
-  const back = [at(L, T, depth), at(R, T, depth), at(R, B, depth), at(L, B, depth)];
-  context.save();
-  poly(back);
-  context.clip();
-  const openingHeight = back[2][1] - back[1][1];
-  // WORK: the room beyond starts small and far, and reaches full size as you
-  // pass through. ME (stepping back out): the room stays exactly as it is and
-  // only the doorway closes in around it.
-  paintRoom((behind.turn ?? 1) === 1 ? 1 : Math.min(1, roomScale));
-  context.restore();
-
-  // The floor running up to the threshold, and the jamb reveals.
-  context.strokeStyle = ink;
-  context.lineWidth = .8;
-  const near = -d * .92;
-  seg(at(L - casing, B, 0), at(L - casing * 6, B, near));
-  seg(at(R + casing, B, 0), at(R + casing * 6, B, near));
-  const front = [at(L, T, 0), at(R, T, 0), at(R, B, 0), at(L, B, 0)];
-  for (let i = 0; i < 4; i += 1) seg(front[i], back[i]);
-  poly(back); context.stroke();
-
-  // The two leaves, hinged at the jambs, swinging inward.
-  // Inward, stopping just short of square against the jambs.
-  const swing = smooth((p - .1) / .42) * Math.PI * .47;
-  const hingeZ = depth * .35, leaf = W / 2;
-  const solid = 1; // the leaves stay solid ink all the way through
-  const drawLeaf = side => {
-    const hx = side < 0 ? L : R;
-    const fx = hx - side * leaf * Math.cos(swing);
-    const fz = hingeZ + leaf * Math.sin(swing);
-    const corners = [at(hx, T, hingeZ), at(fx, T, fz), at(fx, B, fz), at(hx, B, hingeZ)];
-    context.save();
-    poly(corners);
-    context.fillStyle = paper;
-    context.fill();
-    if (solid > .01) { context.globalAlpha = solid; context.fillStyle = ink; context.fill(); context.globalAlpha = 1; }
-    context.clip();
-    context.lineWidth = .6;
-    const rows = 46;
-    context.beginPath();
-    for (let i = 1; i < rows; i += 1) {
-      const y = T + (H * i) / rows;
-      const a = at(hx, y, hingeZ), b = at(fx, y, fz);
-      context.moveTo(a[0], a[1]); context.lineTo(b[0], b[1]);
-    }
-    context.strokeStyle = `rgba(245,245,247,${(.2 * solid).toFixed(3)})`;
-    if (solid > .01) context.stroke();
-    context.strokeStyle = `rgba(24,4,0,${(.32 * (1 - solid)).toFixed(3)})`;
-    if (solid < .99) context.stroke();
-    context.restore();
-    context.strokeStyle = ink;
-    context.lineWidth = .8;
-    poly(corners);
-    context.stroke();
-  };
-  // The leaves are behind the frame's face: seen only through the opening.
-  context.save();
-  poly(front);
-  context.clip();
-  drawLeaf(-1); drawLeaf(1);
-  context.restore();
-
-  // The word, upright along the closed seam; gone as soon as the door moves.
-  const wordAlpha = 1 - smooth((p - .04) / .08);
-  if (wordAlpha > .01) {
-    const doorPx = focal * W / d;
-    const size = Math.min(doorPx * .3, height * .05);
-    context.save();
-    context.globalAlpha = wordAlpha;
-    context.translate(cx, cy);
-    context.rotate(-Math.PI / 2);
-    context.fillStyle = paper;
-    context.font = `500 ${size}px "DM Mono", ui-monospace, monospace`;
-    context.textAlign = 'center';
-    context.textBaseline = 'middle';
-    const letters = [...word];
-    letters.forEach((character, index) => context.fillText(character, (index - (letters.length - 1) / 2) * size * 1.05, 0));
-    context.restore();
-    context.strokeStyle = 'rgba(245,245,247,.55)';
-    context.lineWidth = .8;
-    seg(at(0, T, hingeZ), at(0, B, hingeZ));
-  }
-
-  // The face of the frame: opening, casing, lintel and threshold.
-  context.strokeStyle = ink;
-  context.lineWidth = .8;
-  poly(front); context.stroke();
-  poly([at(L - casing, T - casing, 0), at(R + casing, T - casing, 0), at(R + casing, B, 0), at(L - casing, B, 0)]); context.stroke();
-  seg(at(L - casing * 3.4, T - casing, 0), at(R + casing * 3.4, T - casing, 0));
-  seg(at(L - casing * 6, B, 0), at(R + casing * 6, B, 0));
-
-  // What can be seen of the room beyond: the opening's back edge, narrowed
-  // by the leaves' free edges while they open (screen px), for anything the
-  // caller lays over the drawing (the WORK frames).
-  const freeLeft = at(L + leaf * Math.cos(swing), 0, hingeZ + leaf * Math.sin(swing))[0];
-  const freeRight = at(R - leaf * Math.cos(swing), 0, hingeZ + leaf * Math.sin(swing))[0];
-  return {
-    through: false,
-    // Anything shown in the room beyond scales with the room itself.
-    frameScale: Math.min(1, roomScale),
-    openingWidth: back[1][0] - back[0][0],
-    view: { left: Math.max(back[0][0], freeLeft), right: Math.min(back[1][0], freeRight), top: back[0][1], bottom: back[3][1] }
-  };
-};
-
 const drawPortal = (canvas, progress, word = 'ME', options = {}) => {
-  if (PORTAL_STYLE === 'door') return drawDoor(canvas, progress, word, options);
   const context = contexts.get(canvas);
   const portalProgress = progress;
   const travel = smooth(portalProgress);
@@ -342,8 +167,6 @@ const drawPortal = (canvas, progress, word = 'ME', options = {}) => {
 
 // Both entrances use the same renderer, sprites, spread, zoom, and easing.
 export const drawSharedPortal = (canvas, progress, word = 'ME', options = {}) => drawPortal(canvas, progress, word, options);
-// The WORK walk asks which portal is in use, to hand over without a slide.
-export const portalStyle = () => PORTAL_STYLE;
 
 // Spacing of the room's horizontal lines; one full spacing of travel looks identical to none.
 export const roomGap = height => Math.max(170, height * .23);
@@ -430,16 +253,10 @@ const draw = (now = performance.now()) => {
     const skip = entry.querySelector('.me-skip');
     if (skip) skip.style.visibility = progress > .1 ? 'hidden' : 'visible';
   }
-  // Door: once the way out reaches the top of the screen it takes over from
-  // the room with the very same drawing, then backs out through the door.
-  const doorExit = PORTAL_STYLE === 'door' && !reduced;
-  room.classList.toggle('me-room-left', doorExit && exitRect.top <= .5);
   if (exitRect.bottom > 0 && exitRect.top < height) {
     const scrollProgress = sectionProgress(exit);
-    const progress = doorExit
-      ? follow(exit, 1 - clamp((scrollProgress - .04) / .86))
-      : follow(exit, reduced ? 0 : 1 - clamp((scrollProgress - .1) / .9));
-    drawPortal(exit.querySelector('[data-me-portal]'), progress, 'ME', doorExit ? { behind: { turn: 1, scroll: roomTravel(roomRect.top), leaving: true } } : {});
+    const progress = follow(exit, reduced ? 0 : 1 - clamp((scrollProgress - .1) / .9));
+    drawPortal(exit.querySelector('[data-me-portal]'), progress);
   }
   // Tracks the scroll exactly; the glide comes from smooth-scroll.js.
   if (roomRect.bottom > 0 && roomRect.top < height) drawRoom(roomTravel(roomRect.top));

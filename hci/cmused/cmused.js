@@ -1,7 +1,7 @@
 // CMUsed case page: draws the numbers from data.js. The newest snapshot is
 // shown; anything that has moved since the first one (when I joined) is
 // marked with the change and the starting value.
-import { SNAPSHOTS } from './data.js?v=1';
+import { SNAPSHOTS } from './data.js?v=3';
 
 const base = SNAPSHOTS[0];
 const latest = SNAPSHOTS[SNAPSHOTS.length - 1];
@@ -24,7 +24,9 @@ const DELTA = {
 
 // ---- the metrics ---------------------------------------------------------
 // get: the value from a snapshot's values; note: the small line under it.
-const M = (label, type, get, note = () => '') => ({ label, type, get, note });
+// since: also show how far it has grown since I joined (only for running
+// totals; rolling windows such as "last 7 days" are not compared).
+const M = (label, type, get, note = () => '', since = false) => ({ label, type, get, note, since });
 const GROUPS = {
   headline: [
     M('Sold value', 'money', s => s.soldValue, s => `${int(s.listingsSold)} items sold`),
@@ -33,7 +35,7 @@ const GROUPS = {
     M('Median sale', 'money', s => s.medianSale, s => `Average ${money(s.averageSale)}`)
   ],
   people: [
-    M('Total users', 'count', s => s.totalUsers, () => 'All accounts'),
+    M('Total users', 'count', s => s.totalUsers, () => 'All accounts', true),
     M('Monthly active', 'count', s => s.mau, () => 'Last 30 days'),
     M('Weekly active', 'count', s => s.wau, () => 'Last 7 days'),
     M('Daily active', 'count', s => s.dau, () => 'Last 24 hours'),
@@ -69,11 +71,12 @@ const GROUPS = {
 const cell = metric => {
   const now = metric.get(v), then = metric.get(b);
   const d = now - then;
-  const moved = updated && Math.abs(d) > 1e-9;
-  const delta = moved
-    ? `<span class="cm-delta" data-dir="${d > 0 ? 'up' : 'down'}"><i aria-hidden="true">${d > 0 ? '▲' : '▼'}</i>${DELTA[metric.type](d)} since I joined<em>was ${FORMAT[metric.type](then)}</em></span>`
+  const gained = updated && metric.since && Math.abs(d) > 1e-9;
+  const badge = gained
+    ? `<span class="cm-gain" data-dir="${d > 0 ? 'up' : 'down'}" title="Since I joined">${d > 0 ? '+' : '−'}${DELTA[metric.type](d)}</span>`
     : '';
-  return `<div class="cm-cell${moved ? ' is-moved' : ''}"><dt>${metric.label}</dt><dd><b>${FORMAT[metric.type](now)}</b><small>${metric.note(v)}</small>${delta}</dd></div>`;
+  const note = metric.note(v);
+  return `<div class="cm-cell"><dt>${metric.label}</dt><dd><b>${FORMAT[metric.type](now)}${badge}</b><small>${note}</small></dd></div>`;
 };
 document.querySelectorAll('[data-cm-group]').forEach(list => {
   const group = GROUPS[list.dataset.cmGroup];
@@ -83,9 +86,15 @@ document.querySelectorAll('[data-cm-group]').forEach(list => {
 // ---- which reading this is ----------------------------------------------
 const stamp = document.querySelector('[data-cm-stamp]');
 if (stamp) {
-  stamp.innerHTML = updated
-    ? `<span>UPDATED · ${latest.label.toUpperCase()}${latest.date ? ` · ${latest.date}` : ''}</span><span>▲▼ CHANGES SINCE I JOINED</span>`
-    : `<span>BASELINE · ${base.label.toUpperCase()}${base.date ? ` · ${base.date}` : ''}</span><span>FROM THE CMUSED DASHBOARD</span>`;
+  // Not live: say when the numbers were read, and where from.
+  const day = date => {
+    const [y, m, d] = (date || '').split('-').map(Number);
+    if (!y || !m) return '';
+    const month = ['JAN', 'FEB', 'MAR', 'APR', 'MAY', 'JUN', 'JUL', 'AUG', 'SEP', 'OCT', 'NOV', 'DEC'][m - 1];
+    return d ? `${month} ${d}, ${y}` : `${month} ${y}`;
+  };
+  const when = day(latest.date);
+  stamp.innerHTML = `<span>${when ? `LAST RECORDED ${when} · ` : ''}FROM THE CMUSED DASHBOARD</span>`;
 }
 
 const heading = document.querySelector('[data-cm-title]');
@@ -115,7 +124,7 @@ if (chart) {
     return `<li tabindex="0" aria-label="${name}: ${tip}"><span class="cm-cat">${name}</span><span class="cm-track"><i style="width:${(count / max * 100).toFixed(2)}%"></i>${moved ? `<u style="left:${(was / max * 100).toFixed(2)}%" title="When I joined: ${was}"></u>` : ''}</span><b>${int(count)}</b><span class="cm-tip" aria-hidden="true">${tip}</span></li>`;
   }).join('');
   const key = document.querySelector('[data-cm-categories-key]');
-  if (key && updated) key.innerHTML = '<u class="cm-key" aria-hidden="true"></u>WHEN I JOINED · ';
+  if (key && rows.some(([name, count]) => (b.categories[name] ?? 0) !== count)) key.innerHTML = '<u class="cm-key" aria-hidden="true"></u>WHEN I JOINED · ';
   const sum = document.querySelector('[data-cm-categories-total]');
   if (sum) sum.textContent = `${int(total)} ACTIVE LISTINGS`;
 }

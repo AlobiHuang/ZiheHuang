@@ -18,6 +18,7 @@
    walk-gallery.css), and the reading strip rises in straight after. */
 .me-room{position:relative;z-index:1;background:var(--me-paper)}
 .me-room.me-room-waiting .me-room-space{visibility:hidden}
+.me-room.me-room-left .me-room-space{visibility:hidden}
 .me-room>.me-story{margin-top:100svh}
 .me-room-space{position:sticky;z-index:0;top:0;height:100svh;margin-bottom:-100svh;pointer-events:none;background:var(--me-paper)}
 .me-story{--me-display:"SF Pro Display",-apple-system,BlinkMacSystemFont,"Helvetica Neue",Arial,sans-serif;--me-text:"SF Pro Text",-apple-system,BlinkMacSystemFont,"Helvetica Neue",Arial,sans-serif;--me-label:"DM Mono",ui-monospace,SFMono-Regular,Consolas,monospace;position:relative;z-index:1;width:44%;margin:auto;border-inline:1px solid var(--me-ink);background:var(--me-paper);font-family:var(--me-text)!important}

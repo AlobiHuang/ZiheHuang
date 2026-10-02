@@ -1,4 +1,4 @@
-import { drawSharedPortal, drawRoomLines } from './me-portal.js?v=20260923-cursor-room-1';
+import { drawSharedPortal, drawRoomLines, portalStyle } from './me-portal.js?v=20261002-door-9';
 const gallery=document.querySelector('.walk-gallery');
 if(gallery){
  const world=gallery.querySelector('.walk-world');
@@ -14,8 +14,9 @@ if(gallery){
  const works=[
   // Product design, newest work first.
   {title:'CMUsed',meta:'2026 · PRODUCT DESIGN',lens:'PD',field:'PRODUCT DESIGN',href:'hci/cmused/',src:'assets/pd/cmused-home.webp?v=3',web:true,desc:'A second-hand marketplace for the Carnegie Mellon community. Browse by category, contact sellers directly, and list an item in three short steps, with AI help writing the description.'},
-  {title:'OpenGym',meta:'2026 · PRODUCT DESIGN',lens:'PD',field:'PRODUCT DESIGN',href:'hci/opengym/',src:'assets/pd/opengym-home.webp?v=1',web:true,desc:'Live occupancy for Carnegie Mellon\'s gyms. OpenGym already existed; I\'m redesigning its user flow, interface and product logic together with the hardware team behind its live counts.'},
-  {slug:'re-serv-oir',title:'RE.SERV.OIR',meta:'2026 · DESIGN STUDIO',image:'reservoir-exterior.webp'},
+  {title:'OpenGym',meta:'2026 · PRODUCT DESIGN',lens:'PD',field:'PRODUCT DESIGN',href:'hci/opengym/',src:'assets/pd/opengym-home.webp?v=2',web:true,desc:'Live occupancy for Carnegie Mellon\'s gyms. OpenGym already existed; I\'m redesigning its user flow, interface and product logic together with the hardware team behind its live counts.'},
+  {slug:'re-serv-oir',title:'RE.SERV.OIR',meta:'2026 · DESIGN STUDIO',image:'reservoir-exterior.webp',note:['Award Winner:','AIA COTE TEN Foundation Level']},
+  {title:'Sankofa Bamboo Greenhouse',meta:'2023—PRESENT · PROJECT MANAGEMENT',lens:'PM',field:'PROJECT MANAGEMENT',href:'project/?lens=pm&project=sankofa-multi-stakeholder-delivery',image:'sankofa-overview-wide.webp'},
   {slug:'how-to-build-a-ruin',title:'How to Build a Ruin',meta:'2026 · OPTION STUDIO',image:'ruin-hero-cover.jpg'},
   {slug:'convergence-environmental-middle-school',title:'Convergence',meta:'2025 FALL · STUDIO PROJECT',image:'convergence-pdf-02.jpg'},
   {slug:'radical-empathy',title:'Radical Empathy',meta:'2025 SPRING · STUDIO PROJECT',image:'radical-empathy-cover.jpg'},
@@ -32,8 +33,9 @@ if(gallery){
    :(work.src||work.image)
    ?`<img src="${work.src||`assets/portfolio/${work.image}`}" alt="" loading="lazy" decoding="async">`
    :'<div class="walk-progress-cover" aria-hidden="true"><small>ONGOING / 2026</small><strong>IN<br>PROGRESS</strong><em>TOROSIAJE · INDONESIA</em></div>';
-  panel.innerHTML=`<header><div><small>${work.lens||'ARCH'} / ${work.meta}</small><h2>${number}</h2></div><h3>${work.title}</h3></header><div class="walk-placeholder">${visual}</div>${work.web&&work.desc?`<div class="walk-desc"><p>${work.desc}</p></div>`:''}<footer><span>${work.field||'ARCHITECTURE'} / ${number}</span><span>VIEW PROJECT →</span></footer>`;
+  panel.innerHTML=`<header><div><small>${work.lens||'ARCH'} / ${work.meta}</small><h2>${number}</h2></div><h3>${work.title}</h3></header><div class="walk-placeholder">${visual}</div>${work.web&&work.desc?`<div class="walk-desc"><p>${work.desc}</p></div>`:''}${work.note?`<p class="walk-note"><b>${work.note[0]}</b> ${work.note[1]}</p>`:''}<footer><span>${work.field||'ARCHITECTURE'} / ${number}</span><span>VIEW PROJECT →</span></footer>`;
   if(work.web)panel.classList.add('walk-web');
+  if(work.note)panel.classList.add('has-note');
   world.append(panel);
  });
  const panels=[...world.children],canvas=gallery.querySelector('.walk-space'),ctx=canvas.getContext('2d');
@@ -174,6 +176,29 @@ if(gallery){
  const clamp=x=>Math.max(0,Math.min(1,x));
  const smooth=x=>{x=clamp(x);return x*x*(3-2*x)};
  let stageTop=0;
+ // The doorway: its progress follows the scroll with a short glide, so even a
+ // fast flick plays every in-between frame instead of jumping.
+ const DOOR=portalStyle()==='door';
+ let doorShown=-1,doorTime=0,doorGliding=false,doorFrames=null;
+ // Scroll brake through the doorway: the wheel moves the page at a fraction of
+ // its usual distance, so the door opens and the camera flies in at a pace
+ // you can follow.
+ const DOOR_BRAKE=.72;
+ if(DOOR)addEventListener('wheel',event=>{
+  if(reduced.matches||event.defaultPrevented||event.ctrlKey||event.shiftKey||!window.siteScroll||!event.cancelable)return;
+  if(Math.abs(event.deltaX)>Math.abs(event.deltaY))return;
+  const rect=gallery.getBoundingClientRect(),range=Math.max(1,gallery.offsetHeight-innerHeight);
+  const at=(-rect.top/range)*RANGE; // screens into the walk
+  const dy=event.deltaY*(event.deltaMode===1?16:event.deltaMode===2?innerHeight:1);
+  // Inside the doorway, or about to enter it (scrolling down from just above,
+  // or back up from just past it).
+  const inside=rect.top<=innerHeight*.02&&at<WALK_FROM+.02;
+  const entering=dy>0&&rect.top>0&&rect.top<innerHeight*.02;
+  const returning=dy<0&&at>=WALK_FROM&&at<WALK_FROM+.08;
+  if(!inside&&!entering&&!returning)return;
+  event.preventDefault();
+  window.siteScroll.scrollTo(window.siteScroll.target+dy*DOOR_BRAKE);
+ },{passive:false});
  const label=gallery.querySelector('.walk-label'),caption=gallery.querySelector('.walk-caption'),progressBar=gallery.querySelector('.walk-progress');
  function resize(){stageTop=parseFloat(getComputedStyle(stage).top)||0;w=stage.clientWidth;h=stage.clientHeight;const d=Math.min(devicePixelRatio,1.5);canvas.width=w*d;canvas.height=h*d;ctx.setTransform(d,0,0,d,0,0);schedule()}
  function render(){
@@ -204,24 +229,57 @@ if(gallery){
   // the top edge as the turn finishes.
   const frameStep=spacing*scale;
   const turnDistance=w+(LAST-.5)*frameStep;
-  const speed=turnDistance/((TURN_AT-WALK_FROM)*h); // on-screen px per px of scroll
+  // With the doorway nothing has to slide away first, so the walk starts
+  // with 01 already in view at the right instead of a screen of empty room.
+  const lead=DOOR?w:0; // 01 and 02 centred, as seen through the door
+  const speed=(turnDistance-lead)/((TURN_AT-WALK_FROM)*h); // on-screen px per px of scroll
   const turnScroll=TURN*h,outDistance=(h/2+halfWidth*scale+30)*1.05;
   const endSpeed=Math.max(.12,2*outDistance/turnScroll-speed);
   const since=Math.max(0,screens-TURN_AT)*h,during=Math.min(since,turnScroll);
   const walked=since>0
    ?turnDistance+speed*during+(endSpeed-speed)*during*during/(2*turnScroll)+(since-during)*endSpeed
-   :Math.max(0,screens-WALK_FROM)/(TURN_AT-WALK_FROM)*turnDistance;
+   :lead+Math.max(0,screens-WALK_FROM)/(TURN_AT-WALK_FROM)*(turnDistance-lead);
   const slide=clamp(walked/w);
   const sliding=slide<1;
   const travel=Math.min(PAIRS,Math.max(0,walked-w)/(2*frameStep));
   const beyond=Math.max(0,walked-w-(LAST-1)*frameStep); // on-screen distance walked after the last frame is centred
   const angle=turn*Math.PI/2;
   portal.style.opacity=1;
-  portal.style.transform=sliding?`translate3d(${-slide*w}px,0,0)`:'none';
-  portal.style.visibility=sliding?'visible':'hidden';
-  if(sliding)drawSharedPortal(portal,entrance,'WORK');
-  world.style.transform=`rotate(${turn*90}deg)`;
-  world.style.opacity=roomReveal;
+  if(portalStyle()==='door'){
+   // The doorway: the camera flies through it into this room, which the door
+   // already shows through its opening; once through, the two pictures are the
+   // same, so the doorway simply gives way (no slide).
+   const target=clamp(screens/WALK_FROM),nowDoor=performance.now();
+   // Jumps from far away (a link, the Back button) land at once.
+   if(doorShown<0||Math.abs(target-doorShown)>.6||(target>=1&&screens>WALK_FROM+.4))doorShown=target;
+   else{
+    const ddt=Math.min(.05,Math.max(.001,(nowDoor-(doorTime||nowDoor-16))/1000));
+    doorShown+=(target-doorShown)*(1-Math.exp(-ddt/.14));
+    if(Math.abs(target-doorShown)<.0015)doorShown=target;
+   }
+   doorTime=nowDoor;doorGliding=doorShown!==target;
+   const through=doorShown<.999;
+   portal.style.transform='none';
+   portal.style.visibility=through?'visible':'hidden';
+   const seen=through?drawSharedPortal(portal,doorShown,'WORK',{behind:{turn:0,scroll:roomScroll}}):null;
+   // Through the opening the first two frames are already there, small and
+   // far away; they reach full size exactly as you pass through.
+   if(seen&&seen.view){
+    const fit=Math.max(.02,seen.frameScale);
+    const v=seen.view,mx=w/2,my=h/2,local=(value,centre)=>centre+(value-centre)/fit;
+    const width=Math.max(0,v.right-v.left);
+    doorFrames={transform:`scale(${fit})`,clip:width<1?'inset(50%)':`inset(${Math.max(0,local(v.top,my)).toFixed(1)}px ${Math.max(0,w-local(v.right,mx)).toFixed(1)}px ${Math.max(0,h-local(v.bottom,my)).toFixed(1)}px ${Math.max(0,local(v.left,mx)).toFixed(1)}px)`};
+   }else doorFrames=null;
+  }else{
+   portal.style.transform=sliding?`translate3d(${-slide*w}px,0,0)`:'none';
+   portal.style.visibility=sliding?'visible':'hidden';
+   if(sliding)drawSharedPortal(portal,entrance,'WORK');
+  }
+  world.style.transform=doorFrames?doorFrames.transform:`rotate(${turn*90}deg)`;
+  world.style.clipPath=doorFrames?doorFrames.clip:'';
+  world.style.zIndex=doorFrames?'6':'';
+  world.style.pointerEvents=doorFrames?'none':'';
+  world.style.opacity=doorFrames?1:roomReveal;
   canvas.style.opacity=roomReveal;
   label.style.opacity=roomReveal*(1-turn);
   caption.style.opacity=roomReveal*(1-turn);
@@ -265,14 +323,14 @@ if(gallery){
    panel.style.visibility=shown?'visible':'hidden';
    panel.style.transform=`translate3d(${x0}px,${y0}px,0) scale(${scale})`;
    panel.style.setProperty('--grow',e.toFixed(3));
-   panel.style.opacity=roomReveal;
+   panel.style.opacity=DOOR?1:roomReveal;
    panel.style.zIndex=String(e>0?30:10-i);
    // Any frame on screen can be clicked; frames off screen are skipped by keyboard and screen readers.
    panel.inert=!shown;panel.setAttribute('aria-hidden',String(!shown));
   });
   if(active!==selected){active=selected;const first=Math.min(selected*2+1,COUNT-1);count.textContent=`${String(first).padStart(2,'0')} — ${String(first+1).padStart(2,'0')} / ${String(COUNT).padStart(2,'0')}`;}
   gallery.style.setProperty('--walk-progress',p);
-  if(growing)schedule();
+  if(growing||doorGliding)schedule();else doorTime=0;
  }
  function schedule(){if(!raf&&visible&&!reduced.matches)raf=requestAnimationFrame(render)}
  function setup(){gallery.classList.toggle('walk-static',reduced.matches);panels.forEach(p=>{p.inert=false;p.removeAttribute('aria-hidden')});resize()}

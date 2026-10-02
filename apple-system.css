@@ -145,3 +145,8 @@ h1,h2,h3{letter-spacing:-.055em!important;text-wrap:balance}
 .fx-grid,.why-grid,.intro-play-grid,.lens-gateway-grid,.project-gateway-grid,.project-record-grid,.transition-grid{display:none!important}
 .hero-grid,.category-grid,.contact-grid,.pm-story-grid,.hci-holding-grid,.about-grid,.resume-grid{background-image:none!important;mask-image:none!important;-webkit-mask-image:none!important}
 .dream-sticky:before{display:none!important}
+
+/* Big monitors (Oct 1): past 1608px wide, every section keeps the same
+   1440px content width as the header (logo to Contact), instead of some
+   sections running to the screen edges while others stay centred. */
+@media(min-width:1609px){:root{--pad:calc((100vw - var(--max)) / 2)}}

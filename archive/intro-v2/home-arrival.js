@@ -41,14 +41,7 @@ if (hero) {
  // Tightened opening: guide lines grow faster (S1), the pause after ZH is
  // shorter (S2), and the sweep's drop overlaps its rise (S3). Each is how far
  // (in the timings below) that part now comes earlier than it used to.
- // Oct 2: after the ZH, back to the original, slower pacing (no tightening),
- // so the cursor rises and the line sweeps at their first, unhurried speed.
- const S1=0,S2=0,S3=0;
- // Oct 1: the opening starts straight on the finished ZH (no guide lines
- // growing across the screen and thickening into the letters). T0 is where
- // on the old timeline it now begins; the previous opening is kept in
- // archive/intro-v2/home-arrival.js.
- const T0=3.0;
+ const S1=.3,S2=.85,S3=1.09;
  let waves=null,extrude=null,extrudeReady=false;
  // The solid's opening plays once the field has risen into view.
  const playExtrude=()=>{if(extrudeReady)return;extrudeReady=true;extrude?.play()};
@@ -73,8 +66,8 @@ if (hero) {
  });
  scaleMap?.addEventListener('pointerleave',event=>{if(event.pointerType!=='touch')showWord('ALOBI',160)});
  scaleMap?.addEventListener('focusout',event=>{if(!scaleMap.contains(event.relatedTarget))showWord('ALOBI',200)});
- if(skip)mountWaves();else setTimeout(mountWaves,(returningHome?.72:3.41-T0/motionRate)*1000);
- let w=0,h=0,full=0,raf=0,start=performance.now()-(returningHome?(4.28-S2)/motionRate*1000:T0/motionRate*1000),visible=true,finished=false,scrollProgress=0;
+ if(skip)mountWaves();else setTimeout(mountWaves,(returningHome?.72:3.41)*1000);
+ let w=0,h=0,full=0,raf=0,start=performance.now()-(returningHome?(4.28-S2)/motionRate*1000:0),visible=true,finished=false,scrollProgress=0;
  let px=.5,py=.5,mx=.5,my=.5,cursorX=innerWidth*.5,cursorY=innerHeight*.5,pointerKnown=false;
  // Start the arrival cursor where the mouse really is (remembered from the
  // last page by spectacle.js); with nothing remembered it waits, hidden,
@@ -122,7 +115,6 @@ if (hero) {
   targetFieldY=clamp((clientY-rect.top)/Math.max(1,rect.height))*500;
   if(!fieldRaf)fieldRaf=requestAnimationFrame(animateField);
  }
- try{document.fonts?.load('500 64px "DM Mono"').then(()=>wake())}catch{}
  function resize(){w=hero.clientWidth;full=hero.clientHeight;h=full;const d=Math.min(devicePixelRatio||1,1.25);canvas.width=w*d;canvas.height=h*d;ctx.setTransform(d,0,0,d,0,0);buildField();drawField();wake()}
  function stroke(x1,y1,x2,y2){ctx.beginPath();ctx.moveTo(x1,y1);ctx.lineTo(x2,y2);ctx.stroke()}
  function drawPlotter(now,reveal,dividerY){
@@ -207,18 +199,28 @@ if (hero) {
   ctx.save();ctx.strokeStyle='#1d1d1f';ctx.lineCap='square';ctx.lineJoin='miter';
   ctx.save();
   if(fold>.001){ctx.beginPath();ctx.rect(0,exitLineY+1,w,full-exitLineY);ctx.clip()}
-  const markAlpha=ease((t-T0)/.3);
+  const markAlpha=1;
   const cornerGrow=kinetic((t-.12)/.82),cornerFade=1-ease((t-2.12+S1)/.44);
   const cornerSize=3*scale*cornerGrow;
   ctx.globalAlpha=markAlpha*cornerFade*.9;ctx.fillStyle='#1d1d1f';
   const corners=[[zL,yT],[zR,yT],[zL,yB],[zR,yB],[hL,yT],[hR,yT],[hL,yM],[hR,yM],[hL,yB],[hR,yB]];
   corners.forEach(([cx,cy])=>ctx.fillRect(cx-cornerSize*.5,yy(cy)-cornerSize*.5,cornerSize,cornerSize));
-  // The mark itself: the same ZH as the logo in the header (DM Mono), set
-  // as one solid word rather than built from separate strokes.
-  ctx.globalAlpha=markAlpha;ctx.fillStyle='#1d1d1f';
-  ctx.font=`500 ${Math.round(64*scale)}px "DM Mono", ui-monospace, monospace`;
-  ctx.textAlign='center';ctx.textBaseline='middle';
-  ctx.fillText('ZH',x,yy(y)+2*scale);
+  strokes.forEach(item=>{
+   const grow=kinetic((t-.72-item.delay)/1.1);
+   const cut=kinetic((t-2.34+S1-item.delay*.35)/1.02);
+   const ax=item.a[0],ay=item.a[1],bx=item.b[0],by=item.b[1];
+   const dx=bx-ax,dy=by-ay,length=Math.hypot(dx,dy),ux=dx/length,uy=dy/length;
+   const guideLength=item.kind==='d'?Math.hypot(w,h)*2:item.kind==='v'?h*2:w*2;
+   const centerX=(ax+bx)/2,centerY=(ay+by)/2;
+   const grownHalf=guideLength*.5*grow;
+   const fullA=[centerX-ux*grownHalf,centerY-uy*grownHalf];
+   const fullB=[centerX+ux*grownHalf,centerY+uy*grownHalf];
+   const lineA=[mix(fullA[0],ax,cut),mix(fullA[1],ay,cut)];
+   const lineB=[mix(fullB[0],bx,cut),mix(fullB[1],by,cut)];
+   ctx.globalAlpha=markAlpha*(.62+.38*cut);
+   ctx.lineWidth=mix(.9,Math.max(2.5,3.5*scale),cut);
+   stroke(lineA[0],yy(lineA[1]),lineB[0],yy(lineB[1]));
+  });
   ctx.restore();
   const exitLineGrow=kinetic(fold/.16);
   const exitLineFade=1-ease((fold-.88)/.12);
@@ -231,7 +233,7 @@ if (hero) {
   raf=0;if(document.hidden||!visible)return;
   const t=skip?8:(now-start)/1000*motionRate;
   mx+=(px-mx)*.045;my+=(py-my)*.045;
-  const cursorRise=returningHome?1:kinetic((t-3.48)/.74);
+  const cursorRise=returningHome?1:kinetic((t-2.3)/.74);
   const shownCursorY=mix(innerHeight+34,cursorY,cursorRise);
    if(arrivalCursor){
     arrivalCursor.style.setProperty('--arrival-cursor-x',`${cursorX}px`);
@@ -301,5 +303,5 @@ if (hero) {
   if(scrollY<innerHeight*.5)replayReturn();else liftSheet();
  });
  // Never leave navigation hidden if the browser suspends the opening frames.
- setTimeout(()=>document.body.classList.add('arrival-done','is-ready'),(8.5-S3-T0)*1000/motionRate);
+ setTimeout(()=>document.body.classList.add('arrival-done','is-ready'),(8.5-S3)*1000/motionRate);
 }

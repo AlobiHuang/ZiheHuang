@@ -200,8 +200,8 @@ const resumeExperiences = [
     period: '2026—',
     range: 'Aug—Present',
     type: 'Leadership',
-    role: 'Teaching Assistant',
-    org: 'Carnegie Mellon University · Pittsburgh, PA',
+    role: 'Fabrication Team Lead',
+    org: 'Teaching Assistant · Carnegie Mellon University · Pittsburgh, PA',
     summary: 'Leading a 14-student project team through coordinated fabrication and assembly.',
     evidence: [
       'Organized students into CNC routing, 3D printing, metal preparation, joinery fabrication, and assembly teams.',

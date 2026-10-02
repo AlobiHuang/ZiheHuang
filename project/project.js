@@ -66,20 +66,12 @@ const portfolio = {
         tags: ['Stakeholders', 'Delivery', 'Risk', 'Prioritization']
       },
       {
-        slug: 'mentorship-as-a-feedback-system', no: 'P—02', title: 'Mentorship as a Feedback System', date: '2025—Present', type: 'Leadership',
-        role: 'Undergraduate Mentor · Carnegie Mellon University',
-        question: 'How can weekly critique become a reliable feedback system?',
-        summary: 'Creating a dependable feedback loop that helps first-year designers move from open-ended problems to concrete next actions.',
-        evidence: ['Critiques structured around goals, blockers, and actions', 'Guidance adapted to different levels of experience', 'Work reviewed against project intent and deliverables'],
-        tags: ['Leadership', 'Communication', 'Feedback', 'Enablement']
-      },
-      {
-        slug: 'ai-workflow-from-opportunity-to-adoption', no: 'P—03', title: 'AI Workflow: From Opportunity to Adoption', date: '2023—2024', type: 'Industry',
-        role: 'Design Intern · Hong Kong Huayi Design Consultants',
-        question: 'What does it take to move AI from experiment to adoption?',
-        summary: 'A product-shaped initiative to identify, prototype, evaluate, and operationalize generative AI within an established design team.',
-        evidence: ['Opportunity mapped inside the existing workflow', '10+ models compared through 600+ controlled iterations', 'Team feedback converted into a repeatable process'],
-        tags: ['Discovery', 'Prototyping', 'Evaluation', 'Adoption']
+        slug: 'teaching-assistant', no: 'P—02', title: 'Fabrication Team Lead', date: 'Aug 2026—Present', type: 'Leadership',
+        role: 'Fabrication Team Lead (Teaching Assistant)',
+        question: 'How do fourteen students build one thing together?',
+        summary: 'Teaching assistant for a whole course that is mostly hands-on fabrication, leading a 14-student team through coordinated fabrication and assembly.',
+        evidence: ['Students organized into CNC routing, 3D printing, metal preparation, joinery fabrication, and assembly teams', 'Responsibilities assigned and work coordinated across groups', 'Work quality reviewed, technical issues resolved, and safe tool use enforced'],
+        tags: ['Leadership', 'Fabrication', 'Teamwork']
       }
     ]
   },
@@ -178,10 +170,35 @@ const isPairedSpreadProject = lensKey === 'architecture' && ['convergence-enviro
 const sourceOverview = lensKey === 'architecture' && !isPdfPortfolioProject ? architecturePortfolioOverview[project.slug] : '';
 const isInProgressArchitecture = lensKey === 'architecture' && project.slug === 'call-of-the-sea';
 const isSankofaProject = lensKey === 'pm' && project.slug === 'sankofa-multi-stakeholder-delivery';
+const isTaProject = lensKey === 'pm' && project.slug === 'teaching-assistant';
+// PM project pages with the title on the left and a picture on the right.
+const isSplitProject = isSankofaProject || isTaProject;
 const mediaCaptions = mediaCaptionsByProject[project.slug] || [];
+// Sankofa: the picture beside the title (file name in assets/portfolio; empty
+// shows a blank frame until the drawing or photo is ready), and the visual
+// record as a strip you drag sideways. Add drawings to the strip in order.
+const sankofaHeroSide = '';
+const sankofaHeroSideAlt = 'Sankofa Bamboo Greenhouse';
+// The teaching assistant page shows the fabrication drawing until there is a photo.
+const taHeroSide = 'sankofa-fabrication-sequence.webp';
+const taHeroSideAlt = 'Fabrication sequence drawing: harvesting, splitting, planing, bending and assembling bamboo';
+const sankofaStrip = [
+  ['sankofa-fabrication-sequence.webp', 'Fabrication sequence — harvesting, splitting, planing, soaking, bending, bundling, reforming, spanning, bracing and assembling the bamboo arches'],
+  ['sankofa-long-elevation.webp', 'Long elevation — sheet A-100, drawn by Alobi Zihe Huang, reviewed by Vicky Achnani']
+];
 const mediaAlt = index => mediaCaptions[index] || `${project.title} portfolio visual ${index + 1}`;
 const sectionMedia = projectMedia.slice(1, 7);
 const sectionCount = sectionMedia.length;
+// Sankofa: one specific line (and a short tag) for each photo in the case study,
+// instead of cycling through the general evidence list.
+const sectionCopy = isSankofaProject ? [
+  ['Construction', 'The prototype growing into a full-scale structure. I supported wind and gravity testing with Intertek and zoning and permitting with the City of Pittsburgh, so it can be built on site.'],
+  ['Team', 'A small team working across design, structural engineering, testing and the community partner, Sankofa Village Community Garden and Farms.'],
+  ['Joinery', 'I designed more than 10 original joinery details with structural engineer John M. Schneider, P.E., so each connection is clear to read and repeatable to build.'],
+  ['Community', 'Presenting the model at Sankofa Village, so the people who will use the greenhouse can see it and respond before it is built.'],
+  ['Community', 'Talking the design through with the clients, then designing furniture and layouts around what they need.'],
+  ['Iteration', 'Turning what we heard in community interviews into visible changes to the interior layout, furniture and environmental strategies.']
+] : null;
 const sectionHeadline = index => {
   const caption = mediaCaptions[index + 1] || `${project.title} study`;
   const [first] = caption.split(' — ');
@@ -193,15 +210,45 @@ const processSteps = lensKey === 'architecture'
     ? 'Frame → Align → Test → Deliver → Learn'
     : 'Observe → Frame → Prototype → Test → Share';
 const projectMetaLabel = lensKey === 'pm' ? 'Team' : 'Mode';
-const projectMetaValue = lensKey === 'pm' ? 'Vicky Achnani, Zihe Huang, Shirley Xie, Victor Teng' : project.type;
+const projectMetaValue = isTaProject ? '14 students' : lensKey === 'pm' ? 'Zihe Huang, Shirley Xie, Victor Teng, Allen Chen' : project.type;
+// PM projects also name the instructor. Sankofa itself began in 2023; the
+// time shows the whole project first, then the part I have worked on.
+const projectInstructor = lensKey === 'pm' && !isTaProject ? 'Vicky Achnani' : '';
+const projectTime = isSankofaProject
+  ? '<span class="time-span">2023 — <mark>2026 — Present<em>MY PERIOD</em></mark></span>'
+  : project.date;
+// Sankofa: what the project has earned so far, shown first (sources linked).
+const sankofaRecognition = [
+  ['2026', 'Award', 'ACSA Best Design Project', 'The Second Life: From Waste to Oasis | Sankofa Bamboo Greenhouse · Association of Collegiate Schools of Architecture', 'https://www.acsa-arch.org/acsa-announces-the-2026-best-paper-and-best-project-awards/'],
+  ['2026', 'Publication', '114th ACSA Annual Meeting Proceedings', '“The Second Life: From Waste to Oasis — Sankofa Bamboo Green House”, Convergence / Divergence', 'https://www.acsa-arch.org/chapter/the-second-life-from-waste-to-oasis-sankofa-bamboo-green-house/'],
+  ['2025', 'Exhibition', 'after school · Carnegie Museum of Art', 'A bamboo “urban classroom” by Ayanna Jones and Vicky Achnani, Heinz Architectural Center, Aug 2025 – Jan 2026', 'https://www.e-flux.com/education/features/6732748/a-place-for-everyone-after-school'],
+  ['2025', 'Funding', 'Frank-Ratchye Further Fund', 'Grant from the Frank-Ratchye STUDIO for Creative Inquiry, Carnegie Mellon', 'https://studioforcreativeinquiry.org/project/second-life-from-waste-to-oasis'],
+  ['2024 – 25', 'Funding', 'PJ Dick Innovation Fund', 'Project grants in 2024 and 2025, Carnegie Mellon School of Architecture', 'https://www.architecture.cmu.edu/works/pj-dick-innovation-fund-project-grant-second-life-waste-oasis'],
+  ['2024', 'Funding', 'Isabel Sophia Liceaga Discretionary Fund', '$3,000 to retool the bamboo pavilion for the Sankofa garden in Homewood', 'https://www.architecture.cmu.edu/news/announcing-recipients-fall-2024-architecture-awards'],
+  ['2023', 'Research', 'Bamboo research pavilion', '$3,000 Liceaga Fund award for prototyping the bamboo spanning system with robotic arms and steam bending', 'https://cmu-soa-archive.squarespace.com/news-archive/2023/11/17/announcing-the-winners-of-the-fall-2023-awards']
+];
+const sankofaContribution = [
+  'Designed 10+ original joinery details with structural engineer John M. Schneider, P.E.',
+  'Supported wind and gravity testing with Intertek, and zoning and permitting with the City of Pittsburgh.',
+  'Turned community interviews into changes to the interior layout, furniture and environmental strategies.',
+  'Presented the project to USDA staff, supporting a $4,000 annual award and eligibility for an $8,000 implementation award in 2027.'
+];
+const sankofaContributionMarkup = isSankofaProject ? `<div class="project-contribution" aria-labelledby="contribution-title">
+      <p id="contribution-title">MY CONTRIBUTION · JUN 2026—PRESENT</p>
+      <ol>${sankofaContribution.map(line => `<li>${line}</li>`).join('')}</ol>
+    </div>` : '';
+const sankofaRecognitionMarkup = isSankofaProject ? `<div class="project-recognition" aria-labelledby="recognition-title">
+      <p id="recognition-title">PROJECT RECOGNITION</p>
+      <ul>${sankofaRecognition.map(([year, kind, title, detail, href]) => `<li><time>${year}</time><span class="recognition-kind">${kind}</span><span class="recognition-copy"><b>${title}</b> ${detail}</span>${href ? `<a href="${href}" target="_blank" rel="noreferrer" aria-label="Source: ${title}">↗</a>` : '<i></i>'}</li>`).join('')}</ul>
+    </div>` : '';
 const impactHeading = isSankofaProject
   ? 'Moving the Sankofa Bamboo Greenhouse from research prototype to full-scale construction.'
   : project.summary;
 const impactCopy = isSankofaProject
-  ? 'Presented the project to USDA staff, supported a $4,000 annual award and eligibility for an additional $8,000 implementation award in 2027, and designed more than 10 original joinery details with structural engineer John M. Schneider, P.E.'
+  ? 'Presented the project to USDA staff and designed more than 10 original joinery details with structural engineer John M. Schneider, P.E.'
   : 'The work leaves a record of what changed, what was learned, and what the next decision can build on.';
 const impactStats = isSankofaProject
-  ? [['$4K', 'annual award'], ['$8K', '2027 eligibility'], ['10+', 'unique joinery details']]
+  ? [['ACSA', '2026 best design project'], ['CMOA', '2025 exhibition'], ['10+', 'unique joinery details']]
   : [[sectionCount, 'visual studies'], [project.evidence.length, 'key decisions'], [project.tags.length, 'working lenses']];
 const architectureGalleryMarkup = isPairedSpreadProject
   ? Array.from({ length: Math.ceil(projectMedia.length / 2) }, (_, spreadIndex) => {
@@ -212,6 +259,45 @@ const architectureGalleryMarkup = isPairedSpreadProject
       }).join('')}</figure>`;
     }).join('')
   : projectMedia.map((image, index) => `<figure class="gallery-item gallery-item-${index + 1}"><img src="../assets/portfolio/${image}" alt="${project.title} portfolio image ${index + 1}"${projectPageDimensions ? ` width="${projectPageDimensions[0]}" height="${projectPageDimensions[1]}"` : ''} loading="${isPdfPortfolioProject && index === 0 ? 'eager' : 'lazy'}" decoding="async"></figure>`).join('');
+
+// PM page: the teaching assistant position, after the Sankofa project.
+const taCrews = ['CNC routing', '3D printing', 'Metal preparation', 'Joinery fabrication', 'Assembly'];
+const taDuties = [
+  ['Plan', 'Split the class into five fabrication crews and gave each student a clear responsibility.'],
+  ['Coordinate', 'Coordinated the work across the crews, from cutting and printing parts to final assembly.'],
+  ['Review', 'Checked the quality of the work, solved technical problems, and made sure tools were used safely.']
+];
+const taBodyMarkup = isTaProject ? `<section class="pm-teaching" id="case-study" aria-label="The course">
+    <p class="pm-teaching-kicker">02 / THE COURSE</p>
+    <p class="pm-teaching-lede">I am the teaching assistant for the whole course. Most of the course is hands-on fabrication, so most of the job is running a team of 14 students through it: who makes what, in what order, and to what standard.</p>
+    <div class="pm-teaching-crews">
+      <p class="pm-teaching-label"><b>14</b> students, five crews</p>
+      <ol>${taCrews.map((name, index) => `<li><span>${String(index + 1).padStart(2, '0')}</span><b>${name}</b></li>`).join('')}</ol>
+    </div>
+    <ol class="pm-teaching-duties">${taDuties.map(([title, text]) => `<li><b>${title}.</b><p>${text}</p></li>`).join('')}</ol>
+  </section>` : '';
+
+// The PM page itself: the projects as preview windows, two to a row, as on
+// the PD page. Each window is a short loop of pictures (data-pm-loop).
+const pmIndex = [
+  { slug: 'sankofa-multi-stakeholder-delivery', title: 'Sankofa Bamboo Greenhouse', line: 'a community greenhouse, from research prototype to full-scale construction', meta: 'Project designer · Community · 2023—Present',
+    images: [['sankofa-full-scale-assembly.webp', 'The bamboo greenhouse assembled at full scale in the workshop'], ['sankofa-joinery-network.webp', 'Bamboo joinery network with metal connectors'], ['sankofa-community-presentation.webp', 'Presenting the greenhouse model to the community at Sankofa Village']] },
+  { slug: 'teaching-assistant', title: 'Fabrication Team Lead', line: 'leading 14 students through a fabrication course', meta: 'Teaching Assistant',
+    images: [['sankofa-fabrication-sequence.webp', 'Fabrication sequence drawing: harvesting, splitting, planing, bending and assembling bamboo']], drawing: true }
+];
+const pmIndexMarkup = isPmLanding ? `<section class="pm-work" id="work" aria-label="Selected project management work">
+    <div class="pm-grid">${pmIndex.map(item => `
+      <article class="pm-project${item.drawing ? ' is-drawing' : ''}" aria-labelledby="pm-${item.slug}-title">
+        <a class="pm-plate" href="../project/?lens=pm&project=${item.slug}" data-route data-route-label="PM / ${item.title.toUpperCase()}" tabindex="-1" aria-hidden="true">
+          <span class="pm-window" data-pm-loop>${item.images.map(([image, alt], index) => `<img src="../assets/portfolio/${image}" alt="${alt}" decoding="async"${index ? ' loading="lazy"' : ''}>`).join('')}</span>
+        </a>
+        <div class="pm-card-cap">
+          <h3 id="pm-${item.slug}-title"><a href="../project/?lens=pm&project=${item.slug}" data-route data-route-label="PM / ${item.title.toUpperCase()}">${item.title}</a><span>: ${item.line}</span></h3>
+          <p>${item.meta}</p>
+        </div>
+      </article>`).join('')}
+    </div>
+  </section>` : '';
 
 const pmLandingHeroMarkup=isPmLanding?`
   <section class="pm-spatial-hero" aria-label="Projects and leadership">
@@ -232,32 +318,35 @@ document.getElementById('project-coordinates').innerHTML = isPmLanding
 document.getElementById('project-index-copy').textContent = lens.copy;
 document.querySelector(`[data-lens-link="${lensKey}"]`)?.setAttribute('aria-current', 'page');
 
-document.getElementById('project-root').innerHTML = `
-  ${pmLandingHeroMarkup}
-  <section class="project-gateway${isPdfPortfolioProject ? ' project-gateway-pdf' : ''}" id="top">
+document.getElementById('project-root').innerHTML = isPmLanding ? `${pmLandingHeroMarkup}${pmIndexMarkup}` : `
+  <section class="project-gateway${isPdfPortfolioProject ? ' project-gateway-pdf' : ''}${isSplitProject ? ' project-gateway-split' : ''}" id="top">
     <div class="project-gateway-grid" aria-hidden="true"></div>
     <p class="project-gateway-kicker">01 / WORK GATEWAY<br>${lens.code} / ${lens.name.toUpperCase()}</p>
-    ${isSankofaProject ? '' : `<a class="project-back" href="${lensHref}#experience" data-route data-route-label="${lens.name.toUpperCase()}" data-return-anchor="experience">← Selected work</a>`}
+    ${`<a class="project-back" href="${lensHref}#experience" data-route data-route-label="${lens.name.toUpperCase()}" data-return-anchor="experience">← Selected work</a>`}
     <div class="project-gateway-heading">
-      ${isSankofaProject ? '' : `<span>${project.no} / ${project.type}</span>`}
+      ${isSplitProject ? '' : `<span>${project.no} / ${project.type}</span>`}
       <h1>${project.title}</h1>
       ${lensKey === 'architecture' ? (sourceOverview ? `<p class="project-hook">${sourceOverview}</p>` : '') : `<p class="project-hook">${project.summary}</p>`}
     </div>
-    ${lensKey === 'pm' && !isSankofaProject ? `<figure class="project-hero-media project-hero-media-pm"><img src="../assets/portfolio/${projectMedia[0]}" alt="${mediaAlt(0)}" fetchpriority="high"></figure>` : ''}
+    ${isSplitProject ? (() => { const side = isTaProject ? taHeroSide : sankofaHeroSide; const alt = isTaProject ? taHeroSideAlt : sankofaHeroSideAlt; return `<figure class="project-hero-side${side ? '' : ' is-empty'}${isTaProject ? ' is-drawing' : ''}" data-hero-side>${side ? `<img src="../assets/portfolio/${side}" alt="${alt}" fetchpriority="high" decoding="async">` : '<span aria-hidden="true">IMAGE</span>'}</figure>`; })() : ''}
+    ${lensKey === 'pm' && !isSankofaProject && !isTaProject ? `<figure class="project-hero-media project-hero-media-pm"><img src="../assets/portfolio/${projectMedia[0]}" alt="${mediaAlt(0)}" fetchpriority="high"></figure>` : ''}
     ${lensKey === 'architecture' ? '' : `<dl class="project-gateway-meta">
       <div><dt>Role</dt><dd>${project.role}</dd></div>
-      <div><dt>Time</dt><dd>${project.date}</dd></div>
+      <div><dt>Time</dt><dd>${projectTime}</dd></div>
       <div><dt>${projectMetaLabel}</dt><dd>${projectMetaValue}</dd></div>
+      ${projectInstructor ? `<div><dt>Instructor</dt><dd>${projectInstructor}</dd></div>` : ''}
     </dl>`}
     ${lensKey !== 'pm' && !isInProgressArchitecture && !isPdfPortfolioProject ? `<figure class="project-hero-media"><img src="../assets/portfolio/${projectMedia[0]}" alt="${mediaAlt(0)}" fetchpriority="high"></figure>` : ''}
     <div class="project-aperture aperture-${lensKey}" aria-hidden="true">
       <span></span><span></span><span></span><span></span><span></span>
       <strong>${project.no}</strong><em>${lens.code}</em>
     </div>
+    ${sankofaContributionMarkup}
+    ${sankofaRecognitionMarkup}
     ${lensKey === 'architecture' ? '' : '<a class="project-enter" href="#case-study" aria-label="Continue to case study"><i>↓</i></a>'}
   </section>
 
-  ${lensKey === 'architecture' || isSankofaProject ? '' : `<section class="case-framing" id="case-study">
+  ${lensKey === 'architecture' || isSankofaProject || isTaProject ? '' : `<section class="case-framing" id="case-study">
     <p class="case-framing-index">02 / FRAMING<br>QUESTION → POSITION → METHOD</p>
     <div class="case-framing-copy">
       <p class="case-framing-lede">${project.question}</p>
@@ -267,31 +356,41 @@ document.getElementById('project-root').innerHTML = `
     </div>
   </section>`}
 
-  ${lensKey === 'architecture' ? '' : `<section class="case-sections" id="case-study" aria-label="Project case study">
+  ${lensKey === 'architecture' || isTaProject ? '' : `<section class="case-sections" id="case-study" aria-label="Project case study">
     ${isSankofaProject ? '' : '<div class="case-sections-intro"><span>03 / CASE STUDY</span><h2>From question to a working direction.</h2></div>'}
     ${sectionMedia.map((image, index) => `
       <article class="case-section gateway-reveal">
         <div class="case-section-copy">
-          <p class="case-section-index">03.${String(index + 1).padStart(2, '0')} / ${project.tags[index % project.tags.length] || project.type}</p>
+          <p class="case-section-index">03.${String(index + 1).padStart(2, '0')} / ${sectionCopy?.[index]?.[0] || project.tags[index % project.tags.length] || project.type}</p>
           <h3>${sectionHeadline(index)}</h3>
-          <p>${project.evidence[index % project.evidence.length]}</p>
+          <p>${sectionCopy?.[index]?.[1] || project.evidence[index % project.evidence.length]}</p>
         </div>
         <figure class="case-section-media"><img src="../assets/portfolio/${image}" alt="${mediaAlt(index + 1)}" loading="lazy" decoding="async"><figcaption>${mediaCaptions[index + 1] || mediaAlt(index + 1)}</figcaption></figure>
       </article>`).join('')}
   </section>`}
 
-  ${lensKey === 'architecture' ? '' : `<section class="case-impact">
+  ${lensKey === 'architecture' || isTaProject ? '' : `<section class="case-impact">
     <p class="case-framing-index">04 / IMPACT</p>
     <div class="case-impact-copy"><h2>${impactHeading}</h2><p>${impactCopy}</p></div>
     <div class="case-impact-stats">${impactStats.map(([value, label]) => `<div><b>${value}</b><span>${label}</span></div>`).join('')}</div>
   </section>`}
 
-  ${isInProgressArchitecture ? `<section class="project-in-progress" aria-label="Project status"><p>2026 / IN PROGRESS</p><h2>Work in progress.</h2><span>More from this project will be shared soon.</span></section>` : `<section class="project-gallery ${isPdfPortfolioProject ? 'project-gallery-pdf' : ''}" aria-label="Additional project visuals">
+  ${isTaProject ? '' : isSankofaProject ? `<section class="project-gallery project-gallery-strip" aria-label="Additional project visuals">
+    <header><span>05 / VISUAL RECORD</span><h2>Additional drawings, studies, and artifacts.</h2></header>
+    <div class="strip-viewport" data-strip tabindex="0" aria-label="Drawings. Drag, or use the arrow keys, to move through them.">
+      <div class="strip-track">${sankofaStrip.map(([image, caption], index) => `
+        <figure class="gallery-item strip-item"><img src="../assets/portfolio/${image}" alt="${caption}" loading="lazy" decoding="async" draggable="false"><figcaption><span>${String(index + 1).padStart(2, '0')} / ${String(sankofaStrip.length).padStart(2, '0')}</span><b>${caption}</b></figcaption></figure>`).join('')}
+      </div>
+    </div>
+    <div class="strip-status" aria-hidden="true"><span><i></i></span><b>DRAG →</b></div>
+  </section>` : isInProgressArchitecture ? `<section class="project-in-progress" aria-label="Project status"><p>2026 / IN PROGRESS</p><h2>Work in progress.</h2><span>More from this project will be shared soon.</span></section>` : `<section class="project-gallery ${isPdfPortfolioProject ? 'project-gallery-pdf' : ''}" aria-label="Additional project visuals">
     ${lensKey === 'architecture' ? '' : '<header><span>05 / VISUAL RECORD</span><h2>Additional drawings, studies, and artifacts.</h2></header>'}
     <div class="project-gallery-grid">${lensKey === 'architecture' ? architectureGalleryMarkup : projectMedia.slice(1 + sectionCount).map((image, index) => `
       <figure class="gallery-item gallery-item-${index + 1}"><img src="../assets/portfolio/${image}" alt="${mediaAlt(index + 1 + sectionCount)}" loading="lazy" decoding="async"><figcaption><span>${String(index + 1 + sectionCount).padStart(2, '0')} / ${project.no}</span>${mediaCaptions[index + 1 + sectionCount] ? `<b>${mediaCaptions[index + 1 + sectionCount]}</b>` : ''}</figcaption></figure>`).join('')}
     </div>
   </section>`}
+
+  ${taBodyMarkup}
 
   ${isPmLanding ? '' : `<nav class="project-sequence" aria-label="Project navigation">
     <a href="${projectHref(previous)}" data-route data-route-label="PROJECT / ${previous.title.toUpperCase()}"><span>Previous</span><b>← ${previous.title}</b></a>
@@ -424,3 +523,90 @@ const observer = new IntersectionObserver(entries => entries.forEach(entry => {
 }), { threshold: .14 });
 document.querySelectorAll('.gateway-reveal').forEach(element => observer.observe(element));
 requestAnimationFrame(() => document.body.classList.add('project-ready'));
+
+// The visual record strip (Sankofa): drag sideways with the mouse, swipe on
+// touch, shift-scroll or use the arrow keys. A drag that moves does not open
+// the picture; a plain click still opens it in the viewer.
+const strip = document.querySelector('[data-strip]');
+if (strip) {
+  const section = strip.closest('.project-gallery-strip');
+  const reducedMotion = matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const cursorLabel = text => {
+    const cursor = document.querySelector('.fx-cursor');
+    const label = cursor?.querySelector('span');
+    if (!cursor || !label) return;
+    label.textContent = text;
+    cursor.classList.add('is-action', 'is-label');
+  };
+  let dragging = false, moved = false, suppress = false, startX = 0, startLeft = 0, lastX = 0, lastT = 0, velocity = 0, glide = 0;
+  const progress = () => {
+    const max = strip.scrollWidth - strip.clientWidth;
+    section.style.setProperty('--strip-progress', max > 0 ? (strip.scrollLeft / max).toFixed(4) : '1');
+  };
+  const coast = () => {
+    velocity *= .94;
+    if (Math.abs(velocity) < .05) { glide = 0; return; }
+    strip.scrollLeft += velocity * 16;
+    glide = requestAnimationFrame(coast);
+  };
+  strip.addEventListener('pointerdown', event => {
+    if (event.pointerType === 'touch' || event.button !== 0) return;
+    cancelAnimationFrame(glide);
+    dragging = true; moved = false;
+    startX = lastX = event.clientX; startLeft = strip.scrollLeft; lastT = performance.now(); velocity = 0;
+  });
+  strip.addEventListener('pointermove', event => {
+    if (!dragging) return;
+    const delta = event.clientX - startX;
+    if (!moved && Math.abs(delta) > 5) { moved = true; strip.classList.add('is-dragging'); strip.setPointerCapture(event.pointerId); }
+    if (!moved) return;
+    const now = performance.now();
+    strip.scrollLeft = startLeft - delta;
+    velocity = Math.max(-3, Math.min(3, (lastX - event.clientX) / Math.max(8, now - lastT)));
+    lastX = event.clientX; lastT = now;
+  });
+  const release = () => {
+    if (!dragging) return;
+    dragging = false; suppress = moved;
+    strip.classList.remove('is-dragging');
+    if (moved && !reducedMotion && Math.abs(velocity) > .05) glide = requestAnimationFrame(coast);
+  };
+  strip.addEventListener('pointerup', release);
+  strip.addEventListener('pointercancel', release);
+  strip.addEventListener('click', event => {
+    if (!suppress) return;
+    suppress = false;
+    event.preventDefault(); event.stopImmediatePropagation();
+  }, true);
+  strip.addEventListener('wheel', event => {
+    if (!event.shiftKey && Math.abs(event.deltaX) <= Math.abs(event.deltaY)) return;
+    event.preventDefault();
+    strip.scrollLeft += event.deltaX || event.deltaY;
+  }, { passive: false });
+  strip.addEventListener('keydown', event => {
+    if (!['ArrowLeft', 'ArrowRight', 'Home', 'End'].includes(event.key)) return;
+    event.preventDefault();
+    const step = strip.clientWidth * .6;
+    const left = event.key === 'Home' ? 0 : event.key === 'End' ? strip.scrollWidth : strip.scrollLeft + (event.key === 'ArrowLeft' ? -step : step);
+    strip.scrollTo({ left, behavior: reducedMotion ? 'auto' : 'smooth' });
+  });
+  strip.addEventListener('scroll', progress, { passive: true });
+  addEventListener('resize', progress);
+  strip.addEventListener('pointerover', event => { if (event.pointerType === 'mouse') { cursorLabel('DRAG'); requestAnimationFrame(() => cursorLabel('DRAG')); } });
+  strip.addEventListener('pointerleave', () => document.querySelector('.fx-cursor')?.classList.remove('is-action', 'is-label'));
+  progress();
+}
+
+// PM page: each preview window cycles through its pictures while on screen.
+document.querySelectorAll('[data-pm-loop]').forEach(loop => {
+  const frames = [...loop.querySelectorAll('img')];
+  let index = 0, timer = 0;
+  const show = next => { frames.forEach((frame, i) => frame.classList.toggle('is-shown', i === next)); index = next; };
+  show(0);
+  if (frames.length < 2 || matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+  const tick = () => { show((index + 1) % frames.length); timer = setTimeout(tick, 3600); };
+  new IntersectionObserver(entries => {
+    clearTimeout(timer);
+    if (entries[0].isIntersecting) timer = setTimeout(tick, 3600);
+  }, { threshold: .25 }).observe(loop);
+});
