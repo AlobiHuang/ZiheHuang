@@ -260,48 +260,6 @@ const architectureGalleryMarkup = isPairedSpreadProject
     }).join('')
   : projectMedia.map((image, index) => `<figure class="gallery-item gallery-item-${index + 1}"><img src="../assets/portfolio/${image}" alt="${project.title} portfolio image ${index + 1}"${projectPageDimensions ? ` width="${projectPageDimensions[0]}" height="${projectPageDimensions[1]}"` : ''} loading="${isPdfPortfolioProject && index === 0 ? 'eager' : 'lazy'}" decoding="async"></figure>`).join('');
 
-// Sankofa: the case study told the way the PD pages tell theirs (cm-* from
-// hci/cmused/cmused.css): short sections, each a headline, a little prose and
-// the pictures that belong to it. (The earlier photo-by-photo layout is in
-// archive/sankofa-layout-v1.)
-const skImg = (file, alt) => `<img src="../assets/portfolio/${file}" alt="${alt}" loading="lazy" decoding="async">`;
-const sankofaBodyMarkup = isSankofaProject ? `<div class="cm sk" id="case-study">
-    <section class="cm-section" data-rail="WHY" aria-labelledby="sk-why">
-      <header class="cm-section-head"><h2 id="sk-why">A greenhouse built by many hands.</h2></header>
-      <div class="cm-prose">
-        <p>The Sankofa Bamboo Greenhouse is an experimental bamboo structure for Sankofa Village Community Garden and Farms in Homewood, Pittsburgh. Its path to construction runs through community priorities, bamboo research, structural testing, city approvals, funding and fabrication.</p>
-        <p>The project began in 2023. Since June 2026 my part has been the joinery, the testing and permitting, and carrying what the community tells us back into the design.</p>
-      </div>
-      <figure class="sk-wide">${skImg('sankofa-project-team.webp', 'The Sankofa project team with the community partner')}<figcaption>The project team with our community partner</figcaption></figure>
-    </section>
-
-    <section class="cm-section" data-rail="BUILD" aria-labelledby="sk-build">
-      <header class="cm-section-head"><h2 id="sk-build">From prototype to full scale.</h2></header>
-      <p class="cm-intro">Bamboo raised structural questions that drawings alone could not answer, so the work moved through physical joints, engineering review and testing before anything was built at full size.</p>
-      <ol class="cm-steps sk-steps">
-        <li><figure>${skImg('sankofa-joinery-detail.webp', 'A custom bamboo connection in plywood and metal')}</figure><span>01</span><b>Joinery.</b><p>${sectionCopy[2][1]}</p></li>
-        <li><figure>${skImg('sankofa-joinery-network.webp', 'Bamboo members and custom joints during prototyping')}</figure><span>02</span><b>Prototype.</b><p>The joints tested together as a network, so each connection could be checked in the structure it belongs to.</p></li>
-        <li><figure>${skImg('sankofa-build-progress.webp', 'The bamboo prototype growing into a full-scale structure')}</figure><span>03</span><b>Test and permit.</b><p>${sectionCopy[0][1]}</p></li>
-        <li><figure>${skImg('sankofa-full-scale-assembly.webp', 'The greenhouse assembled at full scale in the workshop')}</figure><span>04</span><b>Full scale.</b><p>The greenhouse assembled at full scale, moving from prototype toward construction on site.</p></li>
-      </ol>
-    </section>
-
-    <section class="cm-section" data-rail="COMMUNITY" aria-labelledby="sk-community">
-      <header class="cm-section-head"><h2 id="sk-community">The community in the room.</h2></header>
-      <p class="cm-intro">The people who will use the greenhouse helped shape it. What we heard was treated as a design input, next to the structural and delivery constraints.</p>
-      <ol class="cm-steps sk-steps sk-steps-3">
-        <li><figure>${skImg('sankofa-community-presentation.webp', 'Presenting the greenhouse model at Sankofa Village')}</figure><span>01</span><b>Present.</b><p>${sectionCopy[3][1]}</p></li>
-        <li><figure>${skImg('sankofa-community-dialogue.webp', 'Talking the design through with the clients around the model')}</figure><span>02</span><b>Listen.</b><p>${sectionCopy[4][1]}</p></li>
-        <li><figure>${skImg('sankofa-design-review.webp', 'Students and the community partner reviewing the model together')}</figure><span>03</span><b>Respond.</b><p>${sectionCopy[5][1]}</p></li>
-      </ol>
-    </section>
-
-    <section class="cm-section" data-rail="IMPACT" aria-labelledby="sk-impact">
-      <header class="cm-section-head"><h2 id="sk-impact">Where it stands.</h2></header>
-      <dl class="cm-grid cm-grid-3">${impactStats.map(([value, label]) => `<div class="cm-cell"><dt>${label}</dt><dd><b>${value}</b></dd></div>`).join('')}</dl>
-    </section>
-  </div>` : '';
-
 // PM page: the teaching assistant position, after the Sankofa project.
 const taCrews = ['CNC routing', '3D printing', 'Metal preparation', 'Joinery fabrication', 'Assembly'];
 const taDuties = [
@@ -398,9 +356,7 @@ document.getElementById('project-root').innerHTML = isPmLanding ? `${pmLandingHe
     </div>
   </section>`}
 
-  ${sankofaBodyMarkup}
-
-  ${lensKey === 'architecture' || isTaProject || isSankofaProject ? '' : `<section class="case-sections" id="case-study" aria-label="Project case study">
+  ${lensKey === 'architecture' || isTaProject ? '' : `<section class="case-sections" id="case-study" aria-label="Project case study">
     ${isSankofaProject ? '' : '<div class="case-sections-intro"><span>03 / CASE STUDY</span><h2>From question to a working direction.</h2></div>'}
     ${sectionMedia.map((image, index) => `
       <article class="case-section gateway-reveal">
@@ -413,14 +369,14 @@ document.getElementById('project-root').innerHTML = isPmLanding ? `${pmLandingHe
       </article>`).join('')}
   </section>`}
 
-  ${lensKey === 'architecture' || isTaProject || isSankofaProject ? '' : `<section class="case-impact">
+  ${lensKey === 'architecture' || isTaProject ? '' : `<section class="case-impact">
     <p class="case-framing-index">04 / IMPACT</p>
     <div class="case-impact-copy"><h2>${impactHeading}</h2><p>${impactCopy}</p></div>
     <div class="case-impact-stats">${impactStats.map(([value, label]) => `<div><b>${value}</b><span>${label}</span></div>`).join('')}</div>
   </section>`}
 
-  ${isTaProject ? '' : isSankofaProject ? `<section class="project-gallery project-gallery-strip sk-gallery" aria-label="Drawings">
-    <header><h2>Drawings.</h2><p>The fabrication sequence and the long elevation. Drag to move through them.</p></header>
+  ${isTaProject ? '' : isSankofaProject ? `<section class="project-gallery project-gallery-strip" aria-label="Additional project visuals">
+    <header><span>05 / VISUAL RECORD</span><h2>Additional drawings, studies, and artifacts.</h2></header>
     <div class="strip-viewport" data-strip tabindex="0" aria-label="Drawings. Drag, or use the arrow keys, to move through them.">
       <div class="strip-track">${sankofaStrip.map(([image, caption], index) => `
         <figure class="gallery-item strip-item"><img src="../assets/portfolio/${image}" alt="${caption}" loading="lazy" decoding="async" draggable="false"><figcaption><span>${String(index + 1).padStart(2, '0')} / ${String(sankofaStrip.length).padStart(2, '0')}</span><b>${caption}</b></figcaption></figure>`).join('')}

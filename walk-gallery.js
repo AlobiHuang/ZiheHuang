@@ -1,4 +1,4 @@
-import { drawSharedPortal, drawRoomLines, portalStyle } from './me-portal.js?v=20261002-door-9';
+import { drawSharedPortal, drawRoomLines, portalStyle } from './me-portal.js?v=20261002-door-21';
 const gallery=document.querySelector('.walk-gallery');
 if(gallery){
  const world=gallery.querySelector('.walk-world');
@@ -11,17 +11,19 @@ if(gallery){
  // desc:'...': held under the pointer, their frame keeps the 16:9 video as it
  // is at the top and grows downward to show the description underneath,
  // instead of stretching the picture.
+ // kind: the small word on the wall beside each frame (Product, Brand,
+ // Competition, Project ...). Change it freely.
  const works=[
   // Product design, newest work first.
-  {title:'CMUsed',meta:'2026 · PRODUCT DESIGN',lens:'PD',field:'PRODUCT DESIGN',href:'hci/cmused/',src:'assets/pd/cmused-home.webp?v=3',web:true,desc:'A second-hand marketplace for the Carnegie Mellon community. Browse by category, contact sellers directly, and list an item in three short steps, with AI help writing the description.'},
-  {title:'OpenGym',meta:'2026 · PRODUCT DESIGN',lens:'PD',field:'PRODUCT DESIGN',href:'hci/opengym/',src:'assets/pd/opengym-home.webp?v=2',web:true,desc:'Live occupancy for Carnegie Mellon\'s gyms. OpenGym already existed; I\'m redesigning its user flow, interface and product logic together with the hardware team behind its live counts.'},
-  {slug:'re-serv-oir',title:'RE.SERV.OIR',meta:'2026 · DESIGN STUDIO',image:'reservoir-exterior.webp',note:['Award Winner:','AIA COTE TEN Foundation Level']},
-  {title:'Sankofa Bamboo Greenhouse',meta:'2023—PRESENT · PROJECT MANAGEMENT',lens:'PM',field:'PROJECT MANAGEMENT',href:'project/?lens=pm&project=sankofa-multi-stakeholder-delivery',image:'sankofa-overview-wide.webp'},
-  {slug:'how-to-build-a-ruin',title:'How to Build a Ruin',meta:'2026 · OPTION STUDIO',image:'ruin-hero-cover.jpg'},
-  {slug:'convergence-environmental-middle-school',title:'Convergence',meta:'2025 FALL · STUDIO PROJECT',image:'convergence-pdf-02.jpg'},
-  {slug:'radical-empathy',title:'Radical Empathy',meta:'2025 SPRING · STUDIO PROJECT',image:'radical-empathy-cover.jpg'},
+  {title:'CMUsed',kind:'Product',meta:'2026 · PRODUCT DESIGN',lens:'PD',field:'PRODUCT DESIGN',href:'hci/cmused/',src:'assets/pd/cmused-home.webp?v=3',web:true,desc:'A second-hand marketplace for the Carnegie Mellon community. Browse by category, contact sellers directly, and list an item in three short steps, with AI help writing the description.'},
+  {title:'OpenGym',kind:'Product',meta:'2026 · PRODUCT DESIGN',lens:'PD',field:'PRODUCT DESIGN',href:'hci/opengym/',src:'assets/pd/opengym-home.webp?v=2',web:true,desc:'Live occupancy for Carnegie Mellon\'s gyms. OpenGym already existed; I\'m redesigning its user flow, interface and product logic together with the hardware team behind its live counts.'},
+  {slug:'re-serv-oir',title:'RE.SERV.OIR',kind:'Competition',meta:'2026 · DESIGN STUDIO',image:'reservoir-exterior.webp',note:['Award Winner:','AIA COTE TEN Foundation Level']},
+  {title:'Sankofa Bamboo Greenhouse',kind:'Project',meta:'2023—PRESENT · LEADERSHIP',lens:'PM',field:'LEADERSHIP',href:'project/?lens=pm&project=sankofa-multi-stakeholder-delivery',image:'sankofa-overview-wide.webp'},
+  {slug:'how-to-build-a-ruin',title:'How to Build a Ruin',kind:'Project',meta:'2026 · OPTION STUDIO',image:'ruin-hero-cover.jpg'},
+  {slug:'convergence-environmental-middle-school',title:'Convergence',kind:'Project',meta:'2025 FALL · STUDIO PROJECT',image:'convergence-pdf-02.jpg'},
+  {slug:'radical-empathy',title:'Radical Empathy',kind:'Project',meta:'2025 SPRING · STUDIO PROJECT',image:'radical-empathy-cover.jpg'},
   // (The Tinkerer's Imaginarium is left out here; it stays on the ARCH page.)
-  {slug:'call-of-the-sea',title:'Call of the Sea',meta:'2026—PRESENT · IN PROGRESS',image:null}
+  {slug:'call-of-the-sea',title:'Call of the Sea',kind:'Project',meta:'2026—PRESENT · IN PROGRESS',image:null}
  ];
  works.forEach((work,i)=>{
   const panel=document.createElement('a');panel.className='walk-panel';
@@ -39,6 +41,15 @@ if(gallery){
   world.append(panel);
  });
  const panels=[...world.children],canvas=gallery.querySelector('.walk-space'),ctx=canvas.getContext('2d');
+ // The room's back wall: a large WORK lettered on it, and beside each frame a
+ // small note of what kind of work it is. They live in the same space as the
+ // frames, so they move with them (and show, small, through the door).
+ const wallWord=document.createElement('div');
+ wallWord.className='walk-wall-word';wallWord.setAttribute('aria-hidden','true');wallWord.textContent='WORK';
+ world.prepend(wallWord);
+ const kindTags=panels.map((panel,i)=>{const tag=document.createElement('span');tag.className='walk-kind';tag.setAttribute('aria-hidden','true');tag.innerHTML=`<b>${String(i+1).padStart(2,'0')}</b>${works[i]?.kind||''}`;world.insertBefore(tag,panels[0]);return tag});
+ let wallWordWidth=0;
+ const WALL_REPEAT=16;
  // Opening a project: no zoom. The project page slides up over this one
  // (the site's usual page change, page-flow.css), the same movement as the
  // slide back down on the way out. Remember where we are, so the browser's
@@ -184,6 +195,26 @@ if(gallery){
  // its usual distance, so the door opens and the camera flies in at a pace
  // you can follow.
  const DOOR_BRAKE=.72;
+ // "Selected work ↓" in the intro: glide down to the WORK door instead of
+ // jumping there.
+ document.querySelectorAll('a[href="#walk-gallery"]').forEach(link=>link.addEventListener('click',event=>{
+  if(event.button!==0||event.metaKey||event.ctrlKey||event.shiftKey||event.altKey)return;
+  event.preventDefault();
+  const to=gallery.getBoundingClientRect().top+scrollY;
+  if(reduced.matches){scrollTo({top:to,behavior:'instant'});return}
+  window.siteScroll?.stop?.();
+  const from=scrollY,dist=to-from,duration=Math.min(1600,Math.max(1100,Math.abs(dist)*.9)),start=performance.now();
+  const ease=t=>t<.5?4*t*t*t:1-Math.pow(-2*t+2,3)/2;
+  let cancelled=false;const cancel=()=>{cancelled=true};
+  addEventListener('wheel',cancel,{once:true,passive:true});addEventListener('touchstart',cancel,{once:true,passive:true});
+  const step=now=>{
+   if(cancelled)return;
+   const t=Math.min(1,(now-start)/duration);
+   scrollTo({top:from+dist*ease(t),behavior:'instant'});
+   if(t<1)requestAnimationFrame(step);else{removeEventListener('wheel',cancel);removeEventListener('touchstart',cancel)}
+  };
+  requestAnimationFrame(step);
+ }));
  if(DOOR)addEventListener('wheel',event=>{
   if(reduced.matches||event.defaultPrevented||event.ctrlKey||event.shiftKey||!window.siteScroll||!event.cancelable)return;
   if(Math.abs(event.deltaX)>Math.abs(event.deltaY))return;
@@ -328,6 +359,32 @@ if(gallery){
    // Any frame on screen can be clicked; frames off screen are skipped by keyboard and screen readers.
    panel.inert=!shown;panel.setAttribute('aria-hidden',String(!shown));
   });
+  // The lettering on the wall, centred on the first pair of frames, and the
+  // kind notes: above the upper frames, below the lower ones.
+  {
+   // Sized so the word spans most of the screen at the start of the walk.
+   // per100: the width of one WORK at a 100px font; the wall repeats it the
+   // whole length of the walk (WORKWORKWORK...).
+   if(!wallWord.dataset.per100){wallWord.textContent='WORK';wallWord.style.fontSize='100px';wallWord.dataset.per100=String(wallWord.offsetWidth/100||2.6);wallWord.textContent='WORK'.repeat(WALL_REPEAT)}
+   const fontWorld=Math.min(w*(mobile?.96:.9),h*1.9)/scale/Number(wallWord.dataset.per100);
+   if(wallWord.dataset.size!==String(Math.round(fontWorld))){wallWord.dataset.size=String(Math.round(fontWorld));wallWord.style.fontSize=`${fontWorld}px`;wallWordWidth=wallWord.offsetWidth}
+   // The first WORK is centred on the first pair of frames; the rest follow.
+   const centre=project(.5*spacing,0,wallZ),one=Number(wallWord.dataset.per100)*fontWorld*scale;
+   const left=centre[0]-one/2;
+   wallWord.style.transform=`translate3d(${left.toFixed(1)}px,${(centre[1]-fontWorld*.5*scale).toFixed(1)}px,0) scale(${scale})`;
+   wallWord.style.visibility=left+wallWordWidth*scale>-50&&left<w+50?'visible':'hidden';
+   // Hand the lettering's place on screen to the ME room (me-portal.js), which
+   // carries it on, turned with the room, after this walk lets go: the world
+   // is turned 90° about the screen's centre, so local x runs down the screen.
+   const topY=centre[1]-fontWorld*.5*scale;
+   window.alobiWorkWall={text:wallWord.textContent,font:fontWorld,scale,x:cx+cy-topY,y:cy+left-cx,speed:since>0?endSpeed:speed,at:Math.min(scrollY,scrollY+rect.top-top+walkRange),turned:turn>.999};
+   kindTags.forEach((tag,i)=>{
+    const x=i*spacing,up=i%2===0,rowY=(i%2?1:-1)*(halfHeight*.78);
+    const [tx,ty]=project(x-halfWidth,up?rowY-halfHeight-(mobile?44:40):rowY+halfHeight+(mobile?14:12),wallZ);
+    tag.style.transform=`translate3d(${tx.toFixed(1)}px,${ty.toFixed(1)}px,0) scale(${scale})`;
+    tag.style.visibility=tx<w+100&&tx+halfWidth*2*scale>-100?'visible':'hidden';
+   });
+  }
   if(active!==selected){active=selected;const first=Math.min(selected*2+1,COUNT-1);count.textContent=`${String(first).padStart(2,'0')} — ${String(first+1).padStart(2,'0')} / ${String(COUNT).padStart(2,'0')}`;}
   gallery.style.setProperty('--walk-progress',p);
   if(growing||doorGliding)schedule();else doorTime=0;

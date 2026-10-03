@@ -210,7 +210,7 @@ const transitionNames = {
 const categoryRoutes = {
   about: { url: 'about/', label: 'ABOUT / TIMELINE' },
   architecture: { url: 'architecture/', label: 'ARCHITECTURE' },
-  pm: { url: 'pm/', label: 'PROJECT MANAGEMENT' },
+  pm: { url: 'pm/', label: 'LEADERSHIP' },
   hci: { url: 'hci/', label: 'PRODUCT DESIGN' },
   resume: { url: 'resume/', label: 'RESUME / SELECTED EXPERIENCE' },
   contact: { url: 'contact/', label: 'CONTACT / OPEN CHANNEL' }

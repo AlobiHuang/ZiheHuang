@@ -248,25 +248,15 @@ const drawDoor = (canvas, progress, word, options) => {
   drawLeaf(-1); drawLeaf(1);
   context.restore();
 
-  // The word, upright along the closed seam; gone as soon as the door moves.
-  const wordAlpha = 1 - smooth((p - .04) / .08);
-  if (wordAlpha > .01) {
-    const doorPx = focal * W / d;
-    const size = Math.min(doorPx * .3, height * .05);
+  // The seam between the closed leaves.
+  const seamAlpha = 1 - smooth((p - .04) / .08);
+  if (seamAlpha > .01) {
     context.save();
-    context.globalAlpha = wordAlpha;
-    context.translate(cx, cy);
-    context.rotate(-Math.PI / 2);
-    context.fillStyle = paper;
-    context.font = `500 ${size}px "DM Mono", ui-monospace, monospace`;
-    context.textAlign = 'center';
-    context.textBaseline = 'middle';
-    const letters = [...word];
-    letters.forEach((character, index) => context.fillText(character, (index - (letters.length - 1) / 2) * size * 1.05, 0));
-    context.restore();
+    context.globalAlpha = seamAlpha;
     context.strokeStyle = 'rgba(245,245,247,.55)';
     context.lineWidth = .8;
     seg(at(0, T, hingeZ), at(0, B, hingeZ));
+    context.restore();
   }
 
   // The face of the frame: opening, casing, lintel and threshold.
@@ -276,6 +266,36 @@ const drawDoor = (canvas, progress, word, options) => {
   poly([at(L - casing, T - casing, 0), at(R + casing, T - casing, 0), at(R + casing, B, 0), at(L - casing, B, 0)]); context.stroke();
   seg(at(L - casing * 3.4, T - casing, 0), at(R + casing * 3.4, T - casing, 0));
   seg(at(L - casing * 6, B, 0), at(R + casing * 6, B, 0));
+
+  // The word on the door, stacked letter over letter as on the old capsule.
+  // As the leaves open, the letters lift off the door and spread across the
+  // whole page in rows of copies (the original WORK / ME spread), then fade
+  // as the camera passes through.
+  const lettersAlpha = 1 - smooth((p - .5) / .32);
+  if (lettersAlpha > .01 && glyphs.size) {
+    const spread = smooth((p - .05) / .5) * width * 1.48;
+    const curve = smooth((p - .05) / .55);
+    const grow = 1 + .35 * smooth((p - .2) / .6);
+    const middle = (word.length - 1) / 2;
+    const spacing = word.length > 1 ? Math.min(2, 3 / (word.length - 1)) : 0;
+    context.save();
+    context.globalAlpha = lettersAlpha;
+    context.translate(cx, cy);
+    for (const plane of planes) {
+      if (plane && spread < 1) continue; // still on the door: one word
+      const unit = plane / 10;
+      const x = unit * spread / 2;
+      const bend = unit * unit * height * .075 * curve;
+      [...word].forEach((character, index) => {
+        const glyph = glyphs.get(character);
+        if (!glyph) return;
+        const row = index - middle;
+        const y = row * spacing * letterStep * grow + Math.sign(row) * bend;
+        context.drawImage(glyph, x - glyphWidth * grow / 2, y - glyphHeight * grow / 2, glyphWidth * grow, glyphHeight * grow);
+      });
+    }
+    context.restore();
+  }
 
   // What can be seen of the room beyond: the opening's back edge, narrowed
   // by the leaves' free edges while they open (screen px), for anything the
@@ -403,30 +423,6 @@ const drawRoom = (scrollPosition) => {
 
 };
 
-// The WORK lettering from the walk's back wall carries on up the ME room
-// (walk-gallery.js publishes where it is and how fast it moves), until the
-// reading strip rises over it.
-const roomWord = (() => {
-  const space = room?.querySelector('.me-room-space');
-  if (!space) return null;
-  const element = document.createElement('div');
-  element.className = 'me-room-word';
-  element.setAttribute('aria-hidden', 'true');
-  space.append(element);
-  return element;
-})();
-const placeRoomWord = () => {
-  const wall = window.alobiWorkWall;
-  if (!roomWord || !wall || !wall.turned || PORTAL_STYLE !== 'door') { if (roomWord) roomWord.style.visibility = 'hidden'; return; }
-  if (roomWord.textContent !== wall.text) roomWord.textContent = wall.text;
-  // Drawn exactly as on the walk's wall: the same type size, scaled the same
-  // way, so the hairline keeps the same weight across the handover.
-  roomWord.style.fontSize = `${wall.font}px`;
-  const y = wall.y - (scrollY - wall.at) * wall.speed;
-  roomWord.style.transform = `translate3d(${wall.x.toFixed(1)}px,${y.toFixed(1)}px,0) rotate(90deg) scale(${wall.scale})`;
-  roomWord.style.visibility = 'inherit';
-};
-
 const sectionProgress = section => {
   const rect = section.getBoundingClientRect();
   return clamp(-rect.top / Math.max(1, section.offsetHeight - height));
@@ -480,7 +476,6 @@ const draw = (now = performance.now()) => {
   }
   // Tracks the scroll exactly; the glide comes from smooth-scroll.js.
   if (roomRect.bottom > 0 && roomRect.top < height) drawRoom(roomTravel(roomRect.top));
-  if (roomRect.bottom > 0 && roomRect.top < height) placeRoomWord();
   if (settling && !document.hidden) frame = requestAnimationFrame(draw);
 };
 

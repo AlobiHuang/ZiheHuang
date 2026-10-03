@@ -3,7 +3,7 @@
 // Scrolling through it (the stage is pinned; the section is 760svh):
 //  1. RISE    the question rises from the bottom of the screen to the middle.
 //  2. SPIN    as the question rises, a slot drum in the blank spins through
-//             STYLE / SKILLS / HOBBIES and comes to rest on one by itself.
+//             STYLE / SKILLS / PROCESS and comes to rest on one by itself.
 //             Click it (or press Enter/Space) to stop it, or drag it up or down
 //             to turn it to the word you want; if the
 //             visitor keeps scrolling it stops by itself on whatever is showing.
@@ -12,7 +12,7 @@
 //  4. RECORDS the chosen topic's records ride up the room's centre strip:
 //             STYLE  square previews of visual UI/UX styles,
 //             SKILLS a wheel of tools turning vertically,
-//             HOBBIES what I do away from the desk.
+//             PROCESS the steps of how I work.
 // Clicking the question again spins the drum again and swaps the records.
 import { drawRoomLines } from './me-portal.js?v=20260923-cursor-room-1';
 
@@ -41,7 +41,7 @@ if (section) {
   const topics = [
     { key: 'style', word: 'STYLE' },
     { key: 'skills', word: 'SKILLS' },
-    { key: 'hobbies', word: 'HOBBIES' }
+    { key: 'process', word: 'PROCESS' }
   ];
 
   // Each preview is drawn with plain HTML/CSS inside a square (see my-picker.css).
@@ -80,18 +80,19 @@ if (section) {
     ['word', 'Word', 'Alignment & communication', 'Briefs & reports']
   ];
 
-  // Away from the desk. (The earlier PROCESS steps are in archive/my-process-v1.)
-  const hobbies = [
-    { name: 'Music', line: 'Always playing', note: 'Listening widely, and the quickest way to change the mood of a room or a long night in studio.',
-      svg: '<path d="M26 58V46a24 24 0 0 1 48 0v12" class="o"/><rect x="20" y="56" width="12" height="22" rx="4" class="o"/><rect x="68" y="56" width="12" height="22" rx="4" class="o"/>' },
-    { name: 'Photography', line: 'Moments in motion', note: 'Catching light, people and places as they pass. Many of them end up on the wall further down this page.',
-      svg: '<rect x="16" y="32" width="68" height="44" rx="5" class="o"/><path d="M36 32l5-9h18l5 9" class="o"/><circle cx="50" cy="54" r="13" class="o"/><circle cx="50" cy="54" r="5"/><circle cx="74" cy="40" r="2"/>' },
-    { name: 'Travel', line: 'Shenzhen · Pittsburgh · beyond', note: 'New places keep widening the way I understand space, and how people live in it.',
-      svg: '<circle cx="50" cy="50" r="30" class="o"/><path d="M20 50h60M50 20c-12 10-12 50 0 60M50 20c12 10 12 50 0 60" class="o"/><circle cx="34" cy="38" r="3"/><circle cx="64" cy="60" r="3"/>' },
-    { name: 'Food', line: 'Taste of a place', note: 'Trying what a place eats is the fastest way into how it lives, and the best excuse to bring people together.',
-      svg: '<path d="M18 50h64a32 32 0 0 1-64 0Z" class="o"/><path d="M40 82h20" class="o"/><path d="M58 16l-10 30M70 18l-14 28" class="o"/><path d="M36 40c0-6 4-6 4-12M46 40c0-6 4-6 4-12" class="o"/>' },
-    { name: 'People', line: 'The ones close to me', note: 'Friends and family keep life playful and the work grounded.',
-      svg: '<circle cx="36" cy="38" r="9" class="o"/><circle cx="64" cy="38" r="9" class="o"/><path d="M18 76c0-12 8-20 18-20s18 8 18 20M46 76c0-12 8-20 18-20s18 8 18 20" class="o"/>' }
+  const process = [
+    { verb: 'Observe', line: 'Read the context', note: 'Look across history, climate, culture and everyday behaviour before deciding what anything should be.',
+      svg: '<circle cx="22" cy="30" r="2"/><circle cx="38" cy="18" r="2"/><circle cx="58" cy="40" r="2"/><circle cx="72" cy="22" r="2"/><circle cx="30" cy="62" r="2"/><circle cx="50" cy="70" r="2"/><circle cx="78" cy="64" r="2"/><circle cx="64" cy="52" r="2"/><circle cx="44" cy="46" r="11" class="o"/>' },
+    { verb: 'Frame', line: 'Find the real problem', note: 'Separate the visible request from the underlying need of the people, the place and the system.',
+      svg: '<circle cx="20" cy="24" r="2"/><circle cx="80" cy="20" r="2"/><circle cx="24" cy="78" r="2"/><circle cx="46" cy="44" r="2"/><circle cx="56" cy="52" r="2"/><circle cx="50" cy="58" r="2"/><rect x="34" y="34" width="32" height="32" class="o"/><path d="M34 34l-8-8M66 34l8-8M34 66l-8 8M66 66l8 8" class="o"/>' },
+    { verb: 'Sketch', line: 'Make rules visible', note: 'Diagrams, drawings and quick models turn observations into rules that can be tested.',
+      svg: '<path d="M14 70C26 40 36 76 48 46S70 30 86 24" class="o"/><path d="M16 78c20-6 44-2 70-10" class="o"/><path d="M60 20l6 10-10 2" class="o"/>' },
+    { verb: 'Model', line: 'Think through making', note: 'Move between image, model, section and material so the design is felt as well as understood.',
+      svg: '<path d="M50 16L82 32V68L50 84 18 68V32Z" class="o"/><path d="M18 32L50 48 82 32M50 48V84" class="o"/>' },
+    { verb: 'Prototype', line: 'Make uncertainty testable', note: 'Turn assumptions into prototypes, comparisons and interviews that give real answers.',
+      svg: '<rect x="32" y="12" width="36" height="76" rx="6" class="o"/><rect x="38" y="22" width="24" height="14"/><rect x="38" y="42" width="24" height="4"/><rect x="38" y="50" width="16" height="4"/><rect x="38" y="70" width="24" height="8" class="o"/>' },
+    { verb: 'Align', line: 'Share and deliver', note: 'Create a shared language across disciplines, surface the trade-offs, and keep learning after hand-off.',
+      svg: '<circle cx="28" cy="50" r="12" class="o"/><circle cx="72" cy="50" r="12" class="o"/><path d="M40 46h20M40 54h20" class="o"/><path d="M50 22v10M50 68v10" class="o"/>' }
   ];
 
   // ---- build the drum and the records -----------------------------------
@@ -130,11 +131,11 @@ if (section) {
       <h3>${name}</h3>
       <p><b>${group}</b>${use}</p>
     </article>`).join('')}</div><div class="my-wheel-window" aria-hidden="true"></div>`);
-  makeTrack('hobbies', hobbies.map((item, index) => `
+  makeTrack('process', process.map((item, index) => `
     <article class="my-record my-step">
-      <header><span>H—${String(index + 1).padStart(2, '0')}</span><span>${item.line}</span></header>
+      <header><span>P—${String(index + 1).padStart(2, '0')}</span><span>${item.line}</span></header>
       <div class="my-preview my-diagram" aria-hidden="true"><svg viewBox="0 0 100 100">${item.svg}</svg></div>
-      <h3>${item.name}</h3>
+      <h3>${item.verb}</h3>
       <p>${item.note}</p>
     </article>`).join(''));
   const wheelCards = [...tracks.skills.querySelectorAll('.my-skill')];

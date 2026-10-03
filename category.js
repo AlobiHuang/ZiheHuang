@@ -108,7 +108,7 @@ const categoryData = {
     capabilities: ['Rhino', 'Revit', 'Adobe Creative Suite', 'Physical modeling', 'Digital fabrication', '3D printing', 'Environmental analysis', 'Architectural representation']
   },
   pm: {
-    name: 'Project Management',
+    name: 'Leadership',
     short: 'PM',
     code: '10⁻²',
     accent: '#171816',
@@ -381,7 +381,7 @@ const pmArchiveMarkup = key === 'pm' ? `
       <h2 id="pm-archive-title">ZIHE HUANG</h2>
       <div>
         <strong>WORK</strong>
-        <nav aria-label="Selected project management work">
+        <nav aria-label="Selected leadership work">
           ${pmIndexLabels.map((label, index) => `<a href="${projectHref(data.experiences[index])}" data-route data-route-label="${projectRouteLabel(data.experiences[index])}">${label}</a>`).join('')}
         </nav>
       </div>
@@ -559,7 +559,7 @@ const pmCaseStudyMarkup = `
   <article class="pm-story" id="top">
     <section class="pm-story-hero">
       <div class="pm-story-grid" aria-hidden="true"></div>
-      <p class="pm-story-eyebrow">10⁰ / PROJECT MANAGEMENT<br>SANKOFA BAMBOO GREENHOUSE</p>
+      <p class="pm-story-eyebrow">10⁰ / LEADERSHIP<br>SANKOFA BAMBOO GREENHOUSE</p>
       <h1>Sankofa<br>Bamboo<br><em>Greenhouse.</em></h1>
       <p class="pm-story-deck">Moving a community-led idea through research, engineering, testing, permitting, fabrication, and full-scale assembly.</p>
       <dl class="pm-story-meta">
@@ -675,7 +675,7 @@ root.innerHTML = `
         <span>Practice /</span>
         <a href="../architecture/" data-route data-route-label="ARCHITECTURE">ARCH</a>
         <a href="../hci/" data-route data-route-label="PRODUCT DESIGN">PD</a>
-        <a href="../pm/" data-route data-route-label="PROJECT MANAGEMENT">PM</a>
+        <a href="../pm/" data-route data-route-label="LEADERSHIP">PM</a>
       </nav>
       <p>Pittsburgh ↔ Worldwide<br />© 2026 Zihe Huang</p>
       <div class="contact-icons" aria-label="Social links">

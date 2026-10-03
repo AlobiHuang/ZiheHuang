@@ -19,6 +19,12 @@
 .me-room{position:relative;z-index:1;background:var(--me-paper)}
 .me-room.me-room-waiting .me-room-space{visibility:hidden}
 .me-room.me-room-left .me-room-space{visibility:hidden}
+.me-room-word{position:absolute;top:0;left:0;transform-origin:0 0;white-space:nowrap;pointer-events:none;visibility:hidden;font-weight:800;line-height:1;font-family:-apple-system,BlinkMacSystemFont,"SF Pro Display","Helvetica Neue",Arial,sans-serif;letter-spacing:.03em;color:transparent;-webkit-text-stroke:2px rgba(24,4,0,.19)}
+.me-room-space{overflow:hidden}
+/* Door: the way out starts while the last chapter is still half on screen, so
+   the doorway is already closing in as its text scrolls away. */
+html[data-portal="door"] .me-portal-exit{margin-top:-42svh}
+@media(max-width:700px){html[data-portal="door"] .me-portal-exit{margin-top:-30svh}}
 .me-room>.me-story{margin-top:100svh}
 .me-room-space{position:sticky;z-index:0;top:0;height:100svh;margin-bottom:-100svh;pointer-events:none;background:var(--me-paper)}
 .me-story{--me-display:"SF Pro Display",-apple-system,BlinkMacSystemFont,"Helvetica Neue",Arial,sans-serif;--me-text:"SF Pro Text",-apple-system,BlinkMacSystemFont,"Helvetica Neue",Arial,sans-serif;--me-label:"DM Mono",ui-monospace,SFMono-Regular,Consolas,monospace;position:relative;z-index:1;width:44%;margin:auto;border-inline:1px solid var(--me-ink);background:var(--me-paper);font-family:var(--me-text)!important}

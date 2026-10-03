@@ -110,7 +110,6 @@ const buildSprites = () => {
 // through the frame. 'capsule' is the earlier rounded capsule, kept as it
 // was: use ?portal=capsule to see it, or set the line below to 'capsule'.
 const PORTAL_STYLE = new URLSearchParams(location.search).get('portal') === 'capsule' ? 'capsule' : 'door';
-document.documentElement.dataset.portal = PORTAL_STYLE;
 
 const mix = (a, b, t) => a + (b - a) * t;
 const doorWidth = () => Math.min(height * .22, Math.max(width / 5.2, 110));
@@ -403,30 +402,6 @@ const drawRoom = (scrollPosition) => {
 
 };
 
-// The WORK lettering from the walk's back wall carries on up the ME room
-// (walk-gallery.js publishes where it is and how fast it moves), until the
-// reading strip rises over it.
-const roomWord = (() => {
-  const space = room?.querySelector('.me-room-space');
-  if (!space) return null;
-  const element = document.createElement('div');
-  element.className = 'me-room-word';
-  element.setAttribute('aria-hidden', 'true');
-  space.append(element);
-  return element;
-})();
-const placeRoomWord = () => {
-  const wall = window.alobiWorkWall;
-  if (!roomWord || !wall || !wall.turned || PORTAL_STYLE !== 'door') { if (roomWord) roomWord.style.visibility = 'hidden'; return; }
-  if (roomWord.textContent !== wall.text) roomWord.textContent = wall.text;
-  // Drawn exactly as on the walk's wall: the same type size, scaled the same
-  // way, so the hairline keeps the same weight across the handover.
-  roomWord.style.fontSize = `${wall.font}px`;
-  const y = wall.y - (scrollY - wall.at) * wall.speed;
-  roomWord.style.transform = `translate3d(${wall.x.toFixed(1)}px,${y.toFixed(1)}px,0) rotate(90deg) scale(${wall.scale})`;
-  roomWord.style.visibility = 'inherit';
-};
-
 const sectionProgress = section => {
   const rect = section.getBoundingClientRect();
   return clamp(-rect.top / Math.max(1, section.offsetHeight - height));
@@ -474,13 +449,12 @@ const draw = (now = performance.now()) => {
   if (exitRect.bottom > 0 && exitRect.top < height) {
     const scrollProgress = sectionProgress(exit);
     const progress = doorExit
-      ? follow(exit, 1 - clamp(scrollProgress / .86))
+      ? follow(exit, 1 - clamp((scrollProgress - .04) / .86))
       : follow(exit, reduced ? 0 : 1 - clamp((scrollProgress - .1) / .9));
     drawPortal(exit.querySelector('[data-me-portal]'), progress, 'ME', doorExit ? { behind: { turn: 1, scroll: roomTravel(roomRect.top), leaving: true } } : {});
   }
   // Tracks the scroll exactly; the glide comes from smooth-scroll.js.
   if (roomRect.bottom > 0 && roomRect.top < height) drawRoom(roomTravel(roomRect.top));
-  if (roomRect.bottom > 0 && roomRect.top < height) placeRoomWord();
   if (settling && !document.hidden) frame = requestAnimationFrame(draw);
 };
 

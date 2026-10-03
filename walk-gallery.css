@@ -164,3 +164,12 @@ a.walk-panel:focus-visible { outline:2px solid #180400; outline-offset:6px; }
 @media(max-width:700px){ .home-intro { --hello:34px; padding:max(28px, calc(11.3svh - var(--hello) * 1.3)) 20px 0; } .home-intro-lede { font-size:15px; } .home-intro-now { flex-direction:column; gap:4px; font-size:12px; } .home-intro-links { gap:16px; } }
 /* The intro is simply there: no cover wiping up as it scrolls in. */
 .home-intro.fx-section::after { display:none !important; }
+
+/* The back wall of the WORK room: big outlined lettering and the small kind
+   notes beside each frame (walk-gallery.js). */
+.walk-wall-word{position:absolute;top:0;left:0;z-index:1;transform-origin:0 0;white-space:nowrap;pointer-events:none;font:800 100px/1 -apple-system,BlinkMacSystemFont,"SF Pro Display","Helvetica Neue",Arial,sans-serif;letter-spacing:.03em;color:transparent;-webkit-text-stroke:2px rgba(24,4,0,.34)}
+.walk-kind{position:absolute;top:0;left:0;z-index:2;transform-origin:0 0;display:flex;gap:14px;align-items:baseline;white-space:nowrap;pointer-events:none;font:500 26px/1 "DM Mono",ui-monospace,monospace;letter-spacing:.08em;text-transform:uppercase;color:#180400}
+.walk-kind b{font-weight:500;color:rgba(24,4,0,.45)}
+.walk-static .walk-wall-word,.walk-static .walk-kind{display:none}
+/* The corner labels (SPACE / STUDY 01, SCROLL TO WALK) and the frame count are off. */
+.walk-gallery .walk-label,.walk-gallery .walk-caption{display:none!important}

@@ -22,7 +22,7 @@ if (oldPanel && menuButton) {
     about: { word: 'ABOUT', scale: 'PROFILE', note: 'Who I am, and how I got here.', theme: 'blank' },
     architecture: { word: 'ARCH', scale: '10²', note: 'Built environments.', theme: 'blank' },
     hci: { word: 'PD', scale: '10⁰', note: 'Product design. Under construction.', theme: 'blank' },
-    pm: { word: 'PM', scale: '10⁻²', note: 'Project management.', theme: 'blank' },
+    pm: { word: 'PM', scale: '10⁻²', note: 'Leadership.', theme: 'blank' },
     resume: { word: 'RESUME', scale: 'RECORD', note: 'Selected experience.', theme: 'blank' },
     contact: { word: 'CONTACT', scale: 'CHANNEL', note: 'ziheh@andrew.cmu.edu', theme: 'blank' }
   };

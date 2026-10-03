@@ -307,21 +307,3 @@
 .project-contribution li{padding:12px 0 0;font-size:14px;line-height:1.45;color:#1d1d1f}
 @media(max-width:800px){.project-gateway-split .project-contribution{grid-row:5}.project-gateway-split .project-recognition{grid-row:6}.project-page[data-lens="pm"] .project-gateway-split .project-enter{grid-row:7}.project-contribution ol{grid-template-columns:1fr;gap:0}.project-contribution li{padding:11px 0;border-bottom:1px solid rgba(29,29,31,.14)}}
 @media(min-width:801px) and (max-width:1100px){.project-contribution ol{grid-template-columns:1fr 1fr}}
-
-/* Sankofa case study in the PD page style (cm-* from hci/cmused/cmused.css). */
-.cm.sk{padding-top:clamp(20px,3vw,40px);padding-bottom:clamp(60px,7vw,110px)}
-.cm.sk .cm-section:first-child{margin-top:0}
-.cm.sk .cm-section-head{padding-top:14px;border-top:1px solid var(--cm-ink)}
-.sk-wide{margin:clamp(28px,3.5vw,48px) 0 0}
-.sk-wide img{display:block;width:100%;aspect-ratio:16/8;object-fit:cover;object-position:50% 40%;background:#fff;box-shadow:0 0 0 .75px var(--cm-soft)}
-.sk-wide figcaption,.cm.sk .cm-steps figcaption{margin-top:10px;font:600 9px/1.4 var(--cm-mono);letter-spacing:.08em;text-transform:uppercase;color:var(--cm-mute)}
-.cm.sk .sk-steps figure{aspect-ratio:4/3}
-.cm.sk .sk-steps img{object-position:50% 50%}
-.cm.sk .sk-steps-3{grid-template-columns:repeat(3,minmax(0,1fr))}
-.cm.sk .sk-steps-3 figure{aspect-ratio:4/5}
-@media(max-width:900px){.cm.sk .sk-steps-3{grid-template-columns:repeat(2,minmax(0,1fr))}}
-@media(max-width:760px){.cm.sk .sk-steps,.cm.sk .sk-steps-3{grid-template-columns:1fr}.sk-wide img{aspect-ratio:4/3}}
-.project-page[data-lens="pm"] .project-gallery.sk-gallery{padding-top:clamp(30px,4vw,60px)}
-.project-page[data-lens="pm"] .sk-gallery header{display:block;max-width:1320px;margin:0 auto clamp(24px,3vw,36px);padding-top:14px;border-top:1px solid #1d1d1f}
-.project-page[data-lens="pm"] .sk-gallery header h2{margin:0 0 10px;font:650 clamp(24px,2.3vw,34px)/1.05 -apple-system,BlinkMacSystemFont,"SF Pro Display","Helvetica Neue",Arial,sans-serif;letter-spacing:-.05em}
-.project-page[data-lens="pm"] .sk-gallery header p{margin:0;max-width:720px;font:450 clamp(15px,1.15vw,17px)/1.55 -apple-system,BlinkMacSystemFont,"SF Pro Text","Helvetica Neue",Arial,sans-serif;letter-spacing:-.015em}
