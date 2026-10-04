@@ -1,4 +1,4 @@
-import { drawSharedPortal, drawRoomLines, portalStyle } from './me-portal.js?v=20261002-door-21';
+import { drawSharedPortal, drawRoomLines, portalStyle } from './me-portal.js?v=20261002-door-23';
 const gallery=document.querySelector('.walk-gallery');
 if(gallery){
  const world=gallery.querySelector('.walk-world');
@@ -17,7 +17,7 @@ if(gallery){
   // Product design, newest work first.
   {title:'CMUsed',kind:'Product',meta:'2026 · PRODUCT DESIGN',lens:'PD',field:'PRODUCT DESIGN',href:'hci/cmused/',src:'assets/pd/cmused-home.webp?v=3',web:true,desc:'A second-hand marketplace for the Carnegie Mellon community. Browse by category, contact sellers directly, and list an item in three short steps, with AI help writing the description.'},
   {title:'OpenGym',kind:'Product',meta:'2026 · PRODUCT DESIGN',lens:'PD',field:'PRODUCT DESIGN',href:'hci/opengym/',src:'assets/pd/opengym-home.webp?v=2',web:true,desc:'Live occupancy for Carnegie Mellon\'s gyms. OpenGym already existed; I\'m redesigning its user flow, interface and product logic together with the hardware team behind its live counts.'},
-  {slug:'re-serv-oir',title:'RE.SERV.OIR',kind:'Competition',meta:'2026 · DESIGN STUDIO',image:'reservoir-exterior.webp',note:['Award Winner:','AIA COTE TEN Foundation Level']},
+  {slug:'re-serv-oir',title:'RE.SERV.OIR',kind:'Competition winner',meta:'2026 · DESIGN STUDIO',image:'reservoir-exterior.webp',note:['Winner:','AIA COTE Top Ten, one of two Foundation Level winners']},
   {title:'Sankofa Bamboo Greenhouse',kind:'Project',meta:'2023—PRESENT · LEADERSHIP',lens:'PM',field:'LEADERSHIP',href:'project/?lens=pm&project=sankofa-multi-stakeholder-delivery',image:'sankofa-overview-wide.webp'},
   {slug:'how-to-build-a-ruin',title:'How to Build a Ruin',kind:'Project',meta:'2026 · OPTION STUDIO',image:'ruin-hero-cover.jpg'},
   {slug:'convergence-environmental-middle-school',title:'Convergence',kind:'Project',meta:'2025 FALL · STUDIO PROJECT',image:'convergence-pdf-02.jpg'},
