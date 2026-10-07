@@ -59,7 +59,7 @@ const categoryData = {
         title: 'RE.SERV.OIR',
         org: 'Community Ecology Center · Portland, Oregon',
         date: '2026',
-        type: 'Design Studio',
+        type: 'Competition Winner',
         summary: 'A community ecology center that reclaims Portland’s decommissioned concrete water tanks as civic ground for environmental learning, gathering, and ecological repair.',
         evidence: [
           'Mapped existing reservoirs, neighborhoods, and transportation systems to understand the infrastructure’s civic reach.',
@@ -109,7 +109,7 @@ const categoryData = {
   },
   pm: {
     name: 'Leadership',
-    short: 'PM',
+    short: 'PROJECTS',
     code: '10⁻²',
     accent: '#171816',
     question: ['One project.', 'Many stakeholders.', 'A shared outcome'],
@@ -144,9 +144,9 @@ const categoryData = {
   },
   hci: {
     name: 'Product Design',
-    short: 'PD',
+    short: 'PRODUCTS',
     code: '10⁰',
-    accent: '#4038ff',
+    accent: '#1d1d1f',
     question: ['How can technology', 'respond to how people', 'actually think and act'],
     intro: 'I use research, prototyping, and systems thinking to make complex tools more legible, useful, and responsive to real human behavior.',
     lens: ['Human-centered research', 'Interaction prototyping', 'Usability and systems'],
@@ -191,7 +191,7 @@ const resumeExperiences = [
     evidence: [
       'Contributed to wind and gravity testing with Intertek and zoning and permitting with the City of Pittsburgh.',
       'Translated community interviews into updates to the interior layout, furniture, and environmental strategies.',
-      'Designed 10+ original joinery details with structural engineer John M. Schneider, P.E.',
+      'Designed 10+ original joinery details to meet the requirements of structural engineer John M. Schneider, P.E.',
       'Presented to USDA staff while supporting a $4,000 annual award and eligibility for an additional $8,000 implementation award in 2027.'
     ],
     tags: ['ARCH', 'COMMUNITY', 'DELIVERY']
@@ -325,8 +325,8 @@ const experienceMarkup = data.experiences.map((experience, index) => {
     const isInProgress = experience.slug === 'call-of-the-sea';
     return `
     <a class="arch-work-card project-gateway-link" id="architecture-project-${index + 1}" href="${projectHref(experience)}" data-route data-route-label="${projectRouteLabel(experience)}" aria-label="Open the ${experience.title} project gateway">
-      <figure class="arch-work-image arch-work-image-0${index + 1}${isInProgress ? ' arch-work-image-progress' : ''}">
-        ${isInProgress ? '<div class="arch-progress-cover" aria-hidden="true"><small>ONGOING / 2026</small><strong>IN<br>PROGRESS</strong><i>TOROSIAJE · INDONESIA</i></div>' : `<img src="../assets/portfolio/${workImages[experience.slug || projectSlug(experience.title)]}" alt="Selected portfolio visual for ${experience.title}" loading="lazy" fetchpriority="low" decoding="async">`}
+      <figure class="arch-work-image arch-work-image-0${index + 1}${isInProgress ? ' is-wip' : ''}">
+        <img src="../assets/portfolio/${isInProgress ? 'sea-cover.webp' : workImages[experience.slug || projectSlug(experience.title)]}" alt="Selected portfolio visual for ${experience.title}" loading="lazy" fetchpriority="low" decoding="async">${isInProgress ? '<div class="arch-wip" aria-hidden="true"><b>In progress</b></div>' : ''}
         <span>${experience.no}</span>
       </figure>
       <div><h3>${experience.title}</h3><time>${experience.date}</time><p>${experience.type}</p></div>
@@ -674,8 +674,8 @@ root.innerHTML = `
       <nav class="contact-practice" aria-label="Practice quick links">
         <span>Practice /</span>
         <a href="../architecture/" data-route data-route-label="ARCHITECTURE">ARCH</a>
-        <a href="../hci/" data-route data-route-label="PRODUCT DESIGN">PD</a>
-        <a href="../pm/" data-route data-route-label="LEADERSHIP">PM</a>
+        <a href="../hci/" data-route data-route-label="PRODUCT DESIGN">PRODUCTS</a>
+        <a href="../pm/" data-route data-route-label="LEADERSHIP">PROJECTS</a>
       </nav>
       <p>Pittsburgh ↔ Worldwide<br />© 2026 Zihe Huang</p>
       <div class="contact-icons" aria-label="Social links">

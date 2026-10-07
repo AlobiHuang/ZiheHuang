@@ -68,7 +68,7 @@ if (panel && menu && siteHeader) {
 // Over the project the site cursor (the black square) reads ENTER. spectacle.js
 // labels every link OPEN on its own pointerenter, so the word is set again on
 // the next frame, after it.
-document.querySelectorAll('.pd-project').forEach(project => {
+document.querySelectorAll('.pd-project:not(.is-wip)').forEach(project => {
   const cursor = () => document.querySelector('.fx-cursor');
   const label = () => {
     const c = cursor();

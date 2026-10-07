@@ -1,0 +1,140 @@
+/* CMUsed case page (hci/cmused). Same paper, ink and type as the rest of PD. */
+.cm{--cm-ink:#1d1d1f;--cm-soft:rgba(29,29,31,.18);--cm-mute:#6e6e73;--cm-mono:"DM Mono",ui-monospace,SFMono-Regular,Consolas,monospace;--cm-display:-apple-system,BlinkMacSystemFont,"SF Pro Display","Helvetica Neue",Arial,sans-serif;--cm-text:-apple-system,BlinkMacSystemFont,"SF Pro Text","Helvetica Neue",Arial,sans-serif;max-width:1320px;margin:0 auto;padding:calc(52px + clamp(60px,8vw,120px)) var(--pad,5vw) clamp(90px,10vw,150px);color:var(--cm-ink)}
+.cm a{color:inherit}
+.cm-head{display:grid;grid-template-columns:minmax(0,1.1fr) minmax(0,1fr);gap:18px clamp(30px,6vw,96px);align-items:end;margin-bottom:clamp(36px,5vw,64px)}
+.cm-crumb{grid-column:1/-1;display:flex;justify-content:space-between;margin:0 0 clamp(20px,3vw,36px);padding-bottom:10px;border-bottom:1px solid var(--cm-ink);font:600 9px/1.4 var(--cm-mono);letter-spacing:.08em;text-transform:uppercase}
+.cm-crumb a{text-decoration:none}
+.cm-crumb a:hover{text-decoration:underline;text-underline-offset:4px}
+.cm-head h1{margin:0;font:650 clamp(46px,5.6vw,92px)/.9 var(--cm-display);letter-spacing:-.07em}
+.cm-lede{margin:0;font:450 clamp(15px,1.15vw,17px)/1.55 var(--cm-text);letter-spacing:-.015em}
+.cm-facts{grid-column:1/-1;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));margin:clamp(10px,2vw,24px) 0 0;border-top:1px solid var(--cm-ink)}
+.cm-facts div{padding:10px 0 0}
+.cm-facts dt{font:600 8px/1.4 var(--cm-mono);letter-spacing:.08em;text-transform:uppercase}
+.cm-facts dd{margin:4px 0 0;font:450 13px/1.4 var(--cm-text)}
+.cm-screen{margin-bottom:clamp(80px,10vw,140px)}
+/* Sections */
+.cm-section{margin-top:clamp(60px,6.5vw,100px)}
+.cm-section-head{margin-bottom:22px}
+.cm-section-head p{display:flex;justify-content:space-between;gap:20px;margin:0 0 16px;padding-bottom:10px;border-bottom:1px solid var(--cm-ink);font:600 9px/1.4 var(--cm-mono);letter-spacing:.08em}
+.cm-section-head h2{margin:0;font:650 clamp(24px,2.3vw,34px)/1.05 var(--cm-display);letter-spacing:-.05em}
+/* Number cells: hairline grid, mono label, big figure, small note. */
+.cm-grid{display:grid;margin:0;border-top:1px solid var(--cm-soft);border-left:1px solid var(--cm-soft)}
+.cm-grid-4{grid-template-columns:repeat(4,minmax(0,1fr))}
+.cm-grid-3{grid-template-columns:repeat(3,minmax(0,1fr))}
+.cm-cell{padding:14px 16px 16px;border-right:1px solid var(--cm-soft);border-bottom:1px solid var(--cm-soft);background:#fff}
+.cm-cell dt{font:600 8px/1.4 var(--cm-mono);letter-spacing:.08em;text-transform:uppercase;color:var(--cm-mute)}
+.cm-cell dd{margin:8px 0 0}
+.cm-cell b{display:block;font:650 clamp(20px,1.6vw,26px)/1 var(--cm-display);letter-spacing:-.04em;font-variant-numeric:tabular-nums}
+.cm-cell small{display:block;margin-top:6px;font:450 11.5px/1.4 var(--cm-text);color:var(--cm-mute)}
+.cm-headline .cm-cell b{font-size:clamp(26px,2.2vw,34px)}
+/* A figure that has changed since I joined. */
+.cm-gain{display:inline;margin-left:.3em;font:inherit;letter-spacing:inherit;color:#1f7a3a}
+.cm-gain[data-dir="down"]{color:var(--cm-mute)}
+.cm-delta{display:flex;flex-wrap:wrap;align-items:baseline;gap:4px 8px;margin-top:10px;padding-top:8px;border-top:1px dashed var(--cm-soft);font:600 8.5px/1.4 var(--cm-mono);letter-spacing:.06em;text-transform:uppercase}
+.cm-delta i{font-style:normal}
+.cm-delta em{font-style:normal;color:var(--cm-mute)}
+.cm-cell.is-moved{box-shadow:inset 3px 0 0 var(--cm-ink)}
+/* Reading the numbers */
+.cm-notes{list-style:none;margin:28px 0 0;padding:0;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:clamp(20px,3vw,48px)}
+.cm-notes li{padding-top:14px;border-top:1px solid var(--cm-ink)}
+.cm-notes span{display:block;margin-bottom:10px;font:600 9px/1 var(--cm-mono);letter-spacing:.08em}
+.cm-notes b{display:block;margin-bottom:6px;font:650 clamp(16px,1.25vw,19px)/1.15 var(--cm-display);letter-spacing:-.035em}
+.cm-notes p{margin:0;font:450 13px/1.55 var(--cm-text);color:#3a3a3c}
+.cm-footnote{max-width:820px;margin:12px 0 0;font:450 11px/1.5 var(--cm-text);color:var(--cm-mute)}
+/* Category bars: one series, one ink, sorted, labelled. */
+.cm-chart{margin:36px 0 0;padding:18px 18px 10px;background:#fff;box-shadow:0 0 0 1px var(--cm-soft)}
+.cm-chart figcaption{display:flex;justify-content:space-between;gap:16px;margin-bottom:12px;font:600 8px/1.4 var(--cm-mono);letter-spacing:.08em;text-transform:uppercase}
+.cm-chart ol{list-style:none;margin:0;padding:0}
+.cm-chart li{position:relative;display:grid;grid-template-columns:110px minmax(0,1fr) 44px;gap:14px;align-items:center;padding:7px 0;border-radius:2px;outline:none}
+.cm-cat{font:450 12.5px/1.2 var(--cm-text)}
+.cm-track{position:relative;height:10px}
+.cm-track i{position:absolute;left:0;top:0;bottom:0;background:var(--cm-ink);border-radius:0 3px 3px 0;min-width:2px}
+.cm-track u{position:absolute;top:-4px;bottom:-4px;width:2px;margin-left:-1px;background:#f5f5f7;box-shadow:0 0 0 1px var(--cm-ink)}
+.cm-chart li>b{font:600 11px/1 var(--cm-mono);text-align:right;font-variant-numeric:tabular-nums}
+.cm-tip{position:absolute;z-index:2;right:0;bottom:calc(100% - 2px);padding:6px 8px;background:var(--cm-ink);color:#f5f5f7;font:500 10px/1.3 var(--cm-mono);letter-spacing:.04em;white-space:nowrap;opacity:0;transform:translateY(4px);transition:opacity .18s ease,transform .18s ease;pointer-events:none}
+.cm-chart li:hover,.cm-chart li:focus-visible{background:rgba(29,29,31,.04)}
+.cm-chart li:hover .cm-tip,.cm-chart li:focus-visible .cm-tip{opacity:1;transform:none}
+.cm-end{display:flex;justify-content:space-between;margin-top:clamp(80px,9vw,130px);padding-top:12px;border-top:1px solid var(--cm-ink);font:600 9px/1.4 var(--cm-mono);letter-spacing:.08em;text-transform:uppercase}
+.cm-end a{text-decoration:none}
+@media(max-width:900px){.cm-head{grid-template-columns:1fr}.cm-grid-4{grid-template-columns:repeat(2,minmax(0,1fr))}.cm-grid-3{grid-template-columns:repeat(2,minmax(0,1fr))}.cm-notes{grid-template-columns:1fr}}
+@media(max-width:560px){.cm-grid-4,.cm-grid-3{grid-template-columns:1fr}.cm-facts{grid-template-columns:1fr}.cm-chart li{grid-template-columns:86px minmax(0,1fr) 36px;gap:10px}}
+.cm-key{display:inline-block;width:2px;height:10px;margin-right:8px;vertical-align:-1px;background:#f5f5f7;box-shadow:0 0 0 1px var(--cm-ink)}
+.cm-facts-4{grid-template-columns:repeat(4,minmax(0,1fr))}
+.cm-intro{max-width:720px;margin:0 0 6px;font:450 clamp(15px,1.15vw,17px)/1.55 var(--cm-text);letter-spacing:-.015em}
+.cm-notes-4{grid-template-columns:repeat(4,minmax(0,1fr))}
+@media(max-width:900px){.cm-facts-4{grid-template-columns:repeat(2,minmax(0,1fr))}.cm-notes-4{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media(max-width:560px){.cm-notes-4{grid-template-columns:1fr}}
+.cm-prose{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:clamp(20px,3vw,48px);max-width:1040px}
+.cm-prose p{margin:0;font:450 clamp(15px,1.15vw,17px)/1.6 var(--cm-text);letter-spacing:-.01em}
+.cm-steps{list-style:none;margin:26px 0 0;padding:0;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:clamp(34px,4vw,56px) clamp(18px,2.4vw,32px)}
+.cm-steps figure{margin:0 0 14px;aspect-ratio:1800/963;overflow:hidden;background:#fff;box-shadow:0 0 0 .75px var(--cm-soft)}
+.cm-steps img{display:block;width:100%;height:100%;object-fit:cover;object-position:50% 0}
+.cm-steps span{display:block;margin-bottom:8px;font:600 9px/1 var(--cm-mono);letter-spacing:.08em}
+.cm-steps b{display:block;margin-bottom:6px;font:600 clamp(16px,1.25vw,19px)/1.2 var(--cm-display);letter-spacing:-.03em}
+.cm-steps p{margin:0;max-width:520px;font:450 13px/1.55 var(--cm-text);color:#3a3a3c}
+.cm-aside{max-width:720px;margin:clamp(30px,3vw,44px) 0 0;padding-top:14px;border-top:1px solid var(--cm-soft);font:450 13px/1.55 var(--cm-text);color:#3a3a3c}
+@media(max-width:760px){.cm-prose,.cm-steps{grid-template-columns:1fr}}
+
+/* Project facts, compact (Sept 28): two short columns of "Label  value"
+   pairs set close together, instead of four columns across the page. */
+.cm .cm-facts,.cm .cm-facts-4,.og .og-facts{display:grid;grid-template-columns:repeat(2,max-content);gap:10px clamp(40px,6vw,96px);max-width:760px;margin:clamp(6px,1.2vw,14px) 0 0;padding-top:14px;border-top:1px solid var(--cm-ink)}
+.cm .cm-facts div{display:flex;align-items:baseline;gap:10px;padding:0}
+.cm .cm-facts dt{flex:none;font:500 13px/1.4 var(--cm-text);letter-spacing:0;text-transform:none;color:var(--cm-ink)}
+.cm .cm-facts dt:after{content:":"}
+.cm .cm-facts dd{margin:0;font:450 13px/1.4 var(--cm-text);color:var(--cm-mute)}
+@media(max-width:560px){.cm .cm-facts,.cm .cm-facts-4,.og .og-facts{grid-template-columns:1fr}}
+
+/* The mobile site, on two phones. A plain phone drawn in CSS: a black body
+   with a thin bezel and the island at the top; screenshots at the phone's
+   own screen size fill it exactly. (cqw = 1% of the phone's width.) */
+.cm-phones{display:flex;justify-content:center;align-items:flex-start;gap:clamp(24px,6vw,96px);margin-top:26px;padding:clamp(34px,5vw,64px) 6%;background:#e9e9ec}
+.cm-phone{container-type:inline-size;position:relative;width:min(230px,38%);margin:0}
+.cm-phone:nth-child(2){margin-top:clamp(28px,5vw,64px)}
+.cm-phone-body{position:relative;padding:3.6cqw;background:#0b0b0c;border-radius:15cqw;box-shadow:inset 0 0 0 .8cqw #3a3a3e,inset 0 0 0 1.2cqw #151517,0 4cqw 8cqw -4cqw rgba(0,0,0,.45)}
+.cm-phone-screen{position:relative;aspect-ratio:1179/2556;overflow:hidden;border-radius:12cqw;background:#fff}
+.cm-phone-screen img{display:block;width:100%;height:100%;object-fit:cover}
+.cm-phone-island{position:absolute;left:50%;top:3.9cqw;width:28cqw;height:8.2cqw;transform:translateX(-50%);border-radius:5cqw;background:#000;z-index:2}
+.cm-phone figcaption{margin-top:12px;text-align:center;font:500 9px/1.4 var(--cm-mono);letter-spacing:.08em;text-transform:uppercase;color:var(--cm-mute)}
+.cm-aside-tight{margin-top:16px;border-top:0;padding-top:0}
+/* The opening reads as one short column: name, one line, the facts. */
+.cm .cm-head{grid-template-columns:minmax(0,1fr);gap:0;align-items:start}
+.cm .cm-head>:not(.cm-crumb){max-width:780px}
+.cm .cm-head h1{font-size:clamp(44px,4.6vw,72px);margin-bottom:18px}
+.cm .cm-lede{margin-bottom:22px;color:#3a3a3c}
+
+/* Sub-sections inside a section, and the annotated card. */
+.cm-sub{max-width:720px;margin:clamp(56px,6vw,90px) 0 0}
+.cm-sub h3{margin:0 0 12px;font:600 clamp(16px,1.3vw,19px)/1.25 var(--cm-display);letter-spacing:-.025em}
+.cm-sub p{margin:0;font:450 clamp(14px,1.1vw,16px)/1.6 var(--cm-text);color:#3a3a3c}
+.cm-anatomy{display:grid;grid-template-columns:minmax(0,300px) minmax(0,340px);gap:clamp(24px,4vw,56px);justify-content:center;margin:clamp(34px,4vw,56px) 0 0;padding:clamp(34px,5vw,64px) 6%;background:#e9e9ec}
+.cm-anatomy-card{border-radius:14px;overflow:hidden;box-shadow:0 22px 44px -26px rgba(24,4,0,.35)}
+.cm-anatomy-card img{display:block;width:100%;height:auto}
+.cm-anatomy-notes{position:relative;list-style:none;margin:0;padding:0}
+.cm-anatomy-notes li{position:absolute;left:0;top:var(--y);display:flex;align-items:center;gap:12px;transform:translateY(-50%);font:450 13px/1.3 var(--cm-text);color:var(--cm-mute);white-space:nowrap}
+.cm-anatomy-notes li i{flex:none;width:clamp(36px,5vw,72px);height:1px;background:#a1a1a6;position:relative}
+.cm-anatomy-notes li i:before{content:"";position:absolute;left:-3px;top:-3px;width:7px;height:7px;border-radius:50%;background:#a1a1a6}
+.cm-anatomy-notes li.is-span{height:var(--h);transform:none;align-items:center;padding-left:14px;border-left:1px solid #a1a1a6}
+.cm-anatomy-notes li.is-span i{display:none}
+@media(max-width:640px){.cm-anatomy{grid-template-columns:1fr}.cm-anatomy-notes{height:420px}}
+.cm-anatomy-card{border-radius:11px;background:none}
+.cm-anatomy{grid-template-columns:minmax(0,300px) minmax(0,300px)}
+.cm-anatomy{grid-template-columns:minmax(0,300px) minmax(0,230px)}
+/* Credits (Oct 1): the original team, on its own row under the facts. */
+.cm .cm-facts .cm-fact-wide{grid-column:1/-1}
+/* The seller side (Oct 1): the listing flow on its own, the screen beside its
+   three steps. */
+.cm-sell{display:grid;grid-template-columns:minmax(0,1.35fr) minmax(0,1fr);gap:clamp(22px,3vw,48px);align-items:start;margin:26px 0 0}
+.cm-sell figure{margin:0;aspect-ratio:1800/963;overflow:hidden;background:#fff;box-shadow:0 0 0 .75px var(--cm-soft)}
+.cm-sell img{display:block;width:100%;height:100%;object-fit:cover;object-position:50% 0}
+.cm-sell-steps{list-style:none;margin:0;padding:0;display:grid;gap:22px}
+.cm-sell-steps li{padding-top:14px;border-top:1px solid var(--cm-soft)}
+.cm-sell-steps li:first-child{padding-top:0;border-top:0}
+.cm-sell-steps span{display:block;margin-bottom:8px;font:600 9px/1 var(--cm-mono);letter-spacing:.08em}
+.cm-sell-steps b{display:block;margin-bottom:6px;font:600 clamp(16px,1.25vw,19px)/1.2 var(--cm-display);letter-spacing:-.03em}
+.cm-sell-steps p{margin:0;max-width:420px;font:450 13px/1.55 var(--cm-text);color:#3a3a3c}
+@media(max-width:760px){.cm-sell{grid-template-columns:1fr}}
+/* Section headings without the small numbered labels (Oct 1): the rule above
+   each heading stays, so sections still read as separate. */
+.cm-section-head:not(:has(p)){padding-top:14px;border-top:1px solid var(--cm-ink)}
+/* The note on when the numbers were recorded sits on the right. */
+.cm-section-head p[data-cm-stamp]{justify-content:flex-end}

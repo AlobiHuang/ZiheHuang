@@ -212,7 +212,6 @@ const categoryRoutes = {
   architecture: { url: 'architecture/', label: 'ARCHITECTURE' },
   pm: { url: 'pm/', label: 'LEADERSHIP' },
   hci: { url: 'hci/', label: 'PRODUCT DESIGN' },
-  resume: { url: 'resume/', label: 'RESUME / SELECTED EXPERIENCE' },
   contact: { url: 'contact/', label: 'CONTACT / OPEN CHANNEL' }
 };
 const categoryTransitionDuration = 616;
@@ -387,7 +386,7 @@ const disciplineControls = [...document.querySelectorAll('.scale')];
 const scaleMap = document.querySelector('.scale-map');
 const scaleIndicator = document.querySelector('.scale-axis i');
 const indicatorPositions = [16.67, 50, 83.33];
-const indicatorColors = ['#ff3d16', '#4038ff', '#171816'];
+const indicatorColors = ['#ff3d16', '#1d1d1f', '#171816'];
 
 const moveScaleIndicator = index => {
   scaleIndicator.style.left = `${indicatorPositions[index]}%`;

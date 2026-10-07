@@ -1,0 +1,111 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="Resume and selected experience for Zihe Huang." />
+    <title>Resume — Zihe Huang</title>
+    <script src="../route-entry.js?v=20260925-flow-2"></script>
+    <script src="../smooth-scroll.js?v=2" defer></script>
+    <script src="../scroll-rail.js?v=2" defer></script>
+    <script>document.documentElement.classList.add('arch-motion-pending');setTimeout(()=>document.documentElement.classList.remove('arch-motion-pending'),10000);</script>
+    <link rel="icon" type="image/svg+xml" href="../assets/alobi-mark.svg" />
+    <link rel="stylesheet" href="../styles.css?v=20260922-logo-hit-1" />
+    <link rel="stylesheet" href="../animations.css?v=20260916-speed-1265" />
+    <link rel="stylesheet" href="../category.css" />
+    <link rel="stylesheet" href="../apple-system.css?v=20261001-wide-1" />
+    <link rel="stylesheet" href="../spectacle.css?v=20260916-simple-menu-1" />
+    <link rel="stylesheet" href="../hero-entrance.css?v=20260922-head-grow-1" />
+    <link rel="stylesheet" href="../hci/hci.css?v=20260916-status-centered-1" />
+    <link rel="stylesheet" href="./resume.css?v=2" />
+    <link rel="stylesheet" href="../menu.css?v=20260925-paper-1" />
+    <link rel="stylesheet" href="../page-flow.css?v=4" />
+    <link rel="expect" href="#top" blocking="render" />
+    <script type="module" src="../menu.js?v=20261002-lead-1"></script>
+    <script type="module" src="./resume.js?v=20260925-perf-1"></script>
+  </head>
+  <body class="resume-page">
+    <div class="page-transition" aria-hidden="true"><div class="transition-panel"></div><div class="transition-grid"></div><div class="transition-scan"></div><span class="transition-label">RESUME / SELECTED EXPERIENCE</span></div>
+    <div class="grain" aria-hidden="true"></div>
+    <header class="site-head">
+      <a class="identity" href="../" data-route data-route-label="ALOBI / HOME" aria-label="Zihe Huang — home">
+        <span class="logo-tile" aria-hidden="true"><span class="logo-initials">ZH</span><svg class="personal-mark" viewBox="0 0 48 48" role="presentation"><path class="mark-z" d="M9 12H39L9 36H39"/><path class="mark-h" d="M17 9V39M31 9V39M17 24H31"/><circle cx="24" cy="24" r="2"/></svg></span>
+        <span class="identity-copy">Zihe Huang<br />Architecture · HCI · AI</span>
+      </a>
+      <div class="coordinates" aria-hidden="true">06 / RESUME<br />SELECTED EXPERIENCE</div>
+      <div class="header-actions"><button class="menu-button" type="button" aria-label="Open contents" aria-expanded="false"><i aria-hidden="true"></i></button><a class="header-contact" href="../contact/" data-route data-route-label="CONTACT / OPEN CHANNEL">Contact</a></div>
+    </header>
+    <aside class="index-panel" aria-hidden="true">
+      <nav aria-label="Portfolio contents">
+        <a href="../" data-route data-route-label="ALOBI / HOME"><span>01</span><b>Home</b></a>
+        <a href="../about/" data-route data-route-label="ABOUT / TIMELINE"><span>02</span><b>About me</b></a>
+        <a href="../architecture/" data-route data-route-label="ARCHITECTURE"><span>03</span><b>Arch</b></a>
+        <a href="../hci/" data-route data-route-label="PRODUCT DESIGN"><span>04</span><b>PD</b></a>
+        <a href="../pm/" data-route data-route-label="LEADERSHIP"><span>05</span><b>PM</b></a>
+        <a href="./" aria-current="page"><span>06</span><b>Resume</b></a>
+        <a href="../contact/" data-route data-route-label="CONTACT / OPEN CHANNEL"><span>07</span><b>Contact</b></a>
+      </nav>
+      <div class="index-socials" aria-label="Contact links">
+        <a class="index-linkedin" href="https://www.linkedin.com/in/zihe-huang/" target="_blank" rel="noreferrer" aria-label="LinkedIn">in</a>
+        <a class="index-instagram" href="https://www.instagram.com/zihealobi/" target="_blank" rel="noreferrer" aria-label="Instagram"><i></i></a>
+        <a class="index-email" href="mailto:ziheh@andrew.cmu.edu" aria-label="Email Zihe Huang"><i></i></a>
+      </div>
+    </aside>
+    <main>
+      <section class="hci-blank-hero resume-hero" id="top" aria-labelledby="resume-title" data-rail="RESUME">
+        <div class="hci-blank-field resume-field" data-resume-field aria-hidden="true"><canvas></canvas></div>
+        <p class="hci-status">ONE PAGE · PDF</p>
+        <h1 class="hci-uiux-title" id="resume-title" aria-label="Resume"><span data-hci-title-type></span></h1>
+      </section>
+      <section class="resume-record" data-rail="RECORD" aria-labelledby="resume-record-title">
+        <div class="rr-intro">
+          <p class="rr-kicker">Selected experience</p>
+          <h2 id="resume-record-title">Work, research <em>and teaching.</em></h2>
+          <p class="rr-note">A concise record of the work, research, and teaching that shape my practice across architecture, product thinking, and HCI.</p>
+          <div class="rr-actions"><a class="rr-download" href="../assets/documents/ZiheHuang_Resume_BTG.pdf" download>Download PDF<i aria-hidden="true"></i></a><a class="rr-back" href="../" data-route data-route-label="ALOBI / HOME">Back to home</a></div>
+        </div>
+        <figure class="rr-sheet">
+          <figcaption><span>Zihe Huang / Resume</span><span>PDF / 01 page</span></figcaption>
+          <iframe src="../assets/documents/ZiheHuang_Resume_BTG.pdf#view=FitH" title="Zihe Huang resume PDF viewer"></iframe>
+        </figure>
+      </section>
+    </main>
+    <script>
+      (() => {
+        const transition = document.querySelector('.page-transition');
+        let state = null;
+        try {
+          const raw = sessionStorage.getItem('alobi-route-reveal');
+          state = raw ? JSON.parse(raw) : null;
+          sessionStorage.removeItem('alobi-route-reveal');
+        } catch {}
+        transition.className = 'page-transition';
+        document.documentElement.classList.remove('route-enter-pending');
+        document.getElementById('route-prepaint-style')?.remove();
+
+        document.querySelectorAll('[data-route]').forEach(link => link.addEventListener('click', event => {
+          event.preventDefault();
+          if (/ALOBI\s*\/\s*HOME/i.test(link.dataset.routeLabel || link.textContent.trim())) {
+            try { sessionStorage.setItem('alobi-home-line-return', '1'); } catch {}
+          }
+          document.body.classList.add('is-leaving');
+          document.documentElement.classList.add('route-leaving');
+          transition.className = 'page-transition is-active effect-cleaner-down';
+          try {
+            sessionStorage.setItem('alobi-route-reveal', JSON.stringify({
+              label: link.dataset.routeLabel || link.textContent.trim(),
+              effect: 'line',
+              createdAt: Date.now()
+            }));
+          } catch {}
+          window.setTimeout(() => {
+            transition.classList.add('is-holding');
+            window.setTimeout(() => location.assign(link.href), 135);
+          }, 616);
+        }));
+      })();
+    </script>
+    <script src="../spectacle.js?v=20260925-perf-1"></script>
+    <script src="../cursor-shape.js?v=3"></script>
+  </body>
+</html>

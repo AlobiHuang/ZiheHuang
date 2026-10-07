@@ -218,6 +218,13 @@ const setActiveEvent = index => {
     if (buttonIndex === index) button.setAttribute('aria-current', 'step');
     else button.removeAttribute('aria-current');
   });
+  // PD polish (Oct 5): on phones the chapter row scrolls sideways; keep the
+  // current chapter visible inside it.
+  const map = mapButtons[index]?.parentElement;
+  if (map && map.scrollWidth > map.clientWidth + 1) {
+    const button = mapButtons[index];
+    map.scrollTo({ left: button.offsetLeft - (map.clientWidth - button.offsetWidth) / 2, behavior: 'smooth' });
+  }
 };
 
 const updateTimeline = () => {

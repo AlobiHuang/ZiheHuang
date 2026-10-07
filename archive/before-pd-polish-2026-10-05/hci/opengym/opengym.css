@@ -1,0 +1,5 @@
+/* OpenGym case page: shares the CMUsed page's layout (../cmused/cmused.css). */
+
+.og-caption{margin:10px 0 clamp(80px,10vw,140px);font:500 9px/1.4 "DM Mono",ui-monospace,monospace;letter-spacing:.08em;color:#6e6e73}
+.og-pending{max-width:620px;margin:0;padding:18px 0 0;font:450 13px/1.55 -apple-system,BlinkMacSystemFont,"SF Pro Text","Helvetica Neue",Arial,sans-serif;color:#6e6e73}
+

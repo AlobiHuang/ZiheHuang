@@ -28,7 +28,7 @@ const portfolio = {
         tags: ['Family', 'Empathy', 'Bridge', 'Collective living']
       },
       {
-        slug: 're-serv-oir', no: 'A—05', title: 'RE.SERV.OIR', date: '2026', type: 'Design Studio',
+        slug: 're-serv-oir', no: 'A—05', title: 'RE.SERV.OIR', date: '2026', type: 'Competition Winner',
         role: 'Community Ecology Center · Portland, Oregon',
         question: 'How can obsolete infrastructure become civic ground?',
         summary: 'A community ecology center that reclaims Portland’s decommissioned concrete water tanks as civic ground for environmental learning, gathering, and ecological repair.',
@@ -54,19 +54,19 @@ const portfolio = {
     ]
   },
   pm: {
-    name: 'Leadership', short: 'PM', code: '10⁻²', accent: '#171816',
+    name: 'Leadership', short: 'PROJECTS', code: '10⁻²', accent: '#171816',
     copy: 'Product thinking as disciplined translation across people, evidence, constraints, and delivery.',
     projects: [
       {
         slug: 'sankofa-multi-stakeholder-delivery', no: 'P—01', title: 'Sankofa Bamboo Greenhouse', date: 'Jun 2026—Present', type: 'Work',
-        role: 'Project Designer',
+        role: 'Project Designer', roleExtra: 'Fabrication Team Teaching Assistant',
         question: 'How do many stakeholders move one experimental project forward?',
         summary: 'Coordinating the technical, civic, financial, and community work required to move an experimental greenhouse toward construction.',
         evidence: ['USDA, Intertek, city, media, and community coordination', 'Fundraising, testing, permitting, and engagement workstreams', 'Interview insights translated into actionable priorities'],
         tags: ['Stakeholders', 'Delivery', 'Risk', 'Prioritization']
       },
       {
-        slug: 'teaching-assistant', no: 'P—02', title: 'Fabrication Team Lead', date: 'Aug 2026—Present', type: 'Leadership',
+        slug: 'teaching-assistant', hidden: true, no: 'P—02', title: 'Fabrication Team Lead', date: 'Aug 2026—Present', type: 'Leadership',
         role: 'Fabrication Team Lead (Teaching Assistant)',
         question: 'How do fourteen students build one thing together?',
         summary: 'Teaching assistant for a whole course that is mostly hands-on fabrication, leading a 14-student team through coordinated fabrication and assembly.',
@@ -76,7 +76,7 @@ const portfolio = {
     ]
   },
   hci: {
-    name: 'Product Design', short: 'PD', code: '10⁰', accent: '#4038ff',
+    name: 'Product Design', short: 'PRODUCTS', code: '10⁰', accent: '#1d1d1f',
     copy: 'Human-centered systems grounded in behavior, context, prototyping, and evaluation.',
     projects: [
       {
@@ -124,8 +124,12 @@ const requestedProjectSlug = params.get('project') || (isPmLanding ? 'sankofa-mu
 const requestedSlug = projectAliases[requestedProjectSlug] || requestedProjectSlug;
 const projectIndex = Math.max(0, lens.projects.findIndex(item => item.slug === requestedSlug));
 const project = lens.projects[projectIndex];
-const previous = lens.projects[(projectIndex - 1 + lens.projects.length) % lens.projects.length];
-const next = lens.projects[(projectIndex + 1) % lens.projects.length];
+// Oct 5: projects marked hidden are left out of the previous / next links.
+const sequence = lens.projects.filter(item => !item.hidden || item.slug === lens.projects[projectIndex]?.slug);
+const seqIndex = Math.max(0, sequence.findIndex(item => item.slug === lens.projects[projectIndex]?.slug));
+const previous = sequence[(seqIndex - 1 + sequence.length) % sequence.length];
+const next = sequence[(seqIndex + 1) % sequence.length];
+const hasSequence = sequence.filter(item => !item.hidden).length > 1;
 const lensHref = `../${lensKey === 'architecture' ? 'architecture' : lensKey}/`;
 const projectHref = item => `?lens=${lensKey}&project=${item.slug}`;
 const mediaByProject = {
@@ -192,9 +196,9 @@ const sectionCount = sectionMedia.length;
 // Sankofa: one specific line (and a short tag) for each photo in the case study,
 // instead of cycling through the general evidence list.
 const sectionCopy = isSankofaProject ? [
-  ['Construction', 'The prototype growing into a full-scale structure. I supported wind and gravity testing with Intertek and zoning and permitting with the City of Pittsburgh, so it can be built on site.'],
+  ['Construction', 'I supported wind and gravity testing with Intertek and zoning and permitting with the City of Pittsburgh, so it can be legally built on site.'],
   ['Team', 'A small team working across design, structural engineering, testing and the community partner, Sankofa Village Community Garden and Farms.'],
-  ['Joinery', 'I designed more than 10 original joinery details with structural engineer John M. Schneider, P.E., so each connection is clear to read and repeatable to build.'],
+  ['Joinery', 'I designed more than 10 original joinery details to meet the requirements of structural engineer John M. Schneider, P.E., so each connection is clear to read and repeatable to build.'],
   ['Community', 'Presenting the model at Sankofa Village, so the people who will use the greenhouse can see it and respond before it is built.'],
   ['Community', 'Talking the design through with the clients, then designing furniture and layouts around what they need.'],
   ['Iteration', 'Turning what we heard in community interviews into visible changes to the interior layout, furniture and environmental strategies.']
@@ -228,7 +232,7 @@ const sankofaRecognition = [
   ['2023', 'Research', 'Bamboo research pavilion', '$3,000 Liceaga Fund award for prototyping the bamboo spanning system with robotic arms and steam bending', 'https://cmu-soa-archive.squarespace.com/news-archive/2023/11/17/announcing-the-winners-of-the-fall-2023-awards']
 ];
 const sankofaContribution = [
-  'Designed 10+ original joinery details with structural engineer John M. Schneider, P.E.',
+  'Designed 10+ original joinery details to meet the requirements of structural engineer John M. Schneider, P.E.',
   'Supported wind and gravity testing with Intertek, and zoning and permitting with the City of Pittsburgh.',
   'Turned community interviews into changes to the interior layout, furniture and environmental strategies.',
   'Presented the project to USDA staff, supporting a $4,000 annual award and eligibility for an $8,000 implementation award in 2027.'
@@ -245,7 +249,7 @@ const impactHeading = isSankofaProject
   ? 'Moving the Sankofa Bamboo Greenhouse from research prototype to full-scale construction.'
   : project.summary;
 const impactCopy = isSankofaProject
-  ? 'Presented the project to USDA staff and designed more than 10 original joinery details with structural engineer John M. Schneider, P.E.'
+  ? 'Presented the project to USDA staff and designed more than 10 original joinery details to meet the requirements of structural engineer John M. Schneider, P.E.'
   : 'The work leaves a record of what changed, what was learned, and what the next decision can build on.';
 const impactStats = isSankofaProject
   ? [['ACSA', '2026 best design project'], ['CMOA', '2025 exhibition'], ['10+', 'unique joinery details']]
@@ -280,8 +284,8 @@ const sankofaBodyMarkup = isSankofaProject ? `<div class="cm sk" id="case-study"
       <p class="cm-intro">Bamboo raised structural questions that drawings alone could not answer, so the work moved through physical joints, engineering review and testing before anything was built at full size.</p>
       <ol class="cm-steps sk-steps">
         <li><figure>${skImg('sankofa-joinery-detail.webp', 'A custom bamboo connection in plywood and metal')}</figure><span>01</span><b>Joinery.</b><p>${sectionCopy[2][1]}</p></li>
-        <li><figure>${skImg('sankofa-joinery-network.webp', 'Bamboo members and custom joints during prototyping')}</figure><span>02</span><b>Prototype.</b><p>The joints tested together as a network, so each connection could be checked in the structure it belongs to.</p></li>
-        <li><figure>${skImg('sankofa-build-progress.webp', 'The bamboo prototype growing into a full-scale structure')}</figure><span>03</span><b>Test and permit.</b><p>${sectionCopy[0][1]}</p></li>
+        <li><figure>${skImg('sankofa-joint-prototypes.webp', 'Printed and milled joint prototypes for the bamboo structure, laid out on a workshop table')}</figure><span>02</span><b>Prototype.</b><p>A single joinery detail went through more than 10 rounds of iteration, each round made as a physical prototype.</p></li>
+        <li><figure><img src="../assets/portfolio/sankofa-load-testing.webp" alt="A full-size timber test rig with hydraulic jacks and cables, loading a connection during structural testing" loading="lazy" decoding="async" style="object-position:50% 40%"></figure><span>03</span><b>Test and permit.</b><p>${sectionCopy[0][1]}</p></li>
         <li><figure>${skImg('sankofa-full-scale-assembly.webp', 'The greenhouse assembled at full scale in the workshop')}</figure><span>04</span><b>Full scale.</b><p>The greenhouse assembled at full scale, moving from prototype toward construction on site.</p></li>
       </ol>
     </section>
@@ -296,10 +300,6 @@ const sankofaBodyMarkup = isSankofaProject ? `<div class="cm sk" id="case-study"
       </ol>
     </section>
 
-    <section class="cm-section" data-rail="IMPACT" aria-labelledby="sk-impact">
-      <header class="cm-section-head"><h2 id="sk-impact">Where it stands.</h2></header>
-      <dl class="cm-grid cm-grid-3">${impactStats.map(([value, label]) => `<div class="cm-cell"><dt>${label}</dt><dd><b>${value}</b></dd></div>`).join('')}</dl>
-    </section>
   </div>` : '';
 
 // PM page: the teaching assistant position, after the Sankofa project.
@@ -322,10 +322,8 @@ const taBodyMarkup = isTaProject ? `<section class="pm-teaching" id="case-study"
 // The PM page itself: the projects as preview windows, two to a row, as on
 // the PD page. Each window is a short loop of pictures (data-pm-loop).
 const pmIndex = [
-  { slug: 'sankofa-multi-stakeholder-delivery', title: 'Sankofa Bamboo Greenhouse', line: 'a community greenhouse, from research prototype to full-scale construction', meta: 'Project designer · Community · 2023—Present',
+  { slug: 'sankofa-multi-stakeholder-delivery', title: 'Sankofa Bamboo Greenhouse', line: 'from research prototype to full-scale construction', meta: 'Project designer · Community · 2023—Present',
     images: [['sankofa-full-scale-assembly.webp', 'The bamboo greenhouse assembled at full scale in the workshop'], ['sankofa-joinery-network.webp', 'Bamboo joinery network with metal connectors'], ['sankofa-community-presentation.webp', 'Presenting the greenhouse model to the community at Sankofa Village']] },
-  { slug: 'teaching-assistant', title: 'Fabrication Team Lead', line: 'leading 14 students through a fabrication course', meta: 'Teaching Assistant',
-    images: [['sankofa-fabrication-sequence.webp', 'Fabrication sequence drawing: harvesting, splitting, planing, bending and assembling bamboo']], drawing: true }
 ];
 const pmIndexMarkup = isPmLanding ? `<section class="pm-work" id="work" aria-label="Selected leadership work">
     <div class="pm-grid">${pmIndex.map(item => `
@@ -370,10 +368,10 @@ document.getElementById('project-root').innerHTML = isPmLanding ? `${pmLandingHe
       <h1>${project.title}</h1>
       ${lensKey === 'architecture' ? (sourceOverview ? `<p class="project-hook">${sourceOverview}</p>` : '') : `<p class="project-hook">${project.summary}</p>`}
     </div>
-    ${isSplitProject ? (() => { const side = isTaProject ? taHeroSide : sankofaHeroSide; const alt = isTaProject ? taHeroSideAlt : sankofaHeroSideAlt; return `<figure class="project-hero-side${side ? '' : ' is-empty'}${isTaProject ? ' is-drawing' : ''}" data-hero-side>${side ? `<img src="../assets/portfolio/${side}" alt="${alt}" fetchpriority="high" decoding="async">` : '<span aria-hidden="true">IMAGE</span>'}</figure>`; })() : ''}
+    ${isSplitProject ? (() => { const side = isTaProject ? taHeroSide : sankofaHeroSide; const alt = isTaProject ? taHeroSideAlt : sankofaHeroSideAlt; if (!side) return ''; return `<figure class="project-hero-side${side ? '' : ' is-empty'}${isTaProject ? ' is-drawing' : ''}" data-hero-side>${side ? `<img src="../assets/portfolio/${side}" alt="${alt}" fetchpriority="high" decoding="async">` : '<span aria-hidden="true">IMAGE</span>'}</figure>`; })() : ''}
     ${lensKey === 'pm' && !isSankofaProject && !isTaProject ? `<figure class="project-hero-media project-hero-media-pm"><img src="../assets/portfolio/${projectMedia[0]}" alt="${mediaAlt(0)}" fetchpriority="high"></figure>` : ''}
     ${lensKey === 'architecture' ? '' : `<dl class="project-gateway-meta">
-      <div><dt>Role</dt><dd>${project.role}</dd></div>
+      <div><dt>Role</dt><dd>${project.role}${project.roleExtra ? `<span class="role-extra">${project.roleExtra}</span>` : ''}</dd></div>
       <div><dt>Time</dt><dd>${projectTime}</dd></div>
       <div><dt>${projectMetaLabel}</dt><dd>${projectMetaValue}</dd></div>
       ${projectInstructor ? `<div><dt>Instructor</dt><dd>${projectInstructor}</dd></div>` : ''}
@@ -437,9 +435,9 @@ document.getElementById('project-root').innerHTML = isPmLanding ? `${pmLandingHe
   ${taBodyMarkup}
 
   ${isPmLanding ? '' : `<nav class="project-sequence" aria-label="Project navigation">
-    <a href="${projectHref(previous)}" data-route data-route-label="PROJECT / ${previous.title.toUpperCase()}"><span>Previous</span><b>← ${previous.title}</b></a>
+    ${hasSequence ? `<a href="${projectHref(previous)}" data-route data-route-label="PROJECT / ${previous.title.toUpperCase()}"><span>Previous</span><b>← ${previous.title}</b></a>` : '<span aria-hidden="true"></span>'}
     <a class="project-sequence-index" href="${lensHref}#experience" data-route data-route-label="${lens.name.toUpperCase()}" data-return-anchor="experience"><span>${lens.short}</span><b>All selected work</b></a>
-    <a href="${projectHref(next)}" data-route data-route-label="PROJECT / ${next.title.toUpperCase()}"><span>Next</span><b>${next.title} →</b></a>
+    ${hasSequence ? `<a href="${projectHref(next)}" data-route data-route-label="PROJECT / ${next.title.toUpperCase()}"><span>Next</span><b>${next.title} →</b></a>` : '<span aria-hidden="true"></span>'}
   </nav>`}`;
 
 if ('scrollRestoration' in history) history.scrollRestoration = 'manual';

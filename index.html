@@ -16,12 +16,11 @@
     <link rel="stylesheet" href="intro-play.css?v=20260916-home-copy-cleanup-1" />
     <link rel="stylesheet" href="playground.css?v=20260915-6" />
     <link rel="stylesheet" href="why-interface.css?v=20260914-7" />
-    <link rel="stylesheet" href="MetaBalls.css?v=20260912-1" />
     <link rel="stylesheet" href="me-portal.css?v=20261002-door-5" />
       <link rel="stylesheet" href="home-arrival.css?v=20260925-layout-1" />
-    <script type="module" src="home-arrival.js?v=20261002-pace-1"></script>
-    <link rel="stylesheet" href="walk-gallery.css?v=27">
-    <script type="module" src="walk-gallery.js?v=20261002-door-23"></script>
+    <script type="module" src="home-arrival.js?v=20261005-once-1"></script>
+    <link rel="stylesheet" href="walk-gallery.css?v=28">
+    <script type="module" src="walk-gallery.js?v=20261005-wip-1"></script>
     <link rel="stylesheet" href="glitch-egg.css?v=5" />
     <script type="module" src="glitch-egg.js?v=8"></script>
     <link rel="stylesheet" href="world-map.css?v=3" />
@@ -36,6 +35,7 @@
       <link rel="stylesheet" href="page-flow.css?v=4" />
     <link rel="expect" href="#walk-gallery" blocking="render" />
     <script type="module" src="menu.js?v=20261002-lead-1"></script>
+    <link rel="stylesheet" href="pd-polish.css?v=1" />
   </head>
   <body class="home-page">
     <div class="page-transition" aria-hidden="true">
@@ -71,8 +71,8 @@
         <a href="#top" data-nav-key="home" aria-current="page"><span>01</span><b>Home</b></a>
         <a href="about/" data-nav-key="about" data-site-route="about"><span>02</span><b>About me</b></a>
         <button type="button" data-nav-key="architecture" data-discipline="architecture"><span>03</span><b>Arch</b></button>
-        <button type="button" data-nav-key="hci" data-discipline="hci"><span>04</span><b>PD</b></button>
-        <button type="button" data-nav-key="pm" data-discipline="pm"><span>05</span><b>PM</b></button>
+        <button type="button" data-nav-key="hci" data-discipline="hci"><span>04</span><b>Products</b></button>
+        <button type="button" data-nav-key="pm" data-discipline="pm"><span>05</span><b>Projects</b></button>
         <a href="contact/" data-nav-key="contact" data-site-route="contact"><span>06</span><b>Contact</b></a>
       </nav>
       <p>Carnegie Mellon Architecture + HCI. Exploring computational, sustainable, and human-centered design.</p>
@@ -92,8 +92,8 @@
         <div class="landing-rule" aria-hidden="true"></div>
         <div class="scale-map" aria-label="Three areas of practice">
           <button class="scale active" data-discipline="architecture"><b>10²</b><span>ARCH</span><small>Built environments</small></button>
-          <button class="scale" data-discipline="hci"><b>10⁰</b><span>PD</span><small>Product design</small></button>
-          <button class="scale" data-discipline="pm"><b>10⁻²</b><span>PM</span><small>Leadership</small></button>
+          <button class="scale" data-discipline="hci" data-word="PD"><b>10⁰</b><span>PRODUCTS</span><small>Digital experiences</small></button>
+          <button class="scale" data-discipline="pm" data-word="PM"><b>10⁻²</b><span>PROJECTS</span><small>Leadership</small></button>
           <div class="scale-axis"><i></i></div>
         </div>
       </section>
@@ -125,9 +125,8 @@
         <div class="me-room-space" aria-hidden="true"><canvas data-me-room></canvas></div>
         <div class="me-story">
           <article><h2>WHO AM I</h2><div><small>01 / PERSON · PLACE · PLAY</small><h3>Beyond<br />the work.</h3><p>You’ve seen what I make. This part is about the person making it.</p><p>Where I’m from, the story behind my name, the work that got noticed, and the things that keep me curious.</p></div></article>
-          <article id="me-what-i-do"><h2>WHAT I DO</h2><div><small>02 / ARCHITECTURE · HCI · AI</small><h3>I design<br />connections.</h3><p>I design places, interfaces, and systems around how people actually move, meet, and make decisions.</p></div></article>
-          <article><h2>WHERE I’M FROM</h2><div><small>03 / SHENZHEN · PITTSBURGH · BEYOND</small><h3>Between<br />places.</h3><p>I’m from Shenzhen and now study in Pittsburgh. Travel keeps widening the way I understand place.</p><div class="world-map" data-world-map role="group" aria-label="Places on a world map"></div></div></article>
-          <article id="me-awards"><h2>AWARDS</h2><div><small>04 / RECOGNITION</small><h3>Work that<br />got noticed.</h3><ul class="me-awards"><li><time>2026</time><span><b>Winner, AIA COTE Top Ten for Students</b>RE.SERV.OIR · one of two Foundation Level winners · AIA Committee on the Environment &amp; ACSA</span><a href="project/?lens=architecture&amp;project=re-serv-oir" aria-label="See the RE.SERV.OIR project">↗</a></li><li><time>2024 — 2026</time><span><b>Dean’s List&nbsp;×3</b>Carnegie Mellon University · School of Architecture</span></li></ul></div></article>
+          <article><h2>WHERE I’M FROM</h2><div><small>02 / SHENZHEN · PITTSBURGH · BEYOND</small><h3>Between<br />places.</h3><p>I’m from Shenzhen and now study in Pittsburgh. Travel keeps widening the way I understand place.</p><div class="world-map" data-world-map role="group" aria-label="Places on a world map"></div></div></article>
+          <article id="me-awards"><h2>AWARDS</h2><div><small>03 / RECOGNITION</small><h3>Work that<br />got noticed.</h3><ul class="me-awards"><li><time>2026</time><span><b>Winner, AIA COTE Top Ten for Students</b>RE.SERV.OIR · one of the two Foundation Level winners across North America · AIA Committee on the Environment &amp; ACSA</span><a href="project/?lens=architecture&amp;project=re-serv-oir" aria-label="See the RE.SERV.OIR project">↗</a></li><li><time>2024 — 2026</time><span><b>Dean’s List&nbsp;×3</b>Carnegie Mellon University · School of Architecture</span></li></ul></div></article>
       <div class="dream-lab" id="play-lab" aria-labelledby="dream-lab-title" data-dream-lab>
         <div class="dream-scroll">
           <div class="dream-sticky">
@@ -144,8 +143,8 @@
           </div>
         </div>
       </div>
-          <article><h2>WHAT I WORK ON</h2><div><small>05 / COMMUNITY · SPACE · INTERACTION</small><h3>Ideas made<br />visible.</h3><p>My projects move between community building, spatial research, digital products, and visual experiments.</p><ul class="me-fields"><li><a href="architecture/"><b>ARCH</b><span>Built environments</span><i>↗</i></a></li><li><a href="hci/"><b>PD</b><span>Product design</span><i>↗</i></a></li><li><a href="pm/"><b>PM</b><span>Leadership</span><i>↗</i></a></li></ul></div></article>
-          <article><h2>WHAT I LIKE</h2><div><small>06 / MUSIC · TRAVEL · PEOPLE</small><h3>Moved by<br />curiosity.</h3><p>Music, movement, photography, food, and the people close to me keep life playful and my work grounded.</p></div></article>
+          <article><h2>WHAT I WORK ON</h2><div><small>04 / COMMUNITY · SPACE · INTERACTION</small><h3>Ideas made<br />visible.</h3><p>My projects move between community building, spatial research, digital products, and visual experiments.</p><ul class="me-fields"><li><a href="architecture/"><b>ARCH</b><span>Built environments</span><i>↗</i></a></li><li><a href="hci/"><b>PRODUCTS</b><span>Digital experiences</span><i>↗</i></a></li><li><a href="pm/"><b>PROJECTS</b><span>Leadership</span><i>↗</i></a></li></ul></div></article>
+          <article><h2>WHAT I LIKE</h2><div><small>05 / MUSIC · TRAVEL · PEOPLE</small><h3>Moved by<br />curiosity.</h3><p>Music, movement, photography, food, and the people close to me keep life playful and my work grounded.</p></div></article>
         </div>
       </section>
       <section class="me-portal me-portal-exit" aria-label="Leave my story">
@@ -182,7 +181,6 @@
           <header class="lt-head">
             <p class="lt-kicker">One practice</p>
             <h2 id="lens-gateway-title">Three ways to read <em>the work.</em></h2>
-            <p class="lt-note">The same way of thinking at three scales: the building, the product, and the team that ships it.</p>
           </header>
           <div class="lt-panels" role="group" aria-label="Choose a lens">
             <button class="lt-panel lt-arch" type="button" data-lens-choice="architecture" aria-label="Built environments — open ARCH">
@@ -191,17 +189,17 @@
               <span class="lt-go" aria-hidden="true">Enter<i></i></span>
               <span class="lt-name"><strong>ARCH</strong><small>Built environments</small></span>
             </button>
-            <button class="lt-panel lt-pd" type="button" data-lens-choice="hci" aria-label="Product design — open PD">
+            <button class="lt-panel lt-pd" type="button" data-lens-choice="hci" aria-label="Digital experiences — open PRODUCTS">
               <span class="lt-field" aria-hidden="true"><canvas></canvas></span>
               <span class="lt-index" aria-hidden="true"><b>02</b>10⁰</span>
               <span class="lt-go" aria-hidden="true">Enter<i></i></span>
-              <span class="lt-name"><strong>PD</strong><small>Product design</small></span>
+              <span class="lt-name"><strong>PRODUCTS</strong><small>Digital experiences</small></span>
             </button>
-            <button class="lt-panel lt-pm" type="button" data-lens-choice="pm" aria-label="Leadership — open PM">
+            <button class="lt-panel lt-pm" type="button" data-lens-choice="pm" aria-label="Leadership — open PROJECTS">
               <span class="lt-field" aria-hidden="true"><canvas></canvas></span>
               <span class="lt-index" aria-hidden="true"><b>03</b>10⁻²</span>
               <span class="lt-go" aria-hidden="true">Enter<i></i></span>
-              <span class="lt-name"><strong>PM</strong><small>Leadership</small></span>
+              <span class="lt-name"><strong>PROJECTS</strong><small>Leadership</small></span>
             </button>
           </div>
         </div>

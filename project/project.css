@@ -1,7 +1,7 @@
 :root{--project-accent:#ff3d16;--project-surface:var(--paper);--project-text:var(--ink);--project-record-surface:var(--ink);--project-record-text:var(--paper)}
 .project-page{background:var(--project-surface);color:var(--project-text);overflow-x:hidden}
 .project-page[data-lens="pm"]{--project-surface:var(--ink);--project-text:var(--paper);--project-record-surface:var(--paper);--project-record-text:var(--ink)}
-.project-page[data-lens="hci"]{--project-accent:#4038ff;--project-record-surface:#4038ff}
+.project-page[data-lens="hci"]{--project-accent:#1d1d1f;--project-record-surface:#1d1d1f}
 .project-page .site-head{position:fixed;color:var(--project-text);transition:background .3s,color .3s,border-color .3s}
 .project-page .site-head:after{content:"";position:absolute;left:var(--pad);right:var(--pad);bottom:0;height:1px;background:currentColor;opacity:.14}
 .project-page .site-head.is-compact{background:var(--project-surface);border:0;box-shadow:none}
@@ -325,3 +325,20 @@
 .project-page[data-lens="pm"] .sk-gallery header{display:block;max-width:1320px;margin:0 auto clamp(24px,3vw,36px);padding-top:14px;border-top:1px solid #1d1d1f}
 .project-page[data-lens="pm"] .sk-gallery header h2{margin:0 0 10px;font:650 clamp(24px,2.3vw,34px)/1.05 -apple-system,BlinkMacSystemFont,"SF Pro Display","Helvetica Neue",Arial,sans-serif;letter-spacing:-.05em}
 .project-page[data-lens="pm"] .sk-gallery header p{margin:0;max-width:720px;font:450 clamp(15px,1.15vw,17px)/1.55 -apple-system,BlinkMacSystemFont,"SF Pro Text","Helvetica Neue",Arial,sans-serif;letter-spacing:-.015em}
+
+/* Oct 5: card labels always sit on their own line under the title. */
+.pm-card-cap{display:block}
+.pm-card-cap p{margin-top:6px}
+/* Oct 5: the Fabrication Team Lead page had a large empty band between the
+   facts row and "02 / The course" (an empty enter row plus two paddings). */
+.project-gateway:has(+ .pm-teaching) .project-enter{display:none}
+.project-gateway:has(+ .pm-teaching){padding-bottom:clamp(40px,4vw,64px)}
+.pm-teaching{padding-top:clamp(56px,6vw,96px)}
+
+/* Oct 5: with no hero picture, the project title spans the page, centred. */
+.project-page[data-lens="pm"] .project-gateway-split:not(:has(.project-hero-side)) .project-gateway-heading{grid-column:1/-1;justify-self:stretch;text-align:center}
+.project-page[data-lens="pm"] .project-gateway-split:not(:has(.project-hero-side)) .project-gateway-heading h1{text-align:center;font-size:min(12cqi,172px)}
+@media(max-width:760px){.project-page[data-lens="pm"] .project-gateway-split:not(:has(.project-hero-side)) .project-gateway-heading h1{font-size:16cqi}}
+
+/* Oct 6: second role line under the main role (Sankofa: TA). */
+.project-gateway-meta dd .role-extra{display:block;margin-top:.3em}

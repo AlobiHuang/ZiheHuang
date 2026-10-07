@@ -15,28 +15,34 @@ if(gallery){
  // Competition, Project ...). Change it freely.
  const works=[
   // Product design, newest work first.
-  {title:'CMUsed',kind:'Product',meta:'2026 · PRODUCT DESIGN',lens:'PD',field:'PRODUCT DESIGN',href:'hci/cmused/',src:'assets/pd/cmused-home.webp?v=3',web:true,desc:'A second-hand marketplace for the Carnegie Mellon community. Browse by category, contact sellers directly, and list an item in three short steps, with AI help writing the description.'},
-  {title:'OpenGym',kind:'Product',meta:'2026 · PRODUCT DESIGN',lens:'PD',field:'PRODUCT DESIGN',href:'hci/opengym/',src:'assets/pd/opengym-home.webp?v=2',web:true,desc:'Live occupancy for Carnegie Mellon\'s gyms. OpenGym already existed; I\'m redesigning its user flow, interface and product logic together with the hardware team behind its live counts.'},
-  {slug:'re-serv-oir',title:'RE.SERV.OIR',kind:'Competition winner',meta:'2026 · DESIGN STUDIO',image:'reservoir-exterior.webp',note:['Winner:','AIA COTE Top Ten, one of two Foundation Level winners']},
-  {title:'Sankofa Bamboo Greenhouse',kind:'Project',meta:'2023—PRESENT · LEADERSHIP',lens:'PM',field:'LEADERSHIP',href:'project/?lens=pm&project=sankofa-multi-stakeholder-delivery',image:'sankofa-overview-wide.webp'},
+  {title:'CMUsed',kind:'Product',meta:'2026 · PRODUCT DESIGN',lens:'PRODUCTS',field:'PRODUCT DESIGN',href:'hci/cmused/',src:'assets/pd/cmused-home.webp?v=3',web:true,desc:'A second-hand marketplace for the Carnegie Mellon community. Browse by category, contact sellers directly, and list an item in three short steps, with AI help writing the description.'},
+  {title:'OpenGym',kind:'Product',meta:'2026 · PRODUCT DESIGN',lens:'PRODUCTS',field:'PRODUCT DESIGN',wip:true,srcs:['assets/pd/opengym-home.webp?v=2','assets/pd/opengym-detail.webp?v=3','assets/pd/opengym-map.webp?v=2'],src:'assets/pd/opengym-home.webp?v=2',web:true,desc:'Live occupancy for Carnegie Mellon\'s gyms. I\'m redesigning its user flow, interface and product logic together with the hardware team behind its live counts.'},
+  {slug:'re-serv-oir',title:'RE.SERV.OIR',kind:'Competition winner',meta:'2026 · DESIGN STUDIO',image:'reservoir-exterior.webp',note:['Winner:','AIA COTE Top Ten, one of the two Foundation Level winners across North America']},
+  {title:'Sankofa Bamboo Greenhouse',kind:'Project',meta:'2023—PRESENT · LEADERSHIP',lens:'PROJECTS',field:'LEADERSHIP',href:'project/?lens=pm&project=sankofa-multi-stakeholder-delivery',image:'sankofa-overview-wide.webp'},
+  {slug:'call-of-the-sea',title:'Call of the Sea',kind:'Project',meta:'2026—PRESENT · IN PROGRESS',image:'sea-cover.webp',tag:'In progress'},
+  // Oct 6: Call of the Sea moved up to 05.
   {slug:'how-to-build-a-ruin',title:'How to Build a Ruin',kind:'Project',meta:'2026 · OPTION STUDIO',image:'ruin-hero-cover.jpg'},
   {slug:'convergence-environmental-middle-school',title:'Convergence',kind:'Project',meta:'2025 FALL · STUDIO PROJECT',image:'convergence-pdf-02.jpg'},
   {slug:'radical-empathy',title:'Radical Empathy',kind:'Project',meta:'2025 SPRING · STUDIO PROJECT',image:'radical-empathy-cover.jpg'},
   // (The Tinkerer's Imaginarium is left out here; it stays on the ARCH page.)
-  {slug:'call-of-the-sea',title:'Call of the Sea',kind:'Project',meta:'2026—PRESENT · IN PROGRESS',image:null}
  ];
  works.forEach((work,i)=>{
-  const panel=document.createElement('a');panel.className='walk-panel';
-  panel.href=work.href||`project/?lens=architecture&project=${work.slug}`;
-  panel.setAttribute('aria-label',`Open the ${work.title} project`);
+  // Oct 5: a project still in progress (wip) is a frame, not a link.
+  const panel=document.createElement(work.wip?'div':'a');panel.className='walk-panel';
+  if(work.wip){panel.classList.add('is-wip');panel.setAttribute('aria-label',`${work.title}: redesign in progress`)}
+  else{panel.href=work.href||`project/?lens=architecture&project=${work.slug}`;panel.setAttribute('aria-label',`Open the ${work.title} project`)}
   const number=String(i+1).padStart(2,'0');
   const visual=work.video
    ?`<video src="assets/portfolio/${work.video}"${work.image?` poster="assets/portfolio/${work.image}"`:''} muted loop playsinline autoplay preload="metadata"></video>`
+   :work.srcs
+   ?work.srcs.map((s,k)=>`<img src="${s}" alt=""${k?' loading="lazy"':''} decoding="async"${k?'':' class="is-shown"'}>`).join('')+'<span class="walk-wip" aria-hidden="true"><span class="walk-wip-label">Redesign in progress</span></span>'
    :(work.src||work.image)
-   ?`<img src="${work.src||`assets/portfolio/${work.image}`}" alt="" loading="lazy" decoding="async">`
+   ?`<img src="${work.src||`assets/portfolio/${work.image}`}" alt="" loading="lazy" decoding="async">${work.tag?`<span class="walk-wip" aria-hidden="true"><span class="walk-wip-label">${work.tag}</span></span>`:''}`
    :'<div class="walk-progress-cover" aria-hidden="true"><small>ONGOING / 2026</small><strong>IN<br>PROGRESS</strong><em>TOROSIAJE · INDONESIA</em></div>';
-  panel.innerHTML=`<header><div><small>${work.lens||'ARCH'} / ${work.meta}</small><h2>${number}</h2></div><h3>${work.title}</h3></header><div class="walk-placeholder">${visual}</div>${work.web&&work.desc?`<div class="walk-desc"><p>${work.desc}</p></div>`:''}${work.note?`<p class="walk-note"><b>${work.note[0]}</b> ${work.note[1]}</p>`:''}<footer><span>${work.field||'ARCHITECTURE'} / ${number}</span><span>VIEW PROJECT →</span></footer>`;
+  panel.innerHTML=`<header><div><small>${work.lens||'ARCH'} / ${work.meta}</small><h2>${number}</h2></div><h3>${work.title}</h3></header><div class="walk-placeholder">${visual}</div>${work.web&&work.desc?`<div class="walk-desc"><p>${work.desc}</p></div>`:''}${work.note?`<p class="walk-note"><b>${work.note[0]}</b> ${work.note[1]}</p>`:''}<footer><span>${work.field||'ARCHITECTURE'} / ${number}</span><span>${work.wip?'IN PROGRESS':'VIEW PROJECT →'}</span></footer>`;
   if(work.web)panel.classList.add('walk-web');
+  if(work.tag)panel.classList.add('has-tag');
+  if(work.srcs){const frames=[...panel.querySelectorAll('.walk-placeholder img')];let k=0;setInterval(()=>{if(document.hidden)return;frames[k].classList.remove('is-shown');k=(k+1)%frames.length;frames[k].classList.add('is-shown')},3800)}
   if(work.note)panel.classList.add('has-note');
   world.append(panel);
  });
@@ -64,6 +70,7 @@ if(gallery){
  // Back from the project (restored from the page cache): frames work again.
  addEventListener('pageshow',event=>{if(event.persisted)opening=false});
  panels.forEach(panel=>panel.addEventListener('click',event=>{
+  if(panel.classList.contains('is-wip')){event.preventDefault();return}
   if(event.defaultPrevented||event.button!==0||event.metaKey||event.ctrlKey||event.shiftKey||event.altKey)return;
   event.preventDefault();openProject(panel);
  }));

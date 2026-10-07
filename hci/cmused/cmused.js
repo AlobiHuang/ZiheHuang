@@ -1,7 +1,7 @@
 // CMUsed case page: draws the numbers from data.js. The newest snapshot is
 // shown; anything that has moved since the first one (when I joined) is
 // marked with the change and the starting value.
-import { SNAPSHOTS } from './data.js?v=3';
+import { SNAPSHOTS } from './data.js?v=5';
 
 const base = SNAPSHOTS[0];
 const latest = SNAPSHOTS[SNAPSHOTS.length - 1];
@@ -62,9 +62,7 @@ const GROUPS = {
     M('Listings, all time', 'count', s => s.listingsTotal, () => 'Ever posted'),
     M('Active', 'count', s => s.listingsActive, () => 'Not sold'),
     M('Sold', 'count', s => s.listingsSold, () => 'Marked sold'),
-    M('New listings', 'count', s => s.newListings30d, () => 'Last 30 days'),
-    M('New listings', 'count', s => s.newListings7d, () => 'Last 7 days'),
-    M('New listings', 'count', s => s.newListings24h, () => 'Last 24 hours')
+    M('New listings', 'count', s => s.newListings30d, () => 'Last 30 days')
   ]
 };
 
@@ -94,7 +92,7 @@ if (stamp) {
     return d ? `${month} ${d}, ${y}` : `${month} ${y}`;
   };
   const when = day(latest.date);
-  stamp.innerHTML = `<span>${when ? `LAST RECORDED ${when} · ` : ''}FROM THE CMUSED DASHBOARD</span>`;
+  stamp.innerHTML = `<span>${when ? `DATA RETRIEVED ${when} · ` : ''}FROM THE CMUSED ADMIN DASHBOARD</span>`;
 }
 
 const heading = document.querySelector('[data-cm-title]');

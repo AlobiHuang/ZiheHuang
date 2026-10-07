@@ -22,7 +22,8 @@ if (hero) {
  let returningHome = false;
  try {
   arrivalSeen = sessionStorage.getItem('alobi-home-arrival-seen') === '1';
-  returningHome = sessionStorage.getItem('alobi-home-line-return') === '1';
+  // Oct 5: the opening plays only on the first landing of a visit. Coming back
+  // home from another page (or with Back) shows the finished cover at once.
   sessionStorage.removeItem('alobi-home-line-return');
   if (!arrivalSeen) sessionStorage.setItem('alobi-home-arrival-seen', '1');
  } catch {}
@@ -31,8 +32,8 @@ if (hero) {
  // (walk-gallery.js shrinks the project's picture back into its frame then).
  const navType=performance.getEntriesByType?.('navigation')?.[0]?.type||'';
  const roomReturn=()=>{try{const r=JSON.parse(sessionStorage.getItem('alobi-zoom-return')||'null');return !!r&&Date.now()-r.at<3600000}catch{return false}};
- if(navType==='back_forward'&&!roomReturn())returningHome=true;
- let skip = reduced || (!returningHome && (arrivalSeen || (location.hash && location.hash !== '#top')));
+ void roomReturn;
+ let skip = reduced || arrivalSeen || (location.hash && location.hash !== '#top');
  const clamp = n => Math.max(0,Math.min(1,n));
  const ease = n => {n=clamp(n);return n*n*(3-2*n)};
  const kinetic = n => {n=clamp(n);return n<.5?16*n**5:1-(-2*n+2)**5/2};
@@ -51,13 +52,13 @@ if (hero) {
  const T0=3.0;
  let waves=null,extrude=null,extrudeReady=false;
  // The solid's opening plays once the field has risen into view.
- const playExtrude=()=>{if(extrudeReady)return;extrudeReady=true;extrude?.play()};
+ const playExtrude=()=>{if(extrudeReady)return;extrudeReady=true;if(skip)extrude?.settle();else extrude?.play()};
  // The hero's field: a contour map of the word (the default), or the earlier
  // fine vertical lines with ?field=lines, kept for comparison.
  const heroField=new URLSearchParams(location.search).get('field')==='lines'?'lines':'contour';
  const mountWaves=()=>{if(!wavesRoot||wavesRoot.dataset.mounted)return;wavesRoot.dataset.mounted='true';try{waves=ShapeWaves(wavesRoot,{text:'ALOBI',fontFamily:'Geist, "Geist Sans", system-ui, sans-serif',fontWeight:500,textSize:.6,shapes:'squares',pattern:heroField,levels:20,cellSize:innerWidth<700?5:8,dotSize:1,lineDrift:30,color:'#1d1d1f',hoverColor:'#1d1d1f',backgroundColor:heroField==='contour'?'#f5f5f7':'#ffffff',speed:1,scale:1,contrast:1.1,brightness:.4,flow:0,direction:0,fade:0,interactive:true,splashRadius:120,splashStrength:.4,glow:.35,intro:false,introDuration:1.6,paused:false,eye:'O'});wavesRoot.alobiSnapshot=()=>{const still=waves.snapshot();const solid=wavesRoot.querySelector('.hero-extrude');if(still&&solid){try{still.getContext('2d').drawImage(solid,0,0,still.width,still.height)}catch{}}return still};
   // The word as a solid standing on the contour map (hero-extrude.js).
-  if(heroField==='contour'&&waves.maskInfo){extrude=heroExtrude(wavesRoot,waves,{reduced});if(extrudeReady)extrude.play()}}catch(error){wavesRoot.dataset.failed='true';console.error(error)}};
+  if(heroField==='contour'&&waves.maskInfo){extrude=heroExtrude(wavesRoot,waves,{reduced});if(skip)extrude.settle();else if(extrudeReady)extrude.play()}}catch(error){wavesRoot.dataset.failed='true';console.error(error)}};
  // Hovering ARCH / PD / PM retypes the big word to match, straight away.
  const scaleButtons=[...hero.querySelectorAll('.scale')],scaleMap=hero.querySelector('.scale-map');
  let wordTimer=0,wordShown='ALOBI';
@@ -66,7 +67,7 @@ if (hero) {
   wordTimer=setTimeout(()=>{if(waves&&word!==wordShown){wordShown=word;waves.retype(word)}},delay);
  };
  scaleButtons.forEach(button=>{
-  const word=button.querySelector('span')?.textContent.trim()||'';
+  const word=button.dataset.word||button.querySelector('span')?.textContent.trim()||'';
   if(!word)return;
   button.addEventListener('pointerenter',event=>{if(event.pointerType!=='touch')showWord(word,0)});
   button.addEventListener('focus',()=>showWord(word,0));
@@ -296,9 +297,10 @@ if (hero) {
   sheet.animate([{transform:'translateY(0)'},{transform:'translateY(-101%)'}],{duration:820,delay:80,easing:'cubic-bezier(.76,0,.24,1)',fill:'forwards'}).finished.then(()=>sheet.remove(),()=>sheet.remove());
  }
  addEventListener('pageshow',event=>{
+  // Oct 5: restored from the page cache, the page stays exactly as it was
+  // left; the opening is not replayed.
   if(!event.persisted||reduced)return;
-  if(document.querySelector('.walk-zoom'))return; // the room takes it from here
-  if(scrollY<innerHeight*.5)replayReturn();else liftSheet();
+  void replayReturn;void liftSheet;
  });
  // Never leave navigation hidden if the browser suspends the opening frames.
  setTimeout(()=>document.body.classList.add('arrival-done','is-ready'),(8.5-S3-T0)*1000/motionRate);

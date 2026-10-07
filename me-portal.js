@@ -418,13 +418,48 @@ const roomWord = (() => {
 const placeRoomWord = () => {
   const wall = window.alobiWorkWall;
   if (!roomWord || !wall || !wall.turned || PORTAL_STYLE !== 'door') { if (roomWord) roomWord.style.visibility = 'hidden'; return; }
-  if (roomWord.textContent !== wall.text) roomWord.textContent = wall.text;
+  const text = wordRun(wall);
+  if (roomWord.textContent !== text) roomWord.textContent = text;
   // Drawn exactly as on the walk's wall: the same type size, scaled the same
   // way, so the hairline keeps the same weight across the handover.
   roomWord.style.fontSize = `${wall.font}px`;
   const y = wall.y - (scrollY - wall.at) * wall.speed;
   roomWord.style.transform = `translate3d(${wall.x.toFixed(1)}px,${y.toFixed(1)}px,0) rotate(90deg) scale(${wall.scale})`;
   roomWord.style.visibility = 'inherit';
+};
+
+// Oct 6: the WORK lettering keeps repeating past the last chapter: the run
+// is extended (same start, so nothing moves), and on the way out it carries on
+// inside the doorway, clipped to what can still be seen of the room, until
+// the door leaves close.
+function wordRun(wall) { return wall.text + 'WORK'.repeat(32); }
+const exitWord = (() => {
+  const stage = exit?.querySelector('.me-portal-stage');
+  if (!stage || !room) return null;
+  const clip = document.createElement('div');
+  clip.className = 'me-exit-word';
+  clip.setAttribute('aria-hidden', 'true');
+  const element = document.createElement('div');
+  element.className = 'me-room-word';
+  clip.append(element);
+  stage.append(clip);
+  return { stage, clip, element };
+})();
+const placeExitWord = view => {
+  if (!exitWord) return;
+  const wall = window.alobiWorkWall;
+  const open = view && view.right - view.left > .5 && view.bottom - view.top > .5;
+  if (!wall || !wall.turned || PORTAL_STYLE !== 'door' || reduced || !open) { exitWord.clip.style.visibility = 'hidden'; return; }
+  const { clip, element, stage } = exitWord;
+  const text = wordRun(wall);
+  if (element.textContent !== text) element.textContent = text;
+  element.style.fontSize = `${wall.font}px`;
+  const box = stage.getBoundingClientRect();
+  const y = wall.y - (scrollY - wall.at) * wall.speed - box.top;
+  element.style.transform = `translate3d(${(wall.x - box.left).toFixed(1)}px,${y.toFixed(1)}px,0) rotate(90deg) scale(${wall.scale})`;
+  element.style.visibility = 'inherit';
+  clip.style.clipPath = `inset(${view.top.toFixed(1)}px ${(width - view.right).toFixed(1)}px ${(height - view.bottom).toFixed(1)}px ${view.left.toFixed(1)}px)`;
+  clip.style.visibility = 'visible';
 };
 
 const sectionProgress = section => {
@@ -476,8 +511,9 @@ const draw = (now = performance.now()) => {
     const progress = doorExit
       ? follow(exit, 1 - clamp(scrollProgress / .86))
       : follow(exit, reduced ? 0 : 1 - clamp((scrollProgress - .1) / .9));
-    drawPortal(exit.querySelector('[data-me-portal]'), progress, 'ME', doorExit ? { behind: { turn: 1, scroll: roomTravel(roomRect.top), leaving: true } } : {});
-  }
+    const result = drawPortal(exit.querySelector('[data-me-portal]'), progress, 'ME', doorExit ? { behind: { turn: 1, scroll: roomTravel(roomRect.top), leaving: true } } : {});
+    placeExitWord(doorExit && result ? (result.through ? { left: 0, top: 0, right: width, bottom: height } : result.view) : null);
+  } else placeExitWord(null);
   // Tracks the scroll exactly; the glide comes from smooth-scroll.js.
   if (roomRect.bottom > 0 && roomRect.top < height) drawRoom(roomTravel(roomRect.top));
   if (roomRect.bottom > 0 && roomRect.top < height) placeRoomWord();

@@ -23,6 +23,7 @@
       <link rel="stylesheet" href="../../page-flow.css?v=4" />
     <link rel="expect" href="#top" blocking="render" />
     <script type="module" src="../../menu.js?v=20261002-lead-1"></script>
+    <link rel="stylesheet" href="../../pd-polish.css?v=1" />
   </head>
   <body class="hci-page cm-page">
     <div class="page-transition" aria-hidden="true"><div class="transition-panel"></div><div class="transition-grid"></div><div class="transition-scan"></div><span class="transition-label">CMUSED</span></div>
@@ -32,7 +33,7 @@
         <span class="logo-tile" aria-hidden="true"><span class="logo-initials">ZH</span><svg class="personal-mark" viewBox="0 0 48 48" role="presentation"><path class="mark-z" d="M9 12H39L9 36H39"/><path class="mark-h" d="M17 9V39M31 9V39M17 24H31"/><circle cx="24" cy="24" r="2"/></svg></span>
         <span class="identity-copy">Zihe Huang<br />Architecture · HCI · AI</span>
       </a>
-      <div class="coordinates" aria-hidden="true">10⁰ / PD<br />PRODUCT DESIGN</div>
+      <div class="coordinates" aria-hidden="true">10⁰ / PRODUCTS<br />PRODUCT DESIGN</div>
       <div class="header-actions"><button class="menu-button" type="button" aria-label="Open contents" aria-expanded="false"><i aria-hidden="true"></i></button><a class="header-contact" href="../../contact/" data-route data-route-label="CONTACT / OPEN CHANNEL">Contact</a></div>
     </header>
     <aside class="index-panel" aria-hidden="true">
@@ -40,8 +41,8 @@
         <a href="../../" data-route data-route-label="ALOBI / HOME"><span>01</span><b>Home</b></a>
         <a href="../../about/" data-route data-route-label="ABOUT / TIMELINE"><span>02</span><b>About me</b></a>
         <a href="../../architecture/" data-route data-route-label="ARCHITECTURE"><span>03</span><b>Arch</b></a>
-        <a href="../" data-route data-route-label="PRODUCT DESIGN"><span>04</span><b>PD</b></a>
-        <a href="../../pm/" data-route data-route-label="LEADERSHIP"><span>05</span><b>PM</b></a>
+        <a href="../" data-route data-route-label="PRODUCT DESIGN"><span>04</span><b>Products</b></a>
+        <a href="../../pm/" data-route data-route-label="LEADERSHIP"><span>05</span><b>Projects</b></a>
         <a href="../../contact/" data-route data-route-label="CONTACT / OPEN CHANNEL"><span>06</span><b>Contact</b></a>
       </nav>
       <p>Human-centered work grounded in research, prototyping, feedback, and usable systems.</p>
@@ -84,7 +85,8 @@
           <header class="cm-section-head"><h2 id="cm-why">Why CMUsed?</h2></header>
           <div class="cm-prose">
             <p>Students already trade with each other all the time, but it happens in scattered places: group chats, and general marketplaces built for strangers rather than classmates. Listings get buried, prices are guesswork, and it is hard to tell who is on the other end.</p>
-            <p>CMUsed gathers that trade into one place made for campus: listings sorted by what students actually move, like clothing, furniture, electronics and rideables, and a direct line to the person selling.</p>
+            <div><p>CMUsed gathers that trade into one place made for campus: listings sorted by what students actually move, like clothing, furniture, electronics and rideables, and a direct line to the person selling.</p>
+            <p>It is also safer. Every account is created with a Carnegie Mellon email, so the person on the other end is always a verified member of the campus community, not a stranger from the internet.</p></div>
           </div>
         </section>
 
@@ -125,13 +127,8 @@
         <section class="cm-section" data-rail="SELL" aria-labelledby="cm-sell">
           <header class="cm-section-head"><h2 id="cm-sell">Listing an item.</h2></header>
           <p class="cm-intro">Selling is its own short flow, one tap away from Sell Now at the top of every page.</p>
-          <div class="cm-sell">
+          <div class="cm-sell cm-sell-wide">
             <figure><img src="../../assets/pd/cmused-sell.webp?v=2" alt="CMUsed selling flow, basic info step: photos, item name, condition, category, tags and a description with Generate with AI" loading="lazy" decoding="async" /></figure>
-            <ol class="cm-sell-steps">
-              <li><span>01</span><b>Basic info.</b><p>One to ten photos, the name, condition, category and tags, and a description that AI can draft.</p></li>
-              <li><span>02</span><b>Pricing.</b><p>The asking price, and whether it is open to offers.</p></li>
-              <li><span>03</span><b>Preview.</b><p>The listing as buyers will see it, checked before it goes live.</p></li>
-            </ol>
           </div>
         </section>
 
@@ -149,7 +146,6 @@
         <section class="cm-section" data-rail="NUMBERS" aria-labelledby="cm-start">
           <header class="cm-section-head"><p data-cm-stamp></p><h2 id="cm-start" data-cm-title>Where it stood when I joined.</h2></header>
           <dl class="cm-grid cm-grid-4 cm-headline" data-cm-group="headline"></dl>
-          <ol class="cm-notes" data-cm-notes aria-label="Reading the numbers"></ol>
         </section>
 
         <section class="cm-section" aria-labelledby="cm-people">
@@ -159,7 +155,7 @@
 
         <section class="cm-section" aria-labelledby="cm-listings">
           <header class="cm-section-head"><h2 id="cm-listings">What is for sale.</h2></header>
-          <dl class="cm-grid cm-grid-3" data-cm-group="listings"></dl>
+          <dl class="cm-grid cm-grid-4" data-cm-group="listings"></dl>
           <figure class="cm-chart" aria-labelledby="cm-cat-title">
             <figcaption><b id="cm-cat-title">Active listings by category</b><span><span data-cm-categories-key></span><span data-cm-categories-total></span></span></figcaption>
             <ol data-cm-categories></ol>
@@ -169,7 +165,7 @@
         <footer class="cm-end"><a href="../" data-route data-route-label="PRODUCT DESIGN">← Back to product design</a><span>CMUSED / 2026</span></footer>
       </article>
     </main>
-    <script type="module" src="./cmused.js?v=4"></script>
+    <script type="module" src="./cmused.js?v=7"></script>
     <script src="../../spectacle.js?v=20260925-perf-1"></script>
     <script src="../../cursor-shape.js?v=3"></script>
     <script>

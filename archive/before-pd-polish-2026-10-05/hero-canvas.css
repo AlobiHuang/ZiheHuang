@@ -1,0 +1,132 @@
+/* The home cover as a design canvas: a white artboard of halftone type on
+   the grey page, rulers along the edges, letters you can pick up, and a
+   small inspector that tunes the halftone live. (The previous cover is kept
+   in archive/hero-v1/.) */
+
+.home-page .continuous-hero{position:relative;display:block!important;height:100svh;min-height:720px;padding:0!important;overflow:hidden;background:#f5f5f7!important;
+  --hc-head:52px;--hc-ruler:18px;--hc-side:max(44px,var(--pad));--hc-top:106px;--hc-bottom:21%;
+  --hc-blue:#0071e3;--hc-red:#e1251b;--hc-violet:#7b61ff;--hc-ink:#1d1d1f;--hc-mute:#86868b}
+.landing-field{position:absolute;inset:0;overflow:hidden}
+.landing-field>canvas:not(.hc-overlay),.landing-caption,.landing-rule,.arrival-sweep,.arrival-cursor{display:none!important}
+
+/* The artboard. */
+.shape-waves-host{position:absolute;z-index:1;left:var(--hc-side);right:var(--hc-side);top:var(--hc-top);bottom:var(--hc-bottom);overflow:hidden;background:#fff;isolation:isolate;box-shadow:0 0 0 1px rgba(0,0,0,.045),0 1px 2px rgba(0,0,0,.03),0 18px 50px -30px rgba(0,0,0,.18);touch-action:pan-y}
+.shape-waves__canvas{position:absolute;inset:0;display:block;width:100%;height:100%;opacity:0;transition:opacity .14s linear}
+.shape-waves-host[data-ready="true"] .shape-waves__canvas{opacity:1}
+
+/* Rulers, guides, selections and the visiting cursor are drawn here. */
+.hc-overlay{position:absolute;z-index:4;inset:0;width:100%;height:100%;pointer-events:none}
+
+/* The frame's name above its top left corner, and its size at the right. */
+.hc-frame-bar{position:absolute;z-index:3;left:var(--hc-side);right:var(--hc-side);top:calc(var(--hc-top) - 22px);display:flex;justify-content:space-between;align-items:center;font:400 10px/1 "DM Mono",ui-monospace,SFMono-Regular,Consolas,monospace;letter-spacing:.04em;color:var(--hc-mute);pointer-events:none;white-space:nowrap}
+.hc-frame-name{display:flex;align-items:center;gap:7px;color:#6e6e73}
+.hc-frame-name i{width:9px;height:9px;border:1px solid currentColor;border-radius:1px;position:relative}
+.hc-frame-name i:before,.hc-frame-name i:after{content:"";position:absolute;background:currentColor}
+.hc-frame-name i:before{left:2px;right:2px;top:-4px;height:1px;box-shadow:0 14px currentColor}
+.hc-frame-name i:after{top:2px;bottom:2px;left:-4px;width:1px;box-shadow:14px 0 currentColor}
+.hc-frame-size{font-variant-numeric:tabular-nums}
+
+/* Under the artboard: who this is, and the three practices. */
+.hc-intro{position:absolute;z-index:3;text-align:left;left:var(--hc-side);top:calc(100% - var(--hc-bottom) + 28px);max-width:min(470px,40vw)}
+.hc-statement{margin:0;font:600 clamp(19px,1.55vw,24px)/1.18 "SF Pro Display",-apple-system,BlinkMacSystemFont,"Helvetica Neue",Helvetica,Arial,sans-serif;letter-spacing:-.022em;color:var(--hc-ink);text-wrap:balance}
+.hc-statement em{font-style:normal;color:#6e6e73}
+.hc-meta{margin:12px 0 0;font:400 10px/1.5 "DM Mono",ui-monospace,SFMono-Regular,Consolas,monospace;letter-spacing:.07em;text-transform:uppercase;color:#6e6e73}
+.hc-meta b{font-weight:400;color:var(--hc-ink)}
+
+.home-page .continuous-hero .scale-map{position:absolute!important;z-index:3;left:auto!important;right:var(--hc-side)!important;top:calc(100% - var(--hc-bottom) + 22px)!important;bottom:auto!important;width:min(52%,640px)!important;margin:0!important;padding:0!important;display:flex!important;gap:0;background:transparent!important;border:0!important;border-radius:0!important;box-shadow:none!important;transform:none!important;opacity:1;animation:none!important}
+.home-page .continuous-hero .scale{position:relative;flex:1;min-width:0;display:grid!important;grid-template-columns:auto 1fr;grid-template-rows:auto auto;column-gap:10px;row-gap:5px;align-items:baseline;padding:12px 14px!important;background:transparent!important;border:0!important;border-left:1px solid rgba(0,0,0,.09)!important;border-radius:0!important;text-align:left!important;box-shadow:none!important;color:var(--hc-ink)!important;transition:background-color .25s ease!important}
+.home-page .continuous-hero .scale b{grid-row:1/3;align-self:start;margin:3px 0 0!important;font:400 9px/1 "DM Mono",ui-monospace,monospace!important;color:var(--hc-mute)!important}
+.home-page .continuous-hero .scale span{font:600 21px/1 "SF Pro Display",-apple-system,BlinkMacSystemFont,"Helvetica Neue",Arial,sans-serif!important;letter-spacing:-.02em}
+.home-page .continuous-hero .scale small{grid-column:2;font:400 10px/1.3 "DM Mono",ui-monospace,monospace!important;letter-spacing:.02em;color:#6e6e73!important}
+.home-page .continuous-hero .scale:after{content:"";position:absolute;left:-1px;top:0;bottom:0;width:1px;background:var(--hc-blue);transform:scaleY(0);transform-origin:top;transition:transform .35s cubic-bezier(.2,.8,.2,1)}
+@media(hover:hover){
+  .home-page .continuous-hero .scale:hover,.home-page .continuous-hero .scale:focus-visible,.home-page .continuous-hero .scale.active:hover{background:rgba(0,113,227,.045)!important;color:var(--hc-ink)!important}
+  .home-page .continuous-hero .scale:hover:after,.home-page .continuous-hero .scale:focus-visible:after{transform:none}
+  .home-page .continuous-hero .scale:hover b{color:var(--hc-blue)!important}
+}
+.home-page .continuous-hero .scale.active{background:transparent!important;box-shadow:none!important}
+.continuous-hero .scale-axis,.continuous-hero .scroll-cue{display:none!important}
+
+/* A floating inspector, as in a design tool, over the artboard's corner. */
+.hc-inspector{position:absolute;z-index:5;right:calc(var(--hc-side) + 14px);bottom:calc(var(--hc-bottom) + 14px);width:232px;padding:10px 12px 12px;border-radius:12px;background:rgba(255,255,255,.9);backdrop-filter:saturate(180%) blur(18px);-webkit-backdrop-filter:saturate(180%) blur(18px);box-shadow:0 0 0 .5px rgba(0,0,0,.12),0 2px 6px rgba(0,0,0,.05),0 18px 40px -18px rgba(0,0,0,.22);font:400 10px/1 "DM Mono",ui-monospace,SFMono-Regular,Consolas,monospace;color:var(--hc-ink);text-align:left;-webkit-user-select:none;user-select:none}
+.hc-inspector-head{display:flex;align-items:center;justify-content:space-between;margin:0 0 9px;color:var(--hc-mute);letter-spacing:.06em;text-transform:uppercase;font-size:9px}
+.hc-reset{appearance:none;border:0;background:transparent;color:var(--hc-mute);font:inherit;letter-spacing:inherit;text-transform:inherit;padding:3px 4px;margin:-3px -4px;border-radius:4px;cursor:none;transition:color .2s,background-color .2s}
+.hc-reset:hover,.hc-reset:focus-visible{color:var(--hc-blue);background:rgba(0,113,227,.08);outline:none}
+.hc-layer{display:flex;align-items:center;gap:8px;padding:0 0 9px;border-bottom:1px solid rgba(0,0,0,.07)}
+.hc-layer i{flex:none;width:16px;height:16px;display:grid;place-items:center;border-radius:3px;background:#f0f0f2;font:600 10px/1 -apple-system,BlinkMacSystemFont,"Helvetica Neue",Arial,sans-serif;font-style:normal;color:#6e6e73;transition:background-color .2s,color .2s}
+.hc-inspector.is-letter .hc-layer i{background:var(--hc-blue);color:#fff}
+.hc-inspector.is-visitor .hc-layer i{background:var(--hc-violet);color:#fff}
+.hc-layer b{font-weight:500;font-size:11px;letter-spacing:.02em}
+.hc-layer span{margin-left:auto;color:var(--hc-mute)}
+.hc-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:4px;margin:9px 0 0;padding:0 0 10px;border-bottom:1px solid rgba(0,0,0,.07)}
+.hc-grid div{display:flex;align-items:center;gap:4px;min-width:0;height:22px;padding:0 5px;border-radius:5px;background:#f5f5f7}
+.hc-grid dt{flex:none;color:var(--hc-mute)}
+.hc-grid dd{margin:0;overflow:hidden;font-variant-numeric:tabular-nums;font-size:9.5px}
+.hc-fx{margin:9px 0 0}
+.hc-fx p{margin:0 0 7px;color:var(--hc-mute);font-size:9px;letter-spacing:.06em;text-transform:uppercase}
+.hc-fx label{display:grid;grid-template-columns:30px 1fr 26px;align-items:center;gap:8px;height:22px}
+.hc-fx label span{color:#6e6e73}
+.hc-fx output{text-align:right;font-variant-numeric:tabular-nums}
+.hc-fx input{appearance:none;-webkit-appearance:none;width:100%;height:16px;margin:0;background:transparent;cursor:none}
+.hc-fx input::-webkit-slider-runnable-track{height:2px;border-radius:2px;background:linear-gradient(to right,var(--hc-ink) var(--fill,50%),#dcdce0 var(--fill,50%))}
+.hc-fx input::-moz-range-track{height:2px;border-radius:2px;background:#dcdce0}
+.hc-fx input::-moz-range-progress{height:2px;border-radius:2px;background:var(--hc-ink)}
+.hc-fx input::-webkit-slider-thumb{-webkit-appearance:none;width:10px;height:10px;margin-top:-4px;border:1.5px solid var(--hc-ink);border-radius:2px;background:#fff;transition:transform .15s}
+.hc-fx input::-moz-range-thumb{width:8px;height:8px;border:1.5px solid var(--hc-ink);border-radius:2px;background:#fff}
+.hc-fx input:hover::-webkit-slider-thumb,.hc-fx input:focus-visible::-webkit-slider-thumb{transform:scale(1.25)}
+.hc-fx input:focus-visible{outline:none}
+.hc-fx input:focus-visible::-webkit-slider-thumb{border-color:var(--hc-blue)}
+
+/* ---- the opening, about a second --------------------------------------- */
+@keyframes hc-rise{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:none}}
+@keyframes hc-fade{from{opacity:0}to{opacity:1}}
+@keyframes hc-board{from{clip-path:inset(50% 50% 50% 50%)}to{clip-path:inset(0 0 0 0)}}
+@keyframes hc-panel{from{opacity:0;transform:translateY(10px) scale(.97)}to{opacity:1;transform:none}}
+.hero-canvas.is-opening .shape-waves-host{animation:hc-board .62s cubic-bezier(.7,0,.2,1) both}
+.hero-canvas.is-opening .hc-frame-bar{animation:hc-fade .4s .38s ease both}
+.hero-canvas.is-opening .hc-statement{animation:hc-rise .7s .5s cubic-bezier(.16,1,.3,1) both}
+.hero-canvas.is-opening .hc-meta{animation:hc-rise .7s .6s cubic-bezier(.16,1,.3,1) both}
+.hero-canvas.is-opening .scale{animation:hc-rise .7s cubic-bezier(.16,1,.3,1) both}
+.hero-canvas.is-opening .scale:nth-child(1){animation-delay:.62s}
+.hero-canvas.is-opening .scale:nth-child(2){animation-delay:.68s}
+.hero-canvas.is-opening .scale:nth-child(3){animation-delay:.74s}
+.hero-canvas.is-opening .hc-inspector{animation:hc-panel .6s .85s cubic-bezier(.16,1,.3,1) both}
+
+.home-page:not(.arrival-done)>.site-head{opacity:0;pointer-events:none}.home-page.arrival-done>.site-head{transition:opacity .4s}
+.home-page:not(.arrival-done) .fx-cursor,.home-page:not(.arrival-done) .fx-aura{opacity:0!important}
+.arrival-status{position:absolute;width:1px;height:1px;overflow:hidden;clip-path:inset(50%)}
+
+/* Dragging across the home page (the galleries, the torn page, the letters)
+   should never select text or show the browser's selection highlight. */
+.home-page{-webkit-user-select:none;user-select:none}
+.home-page :is(input,textarea,[contenteditable]){-webkit-user-select:text;user-select:text}
+
+/* Laptops with short screens: a slimmer inspector. */
+@media(max-height:800px) and (min-width:901px){
+  .hc-inspector .hc-grid{display:none}
+  .hc-inspector{width:196px}
+}
+@media(max-width:1100px) and (min-width:901px){
+  .hc-intro{max-width:36vw}
+  .home-page .continuous-hero .scale-map{width:56%!important}
+  .home-page .continuous-hero .scale small{display:none}
+}
+/* Touch screens and narrow windows: no rulers or inspector. */
+@media(max-width:900px),(hover:none),(pointer:coarse){
+  .hc-inspector{display:none!important}
+}
+@media(max-width:900px){
+  .home-page .continuous-hero{min-height:640px;--hc-head:48px;--hc-side:14px;--hc-top:84px;--hc-bottom:max(34%,250px)}
+  .hc-frame-bar{top:calc(var(--hc-top) - 20px);font-size:9px}
+  .hc-intro{left:18px;right:18px;max-width:none;top:calc(100% - var(--hc-bottom) + 20px)}
+  .hc-statement{font-size:clamp(24px,7.4vw,32px);line-height:1.1}
+  .hc-meta{margin-top:9px;font-size:9px}
+  .home-page .continuous-hero .scale-map{left:14px!important;right:14px!important;width:auto!important;top:auto!important;bottom:14px!important}
+  .home-page .continuous-hero .scale{padding:10px 10px!important;column-gap:7px}
+  .home-page .continuous-hero .scale span{font-size:18px!important}
+  .home-page .continuous-hero .scale small{display:none}
+}
+@media(prefers-reduced-motion:reduce){
+  .hero-canvas.is-opening *{animation:none!important}
+  .home-page>.site-head{opacity:1!important;pointer-events:auto!important}
+}

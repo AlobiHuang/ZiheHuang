@@ -138,3 +138,38 @@
 .cm-section-head:not(:has(p)){padding-top:14px;border-top:1px solid var(--cm-ink)}
 /* The note on when the numbers were recorded sits on the right. */
 .cm-section-head p[data-cm-stamp]{justify-content:flex-end}
+
+/* PD polish (Oct 5): on phones the card's labels sit in a list under the card
+   instead of pointing at it from the side, where they ran off the screen. */
+@media(max-width:640px){
+  .cm-anatomy{padding:28px 20px;gap:22px}
+  .cm-anatomy-card{width:min(100%,280px);margin:0 auto}
+  .cm-anatomy-notes{height:auto;display:grid;gap:0}
+  .cm-anatomy-notes li,.cm-anatomy-notes li.is-span{position:static;transform:none;height:auto;padding:10px 0;border:0;border-top:1px solid #c7c7cc;white-space:normal;font-size:14px;color:#3a3a3c}
+  .cm-anatomy-notes li i{display:none}
+}
+
+/* Oct 5: the listing screen on its own, full width like the other large images. */
+.cm-sell.cm-sell-wide{display:block}
+.cm-sell.cm-sell-wide figure{width:100%}
+
+
+/* Oct 6: "Why CMUsed?" as one box, two equal cells, full content width,
+   matching the number grids further down the page. */
+.cm-prose.cm-why-box{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:0;max-width:none;margin-top:26px;background:#fff;box-shadow:0 0 0 1px var(--cm-soft)}
+.cm-why-box p{padding:clamp(20px,2.2vw,30px)}
+.cm-why-box p+p{box-shadow:-1px 0 0 var(--cm-soft)}
+.cm-why-box b{display:block;margin-bottom:8px;font-weight:650;color:#1d1d1f}
+@media(max-width:760px){.cm-prose.cm-why-box{grid-template-columns:1fr}.cm-why-box p+p{box-shadow:0 -1px 0 var(--cm-soft)}}
+
+/* Oct 6: a quieter type scale, matched to the BTG studio's case-study pages:
+   modest title and section heads, 14px reading text. */
+.cm .cm-head h1{font-size:clamp(26px,2.2vw,34px);line-height:1.15;letter-spacing:-.03em;font-weight:600;margin-bottom:14px}
+.cm .cm-lede,.cm-intro,.cm-prose p,.cm-sub p{font-size:14px;line-height:1.6;letter-spacing:0}
+.cm .cm-lede{color:#6e6e73}
+.cm-section-head h2{font-size:clamp(20px,1.6vw,24px);line-height:1.2;letter-spacing:-.025em;font-weight:600}
+.cm-sub h3,.cm-steps b,.cm-notes b{font-size:15px;letter-spacing:-.01em}
+.cm-steps p,.cm-notes p{font-size:13px}
+.cm-cell b{font-size:clamp(18px,1.4vw,22px)}
+.cm-headline .cm-cell b{font-size:clamp(20px,1.7vw,26px)}
+.cm .cm-facts dt,.cm .cm-facts dd{font-size:13px}

@@ -1,0 +1,95 @@
+/* Easter egg on the home page: see glitch-egg.js. */
+
+/* ---- The crack: half the screen tall, splitting from the middle ---------- */
+/* Drawn on the page itself (not fixed to the screen), so it scrolls away with the hero. */
+/* The crack sits on the page itself, just under the header (120): anything
+   that appears over the page (menu, page transitions, galleries, the room's
+   zoom, the cursor) covers it. */
+.gp-hint{position:absolute;left:0;top:0;z-index:110;width:100%;height:100vh;pointer-events:none;visibility:hidden;opacity:0;transition:opacity .5s ease,visibility 0s linear .5s;overflow:visible}
+.gp-hint.is-showing{visibility:visible;opacity:1;transition:opacity .2s ease}
+.gp-hint path{fill:none;stroke-linecap:round;stroke-linejoin:round}
+.gp-hint-cut{stroke:#f5f5f7;stroke-width:7}
+.gp-hint-line{stroke:#180400;stroke-width:1.8}
+.gp-hint-branch{stroke:#180400;stroke-width:1}
+.gp-hint-leak{stroke:#ff2bd6;stroke-width:2;opacity:0;animation:gp-leak 2.4s steps(1) infinite}
+.gp-hint-hit{stroke:transparent;stroke-width:34;pointer-events:stroke;cursor:pointer;outline:none}
+.gp-hint-hit:focus-visible{stroke:rgba(255,43,214,.25)}
+/* It splits open from the middle outwards when it first appears. */
+.gp-hint.is-showing .gp-hint-draw{animation:gp-split .9s cubic-bezier(.2,.7,.2,1) both}
+@keyframes gp-split{from{clip-path:inset(50% 0 50% 0)}to{clip-path:inset(0 0 0 0)}}
+/* Now and then it twitches, as if something behind it were pushing. */
+.gp-hint.is-showing .gp-hint-draw{transform-origin:50% 50%}
+.gp-hint.is-showing .gp-hint-line{animation:gp-twitch 3.2s steps(1) infinite}
+@keyframes gp-twitch{0%,86%,100%{transform:none}88%{transform:translateX(2px)}91%{transform:translateX(-3px)}94%{transform:translateX(1px)}}
+@keyframes gp-leak{
+  0%{opacity:0}
+  8%{opacity:1;stroke:#ff2bd6}
+  12%{opacity:.6;stroke:#00f0ff}
+  18%{opacity:0}
+  61%{opacity:.9;stroke:#f7ff00}
+  64%{opacity:0}
+}
+
+/* ---- The torn paper ------------------------------------------------------- */
+/* The whole page is inverted underneath (see .gp-world); the torn halves are
+   inverted back so they keep the page's real colours. */
+.gp-tear{position:fixed;inset:0;z-index:2147483002;touch-action:none;cursor:grab;overflow:hidden}
+html.gp-world .gp-tear{filter:invert(1)}
+.gp-tear.is-pulling{cursor:grabbing}
+.gp-tear.is-falling{pointer-events:none}
+.gp-sheet{position:absolute;inset:0;will-change:transform;filter:drop-shadow(0 0 18px rgba(0,0,0,.35))}
+.gp-left{transform-origin:0 100%}
+.gp-right{transform-origin:100% 100%}
+.gp-sheet-clip{position:absolute;inset:0;overflow:hidden;background:#f5f5f7}
+.gp-page{position:absolute;inset:0;background:#f5f5f7}
+/* The torn edge: a thin white band of paper fibre with a soft shadow inside. */
+.gp-edge{position:absolute;inset:0;width:100%;height:100%;pointer-events:none;overflow:visible}
+.gp-edge path{fill:none;stroke-linejoin:round}
+.gp-edge-fibre{stroke:#fff;stroke-width:7}
+.gp-edge-shade{stroke:rgba(24,4,0,.22);stroke-width:1.2}
+.gp-pull{position:absolute;left:50%;bottom:9%;transform:translateX(-50%);padding:6px 10px;background:#180400;color:#f5f5f7;font:600 10px/1 "DM Mono",ui-monospace,SFMono-Regular,Consolas,monospace;letter-spacing:.12em;white-space:nowrap;pointer-events:none;animation:gp-pull-in .5s .3s both;transition:opacity .25s}
+.gp-pull.is-gone{opacity:0}
+@keyframes gp-pull-in{from{opacity:0;transform:translate(-50%,6px)}to{opacity:1;transform:translate(-50%,0)}}
+html.gp-tearing,html.gp-tearing body{overflow:hidden!important}
+
+/* ---- The glitch world ------------------------------------------------------ */
+/* Black and white swap across the whole page. Photos and videos are inverted
+   a second time so they look exactly as they normally do. */
+html.gp-world{filter:invert(1);background:#f5f5f7}
+html.gp-world :is(img,video):not(.gp-tear *){filter:invert(1)!important}
+/* During a burst the page is also shredded into sideways bands with its
+   colour channels split (the #gp-shred filter in glitch-egg.js). */
+html.gp-world.gp-shredding{filter:invert(1) url(#gp-shred)}
+/* A permanent chromatic fringe on text (written in inverted colours:
+   these show as magenta and cyan). */
+html.gp-world-settled body{text-shadow:-.045em 0 rgba(0,255,150,.55),.045em 0 rgba(255,25,0,.55)}
+
+.gp-filters{position:absolute;width:0;height:0;overflow:hidden}
+.gp-fx{position:fixed;inset:0;z-index:2147483000;overflow:hidden;pointer-events:none;display:none;contain:strict}
+html.gp-world .gp-fx{display:block}
+.gp-scan{position:absolute;left:0;right:0;top:-8px;bottom:0;background:repeating-linear-gradient(to bottom,rgba(235,255,225,.13) 0 1px,transparent 1px 3px);will-change:transform;animation:gp-roll .7s steps(4) infinite}
+.gp-noise{position:absolute;inset:-60px;opacity:.1;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 180 180' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");will-change:transform;animation:gp-grain .5s steps(3) infinite}
+.gp-slice{position:absolute;left:-80px;right:-80px;top:0;height:12px;opacity:0;will-change:transform,opacity;transform-origin:0 0}
+/* Inverted colours: these show as magenta, cyan, yellow, black and white. */
+.gp-slice:nth-child(3n){background:#00d429}
+.gp-slice:nth-child(3n+1){background:#ff0f00}
+.gp-slice:nth-child(3n+2){background:#0800ff}
+.gp-slice:nth-child(4){background:#fff}
+.gp-slice:nth-child(7){background:#0a0a0b}
+/* Small blocks that flash back to real colours, smear or bleed colour. */
+.gp-block{position:absolute;left:0;top:0;width:100px;height:20px;opacity:0;will-change:transform,opacity;backdrop-filter:invert(1)}
+.gp-block[data-kind="1"]{backdrop-filter:hue-rotate(110deg) saturate(6) contrast(1.6)}
+.gp-block[data-kind="2"]{backdrop-filter:blur(3px) contrast(2);background:rgba(0,212,41,.18)}
+@keyframes gp-roll{to{transform:translate3d(0,8px,0)}}
+@keyframes gp-grain{0%{transform:translate3d(0,0,0)}33%{transform:translate3d(-18px,11px,0)}66%{transform:translate3d(13px,-15px,0)}}
+
+/* Back to normal. */
+.gp-mend{position:fixed;left:50%;bottom:22px;z-index:2147483003;transform:translate(-50%,12px);padding:9px 14px;border:1px solid #180400;background:#f5f5f7;color:#180400;font:600 10px/1 "DM Mono",ui-monospace,SFMono-Regular,Consolas,monospace;letter-spacing:.12em;cursor:pointer;opacity:0;visibility:hidden;transition:opacity .3s,transform .3s,visibility 0s linear .3s}
+.gp-mend span{margin-left:8px;padding:2px 4px;border:1px solid currentColor;font-size:8px}
+.gp-mend.is-showing{opacity:1;visibility:visible;transform:translate(-50%,0);transition:opacity .3s,transform .3s}
+.gp-mend:focus-visible{outline:2px solid #180400;outline-offset:3px}
+
+@media(prefers-reduced-motion:reduce){
+  .gp-hint-leak,.gp-hint-line,.gp-hint.is-showing .gp-hint-draw,.gp-scan,.gp-noise{animation:none}
+  .gp-hint-leak{opacity:.8}
+}

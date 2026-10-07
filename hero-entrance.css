@@ -21,3 +21,11 @@
 @keyframes arch-head-grow{from{transform:translateY(-100%)}to{transform:none}}
 .arch-motion-pending:not(:has(.arch-entering,.arch-entered)) .site-head{transform:translateY(-100%)}
 .arch-motion-pending:has(.arch-entering) .site-head{animation:arch-head-grow 1.6s cubic-bezier(.33,.9,.25,1) .15s both}
+/* Oct 6: the title keeps one rendering from the roll-in onward. Without this
+   the roll's 3D layer was dropped right after it ended and the letters were
+   redrawn slightly thinner (and re-kerned when split into spinning slots). */
+:is(.architecture-waves-hero h1.selected-works-title,.pm-spatial-hero h1.pm-spatial-title,.hci-blank-hero h1.hci-uiux-title) :is([data-selected-works-type],[data-pm-title-type],[data-hci-title-type]){will-change:transform;font-kerning:none;line-height:1em}
+/* Oct 6: a spinning slot clips only top and bottom. Before, the reel was also
+   clipped at the sides, so wider passing letters (M, W, X) were cut off. */
+:is(.architecture-waves-hero h1.selected-works-title,.pm-spatial-hero h1.pm-spatial-title,.hci-blank-hero h1.hci-uiux-title) .arch-letter{overflow:visible;clip-path:inset(.1em -.6em .12em)}
+.arch-letter-reel{will-change:auto}

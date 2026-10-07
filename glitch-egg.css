@@ -47,7 +47,7 @@ html.gp-world .gp-tear{filter:invert(1)}
 .gp-edge path{fill:none;stroke-linejoin:round}
 .gp-edge-fibre{stroke:#fff;stroke-width:7}
 .gp-edge-shade{stroke:rgba(24,4,0,.22);stroke-width:1.2}
-.gp-pull{position:absolute;left:50%;bottom:9%;transform:translateX(-50%);padding:6px 10px;background:#180400;color:#f5f5f7;font:600 10px/1 "DM Mono",ui-monospace,SFMono-Regular,Consolas,monospace;letter-spacing:.12em;white-space:nowrap;pointer-events:none;animation:gp-pull-in .5s .3s both;transition:opacity .25s}
+.gp-pull{position:absolute;left:50%;bottom:9%;transform:translateX(-50%);padding:6px 10px;background:#180400;color:#f5f5f7;font:600 11px/1 "DM Mono",ui-monospace,SFMono-Regular,Consolas,monospace;letter-spacing:.12em;white-space:nowrap;pointer-events:none;animation:gp-pull-in .5s .3s both;transition:opacity .25s}
 .gp-pull.is-gone{opacity:0}
 @keyframes gp-pull-in{from{opacity:0;transform:translate(-50%,6px)}to{opacity:1;transform:translate(-50%,0)}}
 html.gp-tearing,html.gp-tearing body{overflow:hidden!important}
@@ -73,7 +73,7 @@ html.gp-world .gp-fx{display:block}
 /* Inverted colours: these show as magenta, cyan, yellow, black and white. */
 .gp-slice:nth-child(3n){background:#00d429}
 .gp-slice:nth-child(3n+1){background:#ff0f00}
-.gp-slice:nth-child(3n+2){background:#0800ff}
+.gp-slice:nth-child(3n+2){background:#1d1d1f}
 .gp-slice:nth-child(4){background:#fff}
 .gp-slice:nth-child(7){background:#0a0a0b}
 /* Small blocks that flash back to real colours, smear or bleed colour. */
@@ -84,7 +84,7 @@ html.gp-world .gp-fx{display:block}
 @keyframes gp-grain{0%{transform:translate3d(0,0,0)}33%{transform:translate3d(-18px,11px,0)}66%{transform:translate3d(13px,-15px,0)}}
 
 /* Back to normal. */
-.gp-mend{position:fixed;left:50%;bottom:22px;z-index:2147483003;transform:translate(-50%,12px);padding:9px 14px;border:1px solid #180400;background:#f5f5f7;color:#180400;font:600 10px/1 "DM Mono",ui-monospace,SFMono-Regular,Consolas,monospace;letter-spacing:.12em;cursor:pointer;opacity:0;visibility:hidden;transition:opacity .3s,transform .3s,visibility 0s linear .3s}
+.gp-mend{position:fixed;left:50%;bottom:22px;z-index:2147483003;transform:translate(-50%,12px);padding:9px 14px;border:1px solid #180400;background:#f5f5f7;color:#180400;font:600 11px/1 "DM Mono",ui-monospace,SFMono-Regular,Consolas,monospace;letter-spacing:.12em;cursor:pointer;opacity:0;visibility:hidden;transition:opacity .3s,transform .3s,visibility 0s linear .3s}
 .gp-mend span{margin-left:8px;padding:2px 4px;border:1px solid currentColor;font-size:8px}
 .gp-mend.is-showing{opacity:1;visibility:visible;transform:translate(-50%,0);transition:opacity .3s,transform .3s}
 .gp-mend:focus-visible{outline:2px solid #180400;outline-offset:3px}

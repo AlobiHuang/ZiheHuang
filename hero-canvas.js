@@ -32,7 +32,7 @@ if (hero) {
   const easeInOut = n => { n = clamp(n); return n < .5 ? 4 * n * n * n : 1 - (-2 * n + 2) ** 3 / 2; };
   const easeOut = n => 1 - (1 - clamp(n)) ** 3;
   const mono = '"DM Mono", ui-monospace, SFMono-Regular, Consolas, monospace';
-  const BLUE = '#0071e3', RED = '#e1251b', VIOLET = '#7b61ff';
+  const BLUE = '#1d1d1f', RED = '#e1251b', VIOLET = '#7b61ff';
 
   hero.classList.add('hero-canvas');
   const status = document.createElement('span');
@@ -362,7 +362,7 @@ if (hero) {
     line(0, px(top + R) - 1, W, px(top + R) - 1); line(px(R) - 1, top, px(R) - 1, H);
     // Marked ranges (the letter under the pointer or held).
     if (band) {
-      ctx.fillStyle = band.color === VIOLET ? 'rgba(123,97,255,.16)' : 'rgba(0,113,227,.14)';
+      ctx.fillStyle = band.color === VIOLET ? 'rgba(123,97,255,.16)' : 'rgba(29,29,31,.14)';
       ctx.fillRect(band.x, top, band.w, R - 1); ctx.fillRect(0, band.y, R - 1, band.h);
     }
     const reach = progress * Math.max(W, H);
@@ -424,7 +424,7 @@ if (hero) {
     if (!s) return;
     ctx.save();
     // Where it belongs, dashed.
-    ctx.setLineDash([3, 3]); ctx.strokeStyle = 'rgba(0,113,227,.55)'; ctx.lineWidth = 1;
+    ctx.setLineDash([3, 3]); ctx.strokeStyle = 'rgba(29,29,31,.55)'; ctx.lineWidth = 1;
     ctx.strokeRect(px(home.x), px(home.y), Math.round(home.w), Math.round(home.h));
     ctx.restore();
     const cx = b.x + b.w / 2, cy = b.y + b.h / 2, hx = home.x + home.w / 2, hy = home.y + home.h / 2;

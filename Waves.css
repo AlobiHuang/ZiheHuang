@@ -69,3 +69,15 @@
 .category-architecture-archive .arch-work-card:nth-child(odd){left:0}
 @media(max-width:1100px){.category-architecture-archive .arch-work-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
 @media(max-width:620px){.category-architecture-archive .arch-work-grid{grid-template-columns:1fr}}
+
+/* Oct 6: centre SELECTED WORKS vertically in the band under the wave field
+   (the band is the bottom 25.5svh of the hero; 34svh on narrow screens). */
+.architecture-waves-hero h1.selected-works-title{position:absolute;left:var(--pad,24px);right:var(--pad,24px);bottom:0;width:auto;height:25.5svh;margin:0;display:flex;align-items:center;justify-content:center}
+@media(max-width:900px){.architecture-waves-hero h1.selected-works-title{height:34svh;text-align:center}}
+
+/* Oct 6: Call of the Sea card: cover image, and on hover the same
+   in-progress tag as OpenGym on the PRODUCTS page. */
+.category-architecture-archive .arch-wip{position:absolute;inset:0;z-index:3;display:grid;place-items:center;background:rgba(245,245,247,.42);opacity:0;transition:opacity .35s ease;pointer-events:none}
+.category-architecture-archive .arch-wip b{padding:12px 18px;border:1px solid #1d1d1f;background:#f5f5f7;color:#1d1d1f;font:500 12px/1 DM Mono,ui-monospace,Consolas,monospace;letter-spacing:.1em;text-transform:uppercase}
+.category-architecture-archive .arch-work-card:hover .arch-wip,.category-architecture-archive .arch-work-card:focus-visible .arch-wip{opacity:1}
+@media(hover:none){.category-architecture-archive .arch-wip{opacity:1;background:none;place-items:end start;padding:12px}.category-architecture-archive .arch-wip b{padding:8px 10px;font-size:10px}}

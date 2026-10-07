@@ -1,7 +1,7 @@
 .hci-page{min-height:100svh;overflow-x:hidden;background:#f5f5f7;color:#1d1d1f}
 .hci-blank-hero{position:relative;isolation:isolate;min-height:100svh;overflow:hidden;border-bottom:1px solid #1d1d1f;background:#f5f5f7}
 .hci-blank-field{position:absolute;z-index:1;inset:52px 0 25.5svh;overflow:hidden;border-bottom:1px solid #1d1d1f;background:#f5f5f7;pointer-events:none}
-.hci-status{position:absolute;z-index:3;left:50%;top:calc(37.25svh + 26px);bottom:auto;margin:0;display:flex;align-items:center;gap:12px;color:#6e6e73;font:600 9px/1 "DM Mono",monospace;letter-spacing:.1em;white-space:nowrap;opacity:0;transform:translate(-50%,-50%)}.hci-status:before{content:"";width:34px;height:1px;background:#1d1d1f}.arch-toolbar-ready .hci-status{animation:hci-status-in .55s .18s ease both}@keyframes hci-status-in{from{opacity:0;transform:translate(-50%,calc(-50% + 8px))}to{opacity:1;transform:translate(-50%,-50%)}}
+.hci-status{position:absolute;z-index:3;left:50%;top:calc(37.25svh + 26px);bottom:auto;margin:0;display:flex;align-items:center;gap:12px;color:#6e6e73;font:600 11px/1 "DM Mono",monospace;letter-spacing:.1em;white-space:nowrap;opacity:0;transform:translate(-50%,-50%)}.hci-status:before{content:"";width:34px;height:1px;background:#1d1d1f}.arch-toolbar-ready .hci-status{animation:hci-status-in .55s .18s ease both}@keyframes hci-status-in{from{opacity:0;transform:translate(-50%,calc(-50% + 8px))}to{opacity:1;transform:translate(-50%,-50%)}}
 .hci-uiux-title{position:absolute;z-index:3;left:0;right:0;bottom:clamp(26px,4vh,58px);box-sizing:border-box;width:100%;min-height:1em;margin:0;padding-inline:var(--pad);font-family:-apple-system,BlinkMacSystemFont,"SF Pro Display","Helvetica Neue",Arial,sans-serif!important;font-size:clamp(60px,9vw,136px);font-weight:650;line-height:.9;letter-spacing:-.075em;text-align:center;white-space:nowrap}
 @media(max-width:900px){.hci-blank-field{inset:52px 0 34svh}.hci-status{left:50%;top:calc(33svh + 26px);bottom:auto}.hci-uiux-title{padding-inline:20px;white-space:normal}}
 @media(max-width:560px){.hci-page{cursor:auto}.hci-page .cursor{display:none}.hci-page .identity-copy{display:none}.hci-page .coordinates{display:none}.hci-page .site-head{grid-template-columns:1fr auto}.hci-page .header-actions{grid-column:2;gap:16px}.hci-uiux-title{font-size:clamp(58px,20vw,92px)}}
@@ -45,11 +45,11 @@
 .pd-project-link:after{content:"";position:absolute;inset:0;z-index:2}
 .pd-project-link:focus-visible{outline:none}
 .pd-project:has(.pd-project-link:focus-visible){outline:2px solid #1d1d1f;outline-offset:8px}
-.pd-project-more{display:inline-block;margin-top:14px;padding-bottom:3px;border-bottom:1px solid #1d1d1f;font:600 10px/1 "DM Mono",monospace;letter-spacing:.08em;text-transform:uppercase;transition:transform .35s cubic-bezier(.16,1,.3,1)}
+.pd-project-more{display:inline-block;margin-top:14px;padding-bottom:3px;border-bottom:1px solid #1d1d1f;font:600 11px/1 "DM Mono",monospace;letter-spacing:.08em;text-transform:uppercase;transition:transform .35s cubic-bezier(.16,1,.3,1)}
 .pd-screen{transition:transform .55s cubic-bezier(.16,1,.3,1),box-shadow .55s cubic-bezier(.16,1,.3,1)}
 @media(hover:hover){.pd-project:hover .pd-screen{transform:translateY(-6px);box-shadow:0 0 0 .75px #1d1d1f,0 50px 90px -48px rgba(24,4,0,.45)}.pd-project:hover .pd-project-more{transform:translateX(6px)}}
 /* The ENTER word inside the black square cursor over the project. */
-.fx-cursor.is-enter span{display:block!important;opacity:1!important;transform:none!important;color:#000!important;font:600 10px/1 "DM Mono",ui-monospace,monospace!important;letter-spacing:.12em!important}
+.fx-cursor.is-enter span{display:block!important;opacity:1!important;transform:none!important;color:#000!important;font:600 11px/1 "DM Mono",ui-monospace,monospace!important;letter-spacing:.12em!important}
 /* More than one project: a clear gap between them. */
 .pd-project+.pd-project{margin-top:clamp(90px,10vw,150px)}
 
@@ -118,3 +118,16 @@
 .pd-laptop .pd-base:before{content:"";position:absolute;left:50%;top:0;width:13cqw;height:.75cqw;transform:translateX(-50%);background:linear-gradient(180deg,#2a2a2d,#3c3c40);border-radius:0 0 .9cqw .9cqw}
 .pd-plate{padding:5.5% 12%!important}
 .cm-plate{padding:4.5% 17%!important}
+
+/* Oct 5: card labels always sit on their own line under the title. */
+.pd-card-cap{display:block}
+.pd-card-cap p{margin-top:6px}
+
+/* Oct 5: OpenGym is not open yet. The screens keep cycling; on hover a note
+   says the redesign is in progress, and nothing on the card is a link. */
+.pd-project.is-wip .pd-plate{position:relative;cursor:default}
+.pd-project.is-wip .pd-project-link{cursor:default}
+.pd-wip{position:absolute;inset:0;z-index:3;display:grid;place-items:center;background:rgba(245,245,247,.42);opacity:0;transition:opacity .35s ease;pointer-events:none}
+.pd-wip b{padding:12px 18px;border:1px solid #1d1d1f;background:#f5f5f7;color:#1d1d1f;font:500 12px/1 DM Mono,ui-monospace,Consolas,monospace;letter-spacing:.1em;text-transform:uppercase}
+.pd-project.is-wip:hover .pd-wip,.pd-project.is-wip:focus-within .pd-wip{opacity:1}
+@media(hover:none){.pd-wip{opacity:1;background:none;place-items:end start;padding:12px}.pd-wip b{padding:8px 10px;font-size:10px}}

@@ -21,9 +21,8 @@ if (oldPanel && menuButton) {
     home: { word: 'HOME', scale: 'COVER', note: 'Back to the start.', theme: 'blank' },
     about: { word: 'ABOUT', scale: 'PROFILE', note: 'Who I am, and how I got here.', theme: 'blank' },
     architecture: { word: 'ARCH', scale: '10²', note: 'Built environments.', theme: 'blank' },
-    hci: { word: 'PD', scale: '10⁰', note: 'Product design. Under construction.', theme: 'blank' },
-    pm: { word: 'PM', scale: '10⁻²', note: 'Leadership.', theme: 'blank' },
-    resume: { word: 'RESUME', scale: 'RECORD', note: 'Selected experience.', theme: 'blank' },
+    hci: { word: 'PRODUCTS', scale: '10⁰', note: 'Product design.', theme: 'blank' },
+    pm: { word: 'PROJECTS', scale: '10⁻²', note: 'Leadership.', theme: 'blank' },
     contact: { word: 'CONTACT', scale: 'CHANNEL', note: 'ziheh@andrew.cmu.edu', theme: 'blank' }
   };
   const keyOf = element => {
@@ -33,9 +32,8 @@ if (oldPanel && menuButton) {
     if (label.startsWith('home')) return 'home';
     if (label.startsWith('about')) return 'about';
     if (label.startsWith('arch')) return 'architecture';
-    if (label === 'pd') return 'hci';
-    if (label === 'pm') return 'pm';
-    if (label.startsWith('resume')) return 'resume';
+    if (label === 'pd' || label.startsWith('product')) return 'hci';
+    if (label === 'pm' || label.startsWith('leader') || label.startsWith('project')) return 'pm';
     if (label.startsWith('contact')) return 'contact';
     return label;
   };

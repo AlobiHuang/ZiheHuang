@@ -96,8 +96,89 @@ export const SNAPSHOTS = [
         Other: 43
       }
     }
+  },
+  {
+    id: 'update-2',
+    label: 'Update 2',
+    date: '2026-10-05', // admin dashboard, last updated Oct 5, 5:43 PM
+    values: {
+      // Marketplace
+      soldValue: 23900,
+      activeInventory: 33400,
+      medianSale: 15,
+      averageSale: 59,
+      // Listings
+      listingsTotal: 872,
+      listingsActive: 466,
+      listingsSold: 406,
+      newListings24h: 0,
+      newListings7d: 0,
+      newListings30d: 10,
+      // People
+      totalUsers: 1802,
+      dau: 25,
+      wau: 91,
+      mau: 262,
+      signups24h: 3,
+      signups7d: 20,
+      signups30d: 134,
+      partnerAccounts: 3,
+      // Buyers and sellers
+      sellers: 82,
+      wouldBeSellers: 87,
+      buyers: 42,
+      wouldBeBuyers: 111,
+      bothSides: 1,
+      neverListed: 1633,
+      neverMessaged: 1649,
+      // Messaging
+      sellersContacted: 110,
+      sellersNeverReplied: 96,
+      repliesAnswered: 40,
+      medianReplyHours: 28.7,
+      unansweredMessages: 313,
+      // Active listings by category
+      categories: {
+        Clothing: 112,
+        Furniture: 136,
+        Electronics: 67,
+        Rideables: 3,
+        Appliances: 73,
+        'Home Decor': 28,
+        Books: 4,
+        Other: 43
+      }
+    }
+  },
+  {
+    id: 'update-3',
+    label: 'Update 3',
+    date: '2026-10-06', // admin dashboard, read Oct 6
+    // Only the figures on screen this time; the rest carry over from Update 2.
+    values: {
+      // Listings
+      listingsTotal: 872,
+      listingsActive: 465,
+      listingsSold: 407,
+      newListings24h: 0,
+      newListings7d: 0,
+      newListings30d: 6,
+      // People
+      totalUsers: 1805,
+      dau: 11,
+      wau: 88,
+      mau: 263,
+      signups24h: 3,
+      signups7d: 19,
+      signups30d: 133,
+      partnerAccounts: 3,
+      // Buyers and sellers
+      bothSides: 1,
+      neverListed: 1636,
+      neverMessaged: 1652
+    }
   }
-  // , { id: 'update-2', label: 'Update 2', date: 'YYYY-MM-DD', values: { ...only the keys that were read... } }
+  // , { id: 'update-4', label: 'Update 4', date: 'YYYY-MM-DD', values: { ...only the keys that were read... } }
 ];
 
 // A reading only needs the figures that were actually read; the rest carry

@@ -19,6 +19,17 @@ export default function heroEntrance({field,typeTarget,title,hero,text,radial=fa
     return animation.finished.catch(() => {}).finally(() => animations.delete(animation));
   };
   const pause = ms => new Promise(resolve => setTimeout(resolve, ms));
+  // CSS-style cubic-bezier easing (x1, y1, x2, y2) for frame-by-frame motion.
+  const bezier = (x1, y1, x2, y2) => {
+    const at = (a, b, t) => 3 * a * t * (1 - t) * (1 - t) + 3 * b * t * t * (1 - t) + t * t * t;
+    return x => {
+      if (x <= 0) return 0;
+      if (x >= 1) return 1;
+      let lo = 0, hi = 1, t = x;
+      for (let i = 0; i < 24; i += 1) { t = (lo + hi) / 2; if (at(x1, x2, t) < x) lo = t; else hi = t; }
+      return at(y1, y2, t);
+    };
+  };
   const ease = value => { const t = Math.min(1, Math.max(0, value)); return t * t * (3 - 2 * t); };
 
   // Clip only the artwork; the divider remains a continuous stationary line.
@@ -92,8 +103,19 @@ export default function heroEntrance({field,typeTarget,title,hero,text,radial=fa
     }
     slot.classList.add('is-spinning');
     slot.append(reel);
-    await animate(reel, [{ transform: 'translateY(0)' }, { transform: `translateY(-${steps}em)` }], {
-      duration: 2100 + Math.random() * 500, easing: 'cubic-bezier(.35,0,.18,1)', fill: 'forwards'
+    // Oct 6: the reel is moved frame by frame on the page (not as a separate
+    // animated layer), so its letters are drawn exactly like the settled ones
+    // and nothing changes when it is taken away.
+    const duration = 2100 + Math.random() * 500;
+    const curve = bezier(.35, 0, .18, 1);
+    await new Promise(resolve => {
+      const start = performance.now();
+      const step = now => {
+        const t = Math.min(1, (now - start) / duration);
+        reel.style.transform = `translateY(${(-steps * curve(t)).toFixed(4)}em)`;
+        if (t < 1 && !disposed) requestAnimationFrame(step); else resolve();
+      };
+      requestAnimationFrame(step);
     });
     reel.remove();
     slot.classList.remove('is-spinning');

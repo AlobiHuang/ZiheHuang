@@ -1,0 +1,176 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="OpenGym, live gym occupancy at Carnegie Mellon: redesigning its user flow, interface and logic with the hardware team." />
+    <title>OpenGym — Product Design — Zihe Huang</title>
+    <script src="../../route-entry.js?v=20260925-flow-2"></script>
+    <script src="../../project/zoom-arrive.js?v=3"></script>
+    <script src="../../smooth-scroll.js?v=2" defer></script>
+    <script src="../../scroll-rail.js?v=2" defer></script>
+    <script>document.documentElement.classList.add('arch-motion-pending');setTimeout(()=>document.documentElement.classList.remove('arch-motion-pending'),10000);</script>
+    <link rel="icon" type="image/svg+xml" href="../../assets/alobi-mark.svg" />
+    <link rel="stylesheet" href="../../styles.css?v=20260922-logo-hit-1" />
+    <link rel="stylesheet" href="../../animations.css?v=20260916-speed-1265" />
+    <link rel="stylesheet" href="../../category.css" />
+    <link rel="stylesheet" href="../../apple-system.css?v=20261001-wide-1" />
+    <link rel="stylesheet" href="../../spectacle.css?v=20260916-simple-menu-1" />
+    <link rel="stylesheet" href="../../hero-entrance.css?v=20260922-head-grow-1" />
+    <link rel="stylesheet" href="../hci.css?v=20260928-mbp-1" />
+    <link rel="stylesheet" href="../cmused/cmused.css?v=12" />
+    <link rel="stylesheet" href="./opengym.css?v=3" />
+      <link rel="stylesheet" href="../../menu.css?v=20260925-paper-1" />
+      <link rel="stylesheet" href="../../page-flow.css?v=4" />
+    <link rel="expect" href="#top" blocking="render" />
+    <script type="module" src="../../menu.js?v=20261002-lead-1"></script>
+  </head>
+  <body class="hci-page cm-page">
+    <div class="page-transition" aria-hidden="true"><div class="transition-panel"></div><div class="transition-grid"></div><div class="transition-scan"></div><span class="transition-label">OPENGYM</span></div>
+    <div class="cursor" aria-hidden="true"></div><div class="grain" aria-hidden="true"></div>
+    <header class="site-head">
+      <a class="identity" href="../../" data-route data-route-label="ALOBI / HOME" aria-label="Zihe Huang — home">
+        <span class="logo-tile" aria-hidden="true"><span class="logo-initials">ZH</span><svg class="personal-mark" viewBox="0 0 48 48" role="presentation"><path class="mark-z" d="M9 12H39L9 36H39"/><path class="mark-h" d="M17 9V39M31 9V39M17 24H31"/><circle cx="24" cy="24" r="2"/></svg></span>
+        <span class="identity-copy">Zihe Huang<br />Architecture · HCI · AI</span>
+      </a>
+      <div class="coordinates" aria-hidden="true">10⁰ / PD<br />PRODUCT DESIGN</div>
+      <div class="header-actions"><button class="menu-button" type="button" aria-label="Open contents" aria-expanded="false"><i aria-hidden="true"></i></button><a class="header-contact" href="../../contact/" data-route data-route-label="CONTACT / OPEN CHANNEL">Contact</a></div>
+    </header>
+    <aside class="index-panel" aria-hidden="true">
+      <nav aria-label="Portfolio contents">
+        <a href="../../" data-route data-route-label="ALOBI / HOME"><span>01</span><b>Home</b></a>
+        <a href="../../about/" data-route data-route-label="ABOUT / TIMELINE"><span>02</span><b>About me</b></a>
+        <a href="../../architecture/" data-route data-route-label="ARCHITECTURE"><span>03</span><b>Arch</b></a>
+        <a href="../" data-route data-route-label="PRODUCT DESIGN"><span>04</span><b>PD</b></a>
+        <a href="../../pm/" data-route data-route-label="LEADERSHIP"><span>05</span><b>PM</b></a>
+        <a href="../../contact/" data-route data-route-label="CONTACT / OPEN CHANNEL"><span>06</span><b>Contact</b></a>
+      </nav>
+      <p>Human-centered work grounded in research, prototyping, feedback, and usable systems.</p>
+      <div class="index-socials" aria-label="Contact links">
+        <a class="index-linkedin" href="https://www.linkedin.com/in/zihe-huang/" target="_blank" rel="noreferrer" aria-label="LinkedIn">in</a>
+        <a class="index-instagram" href="https://www.instagram.com/zihealobi/" target="_blank" rel="noreferrer" aria-label="Instagram"><i></i></a>
+        <a class="index-email" href="mailto:ziheh@andrew.cmu.edu" aria-label="Email Zihe Huang"><i></i></a>
+      </div>
+    </aside>
+    <main>
+      <article class="cm og" id="top" aria-labelledby="og-title">
+        <header class="cm-head" data-rail="OPENGYM">
+          <p class="cm-crumb"><a href="../" data-route data-route-label="PRODUCT DESIGN">← Product design</a><span>P—02</span></p>
+          <h1 id="og-title">OpenGym</h1>
+          <p class="cm-lede">Live occupancy for Carnegie Mellon's gyms, so students can skip the crowd, not the workout. OpenGym already existed. I'm redesigning its user flow, its interface and the logic behind what it shows, together with the hardware team that produces its live counts.</p>
+          <dl class="cm-facts og-facts">
+            <div><dt>Year</dt><dd>2026</dd></div>
+            <div><dt>My part</dt><dd>User flow · UI/UX · Product logic</dd></div>
+            <div><dt>Worked with</dt><dd>Hardware team</dd></div>
+            <div><dt>Status</dt><dd>Redesign in progress</dd></div>
+          </dl>
+        </header>
+
+        <div class="pd-plate cm-plate">
+          <figure class="pd-screen pd-laptop" aria-label="OpenGym as it was: the gym list, a gym page and its map">
+            <div class="pd-lid"><i class="pd-cam" aria-hidden="true"></i><div class="pd-screen-view" data-pd-loop>
+            <img src="../../assets/pd/opengym-home.webp?v=2" alt="OpenGym home: the three campus gyms, each with a photo, its name and when it next opens" decoding="async" />
+            <img src="../../assets/pd/opengym-detail.webp?v=3" alt="OpenGym gym page for Cohon Fitness Center Lower: operating hours, a live occupancy gauge reading 0 of 94 while offline, and how busy it usually is" decoding="async" loading="lazy" />
+            <img src="../../assets/pd/opengym-map.webp?v=2" alt="OpenGym gym page, bottom: an amenity photo and a map of the Cohon University Center" decoding="async" loading="lazy" />
+          </div></div>
+            <div class="pd-base" aria-hidden="true"></div>
+          </figure>
+        </div>
+        <p class="og-caption">BEFORE · THE EXISTING GYM PAGE</p>
+
+
+        <section class="cm-section" aria-labelledby="og-start">
+          <header class="cm-section-head"><h2 id="og-start">One page per gym.</h2></header>
+          <ol class="cm-notes">
+            <li><span>01</span><b>Live count.</b><p>How many people are inside out of the gym's capacity, shown as a gauge, with the reading's status and when the gym next opens or closes.</p></li>
+            <li><span>02</span><b>Typical busyness.</b><p>The busiest and least busy hours on average, and an hour-by-hour chart for each day of the week against today's measurements.</p></li>
+            <li><span>03</span><b>The place.</b><p>Operating hours, the address, photos of each area with what it offers, and a map.</p></li>
+          </ol>
+        </section>
+
+        <section class="cm-section" aria-labelledby="og-fix">
+          <header class="cm-section-head"><h2 id="og-fix">When the numbers can't be trusted.</h2></header>
+          <ol class="cm-notes">
+            <li><span>01</span><b>No data looks like no people.</b><p>With the counter offline, the page still reads “0 of 94 inside” beside an empty gauge, which looks like an empty gym rather than a missing reading.</p></li>
+            <li><span>02</span><b>Summaries that contradict.</b><p>With too little data, the busiest and the least busy hours both come out as 9am – 12pm, “about 0% full”.</p></li>
+            <li><span>03</span><b>Logic shared with hardware.</b><p>What counts as live, late or offline is decided together with the hardware team, so the interface can say which one the reading is and what to trust.</p></li>
+          </ol>
+        </section>
+
+        <section class="cm-section og-next" aria-labelledby="og-next">
+          <header class="cm-section-head"><h2 id="og-next">The redesigned flow.</h2></header>
+          <p class="og-pending">In progress. The new user flow and screens will be shown here, side by side with the original.</p>
+        </section>
+
+        <footer class="cm-end"><a href="../" data-route data-route-label="PRODUCT DESIGN">← Back to product design</a><span>OPENGYM / 2026</span></footer>
+      </article>
+    </main>
+    <script type="module" src="./opengym.js?v=1"></script>
+    <script src="../../spectacle.js?v=20260925-perf-1"></script>
+    <script src="../../cursor-shape.js?v=3"></script>
+    <script>
+      (() => {
+        const transition = document.querySelector('.page-transition');
+        const grid = transition?.querySelector('.transition-grid');
+        for (let index = 0; index < 12; index += 1) {
+          const cell = document.createElement('span');
+          cell.style.setProperty('--cell', index);
+          cell.style.setProperty('--reverse-cell', 11 - index);
+          grid?.append(cell);
+        }
+        let hasRevealed = false;
+        const reveal = () => {
+          if (hasRevealed) return;
+          hasRevealed = true;
+          let state = null;
+          try {
+            const raw = sessionStorage.getItem('alobi-route-reveal');
+            state = raw ? JSON.parse(raw) : null;
+          } catch {}
+          if (state?.effect === 'line' || state?.effect === 'cleaner') {
+            transition.className = 'page-transition';
+            document.documentElement.classList.remove('route-enter-pending');
+            document.getElementById('route-prepaint-style')?.remove();
+            try { sessionStorage.removeItem('alobi-route-reveal'); } catch {}
+            return;
+          }
+          if (transition && grid?.children.length) {
+            transition.className = 'page-transition is-active effect-route-reveal';
+            requestAnimationFrame(() => {
+              document.documentElement.classList.remove('route-enter-pending');
+              document.getElementById('route-prepaint-style')?.remove();
+            });
+            window.setTimeout(() => { transition.className = 'page-transition'; }, 1100);
+          } else {
+            document.documentElement.classList.remove('route-enter-pending');
+            document.getElementById('route-prepaint-style')?.remove();
+          }
+          try { sessionStorage.removeItem('alobi-route-reveal'); } catch {}
+        };
+        requestAnimationFrame(() => requestAnimationFrame(reveal));
+        window.addEventListener('pageshow', reveal, { once: true });
+
+        document.querySelectorAll('[data-route]').forEach(link => link.addEventListener('click', event => {
+          if (link.href === location.href) return;
+          event.preventDefault();
+          if (/ALOBI\s*\/\s*HOME/i.test(link.dataset.routeLabel || link.textContent.trim())) {
+            try { sessionStorage.setItem('alobi-home-line-return', '1'); } catch {}
+          }
+          document.documentElement.classList.add('route-leaving');
+          transition.className = 'page-transition is-active effect-cleaner-down';
+          try {
+            sessionStorage.setItem('alobi-route-reveal', JSON.stringify({
+              label: link.dataset.routeLabel || link.textContent.trim(),
+              effect: 'line',
+              createdAt: Date.now()
+            }));
+          } catch {}
+          window.setTimeout(() => {
+            transition.classList.add('is-holding');
+            window.setTimeout(() => location.assign(link.href), 135);
+          }, 616);
+        }));
+      })();
+    </script>
+  </body>
+</html>

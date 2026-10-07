@@ -1,0 +1,147 @@
+.about-bridge{box-sizing:border-box;min-height:58vh;padding:clamp(72px,9vw,138px) var(--shell-edge);display:grid;grid-template-columns:repeat(12,minmax(0,1fr));align-content:center;gap:28px;background:#f5f5f7;color:#1d1d1f}.about-bridge p{grid-column:2/10;margin:0;display:grid;gap:18px}.about-bridge p span,.about-bridge small{color:#0071e3;font:700 10px/1 -apple-system,BlinkMacSystemFont,"SF Pro Text",sans-serif;letter-spacing:.11em}.about-bridge p strong{font:650 clamp(46px,6.6vw,104px)/.88 -apple-system,BlinkMacSystemFont,"SF Pro Display",sans-serif;letter-spacing:-.07em}.about-bridge-route{grid-column:2/12;display:flex;align-items:center;gap:12px;padding-top:18px;border-top:1px solid #d2d2d7;color:#6e6e73;font:650 9px/1 -apple-system,BlinkMacSystemFont,"SF Pro Text",sans-serif;letter-spacing:.08em}.about-bridge-route i{padding:9px 12px;border:1px solid #d2d2d7;border-radius:999px;background:#fff;font-style:normal}.about-bridge-route b{color:#0071e3}.about-bridge>small{grid-column:9/13;justify-self:end;margin-top:18px}
+.dream-lab{--acid:#c6ff45;--blue:#0879f9;--pink:#ffb9d2;position:relative;padding:0 clamp(12px,1.5vw,24px) clamp(12px,1.5vw,24px);background:#f5f5f7;color:#f7f7f8;overflow:clip}.dream-scroll{position:relative;height:420vh}.dream-sticky{position:sticky;top:12px;width:100%;height:calc(100svh - 24px);min-height:620px;overflow:hidden;isolation:isolate;border-radius:clamp(24px,2.5vw,40px);background:radial-gradient(circle at 72% 50%,#19191d 0,transparent 36%),#080809;box-shadow:0 28px 90px rgba(0,0,0,.16)}.dream-sticky:before{content:"";position:absolute;inset:0;z-index:-1;background-image:linear-gradient(rgba(255,255,255,.055) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.055) 1px,transparent 1px);background-size:72px 72px;mask-image:radial-gradient(circle at 72% 50%,#000,transparent 77%)}.dream-canvas{position:absolute;inset:0;width:100%;height:100%;z-index:1}.dream-header{position:absolute;z-index:10;left:4%;right:4%;top:clamp(70px,9vh,108px);display:flex;align-items:flex-start;justify-content:space-between;pointer-events:none}.dream-header p{display:grid;gap:8px;margin:0}.dream-header span,.dream-scene small,.memory-reveal small,.dream-after small{font:700 11px/1.1 -apple-system,BlinkMacSystemFont,"SF Pro Text",sans-serif;letter-spacing:.11em;color:#86868d}.dream-header strong{font:650 clamp(22px,2.4vw,36px)/1 -apple-system,BlinkMacSystemFont,"SF Pro Display",sans-serif;letter-spacing:-.045em}.dream-header a{pointer-events:auto;border:1px solid #3b3b40;border-radius:999px;padding:13px 18px;background:rgba(16,16,18,.75);color:#fff;text-decoration:none;font:650 12px/1 sans-serif;backdrop-filter:blur(12px);transition:background .25s,color .25s}.dream-header a:hover{background:var(--acid);color:#0a0a0b}.dream-scenes{position:absolute;z-index:5;left:5%;top:31%;width:min(53vw,820px);height:48%;pointer-events:none}.dream-scene{position:absolute;inset:0;opacity:0;filter:blur(18px);transform:translateY(60px) scale(.94);transition:opacity .5s,filter .7s,transform .7s cubic-bezier(.2,.8,.2,1)}.dream-scene.is-active{opacity:1;filter:none;transform:none}.dream-scene small{color:var(--scene-color,var(--blue))}.dream-scene h3{margin:14px 0 22px;font:680 clamp(104px,17vw,290px)/.7 -apple-system,BlinkMacSystemFont,"SF Pro Display",sans-serif;letter-spacing:-.1em;color:#f5f5f7;text-shadow:0 0 80px color-mix(in srgb,var(--scene-color,var(--blue)) 40%,transparent)}.dream-scene p{max-width:590px;margin:0;color:#a7a7ad;font-size:clamp(17px,1.5vw,23px);line-height:1.38}.dream-scene[data-dream-scene="1"]{--scene-color:var(--pink)}.dream-scene[data-dream-scene="2"]{--scene-color:var(--acid)}.dream-scene[data-dream-scene="3"]{--scene-color:#ff7d45}.dream-meter{position:absolute;z-index:8;right:4%;top:24%;bottom:18%;width:42px;display:grid;grid-template-rows:auto 1fr auto;justify-items:center;color:#77777e;font:700 10px/1 "DM Mono",monospace}.dream-meter i{position:absolute;top:22px;bottom:22px;left:50%;width:1px;background:#38383d}.dream-meter i:after{content:"";display:block;width:3px;height:var(--dream-progress,0%);margin-left:-1px;background:var(--acid);box-shadow:0 0 18px var(--acid);transition:height .12s linear}.dream-meter span{color:#fff}.dream-meter b{align-self:end;font-weight:700}.dream-scroll-note{position:absolute;z-index:8;left:5%;bottom:5%;margin:0;color:#77777e;font:650 11px/1 sans-serif;letter-spacing:.06em}.dream-scroll-note span{display:inline-block;width:8px;height:8px;margin-right:8px;border-radius:50%;background:var(--acid);box-shadow:0 0 12px var(--acid)}
+.memory-orbs{position:absolute;inset:0;z-index:7;pointer-events:none}.memory-orb{--drift-x:0px;--drift-y:0px;position:absolute;left:var(--orb-x);top:var(--orb-y);width:92px;height:126px;border:0;background:none;color:#fff;transform:translate(calc(-50% + var(--drift-x)),calc(-50% + var(--drift-y))) rotate(var(--orb-rotate,0deg));pointer-events:auto;cursor:crosshair;transition:filter .25s,opacity .4s,transform .12s linear}.memory-orb i{position:absolute;left:10px;top:0;width:72px;height:84px;border:1px solid rgba(255,255,255,.72);border-radius:52% 52% 47% 47%;background:radial-gradient(circle at 50% 58%,rgba(198,255,69,.9) 0 7%,rgba(198,255,69,.18) 8% 34%,transparent 60%);box-shadow:inset 0 0 24px rgba(255,255,255,.12),0 0 40px rgba(198,255,69,.16);backdrop-filter:blur(5px)}.memory-orb i:before{content:"";position:absolute;left:27px;bottom:-15px;width:16px;height:20px;border:1px solid #aaaab0;border-top:0;background:repeating-linear-gradient(to bottom,#999 0 1px,transparent 1px 5px)}.memory-orb i:after{content:"";position:absolute;left:25px;bottom:18px;width:20px;height:24px;border-bottom:1px solid var(--acid);border-left:1px solid var(--acid);border-right:1px solid var(--acid);border-radius:0 0 50% 50%;filter:drop-shadow(0 0 5px var(--acid))}.memory-orb span{position:absolute;left:50%;bottom:0;width:118px;transform:translateX(-50%);color:#9999a0;font:700 9px/1 sans-serif;letter-spacing:.08em}.memory-orb:hover{filter:drop-shadow(0 0 16px var(--acid));transform:translate(calc(-50% + var(--drift-x)),calc(-50% + var(--drift-y))) rotate(var(--orb-rotate,0deg)) scale(1.08)}.memory-orb.is-broken{opacity:0;pointer-events:none;transform:translate(calc(-50% + var(--drift-x)),calc(-50% + var(--drift-y))) scale(1.45) rotate(18deg)}.memory-reveal{position:absolute;z-index:20;right:8%;bottom:8%;width:min(390px,42vw);min-height:230px;padding:28px;border:1px solid rgba(255,255,255,.22);border-radius:26px;background:rgba(21,21,24,.82);box-shadow:0 28px 70px rgba(0,0,0,.42);backdrop-filter:blur(22px);opacity:0;pointer-events:none;transform:translateY(25px) scale(.96);transition:opacity .4s,transform .5s cubic-bezier(.2,.8,.2,1)}.memory-reveal.is-open{opacity:1;pointer-events:auto;transform:none}.memory-reveal>button{position:absolute;right:14px;top:12px;border:0;background:none;color:#aaa;font-size:28px;cursor:pointer}.memory-reveal small{display:block;color:var(--acid)}.memory-reveal strong{display:block;margin:20px 0 12px;font:650 clamp(32px,3.2vw,50px)/.88 -apple-system,BlinkMacSystemFont,"SF Pro Display",sans-serif;letter-spacing:-.06em}.memory-reveal p{margin:0;color:#b4b4ba;font-size:15px;line-height:1.45}
+.dream-after{position:relative;min-height:70vh;margin-top:14px;padding:9% 6%;border-radius:clamp(24px,2.5vw,40px);background:linear-gradient(135deg,#ffbdd5 0,#89bcff 45%,#c6ff45 100%);color:#0b0b0c;display:flex;align-items:flex-end;justify-content:space-between;gap:36px;overflow:hidden}.dream-after:before{content:"小A";position:absolute;right:-.08em;top:-.1em;font:700 min(55vw,760px)/.8 -apple-system,BlinkMacSystemFont,"SF Pro Display",sans-serif;letter-spacing:-.12em;color:rgba(255,255,255,.25);transform:rotate(-8deg)}.dream-after p{position:relative;z-index:2;margin:0;display:grid}.dream-after small{color:#36363b}.dream-after strong{font:680 clamp(100px,21vw,340px)/.7 -apple-system,BlinkMacSystemFont,"SF Pro Display",sans-serif;letter-spacing:-.105em}.dream-after span{margin-top:22px;font-size:18px}.dream-after a{position:relative;z-index:3;display:flex;align-items:center;gap:18px;color:#111;text-decoration:none;font:650 15px/1 sans-serif}.dream-after a i{display:grid;place-items:center;width:68px;height:68px;border-radius:50%;background:#111;color:#fff;font:400 22px/1 sans-serif;font-style:normal;transition:transform .3s}.dream-after a:hover i{transform:rotate(45deg) scale(1.08)}
+@media(max-width:900px){.about-bridge{min-height:52vh;grid-template-columns:1fr;padding:76px 28px}.about-bridge p,.about-bridge-route,.about-bridge>small{grid-column:1}.about-bridge-route{overflow-x:auto;padding-bottom:8px}.about-bridge-route i{white-space:nowrap}.about-bridge>small{justify-self:start}.dream-scenes{left:6%;top:48%;width:82%;height:36%}.dream-scene h3{font-size:clamp(90px,25vw,180px)}.dream-sticky{background:radial-gradient(circle at 58% 32%,#19191d 0,transparent 34%),#080809}.memory-orb{transform:translate(calc(-50% + var(--drift-x)),calc(-50% + var(--drift-y))) scale(.82)}.memory-orb:nth-child(1){--orb-x:23%!important;--orb-y:27%!important}.memory-orb:nth-child(2){--orb-x:73%!important;--orb-y:24%!important}.memory-orb:nth-child(3){--orb-x:84%!important;--orb-y:42%!important}.memory-reveal{right:5%;bottom:6%;width:min(420px,90vw)}.dream-after{align-items:flex-start;flex-direction:column;justify-content:flex-end}.dream-after a{align-self:flex-end}}
+@media(max-width:560px){.dream-sticky{min-height:680px}.dream-header{left:18px;right:18px;top:82px}.dream-header strong{font-size:20px}.dream-header a{padding:11px 13px}.dream-scenes{left:20px;right:48px;top:48%;width:auto}.dream-scene h3{font-size:24vw;margin:12px 0 18px}.dream-scene p{font-size:16px}.dream-meter{right:8px;top:25%;bottom:17%}.dream-scroll-note{left:20px;bottom:3%;font-size:9px}.memory-orb{width:78px;height:108px}.memory-orb i{left:8px;width:62px;height:72px}.memory-orb i:before{left:23px}.memory-orb i:after{left:21px;bottom:15px}.memory-orb span{width:100px;font-size:8px}.memory-reveal{left:14px;right:14px;bottom:5%;width:auto;min-height:210px}.dream-after{min-height:650px;padding:70px 22px 48px}.dream-after strong{font-size:29vw}.dream-after span{font-size:15px}.dream-after a{align-self:flex-start}}
+@media(prefers-reduced-motion:reduce){.dream-scene,.memory-orb,.memory-reveal,.dream-after a i{transition:none!important}}
+
+/* One concise name chapter: three beats, one immersive canvas. */
+.dream-lab{padding:clamp(12px,1.5vw,24px)!important}
+.dream-scroll{height:260vh!important}
+.dream-scene[data-dream-scene="0"]{--scene-color:var(--pink)}
+.dream-scene[data-dream-scene="1"]{--scene-color:var(--acid)}
+.dream-scene[data-dream-scene="2"]{--scene-color:#ff7d45}
+.dream-scene p{margin-top:clamp(34px,5vh,64px)!important}
+@media(max-width:900px){.dream-scene p{margin-top:clamp(24px,3.5vh,42px)!important}}
+@media(max-width:560px){.dream-scene p{margin-top:22px!important}}
+
+/* The name story occupies the viewport instead of sitting in a framed card. */
+.dream-lab{padding:0!important;background:#080809!important}
+.dream-sticky{top:0!important;height:100svh!important;border-radius:0!important;box-shadow:none!important}
+.dream-sticky:before{display:none!important}
+
+/* The memory bulbs drift on their own; scrolling only advances the story. */
+.memory-orb{transform:translate(-50%,-50%) rotate(var(--orb-rotate,0deg));transition:filter .25s,opacity .4s,transform .35s cubic-bezier(.16,1,.3,1);will-change:translate}
+.memory-orb:nth-child(1){--orb-rotate:-5deg;animation:memory-float-one 9.5s ease-in-out infinite}
+.memory-orb:nth-child(2){--orb-rotate:6deg;animation:memory-float-two 11.4s ease-in-out infinite}
+.memory-orb:nth-child(3){--orb-rotate:-3deg;animation:memory-float-three 10.2s ease-in-out infinite}
+@keyframes memory-float-one{0%,100%{translate:0 0}25%{translate:18px -24px}55%{translate:-10px -42px}78%{translate:-22px -10px}}
+@keyframes memory-float-two{0%,100%{translate:0 0}22%{translate:-24px 18px}52%{translate:13px 34px}76%{translate:28px -16px}}
+@keyframes memory-float-three{0%,100%{translate:0 0}28%{translate:20px 24px}58%{translate:-18px 38px}82%{translate:-28px -12px}}
+@media(max-width:900px){.memory-orb{transform:translate(-50%,-50%) rotate(var(--orb-rotate,0deg)) scale(.82)}}
+@media(prefers-reduced-motion:reduce){.memory-orb{animation:none!important;translate:0 0!important}}
+
+/* Every memory bulb now works as a light switch for the whole scene. */
+.dream-sticky{--lights-off:0}
+.dream-sticky:after{content:"";position:absolute;z-index:6;inset:0;pointer-events:none;background:linear-gradient(135deg,rgba(2,3,7,.68),rgba(0,0,0,.98));opacity:calc(var(--lights-off) * .82);transition:opacity .85s cubic-bezier(.16,1,.3,1)}
+.dream-canvas,.dream-scenes{filter:brightness(calc(1 - var(--lights-off) * .42)) saturate(calc(1 - var(--lights-off) * .58));transition:filter .85s cubic-bezier(.16,1,.3,1)}
+.dream-scene h3,.dream-scene p{transition:color .85s ease,text-shadow .85s ease}
+.dream-sticky.is-lights-out .dream-scene h3{color:#b8b8bd;text-shadow:none}
+.dream-sticky.is-lights-out .dream-scene p{color:#77777e}
+.memory-orb.is-broken{opacity:.46;pointer-events:none;filter:grayscale(1);transform:translate(-50%,-50%) rotate(var(--orb-rotate,0deg)) scale(.92);animation-play-state:paused}
+.memory-orb.is-broken i{border-color:rgba(255,255,255,.24);background:radial-gradient(circle at 50% 58%,rgba(142,142,147,.28) 0 7%,rgba(80,80,84,.12) 8% 34%,transparent 60%);box-shadow:inset 0 0 15px rgba(255,255,255,.04)}
+.memory-orb.is-broken i:after{border-color:#55555a;filter:none}
+.memory-orb.is-broken span{color:#55555a}
+.memory-orb:not(.is-broken):hover,.memory-orb:not(.is-broken):focus-visible{animation-play-state:paused}
+@media(prefers-reduced-motion:reduce){.dream-sticky:after,.dream-canvas,.dream-scenes,.dream-scene h3,.dream-scene p{transition:none!important}}
+
+/* The third switch drains color from this homepage until the next refresh. */
+.home-page.home-lights-out:after{content:"";position:fixed;z-index:240;inset:0;pointer-events:none;background:rgba(0,0,0,.025);backdrop-filter:grayscale(1) contrast(1.12);-webkit-backdrop-filter:grayscale(1) contrast(1.12);animation:home-monochrome-arrival 1.15s cubic-bezier(.16,1,.3,1) both}
+@keyframes home-monochrome-arrival{0%{clip-path:circle(0 at 72% 50%);opacity:.2}100%{clip-path:circle(150vmax at 72% 50%);opacity:1}}
+@media(prefers-reduced-motion:reduce){.home-page.home-lights-out:after{animation:none;clip-path:none}}
+
+/* The drawn eye is an interactive part of the dream scene. */
+.dream-sticky.is-eye-hovered{cursor:pointer}
+.dream-sticky.is-eye-hovered .dream-canvas{filter:brightness(calc(1.08 - var(--lights-off) * .42)) saturate(calc(1.08 - var(--lights-off) * .58))}
+
+/* Light editorial treatment for the name story. */
+.dream-lab{--acid:#78c900;--blue:#0879f9;--pink:#ff477e;background:#f5f5f7!important;color:#1d1d1f!important}
+.dream-sticky{background:radial-gradient(circle at 74% 48%,rgba(120,201,0,.14),transparent 23%),radial-gradient(circle at 58% 72%,rgba(8,121,249,.09),transparent 34%),radial-gradient(circle at 88% 18%,rgba(255,90,54,.09),transparent 25%),#f5f5f7!important}
+.dream-sticky:before{display:block!important;z-index:0;background:radial-gradient(circle at 74% 48%,transparent 0 16%,rgba(29,29,31,.08) 16.1% 16.25%,transparent 16.35% 25%,rgba(120,201,0,.18) 25.1% 25.25%,transparent 25.35% 34%,rgba(29,29,31,.055) 34.1% 34.22%,transparent 34.3%);mask-image:none}
+.dream-header{left:6%;right:6%;top:clamp(74px,9vh,108px)}
+.dream-header p{gap:11px}.dream-header span{color:#ff5a36}.dream-header strong{color:#1d1d1f;font-size:clamp(25px,2.6vw,42px)}
+.dream-header a{border-color:#d2d2d7;background:rgba(255,255,255,.76);color:#1d1d1f;box-shadow:0 10px 28px rgba(29,29,31,.08)}
+.dream-header a:hover{background:#1d1d1f;color:#fff}
+.dream-scenes{left:6%;top:32%;width:min(49vw,760px);height:46%}
+.dream-scene small{display:inline-flex;width:max-content;padding:8px 11px;border:1px solid currentColor;border-radius:999px;background:rgba(255,255,255,.58);color:var(--scene-color,#ff5a36)}
+.dream-scene h3{margin:26px 0 14px;color:var(--scene-color,#ff5a36);font-size:clamp(100px,15vw,245px);line-height:.72;text-shadow:none}
+.dream-scene p{max-width:520px!important;margin-top:clamp(28px,4vh,48px)!important;color:#515154;font-size:clamp(16px,1.35vw,21px)}
+.dream-scene[data-dream-scene="0"]{--scene-color:#ff5a36}.dream-scene[data-dream-scene="1"]{--scene-color:#78c900}.dream-scene[data-dream-scene="2"]{--scene-color:#0879f9}
+.dream-meter{color:#86868d}.dream-meter i{background:#d2d2d7}.dream-meter i:after{background:#ff5a36;box-shadow:0 0 15px rgba(255,90,54,.38)}.dream-meter span{color:#1d1d1f}
+.dream-scroll-note{left:6%;color:#6e6e73}.dream-scroll-note span{background:#ff5a36;box-shadow:0 0 0 6px rgba(255,90,54,.12)}
+.memory-orb{width:96px;height:122px;color:#1d1d1f;cursor:pointer}
+.memory-orb:nth-child(1){--orb-color:#78c900}.memory-orb:nth-child(2){--orb-color:#ff477e}.memory-orb:nth-child(3){--orb-color:#0879f9}
+.memory-orb i{left:9px;top:0;width:78px;height:78px;border:1px solid color-mix(in srgb,var(--orb-color) 60%,#fff);border-radius:50%;background:radial-gradient(circle at 37% 30%,#fff 0 8%,var(--orb-color) 10% 38%,color-mix(in srgb,var(--orb-color) 34%,transparent) 39% 58%,transparent 60%);box-shadow:0 15px 35px color-mix(in srgb,var(--orb-color) 24%,transparent);backdrop-filter:blur(5px)}
+.memory-orb i:before{left:50%;top:50%;bottom:auto;width:9px;height:9px;border:0;border-radius:50%;background:#fff;transform:translate(-50%,-50%);box-shadow:0 0 0 8px rgba(255,255,255,.22)}
+.memory-orb i:after{left:50%;top:50%;bottom:auto;width:100%;height:100%;border:1px dashed rgba(29,29,31,.2);border-radius:50%;transform:translate(-50%,-50%) scale(1.18);filter:none}
+.memory-orb span{bottom:7px;color:#515154}.memory-orb:hover{filter:none}
+.memory-reveal{border-color:#d2d2d7;background:rgba(255,255,255,.9);color:#1d1d1f;box-shadow:0 28px 70px rgba(29,29,31,.16)}
+.memory-reveal>button{color:#6e6e73}.memory-reveal small{color:#ff5a36}.memory-reveal p{color:#515154}
+.dream-sticky:after{background:rgba(20,20,24,.92);opacity:calc(var(--lights-off) * .72)}
+.dream-sticky.is-lights-out .dream-scene h3{color:#86868d}.dream-sticky.is-lights-out .dream-scene p{color:#6e6e73}
+.memory-orb.is-broken i{border-color:#b8b8bd;background:radial-gradient(circle,#d2d2d7 0 9%,rgba(142,142,147,.2) 10% 48%,transparent 50%);box-shadow:none}
+.memory-orb.is-broken i:after{border-color:#b8b8bd}.memory-orb.is-broken span{color:#86868d}
+@media(max-width:900px){.dream-scenes{left:6%;top:48%;width:80%}.dream-scene h3{font-size:clamp(82px,23vw,165px)}.dream-sticky{background:radial-gradient(circle at 58% 31%,rgba(120,201,0,.14),transparent 25%),radial-gradient(circle at 50% 70%,rgba(8,121,249,.08),transparent 36%),#f5f5f7!important}.dream-sticky:before{background:radial-gradient(circle at 58% 31%,transparent 0 17%,rgba(29,29,31,.08) 17.1% 17.3%,transparent 17.4% 28%,rgba(120,201,0,.16) 28.1% 28.3%,transparent 28.4%)}}
+@media(max-width:560px){.dream-header{left:20px;right:20px}.dream-scenes{left:20px;right:48px;width:auto}.dream-scene p{margin-top:20px!important}.dream-scroll-note{left:20px}.memory-orb{width:74px;height:102px}.memory-orb i{left:6px;width:62px;height:62px}}
+
+/* Restrained name-story palette: warm accent, charcoal, and quiet neutrals. */
+.dream-lab{--acid:#aaa39b;--blue:#7f8a92;--pink:#c77d5d}
+.dream-sticky{background:radial-gradient(circle at 74% 48%,rgba(199,125,93,.075),transparent 25%),radial-gradient(circle at 58% 72%,rgba(127,138,146,.05),transparent 36%),#f5f5f7!important}
+.dream-sticky:before{background:radial-gradient(circle at 74% 48%,transparent 0 16%,rgba(29,29,31,.065) 16.1% 16.25%,transparent 16.35% 25%,rgba(127,138,146,.12) 25.1% 25.25%,transparent 25.35% 34%,rgba(29,29,31,.04) 34.1% 34.22%,transparent 34.3%)}
+.dream-header span{color:#c77d5d}.dream-scene[data-dream-scene="0"]{--scene-color:#c77d5d}.dream-scene[data-dream-scene="1"]{--scene-color:#1d1d1f}.dream-scene[data-dream-scene="2"]{--scene-color:#7f8a92}
+.dream-meter i:after{background:#c77d5d;box-shadow:0 0 12px rgba(199,125,93,.22)}.dream-scroll-note span{background:#c77d5d;box-shadow:0 0 0 6px rgba(199,125,93,.09)}
+.memory-orb:nth-child(1){--orb-color:#c77d5d}.memory-orb:nth-child(2){--orb-color:#aaa39b}.memory-orb:nth-child(3){--orb-color:#7f8a92}
+.memory-reveal small{color:#c77d5d}
+@media(max-width:900px){.dream-sticky{background:radial-gradient(circle at 58% 31%,rgba(199,125,93,.07),transparent 27%),radial-gradient(circle at 50% 70%,rgba(127,138,146,.045),transparent 38%),#f5f5f7!important}.dream-sticky:before{background:radial-gradient(circle at 58% 31%,transparent 0 17%,rgba(29,29,31,.065) 17.1% 17.3%,transparent 17.4% 28%,rgba(127,138,146,.11) 28.1% 28.3%,transparent 28.4%)}}
+
+/* A pullable ceiling lamp appears once the three memory lights are out. */
+.dream-hanging-light{position:absolute;z-index:18;inset:0;overflow:hidden;pointer-events:none;opacity:0;visibility:hidden;transition:opacity .28s ease;--lamp-warm:#e4b06f}
+.dream-hanging-light.is-active{opacity:1;visibility:visible}
+.dream-light-cord{position:absolute;top:-8px;width:2px;transform-origin:50% 0;background:linear-gradient(#27272a,#77716b);box-shadow:1px 0 rgba(255,255,255,.26);will-change:height,transform}
+.dream-light-pull{position:absolute;left:0;top:0;width:112px;height:88px;padding:0;border:0;background:none;color:#1d1d1f;cursor:grab;pointer-events:auto;touch-action:none;will-change:transform;filter:drop-shadow(0 16px 14px rgba(0,0,0,.24))}
+.dream-hanging-light.is-dragging .dream-light-pull{cursor:grabbing;filter:drop-shadow(0 22px 18px rgba(0,0,0,.3))}
+.dream-light-cap{position:absolute;left:45px;top:0;width:22px;height:18px;border-radius:7px 7px 3px 3px;background:#2d2d30;box-shadow:inset 0 1px rgba(255,255,255,.2)}
+.dream-light-shade{position:absolute;left:13px;top:13px;width:86px;height:52px;border-radius:48% 48% 13px 13px;clip-path:polygon(31% 0,69% 0,100% 100%,0 100%);background:linear-gradient(100deg,#39383a 0,#77716b 48%,#2b2b2e 100%);box-shadow:inset 0 -6px rgba(0,0,0,.2)}
+.dream-light-shade:after{content:"";position:absolute;left:5px;right:5px;bottom:-2px;height:11px;border-radius:50%;background:#efe2cf;box-shadow:0 4px 18px rgba(228,176,111,.75)}
+.dream-light-bulb{position:absolute;left:48px;top:57px;width:17px;height:22px;border-radius:45% 45% 52% 52%;background:#fff8df;box-shadow:0 0 9px #fff,0 0 28px var(--lamp-warm),0 0 62px rgba(228,176,111,.7)}
+.dream-light-beam{position:absolute;left:0;top:0;width:460px;height:min(64vh,620px);transform-origin:50% 0;clip-path:polygon(42% 0,58% 0,100% 100%,0 100%);background:linear-gradient(to bottom,rgba(255,238,196,.32),rgba(255,228,168,.1) 48%,transparent 100%);mix-blend-mode:screen;pointer-events:none;will-change:transform;animation:lamp-beam-breathe 3.4s ease-in-out infinite}
+.dream-hanging-light p{position:absolute;z-index:2;left:50%;bottom:7%;margin:0;padding:10px 14px;border:1px solid rgba(255,255,255,.28);border-radius:999px;background:rgba(29,29,31,.74);color:#fff;font:700 9px/1 -apple-system,BlinkMacSystemFont,"SF Pro Text",sans-serif;letter-spacing:.09em;text-transform:uppercase;transform:translateX(-50%);backdrop-filter:blur(12px);transition:opacity .25s}
+.dream-hanging-light.is-dragging p,.dream-hanging-light.is-returning p{opacity:0}
+.dream-hanging-light.is-returning .dream-light-beam{opacity:0;transition:opacity .25s}
+.dream-light-pull:focus-visible{outline:2px solid #fff;outline-offset:7px;border-radius:28px}
+@keyframes lamp-beam-breathe{0%,100%{opacity:.62}50%{opacity:.92}}
+@media(max-width:700px){.dream-light-beam{width:340px}.dream-hanging-light p{bottom:4%}}
+@media(prefers-reduced-motion:reduce){.dream-light-beam{animation:none}.dream-hanging-light{transition:none}}
+
+/* Keep each revealed memory beneath the story in the quiet lower-left field. */
+.memory-reveal{
+  left:clamp(28px,2.7vw,52px)!important;
+  right:auto!important;
+  top:auto!important;
+  bottom:13.5%!important;
+  width:min(500px,30vw)!important;
+  min-height:230px!important;
+  transform:translate(-24px,22px) scale(.96)!important;
+}
+.memory-reveal.is-open{transform:none!important}
+@media(max-width:900px){
+  .memory-reveal{
+    left:clamp(18px,4vw,36px)!important;
+    right:auto!important;
+    top:auto!important;
+    bottom:5%!important;
+    width:min(390px,58vw)!important;
+    transform:translateX(-18px) scale(.96)!important;
+  }
+  .memory-reveal.is-open{transform:none!important}
+}
+@media(max-width:560px){
+  .memory-reveal{
+    left:14px!important;
+    right:48px!important;
+    bottom:4%!important;
+    width:auto!important;
+    min-height:190px!important;
+  }
+}

@@ -1,0 +1,222 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="Zihe Huang's portfolio spanning architecture, human-computer interaction, computational design, and AI." />
+    <title>Zihe Huang — Architecture, HCI & AI</title>
+    <script src="route-entry.js?v=20260925-flow-2"></script>
+    <script src="smooth-scroll.js?v=2" defer></script>
+    <script src="scroll-rail.js?v=2" defer></script>
+    <link rel="icon" type="image/svg+xml" href="assets/alobi-mark.svg" />
+    <link rel="stylesheet" href="styles.css?v=20260922-logo-hit-1" />
+    <link rel="stylesheet" href="animations.css?v=20260916-speed-1265" />
+    <link rel="stylesheet" href="apple-system.css?v=20261001-wide-1" />
+    <link rel="stylesheet" href="spectacle.css?v=20260916-simple-menu-1" />
+    <link rel="stylesheet" href="intro-play.css?v=20260916-home-copy-cleanup-1" />
+    <link rel="stylesheet" href="playground.css?v=20260915-6" />
+    <link rel="stylesheet" href="why-interface.css?v=20260914-7" />
+    <link rel="stylesheet" href="me-portal.css?v=20261002-door-5" />
+      <link rel="stylesheet" href="home-arrival.css?v=20260925-layout-1" />
+    <script type="module" src="home-arrival.js?v=20261005-once-1"></script>
+    <link rel="stylesheet" href="walk-gallery.css?v=28">
+    <script type="module" src="walk-gallery.js?v=20261005-wip-1"></script>
+    <link rel="stylesheet" href="glitch-egg.css?v=5" />
+    <script type="module" src="glitch-egg.js?v=8"></script>
+    <link rel="stylesheet" href="world-map.css?v=3" />
+    <link rel="stylesheet" href="my-picker.css?v=10" />
+    <link rel="stylesheet" href="archive-wall.css?v=2" />
+    <script type="module" src="my-picker.js?v=15"></script>
+    <script type="module" src="archive-wall.js?v=1"></script>
+    <script type="module" src="world-map.js?v=6"></script>
+    <link rel="stylesheet" href="lens-trio.css?v=2" />
+    <script type="module" src="lens-trio.js?v=20260925-perf-1"></script>
+      <link rel="stylesheet" href="menu.css?v=20260925-paper-1" />
+      <link rel="stylesheet" href="page-flow.css?v=4" />
+    <link rel="expect" href="#walk-gallery" blocking="render" />
+    <script type="module" src="menu.js?v=20261002-lead-1"></script>
+    <link rel="stylesheet" href="pd-polish.css?v=1" />
+  </head>
+  <body class="home-page">
+    <div class="page-transition" aria-hidden="true">
+      <div class="transition-panel"></div>
+      <div class="transition-grid"></div>
+      <div class="transition-scan"></div>
+      <span class="transition-label">ALOBI / 00</span>
+    </div>
+    <div class="cursor" aria-hidden="true"></div>
+    <div class="grain" aria-hidden="true"></div>
+
+    <header class="site-head">
+      <a class="identity" href="#top" aria-label="Zihe Huang — back to top">
+        <span class="logo-tile" aria-hidden="true">
+          <span class="logo-initials">ZH</span>
+          <svg class="personal-mark" viewBox="0 0 48 48" role="presentation">
+            <path class="mark-z" d="M9 12H39L9 36H39" />
+            <path class="mark-h" d="M17 9V39M31 9V39M17 24H31" />
+            <circle cx="24" cy="24" r="2" />
+          </svg>
+        </span>
+        <span class="identity-copy">Zihe Huang<br />Architecture · HCI · AI</span>
+      </a>
+      <div class="coordinates" aria-hidden="true">PITTSBURGH, PA<br />CARNEGIE MELLON</div>
+      <div class="header-actions">
+        <button class="menu-button" type="button" aria-label="Open contents" aria-expanded="false"><i aria-hidden="true"></i></button>
+        <a class="header-contact" href="contact/" data-site-route="contact">Contact</a>
+      </div>
+    </header>
+
+    <aside class="index-panel" aria-hidden="true">
+      <nav aria-label="Portfolio contents">
+        <a href="#top" data-nav-key="home" aria-current="page"><span>01</span><b>Home</b></a>
+        <a href="about/" data-nav-key="about" data-site-route="about"><span>02</span><b>About me</b></a>
+        <button type="button" data-nav-key="architecture" data-discipline="architecture"><span>03</span><b>Arch</b></button>
+        <button type="button" data-nav-key="hci" data-discipline="hci"><span>04</span><b>Products</b></button>
+        <button type="button" data-nav-key="pm" data-discipline="pm"><span>05</span><b>Projects</b></button>
+        <a href="contact/" data-nav-key="contact" data-site-route="contact"><span>06</span><b>Contact</b></a>
+      </nav>
+      <p>Carnegie Mellon Architecture + HCI. Exploring computational, sustainable, and human-centered design.</p>
+      <div class="index-socials" aria-label="Contact links">
+        <a class="index-linkedin" href="https://www.linkedin.com/in/zihe-huang/" target="_blank" rel="noreferrer" aria-label="LinkedIn">in</a>
+        <a class="index-instagram" href="https://www.instagram.com/zihealobi/" target="_blank" rel="noreferrer" aria-label="Instagram"><i></i></a>
+        <a class="index-email" href="mailto:ziheh@andrew.cmu.edu" aria-label="Email Zihe Huang"><i></i></a>
+      </div>
+    </aside>
+
+    <main id="top">
+      <section class="hero continuous-hero" data-rail="HOME" aria-label="Zihe Huang — portfolio">
+        <div class="landing-field">
+          <canvas aria-hidden="true"></canvas>
+          <div class="shape-waves-host" aria-hidden="true"></div>
+        </div>
+        <div class="landing-rule" aria-hidden="true"></div>
+        <div class="scale-map" aria-label="Three areas of practice">
+          <button class="scale active" data-discipline="architecture"><b>10²</b><span>ARCH</span><small>Built environments</small></button>
+          <button class="scale" data-discipline="hci" data-word="PD"><b>10⁰</b><span>PRODUCTS</span><small>Digital experiences</small></button>
+          <button class="scale" data-discipline="pm" data-word="PM"><b>10⁻²</b><span>PROJECTS</span><small>Leadership</small></button>
+          <div class="scale-axis"><i></i></div>
+        </div>
+      </section>
+
+    <section class="home-intro" id="intro" aria-label="Introduction">
+      <h1 class="home-intro-hello">Hello.</h1>
+      <p class="home-intro-lede">I’m <b>Zihe (Alobi) Huang</b>, studying <a href="hci/" data-site-route="hci">Human-Computer Interaction</a> and <a href="architecture/" data-site-route="architecture">Architecture</a> @ Carnegie Mellon University. I design across the physical and digital worlds, shaping experiences that make a meaningful difference.</p>
+      <ul class="home-intro-now" aria-label="Current roles">
+        <li><span>Product Designer</span> CMUsed, BTG Product Studio</li>
+        <li><span>Project Designer</span> Sankofa Bamboo Greenhouse</li>
+        <li><span>Fabrication Team Lead</span> Carnegie Mellon</li>
+      </ul>
+      <p class="home-intro-links"><a href="contact/" data-site-route="contact">Contact</a><a href="#walk-gallery">Selected work ↓</a></p>
+    </section>
+    <section class="walk-gallery" id="walk-gallery" data-rail="WORK" aria-label="Scroll-through gallery study">
+      <div class="walk-stage">
+        <canvas class="walk-portal" data-work-portal aria-hidden="true"></canvas><h2 class="me-accessible">WORK</h2>
+        <canvas class="walk-space" aria-hidden="true"></canvas>
+        <div class="walk-label"><span>SPACE / STUDY 01</span><span>SCROLL TO WALK ↓</span></div>
+        <div class="walk-world"></div>
+        <div class="walk-caption"><span class="walk-count">01 / 06</span><p></p></div>
+        <div class="walk-progress" aria-hidden="true"><i></i></div>
+      </div>
+      <noscript><p>Discover my architecture, HCI studies, and experience.</p><a href="about/">About Zihe Huang</a></noscript>
+    </section>
+      <section class="about-journey" id="profile" aria-label="About Zihe Huang">
+      <div class="about-light-flow">
+      <section class="me-room" id="questions" data-rail="ME" aria-label="About me">
+        <div class="me-room-space" aria-hidden="true"><canvas data-me-room></canvas></div>
+        <div class="me-story">
+          <article><h2>WHO AM I</h2><div><small>01 / PERSON · PLACE · PLAY</small><h3>Beyond<br />the work.</h3><p>You’ve seen what I make. This part is about the person making it.</p><p>Where I’m from, the story behind my name, the work that got noticed, and the things that keep me curious.</p></div></article>
+          <article id="me-what-i-do"><h2>WHAT I DO</h2><div><small>02 / ARCHITECTURE · HCI · AI</small><h3>I design<br />connections.</h3><p>I design places, interfaces, and systems around how people actually move, meet, and make decisions.</p></div></article>
+          <article><h2>WHERE I’M FROM</h2><div><small>03 / SHENZHEN · PITTSBURGH · BEYOND</small><h3>Between<br />places.</h3><p>I’m from Shenzhen and now study in Pittsburgh. Travel keeps widening the way I understand place.</p><div class="world-map" data-world-map role="group" aria-label="Places on a world map"></div></div></article>
+          <article id="me-awards"><h2>AWARDS</h2><div><small>04 / RECOGNITION</small><h3>Work that<br />got noticed.</h3><ul class="me-awards"><li><time>2026</time><span><b>Winner, AIA COTE Top Ten for Students</b>RE.SERV.OIR · one of the two Foundation Level winners across North America · AIA Committee on the Environment &amp; ACSA</span><a href="project/?lens=architecture&amp;project=re-serv-oir" aria-label="See the RE.SERV.OIR project">↗</a></li><li><time>2024 — 2026</time><span><b>Dean’s List&nbsp;×3</b>Carnegie Mellon University · School of Architecture</span></li></ul></div></article>
+      <div class="dream-lab" id="play-lab" aria-labelledby="dream-lab-title" data-dream-lab>
+        <div class="dream-scroll">
+          <div class="dream-sticky">
+
+            <header class="dream-header">
+              <p><span>00.7 / A NAME FROM A DREAM</span><strong id="dream-lab-title">The secret life of my name.</strong></p>
+            </header>
+            <div class="dream-scenes" aria-live="polite">
+              <article class="dream-scene is-active" data-dream-scene="0"><small>01 / AT HOME</small><h3>小A</h3><p>My parents call me “Little A.” The A became the beginning of another name.</p></article>
+              <article class="dream-scene" data-dream-scene="1"><small>02 / THE DREAM</small><h3>ALOBI</h3><p>I remembered hearing it in a dream. Strange, specific, and somehow mine.</p></article>
+              <article class="dream-scene" data-dream-scene="2"><small>03 / THE TWIST</small><h3>SNOOPY?</h3><p>Maybe that was the sound I heard. But Alobi was the version that stayed.</p></article>
+            </div>
+            <div class="dream-meter" aria-label="Dream story progress"><i></i><span data-dream-count>01</span><b>03</b></div>
+          </div>
+        </div>
+      </div>
+          <article><h2>WHAT I WORK ON</h2><div><small>05 / COMMUNITY · SPACE · INTERACTION</small><h3>Ideas made<br />visible.</h3><p>My projects move between community building, spatial research, digital products, and visual experiments.</p><ul class="me-fields"><li><a href="architecture/"><b>ARCH</b><span>Built environments</span><i>↗</i></a></li><li><a href="hci/"><b>PRODUCTS</b><span>Digital experiences</span><i>↗</i></a></li><li><a href="pm/"><b>PROJECTS</b><span>Leadership</span><i>↗</i></a></li></ul></div></article>
+          <article><h2>WHAT I LIKE</h2><div><small>06 / MUSIC · TRAVEL · PEOPLE</small><h3>Moved by<br />curiosity.</h3><p>Music, movement, photography, food, and the people close to me keep life playful and my work grounded.</p></div></article>
+        </div>
+      </section>
+      <section class="me-portal me-portal-exit" aria-label="Leave my story">
+        <div class="me-portal-stage"><canvas data-me-portal="exit" aria-hidden="true"></canvas><h2 class="me-accessible">ME</h2></div>
+      </section>
+    <section class="my-picker" id="my-picker" data-rail="MY ___?" data-my-picker aria-labelledby="my-title">
+      <div class="my-stage">
+        <canvas class="my-room" aria-hidden="true"></canvas>
+        <div class="my-sweep" aria-hidden="true"></div>
+        <div class="my-column"></div>
+        <div class="my-title-wrap"><h2 class="my-title" id="my-title"><span>MY</span><button class="my-slot" type="button" aria-label="Spin to choose a topic"><span class="my-window"><span class="my-drum"></span></span><span class="my-blank" aria-hidden="true"></span></button><span>?</span></h2></div>
+        <p class="my-status" role="status"></p>
+      </div>
+      <noscript><p>My style, my skills and my process.</p></noscript>
+    </section>
+      </div>
+
+
+      </section>
+
+      <section class="archive-wall" id="archive" data-rail="ARCHIVE" data-archive-wall aria-labelledby="archive-title">
+        <div class="aw-stage">
+          <div class="aw-plane" aria-hidden="true"></div>
+          <div class="aw-veil" aria-hidden="true"></div>
+          <div class="aw-label" aria-hidden="true"><span>PERSONAL ARCHIVE / 01—47</span><span>SCROLL OR DRAG ↓</span></div>
+          <div class="aw-card"><small>00.8 / OFF THE CLOCK</small><h2 id="archive-title">Fragments of<br />a life in motion.</h2><p>Forty-seven moments from home, travel and the people around me. Keep scrolling, or drag the wall to wander.</p><footer><span>PHOTOGRAPHS</span><span>01—47</span></footer></div>
+        </div>
+        <div class="aw-edge" aria-hidden="true"></div>
+      </section>
+
+      <section class="lens-gateway lens-trio" id="lens-gateway" data-rail="LENS" aria-labelledby="lens-gateway-title">
+        <div class="lens-hover-preview" aria-hidden="true"></div>
+        <div class="lt-inner">
+          <header class="lt-head">
+            <p class="lt-kicker">One practice</p>
+            <h2 id="lens-gateway-title">Three ways to read <em>the work.</em></h2>
+            <p class="lt-note">The same way of thinking at three scales: the building, the product, and the team that ships it.</p>
+          </header>
+          <div class="lt-panels" role="group" aria-label="Choose a lens">
+            <button class="lt-panel lt-arch" type="button" data-lens-choice="architecture" aria-label="Built environments — open ARCH">
+              <span class="lt-field" aria-hidden="true"><canvas></canvas></span>
+              <span class="lt-index" aria-hidden="true"><b>01</b>10²</span>
+              <span class="lt-go" aria-hidden="true">Enter<i></i></span>
+              <span class="lt-name"><strong>ARCH</strong><small>Built environments</small></span>
+            </button>
+            <button class="lt-panel lt-pd" type="button" data-lens-choice="hci" aria-label="Digital experiences — open PRODUCTS">
+              <span class="lt-field" aria-hidden="true"><canvas></canvas></span>
+              <span class="lt-index" aria-hidden="true"><b>02</b>10⁰</span>
+              <span class="lt-go" aria-hidden="true">Enter<i></i></span>
+              <span class="lt-name"><strong>PRODUCTS</strong><small>Digital experiences</small></span>
+            </button>
+            <button class="lt-panel lt-pm" type="button" data-lens-choice="pm" aria-label="Leadership — open PROJECTS">
+              <span class="lt-field" aria-hidden="true"><canvas></canvas></span>
+              <span class="lt-index" aria-hidden="true"><b>03</b>10⁻²</span>
+              <span class="lt-go" aria-hidden="true">Enter<i></i></span>
+              <span class="lt-name"><strong>PROJECTS</strong><small>Leadership</small></span>
+            </button>
+          </div>
+        </div>
+      </section>
+
+    </main>
+    <script type="module" src="app.js?v=20261002-lead-1"></script>
+    <script src="spectacle.js?v=20260925-perf-1"></script>
+    <script src="cursor-shape.js?v=3"></script>
+    <script src="intro-play.js?v=20260914-5"></script>
+    <script type="module" src="me-names.js?v=6"></script>
+    <script type="module" src="me-portal.js?v=20261002-door-23"></script>
+
+  </body>
+</html>
+
+
+

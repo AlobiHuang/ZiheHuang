@@ -52,7 +52,7 @@
   if (!supported) return;
   // Site links go straight to their page; the transition does the rest.
   const homeUrl = new URL(isHome ? './' : '../', location.href).href;
-  const sections = { about: 'about/', architecture: 'architecture/', hci: 'hci/', pm: 'pm/', resume: 'resume/', contact: 'contact/' };
+  const sections = { about: 'about/', architecture: 'architecture/', hci: 'hci/', pm: 'pm/', contact: 'contact/' };
   const go = (url, label) => {
     const destination = new URL(url, location.href);
     if (destination.href === location.href) return false;
