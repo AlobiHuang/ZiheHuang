@@ -280,7 +280,7 @@ window.addEventListener('pageshow', applyEntryPosition);
 const key = document.body.dataset.category;
 const data = categoryData[key] || categoryData.architecture;
 if (key === 'architecture') {
-  const architectureOrder = ['re-serv-oir', 'how-to-build-a-ruin', 'convergence-environmental-middle-school', 'radical-empathy', 'the-tinkerers-imaginarium', 'call-of-the-sea'];
+  const architectureOrder = ['call-of-the-sea', 're-serv-oir', 'how-to-build-a-ruin', 'convergence-environmental-middle-school', 'radical-empathy', 'the-tinkerers-imaginarium'];
   const archiveSlug = title => title.normalize('NFKD').toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '');
   data.experiences = data.experiences.slice().sort((a, b) => {
     const aRank = architectureOrder.indexOf(a.slug || archiveSlug(a.title));
@@ -324,13 +324,13 @@ const experienceMarkup = data.experiences.map((experience, index) => {
   if (isArchitecture) {
     const isInProgress = experience.slug === 'call-of-the-sea';
     return `
-    <a class="arch-work-card project-gateway-link" id="architecture-project-${index + 1}" href="${projectHref(experience)}" data-route data-route-label="${projectRouteLabel(experience)}" aria-label="Open the ${experience.title} project gateway">
+    ${isInProgress ? `<div class="arch-work-card is-wip" id="architecture-project-${index + 1}" aria-label="${experience.title}: in progress">` : `<a class="arch-work-card project-gateway-link" id="architecture-project-${index + 1}" href="${projectHref(experience)}" data-route data-route-label="${projectRouteLabel(experience)}" aria-label="Open the ${experience.title} project gateway">`}
       <figure class="arch-work-image arch-work-image-0${index + 1}${isInProgress ? ' is-wip' : ''}">
         <img src="../assets/portfolio/${isInProgress ? 'sea-cover.webp' : workImages[experience.slug || projectSlug(experience.title)]}" alt="Selected portfolio visual for ${experience.title}" loading="lazy" fetchpriority="low" decoding="async">${isInProgress ? '<div class="arch-wip" aria-hidden="true"><b>In progress</b></div>' : ''}
         <span>${experience.no}</span>
       </figure>
       <div><h3>${experience.title}</h3><time>${experience.date}</time><p>${experience.type}</p></div>
-    </a>`;
+    ${isInProgress ? '</div>' : '</a>'}`;
   }
 
   return `
@@ -357,7 +357,7 @@ const architectureArchiveMarkup = isArchitecture ? `
       <div>
         <strong>WORK</strong>
         <nav aria-label="Selected architecture projects">
-          ${architectureIndexLabels.map((label, index) => `<a href="${projectHref(data.experiences[index])}" data-route data-route-label="${projectRouteLabel(data.experiences[index])}">${label}</a>`).join('')}
+          ${architectureIndexLabels.map((label, index) => data.experiences[index]?.slug === 'call-of-the-sea' ? `<span class="is-wip" title="In progress">${label}</span>` : `<a href="${projectHref(data.experiences[index])}" data-route data-route-label="${projectRouteLabel(data.experiences[index])}">${label}</a>`).join('')}
         </nav>
       </div>
     </aside>

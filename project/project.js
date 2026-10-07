@@ -44,7 +44,7 @@ const portfolio = {
         tags: ['Seed bank', 'Climate', 'Material', 'Long time']
       },
       {
-        slug: 'call-of-the-sea', no: 'A—07', title: 'Call of the Sea', date: '2026—Present', type: 'In progress',
+        slug: 'call-of-the-sea', hidden: true, no: 'A—07', title: 'Call of the Sea', date: '2026—Present', type: 'In progress',
         role: 'Mixed Use / Accommodation · Torosiaje, Indonesia',
         question: 'How can a building remain open to life on water?',
         summary: 'A way of living on water that connects community, hospitality, and the tides through a porous network of rooms, circulation, and shared exchange.',
@@ -113,7 +113,7 @@ const requestedLens = params.get('lens') || (isPmLanding ? 'pm' : 'architecture'
 const lensKey = portfolio[requestedLens] ? requestedLens : 'architecture';
 const lens = portfolio[lensKey];
 if (lensKey === 'architecture') {
-  const architectureOrder = ['re-serv-oir', 'how-to-build-a-ruin', 'convergence-environmental-middle-school', 'the-tinkerers-imaginarium', 'radical-empathy', 'call-of-the-sea'];
+  const architectureOrder = ['call-of-the-sea', 're-serv-oir', 'how-to-build-a-ruin', 'convergence-environmental-middle-school', 'radical-empathy', 'the-tinkerers-imaginarium'];
   lens.projects = lens.projects.slice().sort((a, b) => architectureOrder.indexOf(a.slug) - architectureOrder.indexOf(b.slug)).map((item, index) => ({ ...item, no: `A—${String(index + 1).padStart(2, '0')}` }));
 }
 const projectAliases = {

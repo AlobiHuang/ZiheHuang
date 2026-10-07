@@ -81,3 +81,6 @@
 .category-architecture-archive .arch-wip b{padding:12px 18px;border:1px solid #1d1d1f;background:#f5f5f7;color:#1d1d1f;font:500 12px/1 DM Mono,ui-monospace,Consolas,monospace;letter-spacing:.1em;text-transform:uppercase}
 .category-architecture-archive .arch-work-card:hover .arch-wip,.category-architecture-archive .arch-work-card:focus-visible .arch-wip{opacity:1}
 @media(hover:none){.category-architecture-archive .arch-wip{opacity:1;background:none;place-items:end start;padding:12px}.category-architecture-archive .arch-wip b{padding:8px 10px;font-size:10px}}
+/* Oct 6: an in-progress project (Call of the Sea) is not a link. */
+.category-architecture-archive .arch-work-card.is-wip{cursor:default}
+.arch-work-index nav span.is-wip{color:rgba(23,24,22,.32);font-size:clamp(12px,1.08vw,16px);line-height:1.25;cursor:default}

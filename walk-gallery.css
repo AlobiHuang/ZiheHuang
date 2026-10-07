@@ -184,3 +184,10 @@ a.walk-panel:focus-visible { outline:2px solid #180400; outline-offset:6px; }
 .walk-panel.is-wip:hover .walk-wip{opacity:1}
 /* Oct 6: Call of the Sea shows its cover; on hover the same in-progress tag as OpenGym. */
 .walk-panel.has-tag:hover .walk-wip,.walk-panel.has-tag:focus-visible .walk-wip{opacity:1}
+/* Oct 6: in-progress frames (not links) lay out their name exactly like the
+   linked frames: number on the left, name top right. */
+div.walk-panel.is-wip { display:block; color:#180400; }
+div.walk-panel.is-wip header { display:flex; justify-content:space-between; align-items:flex-end; gap:24px; }
+div.walk-panel.is-wip h3 { margin:0 0 26px; max-width:55%; font:650 30px/1.02 "SF Pro Display",-apple-system,BlinkMacSystemFont,"Helvetica Neue",Arial,sans-serif; letter-spacing:-.035em; text-align:right; }
+@media(max-width:700px) { div.walk-panel.is-wip h3 { font-size:22px; margin-bottom:18px; } }
+@media(min-width:701px) { div.walk-panel.is-wip h3 { margin-bottom:6px; } }
