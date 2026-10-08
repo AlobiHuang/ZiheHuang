@@ -342,3 +342,13 @@
 
 /* Oct 6: second role line under the main role (Sankofa: TA). */
 .project-gateway-meta dd .role-extra{display:block;margin-top:.3em}
+/* Oct 7: in the facts row each label sits on the same line as the first line
+   of its value, and a second role line is spaced like any wrapped line. */
+.project-page[data-lens="pm"] .project-gateway-meta div,.project-page[data-lens="hci"] .project-gateway-meta div{align-items:start}
+.project-page[data-lens="pm"] .project-gateway-meta dt,.project-page[data-lens="hci"] .project-gateway-meta dt{line-height:calc(.9rem * 1.4)}
+.project-page[data-lens="pm"] .project-gateway-meta dd,.project-page[data-lens="hci"] .project-gateway-meta dd{line-height:1.4}
+/* MY PERIOD hangs under the time line; give that cell room for it. */
+.project-page[data-lens="pm"] .project-gateway-meta div:has(.time-span){padding-bottom:calc(14px + 1.4em)}
+.project-gateway-meta dd .role-extra{margin-top:0}
+.project-page[data-lens="pm"] .project-gateway-meta,.project-page[data-lens="hci"] .project-gateway-meta{padding-top:0}
+.project-page[data-lens="pm"] .project-gateway-meta dd,.project-page[data-lens="hci"] .project-gateway-meta dd{margin-top:0}

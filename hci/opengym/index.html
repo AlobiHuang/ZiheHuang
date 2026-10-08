@@ -18,7 +18,7 @@
     <link rel="stylesheet" href="../../spectacle.css?v=20260916-simple-menu-1" />
     <link rel="stylesheet" href="../../hero-entrance.css?v=20260922-head-grow-1" />
     <link rel="stylesheet" href="../hci.css?v=20260928-mbp-1" />
-    <link rel="stylesheet" href="../cmused/cmused.css?v=12" />
+    <link rel="stylesheet" href="../cmused/cmused.css?v=18" />
     <link rel="stylesheet" href="./opengym.css?v=3" />
       <link rel="stylesheet" href="../../menu.css?v=20260925-paper-1" />
       <link rel="stylesheet" href="../../page-flow.css?v=4" />
@@ -54,8 +54,15 @@
       </div>
     </aside>
     <main>
-      <article class="cm og" id="top" aria-labelledby="og-title">
-        <header class="cm-head" data-rail="OPENGYM">
+      <article class="cm og cm-doc" id="top" aria-labelledby="og-title">
+        <nav class="cm-toc" aria-label="On this page">
+          <a href="#overview" data-cm-toc>Overview</a>
+          <a href="#start" data-cm-toc>The gym page</a>
+          <a href="#fix" data-cm-toc>Trust</a>
+          <a href="#next" data-cm-toc>Redesign</a>
+        </nav>
+        <div class="cm-main">
+        <header class="cm-head" id="overview" data-rail="OPENGYM">
           <p class="cm-crumb"><a href="../" data-route data-route-label="PRODUCT DESIGN">← Product design</a><span>P—02</span></p>
           <h1 id="og-title">OpenGym</h1>
           <p class="cm-lede">Live occupancy for Carnegie Mellon's gyms, so students can skip the crowd, not the workout. I'm redesigning its user flow, its interface and the logic behind what it shows, together with the hardware team that produces its live counts.</p>
@@ -80,7 +87,7 @@
         <p class="og-caption">BEFORE · THE EXISTING GYM PAGE</p>
 
 
-        <section class="cm-section" aria-labelledby="og-start">
+        <section class="cm-section" id="start" aria-labelledby="og-start">
           <header class="cm-section-head"><h2 id="og-start">One page per gym.</h2></header>
           <ol class="cm-notes">
             <li><span>01</span><b>Live count.</b><p>How many people are inside out of the gym's capacity, shown as a gauge, with the reading's status and when the gym next opens or closes.</p></li>
@@ -89,7 +96,7 @@
           </ol>
         </section>
 
-        <section class="cm-section" aria-labelledby="og-fix">
+        <section class="cm-section" id="fix" aria-labelledby="og-fix">
           <header class="cm-section-head"><h2 id="og-fix">When the numbers can't be trusted.</h2></header>
           <ol class="cm-notes">
             <li><span>01</span><b>No data looks like no people.</b><p>With the counter offline, the page still reads “0 of 94 inside” beside an empty gauge, which looks like an empty gym rather than a missing reading.</p></li>
@@ -98,15 +105,17 @@
           </ol>
         </section>
 
-        <section class="cm-section og-next" aria-labelledby="og-next">
+        <section class="cm-section og-next" id="next" aria-labelledby="og-next">
           <header class="cm-section-head"><h2 id="og-next">The redesigned flow.</h2></header>
           <p class="og-pending">In progress. The new user flow and screens will be shown here, side by side with the original.</p>
         </section>
 
         <footer class="cm-end"><a href="../" data-route data-route-label="PRODUCT DESIGN">← Back to product design</a><span>OPENGYM / 2026</span></footer>
+        </div>
       </article>
     </main>
     <script type="module" src="./opengym.js?v=1"></script>
+    <script src="../case-toc.js?v=1" defer></script>
     <script src="../../spectacle.js?v=20260925-perf-1"></script>
     <script src="../../cursor-shape.js?v=3"></script>
     <script>

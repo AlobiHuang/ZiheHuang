@@ -173,3 +173,23 @@
 .cm-cell b{font-size:clamp(18px,1.4vw,22px)}
 .cm-headline .cm-cell b{font-size:clamp(20px,1.7vw,26px)}
 .cm .cm-facts dt,.cm .cm-facts dd{font-size:13px}
+
+/* Oct 7: on screens wider than 1608px the site's --pad grows to centre a 1440px
+   header, which left this 1320px column with almost no room (it collapsed to a
+   sliver around 2560px). Here the column keeps its normal side padding, so it
+   stays 1320px wide and centred at any width. Used by CMUsed and Glimpse. */
+@media(min-width:1609px){.cm{padding-left:84px;padding-right:84px}}
+
+/* Oct 7: one layout for every product case study. The text column is centred on the page,
+   and the "on this page" contents sit in the left margin without pushing it off centre. */
+.cm.cm-doc{--cm-col:820px;--cm-toc:150px;--cm-gap:clamp(28px,3vw,56px);max-width:none;padding-left:var(--pad,clamp(20px,3vw,48px));padding-right:var(--pad,clamp(20px,3vw,48px));display:grid;grid-template-columns:minmax(0,1fr) min(var(--cm-col),100% - 2*(var(--cm-toc) + var(--cm-gap))) minmax(0,1fr);column-gap:var(--cm-gap);align-items:start}
+.cm-doc>.cm-toc{grid-column:1;justify-self:end;width:var(--cm-toc)}
+.cm-doc>.cm-main{grid-column:2;min-width:0}
+.cm-toc{position:sticky;top:calc(60px + 64px);display:flex;flex-direction:column;gap:12px;padding-top:4px}
+.cm-toc a{position:relative;padding-left:14px;color:var(--cm-mute);font:500 13px/1.3 var(--cm-text);letter-spacing:-.01em;text-decoration:none;transition:color .25s ease}
+.cm-toc a:before{content:"";position:absolute;left:0;top:50%;width:6px;height:1px;background:currentColor;opacity:0;transform:scaleX(0);transform-origin:left;transition:opacity .25s ease,transform .25s ease}
+.cm-toc a:hover{color:var(--cm-ink)}
+.cm-toc a.is-current{color:var(--cm-ink);font-weight:600}
+.cm-toc a.is-current:before{opacity:1;transform:none}
+@media(max-width:1180px){.cm.cm-doc{display:block;max-width:calc(var(--cm-col) + 96px)}.cm-doc>.cm-toc{display:none}}
+body.cm-page{overflow-x:clip}

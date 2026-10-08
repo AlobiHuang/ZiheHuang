@@ -177,8 +177,36 @@ export const SNAPSHOTS = [
       neverListed: 1636,
       neverMessaged: 1652
     }
+  },
+  {
+    id: 'update-4',
+    label: 'Update 4',
+    date: '2026-10-07', // admin dashboard, read Oct 7
+    // Only the figures on screen this time; the rest carry over from Update 3.
+    values: {
+      // Listings
+      listingsTotal: 872,
+      listingsActive: 465,
+      listingsSold: 407,
+      newListings24h: 0,
+      newListings7d: 0,
+      newListings30d: 6,
+      // People
+      totalUsers: 1808,
+      dau: 10,
+      wau: 86,
+      mau: 265,
+      signups24h: 3,
+      signups7d: 21,
+      signups30d: 134,
+      partnerAccounts: 3,
+      // Buyers and sellers
+      bothSides: 1,
+      neverListed: 1639,
+      neverMessaged: 1655
+    }
   }
-  // , { id: 'update-4', label: 'Update 4', date: 'YYYY-MM-DD', values: { ...only the keys that were read... } }
+  // , { id: 'update-5', label: 'Update 5', date: 'YYYY-MM-DD', values: { ...only the keys that were read... } }
 ];
 
 // A reading only needs the figures that were actually read; the rest carry

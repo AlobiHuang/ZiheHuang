@@ -173,11 +173,15 @@ export default function heroEntrance({field,typeTarget,title,hero,text,radial=fa
     document.documentElement.classList.remove('arch-motion-pending');
   } else enter();
 
-  addEventListener('pagehide', () => {
+  // Oct 7: when the page is only being kept for the Back button (bfcache),
+  // leave everything running, so the line field and the letters are still
+  // alive when you come back. Only a real unload tears them down.
+  addEventListener('pagehide', event => {
+    if (event.persisted) return;
     disposed = true;
     cancelAnimationFrame(entranceFrame);
     clearTimeout(spinTimer);
     animations.forEach(animation => animation.cancel());
     onDispose();
-  }, { once: true });
+  });
 }

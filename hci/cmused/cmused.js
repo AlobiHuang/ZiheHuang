@@ -1,7 +1,7 @@
 // CMUsed case page: draws the numbers from data.js. The newest snapshot is
 // shown; anything that has moved since the first one (when I joined) is
 // marked with the change and the starting value.
-import { SNAPSHOTS } from './data.js?v=5';
+import { SNAPSHOTS } from './data.js?v=6';
 
 const base = SNAPSHOTS[0];
 const latest = SNAPSHOTS[SNAPSHOTS.length - 1];
@@ -113,16 +113,14 @@ if (notes) {
 const chart = document.querySelector('[data-cm-categories]');
 if (chart) {
   const rows = Object.entries(v.categories).sort((a, c) => c[1] - a[1]);
-  const max = Math.max(...rows.map(r => r[1]), ...Object.values(b.categories));
+  // Oct 7: the chart shows today's numbers only; the "since I joined"
+  // comparison is kept for Total users alone.
+  const max = Math.max(...rows.map(r => r[1]));
   const total = rows.reduce((sum, r) => sum + r[1], 0);
   chart.innerHTML = rows.map(([name, count]) => {
-    const was = b.categories[name] ?? 0;
-    const moved = updated && was !== count;
-    const tip = `${int(count)} active listings · ${pct(share(count, total))} of all active${moved ? ` · was ${int(was)} when I joined` : ''}`;
-    return `<li tabindex="0" aria-label="${name}: ${tip}"><span class="cm-cat">${name}</span><span class="cm-track"><i style="width:${(count / max * 100).toFixed(2)}%"></i>${moved ? `<u style="left:${(was / max * 100).toFixed(2)}%" title="When I joined: ${was}"></u>` : ''}</span><b>${int(count)}</b><span class="cm-tip" aria-hidden="true">${tip}</span></li>`;
+    const tip = `${int(count)} active listings · ${pct(share(count, total))} of all active`;
+    return `<li tabindex="0" aria-label="${name}: ${tip}"><span class="cm-cat">${name}</span><span class="cm-track"><i style="width:${(count / max * 100).toFixed(2)}%"></i></span><b>${int(count)}</b><span class="cm-tip" aria-hidden="true">${tip}</span></li>`;
   }).join('');
-  const key = document.querySelector('[data-cm-categories-key]');
-  if (key && rows.some(([name, count]) => (b.categories[name] ?? 0) !== count)) key.innerHTML = '<u class="cm-key" aria-hidden="true"></u>WHEN I JOINED · ';
   const sum = document.querySelector('[data-cm-categories-total]');
   if (sum) sum.textContent = `${int(total)} ACTIVE LISTINGS`;
 }

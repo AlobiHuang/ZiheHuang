@@ -18,7 +18,7 @@
     <link rel="stylesheet" href="../../spectacle.css?v=20260916-simple-menu-1" />
     <link rel="stylesheet" href="../../hero-entrance.css?v=20260922-head-grow-1" />
     <link rel="stylesheet" href="../hci.css?v=20260928-mbp-1" />
-    <link rel="stylesheet" href="./cmused.css?v=15" />
+    <link rel="stylesheet" href="./cmused.css?v=18" />
       <link rel="stylesheet" href="../../menu.css?v=20260925-paper-1" />
       <link rel="stylesheet" href="../../page-flow.css?v=4" />
     <link rel="expect" href="#top" blocking="render" />
@@ -53,8 +53,17 @@
       </div>
     </aside>
     <main>
-      <article class="cm" id="top" aria-labelledby="cm-title">
-        <header class="cm-head" data-rail="CMUSED">
+      <article class="cm cm-doc" id="top" aria-labelledby="cm-title">
+        <nav class="cm-toc" aria-label="On this page">
+          <a href="#overview" data-cm-toc>Overview</a>
+          <a href="#why" data-cm-toc>Why CMUsed</a>
+          <a href="#flow" data-cm-toc>Browsing</a>
+          <a href="#sell" data-cm-toc>Selling</a>
+          <a href="#role" data-cm-toc>My role</a>
+          <a href="#numbers" data-cm-toc>Numbers</a>
+        </nav>
+        <div class="cm-main">
+        <header class="cm-head" id="overview" data-rail="CMUSED">
           <p class="cm-crumb"><a href="../" data-route data-route-label="PRODUCT DESIGN">← Product design</a><span>P—01</span></p>
           <h1 id="cm-title">CMUsed</h1>
           <p class="cm-lede">A second-hand marketplace for the Carnegie Mellon community, where students buy from and sell to each other in one place: browse by category, contact the seller directly, and list an item in three short steps.</p>
@@ -81,16 +90,15 @@
         </div>
 
 
-        <section class="cm-section" data-rail="WHY" aria-labelledby="cm-why">
+        <section class="cm-section" id="why" data-rail="WHY" aria-labelledby="cm-why">
           <header class="cm-section-head"><h2 id="cm-why">Why CMUsed?</h2></header>
           <div class="cm-prose">
-            <p>Students already trade with each other all the time, but it happens in scattered places: group chats, and general marketplaces built for strangers rather than classmates. Listings get buried, prices are guesswork, and it is hard to tell who is on the other end.</p>
-            <div><p>CMUsed gathers that trade into one place made for campus: listings sorted by what students actually move, like clothing, furniture, electronics and rideables, and a direct line to the person selling.</p>
-            <p>It is also safer. Every account is created with a Carnegie Mellon email, so the person on the other end is always a verified member of the campus community, not a stranger from the internet.</p></div>
+            <p>Students already trade with each other, but in scattered places: group chats and marketplaces built for strangers. Listings get buried, and it is hard to tell who is on the other end.</p>
+            <div><p>CMUsed puts that trade in one campus marketplace, sorted by what students actually sell. Every account uses a Carnegie Mellon email, so the other person is always someone from campus.</p></div>
           </div>
         </section>
 
-        <section class="cm-section" data-rail="FLOW" aria-labelledby="cm-flow">
+        <section class="cm-section" id="flow" data-rail="FLOW" aria-labelledby="cm-flow">
           <header class="cm-section-head"><h2 id="cm-flow">From browsing to a deal.</h2></header>
           <p class="cm-intro">The site follows the moments a buyer goes through, and each screen carries only what that moment needs.</p>
           <ol class="cm-steps">
@@ -124,7 +132,7 @@
 
         </section>
 
-        <section class="cm-section" data-rail="SELL" aria-labelledby="cm-sell">
+        <section class="cm-section" id="sell" data-rail="SELL" aria-labelledby="cm-sell">
           <header class="cm-section-head"><h2 id="cm-sell">Listing an item.</h2></header>
           <p class="cm-intro">Selling is its own short flow, one tap away from Sell Now at the top of every page.</p>
           <div class="cm-sell cm-sell-wide">
@@ -132,7 +140,7 @@
           </div>
         </section>
 
-        <section class="cm-section" data-rail="ROLE" aria-labelledby="cm-role">
+        <section class="cm-section" id="role" data-rail="ROLE" aria-labelledby="cm-role">
           <header class="cm-section-head"><h2 id="cm-role">What I work on.</h2></header>
           <p class="cm-intro">I joined CMUsed as a product designer. My work is making the marketplace easier to use from end to end: how it flows, how it looks, what it can do, and where it lives.</p>
           <ol class="cm-notes cm-notes-4">
@@ -143,7 +151,7 @@
           </ol>
         </section>
 
-        <section class="cm-section" data-rail="NUMBERS" aria-labelledby="cm-start">
+        <section class="cm-section" id="numbers" data-rail="NUMBERS" aria-labelledby="cm-start">
           <header class="cm-section-head"><p data-cm-stamp></p><h2 id="cm-start" data-cm-title>Where it stood when I joined.</h2></header>
           <dl class="cm-grid cm-grid-4 cm-headline" data-cm-group="headline"></dl>
         </section>
@@ -163,9 +171,11 @@
         </section>
 
         <footer class="cm-end"><a href="../" data-route data-route-label="PRODUCT DESIGN">← Back to product design</a><span>CMUSED / 2026</span></footer>
+        </div>
       </article>
     </main>
-    <script type="module" src="./cmused.js?v=7"></script>
+    <script type="module" src="./cmused.js?v=8"></script>
+    <script src="../case-toc.js?v=1" defer></script>
     <script src="../../spectacle.js?v=20260925-perf-1"></script>
     <script src="../../cursor-shape.js?v=3"></script>
     <script>

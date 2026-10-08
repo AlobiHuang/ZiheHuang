@@ -1,0 +1,321 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="Glimpse, a living map built from the everyday photos people take but never post." />
+    <title>Glimpse — Product Design — Zihe Huang</title>
+    <script src="../../route-entry.js?v=20260925-flow-2"></script>
+    <script src="../../project/zoom-arrive.js?v=3"></script>
+    <script src="../../smooth-scroll.js?v=2" defer></script>
+    <script src="../../scroll-rail.js?v=2" defer></script>
+    <script>document.documentElement.classList.add('arch-motion-pending');setTimeout(()=>document.documentElement.classList.remove('arch-motion-pending'),10000);</script>
+    <link rel="icon" type="image/svg+xml" href="../../assets/alobi-mark.svg" />
+    <link rel="stylesheet" href="../../styles.css?v=20260922-logo-hit-1" />
+    <link rel="stylesheet" href="../../animations.css?v=20260916-speed-1265" />
+    <link rel="stylesheet" href="../../category.css" />
+    <link rel="stylesheet" href="../../apple-system.css?v=20261001-wide-1" />
+    <link rel="stylesheet" href="../../spectacle.css?v=20260916-simple-menu-1" />
+    <link rel="stylesheet" href="../../hero-entrance.css?v=20260922-head-grow-1" />
+    <link rel="stylesheet" href="../hci.css?v=20260928-mbp-1" />
+    <link rel="stylesheet" href="../cmused/cmused.css?v=18" />
+    <link rel="stylesheet" href="./glimpse.css?v=10" />
+      <link rel="stylesheet" href="../../menu.css?v=20260925-paper-1" />
+      <link rel="stylesheet" href="../../page-flow.css?v=4" />
+    <link rel="expect" href="#top" blocking="render" />
+    <script type="module" src="../../menu.js?v=20261002-lead-1"></script>
+    <link rel="stylesheet" href="../../pd-polish.css?v=1" />
+  </head>
+  <body class="hci-page cm-page gl-page">
+    <div class="page-transition" aria-hidden="true"><div class="transition-panel"></div><div class="transition-grid"></div><div class="transition-scan"></div><span class="transition-label">GLIMPSE</span></div>
+    <div class="cursor" aria-hidden="true"></div><div class="grain" aria-hidden="true"></div>
+    <header class="site-head">
+      <a class="identity" href="../../" data-route data-route-label="ALOBI / HOME" aria-label="Zihe Huang — home">
+        <span class="logo-tile" aria-hidden="true"><span class="logo-initials">ZH</span><svg class="personal-mark" viewBox="0 0 48 48" role="presentation"><path class="mark-z" d="M9 12H39L9 36H39"/><path class="mark-h" d="M17 9V39M31 9V39M17 24H31"/><circle cx="24" cy="24" r="2"/></svg></span>
+        <span class="identity-copy">Zihe Huang<br />Architecture · HCI · AI</span>
+      </a>
+      <div class="coordinates" aria-hidden="true">10⁰ / PRODUCTS<br />PRODUCT DESIGN</div>
+      <div class="header-actions"><button class="menu-button" type="button" aria-label="Open contents" aria-expanded="false"><i aria-hidden="true"></i></button><a class="header-contact" href="../../contact/" data-route data-route-label="CONTACT / OPEN CHANNEL">Contact</a></div>
+    </header>
+    <aside class="index-panel" aria-hidden="true">
+      <nav aria-label="Portfolio contents">
+        <a href="../../" data-route data-route-label="ALOBI / HOME"><span>01</span><b>Home</b></a>
+        <a href="../../about/" data-route data-route-label="ABOUT / TIMELINE"><span>02</span><b>About me</b></a>
+        <a href="../../architecture/" data-route data-route-label="ARCHITECTURE"><span>03</span><b>Arch</b></a>
+        <a href="../" data-route data-route-label="PRODUCT DESIGN"><span>04</span><b>Products</b></a>
+        <a href="../../pm/" data-route data-route-label="LEADERSHIP"><span>05</span><b>Projects</b></a>
+        <a href="../../contact/" data-route data-route-label="CONTACT / OPEN CHANNEL"><span>06</span><b>Contact</b></a>
+      </nav>
+      <p>Human-centered work grounded in research, prototyping, feedback, and usable systems.</p>
+      <div class="index-socials" aria-label="Contact links">
+        <a class="index-linkedin" href="https://www.linkedin.com/in/zihe-huang/" target="_blank" rel="noreferrer" aria-label="LinkedIn">in</a>
+        <a class="index-instagram" href="https://www.instagram.com/zihealobi/" target="_blank" rel="noreferrer" aria-label="Instagram"><i></i></a>
+        <a class="index-email" href="mailto:ziheh@andrew.cmu.edu" aria-label="Email Zihe Huang"><i></i></a>
+      </div>
+    </aside>
+    <main>
+      <article class="cm gl cm-doc" id="top" aria-labelledby="gl-title">
+        <!-- Oct 7: structure follows the TOM case study: Overview, Solution, Research,
+             Explorations, Next Steps, with a table of contents that follows the reader. -->
+        <nav class="cm-toc" aria-label="On this page">
+          <a href="#overview" data-cm-toc>Overview</a>
+          <a href="#research" data-cm-toc>Research</a>
+          <a href="#solution" data-cm-toc>Solution</a>
+          <a href="#explorations" data-cm-toc>Explorations</a>
+          <a href="#next" data-cm-toc>Next Steps</a>
+        </nav>
+        <div class="cm-main">
+        <section id="overview" class="gl-part" aria-labelledby="gl-title">
+          <header class="cm-head" data-rail="OVERVIEW">
+            <p class="cm-crumb"><a href="../" data-route data-route-label="PRODUCT DESIGN">← Product design</a><span>P—03</span></p>
+            <h1 id="gl-title">Glimpse</h1>
+            <p class="cm-lede">Glimpse is a mobile app that turns the everyday photos people take but never post into a shared, living map of places, layered by the hour and the year, with no names, no likes and no followers.</p>
+            <dl class="cm-facts cm-facts-4">
+              <div><dt>Role</dt><dd>Product designer &amp; developer</dd></div>
+              <div><dt>Type</dt><dd>Product design · iOS · Android · Web</dd></div>
+              <div><dt>Duration</dt><dd>1 month</dd></div>
+              <div><dt>Year</dt><dd>2026</dd></div>
+            </dl>
+          </header>
+
+          <!-- Hero: three phones, each a short loop recorded from the app (assets/pd/glimpse/*.mp4). -->
+          <div class="gl-hero" aria-label="Glimpse on a phone: the Archive, Now and Layers">
+            <figure class="gl-shot"><video poster="../../assets/pd/glimpse/glimpse-archive-scroll.jpg?v=1" autoplay muted loop playsinline preload="metadata" aria-label="Scrolling the Glimpse Archive: today’s observation, cities as defined by everyone, then the newest glimpses from Lisbon, Seoul and Tokyo"><source src="../../assets/pd/glimpse/glimpse-archive-scroll.mp4?v=1" type='video/mp4; codecs="avc1.640028"' /><source src="../../assets/pd/glimpse/glimpse-archive-scroll.webm?v=1" type="video/webm" /></video></figure>
+            <figure class="gl-shot"><video poster="../../assets/pd/glimpse/glimpse-now-swipe.jpg?v=3" autoplay muted loop playsinline preload="metadata" aria-label="Swiping through the hours in Now: 4 pm in San Francisco, 5 pm in Mexico City, 6 pm in Chicago, 7 pm in New York and 8 pm in Buenos Aires, each page in its own light"><source src="../../assets/pd/glimpse/glimpse-now-swipe.mp4?v=3" type='video/mp4; codecs="avc1.640028"' /><source src="../../assets/pd/glimpse/glimpse-now-swipe.webm?v=3" type="video/webm" /></video></figure>
+            <figure class="gl-shot"><video poster="../../assets/pd/glimpse/glimpse-layers-years.jpg?v=1" autoplay muted loop playsinline preload="metadata" aria-label="Layers: the same view over Alfama, Lisbon, at dawn in 2023, in the morning and at dusk in 2026"><source src="../../assets/pd/glimpse/glimpse-layers-years.mp4?v=1" type='video/mp4; codecs="avc1.640028"' /><source src="../../assets/pd/glimpse/glimpse-layers-years.webm?v=1" type="video/webm" /></video></figure>
+          </div>
+
+          <div class="gl-brief">
+            <h2 class="gl-quote">“Where did my photo go?”</h2>
+            <ol class="gl-problems" aria-label="Three problems observed">
+              <li><span>01</span>People take more photos than ever.</li>
+              <li><span>02</span>They look at almost none of them again.</li>
+              <li><span>03</span>They sink into camera rolls and lose where they were taken.</li>
+            </ol>
+          </div>
+        </section>
+
+        <section id="research" class="gl-part cm-section" data-rail="RESEARCH" aria-labelledby="gl-research">
+          <header class="cm-section-head"><h2 id="gl-research">Research</h2></header>
+          <div class="cm-sub"><h3>Where it started</h3><p>I started Glimpse for myself. I photograph the places I go, but those photos are never posted and rarely opened again: about 20 GB of my 128 GB phone. The photos I go back to have people in them; the photos of places sit untouched. If I feel this way, do other people? I turned to published research to find out.</p></div>
+          <div class="gl-stats" data-gl-stats>
+            <div class="cm-grid cm-grid-4">
+              <button type="button" class="cm-cell gl-stat" aria-expanded="false" aria-controls="gl-ev-taken"><span class="gl-stat-k">Taken</span><b>2.1 trillion</b><small>photos worldwide in 2025, 94% on phones [1]</small><i class="gl-stat-more" aria-hidden="true">More</i></button>
+              <button type="button" class="cm-cell gl-stat" aria-expanded="false" aria-controls="gl-ev-revisited"><span class="gl-stat-k">Never revisited</span><b>7 in 10</b><small>smartphone photos left in storage, never looked at again [2]</small><i class="gl-stat-more" aria-hidden="true">More</i></button>
+              <button type="button" class="cm-cell gl-stat" aria-expanded="false" aria-controls="gl-ev-shared"><span class="gl-stat-k">Never shared</span><b>Over half</b><small>of new photos aren’t shared after they’re taken [3]</small><i class="gl-stat-more" aria-hidden="true">More</i></button>
+              <button type="button" class="cm-cell gl-stat" aria-expanded="false" aria-controls="gl-ev-pressure"><span class="gl-stat-k">Pressure to post</span><b>43%</b><small>of US teens feel pressure to post only what makes them look good [4]</small><i class="gl-stat-more" aria-hidden="true">More</i></button>
+            </div>
+            <ul class="gl-ev" id="gl-ev-taken" aria-label="More on taken" hidden>
+              <li><b>Much of it is clutter.</b> About 20% of phone storage goes to blurry, dark or duplicate photos, across 6 million users in 45 countries. <cite>[6]</cite></li>
+              <li><b>Phones fill up.</b> 51% of Americans have deleted photos to free up space, and 36% keep photos in so many places they forget where they are. <cite>[5]</cite></li>
+            </ul>
+            <ul class="gl-ev" id="gl-ev-revisited" aria-label="More on never revisited" hidden>
+              <li><b>Stored photos get lost.</b> Parents failed to find almost 40% of their family photos from a year earlier; volume and scattered storage made it worse. <cite>[7]</cite></li>
+              <li><b>Taking a photo can replace remembering.</b> People remembered less about museum objects they photographed than ones they only looked at. <cite>[8]</cite></li>
+            </ul>
+            <ul class="gl-ev" id="gl-ev-shared" aria-label="More on never shared" hidden>
+              <li><b>But places matter.</b> Over 75% of people save photos of sights and places. <cite>[5]</cite></li>
+              <li><b>Then and now.</b> A Reddit community for photos of the same places across time has about 845,000 members. <cite>[12]</cite></li>
+            </ul>
+            <ul class="gl-ev" id="gl-ev-pressure" aria-label="More on pressure to post" hidden>
+              <li><b>Sharing changes the experience.</b> Taking photos to share, rather than for yourself, lowers enjoyment, because attention shifts to how others will see you. <cite>[9]</cite></li>
+              <li><b>People get the attention.</b> Instagram photos with faces get 38% more likes and 32% more comments; in memory tests, people are the most memorable images and landscapes among the least. <cite>[10] [11]</cite></li>
+            </ul>
+          </div>
+
+          <div class="cm-sub"><h3>Where existing apps sit</h3><p>Every app people already use is either public and built around people, or private and built around one person’s memories. None is public and built around places.</p></div>
+          <figure class="gl-map2" aria-label="A two by two: private to public, people to places">
+            <div class="gl-q"><b>Public · people</b><p>Instagram, Xiaohongshu, BeReal. Built around people and reactions; an ordinary street feels “not worth posting”.</p></div>
+            <div class="gl-q gl-q-me"><b>Public · places</b><p>Glimpse. An anonymous archive of places, layered by hour and year.</p></div>
+            <div class="gl-q"><b>Private · people</b><p>Apple Photos, Google Photos. Well organized, but resurfaced memories are about you.</p></div>
+            <div class="gl-q"><b>Private · places</b><p>Camera rolls, map pins, Flickr albums. Kept, but seen by no one, often not even you.</p></div>
+          </figure>
+
+          <div class="cm-sub"><h3>High-level goals that defined my design</h3></div>
+          <ol class="cm-notes">
+            <li><span>01</span><b>Place over person.</b><p>Put places, not people, at the centre: no names, no likes, no followers, just a catalogue number.</p></li>
+            <li><span>02</span><b>Record over performance.</b><p>Give unposted photos meaning by mapping them as memories, pinned to the real places they were taken.</p></li>
+            <li><span>03</span><b>Time as a dimension.</b><p>Show how one place changes by the hour and over the years, through everyone’s photos of it.</p></li>
+          </ol>
+
+        </section>
+
+        <section id="solution" class="gl-part cm-section" data-rail="SOLUTION" aria-labelledby="gl-solution">
+          <header class="cm-section-head"><h2 id="gl-solution">Glimpse turns the photos you never post into a shared, living map of places.</h2></header>
+          <p class="cm-intro">Five tabs, each a different way of looking at the same archive.</p>
+          <ol class="gl-flow">
+            <li><figure class="gl-shot"><img src="../../assets/pd/glimpse/glimpse-home.webp?v=1" alt="Archive tab" loading="lazy" decoding="async" /></figure><span>01</span><b>Archive.</b><p>Today’s observation, cities as defined by everyone, and the newest glimpses.</p></li>
+            <li><figure class="gl-shot"><img src="../../assets/pd/glimpse/glimpse-now.webp?v=1" alt="Now tab at 9 pm" loading="lazy" decoding="async" /></figure><span>02</span><b>Now.</b><p>One hour per page: swipe sideways to move through the day and around the world, each hour in its own light.</p></li>
+            <li><figure class="gl-shot"><img src="../../assets/pd/glimpse/glimpse-capture.webp?v=1" alt="Capture tab" loading="lazy" decoding="async" /></figure><span>03</span><b>Capture.</b><p>Three seconds: name the place, add one word for the city.</p></li>
+            <li><figure class="gl-shot"><img src="../../assets/pd/glimpse/glimpse-search.webp?v=1" alt="Search tab" loading="lazy" decoding="async" /></figure><span>04</span><b>Search.</b><p>Places, cities and the words people use for them.</p></li>
+            <li><figure class="gl-shot"><img src="../../assets/pd/glimpse/glimpse-yours.webp?v=1" alt="Your cities" loading="lazy" decoding="async" /></figure><span>05</span><b>Yours.</b><p>Private. Each city is a photomosaic that fills in as you keep glimpses there.</p></li>
+          </ol>
+
+          <div class="cm-sub"><h3>First launch, in three cards</h3><p>What Glimpse is, how it differs from a social feed, and why the archive grows. Then straight into the archive.</p></div>
+          <div class="gl-pair gl-trio">
+            <figure class="gl-shot"><img src="../../assets/pd/glimpse/glimpse-welcome-1.webp?v=1" alt="Welcome card 1: map your world with the photos you never post" loading="lazy" decoding="async" /><figcaption>What this is</figcaption></figure>
+            <figure class="gl-shot"><img src="../../assets/pd/glimpse/glimpse-welcome-2.webp?v=1" alt="Welcome card 2: places, not people; no names, likes or followers" loading="lazy" decoding="async" /><figcaption>How it’s different</figcaption></figure>
+            <figure class="gl-shot"><img src="../../assets/pd/glimpse/glimpse-welcome-3.webp?v=1" alt="Welcome card 3: every street, layered in time" loading="lazy" decoding="async" /><figcaption>Why it grows</figcaption></figure>
+          </div>
+
+          <div class="cm-sub"><h3>A glimpse, up close</h3><p>No name and no likes: a catalogue number, the place, one line, and when and in what light it was taken. Below it, the other layers of the same place and notes from people who know it.</p></div>
+          <div class="gl-pair">
+            <figure class="gl-shot"><img src="../../assets/pd/glimpse/glimpse-photo.webp?v=1" alt="A glimpse of Alfama, Lisbon: catalogue number 38,214, the tram photo and its caption" loading="lazy" decoding="async" /></figure>
+            <figure class="gl-shot"><img src="../../assets/pd/glimpse/glimpse-photo-details.webp?v=1" alt="The glimpse details: date, local time, golden hour light, season, rounded location, camera, then Keep, I’ve been here, Share and Map, and more layers of the place" loading="lazy" decoding="async" /></figure>
+          </div>
+
+          <div class="cm-sub"><h3>One place, through time</h3><p>Layers stacks everyone’s glimpses of the same view by year, with a scrubber to move through them.</p></div>
+          <div class="gl-pair">
+            <figure class="gl-shot"><img src="../../assets/pd/glimpse/glimpse-layers-2023.webp?v=1" alt="Layers: Alfama in 2023" loading="lazy" decoding="async" /><figcaption>2023</figcaption></figure>
+            <figure class="gl-shot"><img src="../../assets/pd/glimpse/glimpse-layers.webp?v=1" alt="Layers: Alfama in 2026" loading="lazy" decoding="async" /><figcaption>2026</figcaption></figure>
+          </div>
+
+          <div class="cm-sub"><h3>A map and a dictionary</h3><p>The archive as squares on a paper map, and each city defined by the words people attach to it.</p></div>
+          <div class="gl-pair">
+            <figure class="gl-shot"><img src="../../assets/pd/glimpse/glimpse-map.webp?v=1" alt="Map of everyone’s glimpses" loading="lazy" decoding="async" /></figure>
+            <figure class="gl-shot"><img src="../../assets/pd/glimpse/glimpse-city.webp?v=2" alt="Lisbon city page: glimpses pinned on the map as photos, and the city’s words, ranked" loading="lazy" decoding="async" /></figure>
+          </div>
+
+          <div class="cm-sub"><h3>Capture, privately by default</h3><p>Photo checks run on the phone before anything is shared. Location is rounded to about 1 km. You get a catalogue number and see the layer you added.</p></div>
+          <div class="gl-pair">
+            <figure class="gl-shot"><img src="../../assets/pd/glimpse/glimpse-capture.webp?v=1" alt="Capture: keep the one you’d never post" loading="lazy" decoding="async" /></figure>
+            <figure class="gl-shot"><img src="../../assets/pd/glimpse/glimpse-capture-receipt.webp?v=1" alt="Capture receipt with a catalogue number" loading="lazy" decoding="async" /></figure>
+          </div>
+
+          <div class="cm-sub"><h3>Reasons to keep looking</h3><p>One small thing to notice each day, the same in every city, with no winners. And a private mosaic for each city: every glimpse you take or keep there becomes a tile of its picture.</p></div>
+          <div class="gl-pair gl-trio">
+            <figure class="gl-shot"><img src="../../assets/pd/glimpse/glimpse-observation.webp?v=1" alt="Today’s observation, Night lights: three glimpses so far" loading="lazy" decoding="async" /><figcaption>Today’s observation</figcaption></figure>
+            <figure class="gl-shot"><img src="../../assets/pd/glimpse/glimpse-mosaic-yours.webp?v=1" alt="Your Lisbon mosaic so far: one tile filled in over the faded city view" loading="lazy" decoding="async" /><figcaption>Your mosaic, so far</figcaption></figure>
+            <figure class="gl-shot"><img src="../../assets/pd/glimpse/glimpse-mosaic-finished.webp?v=1" alt="Your Lisbon mosaic, previewed finished" loading="lazy" decoding="async" /><figcaption>Previewed finished</figcaption></figure>
+          </div>
+        </section>
+
+        <section id="explorations" class="gl-part cm-section" data-rail="EXPLORATIONS" aria-labelledby="gl-explore">
+          <header class="cm-section-head"><h2 id="gl-explore">Explorations</h2></header>
+
+          <div class="cm-sub"><h3>Now: from one photo to one hour, everywhere</h3><p>The first Now showed a single glimpse taken at this hour. The current version gathers every city where it’s that hour right now, and the screen takes on the hour’s light.</p></div>
+          <div class="gl-pair">
+            <figure class="gl-shot"><img src="../../assets/pd/glimpse/glimpse-before-now.webp?v=1" alt="Earlier Now: one glimpse at 9 pm" loading="lazy" decoding="async" /><figcaption>Earlier</figcaption></figure>
+            <figure class="gl-shot"><img src="../../assets/pd/glimpse/glimpse-now.webp?v=1" alt="Current Now: every city at 9 pm" loading="lazy" decoding="async" /><figcaption>Current</figcaption></figure>
+          </div>
+
+          <div class="cm-sub"><h3>Layers: from one photo to the views of a place</h3><p>The first Layers showed one large photo and a layer count. The current version starts from the views people return to, then moves through them year by year.</p></div>
+          <div class="gl-pair">
+            <figure class="gl-shot"><img src="../../assets/pd/glimpse/glimpse-before-layers.webp?v=1" alt="Earlier Layers: one large photo with a layer count" loading="lazy" decoding="async" /><figcaption>Earlier</figcaption></figure>
+            <figure class="gl-shot"><img src="../../assets/pd/glimpse/glimpse-layers.webp?v=1" alt="Current Layers: views of Alfama, then the years" loading="lazy" decoding="async" /><figcaption>Current</figcaption></figure>
+          </div>
+
+          <div class="cm-sub"><h3>Capture: straight to the camera</h3><p>The first Capture asked you to read the rules before your first glimpse. The current version opens on the camera, with samples to try when there isn’t one.</p></div>
+          <div class="gl-pair">
+            <figure class="gl-shot"><img src="../../assets/pd/glimpse/glimpse-before-capture.webp?v=1" alt="Earlier Capture: the rules before your first glimpse" loading="lazy" decoding="async" /><figcaption>Earlier</figcaption></figure>
+            <figure class="gl-shot"><img src="../../assets/pd/glimpse/glimpse-capture.webp?v=1" alt="Current Capture: the camera first" loading="lazy" decoding="async" /><figcaption>Current</figcaption></figure>
+          </div>
+
+          <div class="cm-sub"><h3>Hour Light, a style in progress</h3><p>An alternative style where the whole interface takes the colour of your local hour, read from the phone’s clock.</p></div>
+          <div class="gl-pair">
+            <figure class="gl-shot"><img src="../../assets/pd/glimpse/glimpse-hour-home.webp?v=2" alt="Hour Light Archive at golden hour" loading="lazy" decoding="async" /><figcaption>Archive · golden hour</figcaption></figure>
+            <figure class="gl-shot"><img src="../../assets/pd/glimpse/glimpse-hour-map.webp?v=2" alt="Hour Light map of your world" loading="lazy" decoding="async" /><figcaption>Your world</figcaption></figure>
+          </div>
+        </section>
+
+        <section id="next" class="gl-part cm-section" data-rail="NEXT" aria-labelledby="gl-next">
+          <header class="cm-section-head"><h2 id="gl-next">Next Steps</h2></header>
+          <ol class="cm-notes">
+            <li><span>01</span><b>Measure people vs. places.</b><p>A survey to put a real number on how often people revisit photos of places compared with photos of people.</p></li>
+            <li><span>02</span><b>Free up the phone.</b><p>A step that moves place photos from the camera roll to your map, so keeping them stops costing storage.</p></li>
+            <li><span>03</span><b>Test and moderate.</b><p>Usability tests with real users, and server-side image moderation before the archive opens to everyone.</p></li>
+          </ol>
+        </section>
+
+        <section class="cm-section gl-sources" id="sources" data-rail="SOURCES" aria-labelledby="gl-sources">
+          <header class="cm-section-head"><h2 id="gl-sources">Sources.</h2></header>
+          <ol>
+            <li><a href="https://petapixel.com/2025/06/18/the-number-of-photos-taken-in-2025-is-expected-to-exceed-two-trillion" target="_blank" rel="noreferrer">PetaPixel, reporting Photutorial (2025). The number of photos taken in 2025 is expected to exceed two trillion.</a></li>
+            <li><a href="https://popsa.com/perspectives/memory-economy-2026-photo-trends-report/" target="_blank" rel="noreferrer">Popsa / Censuswide (2026). The Memory Economy report, 8,000 people in the US, UK, France and Germany.</a></li>
+            <li><a href="https://shutterflyinc.com/?p=1018" target="_blank" rel="noreferrer">Shutterfly / Edelman Berland (2014). Americans are taking more photos but failing to share memories, 1,169 US adults.</a></li>
+            <li><a href="https://www.pewresearch.org/internet/2018/11/28/teens-social-media-habits-and-experiences/" target="_blank" rel="noreferrer">Pew Research Center (2018). Teens’ social media habits and experiences, 743 teens.</a></li>
+            <li><a href="https://www.united-internet.de/en/newsroom/news-of-our-brands/news/new-global-data-american-online-users-struggle-with-handling-their-digital-photos/" target="_blank" rel="noreferrer">mail.com / Opinion Matters (2017). American online users struggle with handling their digital photos.</a></li>
+            <li><a href="https://newsroom.gendigital.com/2019-10-02-Snap-Happy-Smartphone-Generation-Loses-20-of-Phone-Memory-to-Terrible-Pictures" target="_blank" rel="noreferrer">Avast (2019). Snap-happy smartphone generation loses 20% of phone memory to terrible pictures.</a></li>
+            <li><a href="https://eprints.whiterose.ac.uk/10334/" target="_blank" rel="noreferrer">Whittaker, Bergman &amp; Clough (2010). Easy on that trigger dad: a study of long term family photo retrieval. Personal and Ubiquitous Computing.</a></li>
+            <li><a href="https://www.psychologicalscience.org/news/releases/no-pictures-please-taking-photos-may-impede-memory-of-museum-tour.html" target="_blank" rel="noreferrer">Henkel (2013). Point-and-shoot memories: the photo-taking impairment effect. Psychological Science.</a></li>
+            <li><a href="https://stern.nyu.edu/experience-stern/faculty-research/how-intention-share-photos-can-undermine-enjoyment" target="_blank" rel="noreferrer">Barasch, Zauberman &amp; Diehl (2018). How the intention to share can undermine enjoyment. Journal of Consumer Research.</a></li>
+            <li><a href="https://www.news.gatech.edu/news/2014/03/20/face-it-instagram-pictures-faces-are-more-popular" target="_blank" rel="noreferrer">Bakhshi, Shamma &amp; Gilbert (2014). Faces engage us: photos with faces attract more likes and comments on Instagram. CHI 2014.</a></li>
+            <li><a href="https://news.mit.edu/2011/memorable-images-0524" target="_blank" rel="noreferrer">Isola, Xiao, Torralba &amp; Oliva (2011). What makes an image memorable? CVPR 2011.</a></li>
+            <li><a href="https://gummysearch.com/r/OldPhotosInRealLife/" target="_blank" rel="noreferrer">r/OldPhotosInRealLife community statistics (GummySearch).</a></li>
+          </ol>
+        </section>
+
+        <footer class="cm-end"><a href="../" data-route data-route-label="PRODUCT DESIGN">← Back to product design</a><span>GLIMPSE / 2026</span></footer>
+        </div>
+      </article>
+    </main>
+    <script src="../case-toc.js?v=1" defer></script>
+    <script src="./glimpse.js?v=5" defer></script>
+    <script src="../../spectacle.js?v=20260925-perf-1"></script>
+    <script src="../../cursor-shape.js?v=3"></script>
+    <script>
+      (() => {
+        const transition = document.querySelector('.page-transition');
+        const grid = transition?.querySelector('.transition-grid');
+        for (let index = 0; index < 12; index += 1) {
+          const cell = document.createElement('span');
+          cell.style.setProperty('--cell', index);
+          cell.style.setProperty('--reverse-cell', 11 - index);
+          grid?.append(cell);
+        }
+        let hasRevealed = false;
+        const reveal = () => {
+          if (hasRevealed) return;
+          hasRevealed = true;
+          let state = null;
+          try {
+            const raw = sessionStorage.getItem('alobi-route-reveal');
+            state = raw ? JSON.parse(raw) : null;
+          } catch {}
+          if (state?.effect === 'line' || state?.effect === 'cleaner') {
+            transition.className = 'page-transition';
+            document.documentElement.classList.remove('route-enter-pending');
+            document.getElementById('route-prepaint-style')?.remove();
+            try { sessionStorage.removeItem('alobi-route-reveal'); } catch {}
+            return;
+          }
+          if (transition && grid?.children.length) {
+            transition.className = 'page-transition is-active effect-route-reveal';
+            requestAnimationFrame(() => {
+              document.documentElement.classList.remove('route-enter-pending');
+              document.getElementById('route-prepaint-style')?.remove();
+            });
+            window.setTimeout(() => { transition.className = 'page-transition'; }, 1100);
+          } else {
+            document.documentElement.classList.remove('route-enter-pending');
+            document.getElementById('route-prepaint-style')?.remove();
+          }
+          try { sessionStorage.removeItem('alobi-route-reveal'); } catch {}
+        };
+        requestAnimationFrame(() => requestAnimationFrame(reveal));
+        window.addEventListener('pageshow', reveal, { once: true });
+
+        document.querySelectorAll('[data-route]').forEach(link => link.addEventListener('click', event => {
+          if (link.href === location.href) return;
+          event.preventDefault();
+          if (/ALOBI\s*\/\s*HOME/i.test(link.dataset.routeLabel || link.textContent.trim())) {
+            try { sessionStorage.setItem('alobi-home-line-return', '1'); } catch {}
+          }
+          document.documentElement.classList.add('route-leaving');
+          transition.className = 'page-transition is-active effect-cleaner-down';
+          try {
+            sessionStorage.setItem('alobi-route-reveal', JSON.stringify({
+              label: link.dataset.routeLabel || link.textContent.trim(),
+              effect: 'line',
+              createdAt: Date.now()
+            }));
+          } catch {}
+          window.setTimeout(() => {
+            transition.classList.add('is-holding');
+            window.setTimeout(() => location.assign(link.href), 135);
+          }, 616);
+        }));
+      })();
+    </script>
+  </body>
+</html>

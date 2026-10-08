@@ -40,6 +40,18 @@ document.querySelectorAll('[data-pd-loop]').forEach(loop => {
   }, { threshold: .25 }).observe(loop);
 });
 
+// Product videos on the plates (Glimpse): play only while on screen; hold the poster for reduced motion.
+{
+  const still = matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const videos = [...document.querySelectorAll('[data-pd-video]')];
+  if (videos.length && !still) {
+    const io = new IntersectionObserver(entries => entries.forEach(e => {
+      if (e.isIntersecting) e.target.play().catch(() => {}); else e.target.pause();
+    }), { threshold: .2 });
+    videos.forEach(v => io.observe(v));
+  }
+}
+
 const panel = document.querySelector('.index-panel');
 const menu = document.querySelector('.menu-button');
 const siteHeader = document.querySelector('.site-head');
