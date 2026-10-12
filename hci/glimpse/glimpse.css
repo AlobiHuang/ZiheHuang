@@ -3,11 +3,11 @@
    in assets/pd/glimpse/). Layout first; placement and images to be tuned later. */
 .gl-shot{margin:0}
 .gl-shot img,.gl-shot video{display:block;width:100%;height:auto}
-.gl-shot video{aspect-ratio:800/1488;background:#e9e9ec}
+.gl-shot video{aspect-ratio:800/1488;background:#fafafb}
 .gl-shot figcaption{margin-top:10px;text-align:center;font:500 9px/1.4 var(--cm-mono);letter-spacing:.08em;text-transform:uppercase;color:var(--cm-mute)}
 
 /* Hero: three phones on a grey plate, the middle one raised. */
-.gl-hero{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:clamp(16px,4vw,64px);align-items:start;margin-top:clamp(28px,4vw,48px);padding:clamp(34px,5vw,72px) clamp(24px,8vw,120px);background:#e9e9ec}
+.gl-hero{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:clamp(16px,4vw,64px);align-items:start;margin-top:clamp(28px,4vw,48px);padding:clamp(34px,5vw,72px) clamp(24px,8vw,120px);background:#fafafb}
 .gl-hero .gl-shot:nth-child(2){margin-top:clamp(-28px,-3vw,-14px)}
 .gl-hero .gl-shot:nth-child(odd){margin-top:clamp(20px,4vw,56px)}
 
@@ -19,7 +19,7 @@
 .gl-flow p{margin:0;font:450 13px/1.55 var(--cm-text);color:#3a3a3c}
 
 /* Two phones side by side on a grey plate. */
-.gl-pair{display:flex;justify-content:center;gap:clamp(24px,6vw,96px);margin-top:26px;padding:clamp(34px,5vw,64px) 6%;background:#e9e9ec}
+.gl-pair{display:flex;justify-content:center;gap:clamp(24px,6vw,96px);margin-top:26px;padding:clamp(34px,5vw,64px) 6%;background:#fafafb}
 .gl-pair .gl-shot{width:min(260px,40%)}
 
 @media(max-width:900px){.gl-flow{grid-template-columns:repeat(2,minmax(0,1fr))}}
@@ -114,3 +114,7 @@
 @media(prefers-reduced-motion:reduce){.gl-stat:after,.gl-stat-more:after,.gl-ev{transition:none}.gl-ev.is-open li{animation:none}}
 .gl-trio .gl-shot{width:min(220px,29%)}
 .gl-trio{gap:clamp(14px,4vw,56px)}
+
+/* Oct 12: lighter picture panels, as on a clean case-study page: near-white
+   with a hairline edge and soft corners instead of a mid-grey block. */
+.gl-hero,.gl-pair{border:1px solid rgba(29,29,31,.07);border-radius:14px}

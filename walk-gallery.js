@@ -17,13 +17,13 @@ if(gallery){
   // Product design, newest work first.
   {title:'CMUsed',kind:'Product',meta:'2026 · PRODUCT DESIGN',lens:'PRODUCTS',field:'PRODUCT DESIGN',href:'hci/cmused/',src:'assets/pd/cmused-home.webp?v=3',web:true,desc:'A second-hand marketplace for the Carnegie Mellon community. Browse by category, contact sellers directly, and list an item in three short steps, with AI help writing the description.'},
   {title:'OpenGym',kind:'Product',meta:'2026 · PRODUCT DESIGN',lens:'PRODUCTS',field:'PRODUCT DESIGN',wip:true,srcs:['assets/pd/opengym-home.webp?v=2','assets/pd/opengym-detail.webp?v=3','assets/pd/opengym-map.webp?v=2'],src:'assets/pd/opengym-home.webp?v=2',web:true,desc:'Live occupancy for Carnegie Mellon\'s gyms. I\'m redesigning its user flow, interface and product logic together with the hardware team behind its live counts.'},
-  {slug:'call-of-the-sea',title:'Call of the Sea',kind:'Project',meta:'2026—PRESENT · IN PROGRESS',image:'sea-cover.webp',tag:'In progress'},
+  {slug:'call-of-the-sea',title:'Call of the Sea',kind:'Design',meta:'2026—PRESENT · IN PROGRESS',image:'sea-cover.webp',tag:'In progress'},
   {title:'Sankofa Bamboo Greenhouse',kind:'Project',meta:'2023—PRESENT · LEADERSHIP',lens:'PROJECTS',field:'LEADERSHIP',href:'project/?lens=pm&project=sankofa-multi-stakeholder-delivery',image:'sankofa-overview-wide.webp'},
   {slug:'re-serv-oir',title:'RE.SERV.OIR',kind:'Competition winner',meta:'2026 · DESIGN STUDIO',image:'reservoir-exterior.webp',note:['Winner:','AIA COTE Top Ten, one of the two Foundation Level winners across North America']},
   // Oct 6: Call of the Sea leads the architecture work (03); RE.SERV.OIR is 05.
-  {slug:'how-to-build-a-ruin',title:'How to Build a Ruin',kind:'Project',meta:'2026 · OPTION STUDIO',image:'ruin-hero-cover.jpg'},
-  {slug:'convergence-environmental-middle-school',title:'Convergence',kind:'Project',meta:'2025 FALL · STUDIO PROJECT',image:'convergence-pdf-02.jpg'},
-  {slug:'radical-empathy',title:'Radical Empathy',kind:'Project',meta:'2025 SPRING · STUDIO PROJECT',image:'radical-empathy-cover.jpg'},
+  {slug:'how-to-build-a-ruin',title:'How to Build a Ruin',kind:'Design',meta:'2026 · OPTION STUDIO',image:'ruin-hero-cover.jpg'},
+  {slug:'convergence-environmental-middle-school',title:'Convergence',kind:'Design',meta:'2025 FALL · STUDIO PROJECT',image:'convergence-pdf-02.jpg'},
+  {slug:'radical-empathy',title:'Radical Empathy',kind:'Design',meta:'2025 SPRING · STUDIO PROJECT',image:'radical-empathy-cover.jpg'},
   // (The Tinkerer's Imaginarium is left out here; it stays on the ARCH page.)
  ];
  works.forEach((work,i)=>{

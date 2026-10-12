@@ -18,12 +18,12 @@ if (oldPanel && menuButton) {
   const fine = matchMedia('(hover: hover) and (pointer: fine)');
 
   const info = {
-    home: { word: 'HOME', scale: 'COVER', note: 'Back to the start.', theme: 'blank' },
-    about: { word: 'ABOUT', scale: 'PROFILE', note: 'Who I am, and how I got here.', theme: 'blank' },
-    architecture: { word: 'ARCH', scale: '10²', note: 'Built environments.', theme: 'blank' },
-    hci: { word: 'PRODUCTS', scale: '10⁰', note: 'Product design.', theme: 'blank' },
-    pm: { word: 'PROJECTS', scale: '10⁻²', note: 'Leadership.', theme: 'blank' },
-    contact: { word: 'CONTACT', scale: 'CHANNEL', note: 'ziheh@andrew.cmu.edu', theme: 'blank' }
+    home: { word: 'HOME', scale: '', note: 'Back to the start.', theme: 'blank' },
+    about: { word: 'ABOUT', scale: '', note: 'Who I am, and how I got here.', theme: 'blank' },
+    architecture: { word: 'ARCH', scale: '', note: 'Built environments.', theme: 'blank' },
+    hci: { word: 'PRODUCTS', scale: '', note: 'Product design.', theme: 'blank' },
+    pm: { word: 'PROJECTS', scale: '', note: 'Leadership.', theme: 'blank' },
+    contact: { word: 'CONTACT', scale: '', note: 'ziheh@andrew.cmu.edu', theme: 'blank' }
   };
   const keyOf = element => {
     const key = element.dataset.navKey || element.dataset.discipline || '';

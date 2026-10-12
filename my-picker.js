@@ -47,9 +47,9 @@ if (section) {
   // Each preview is drawn with plain HTML/CSS inside a square (see my-picker.css).
   const styles = [
     { cls: 'min', name: 'Refined Minimalism', years: '2010s—', note: 'Few elements, generous space and exact type, so the product is the hero. Calm and confident, never decorative. The school of Apple.', tags: ['Clarity', 'Whitespace', 'Precision'],
-      preview: '<b>Made quiet.</b><span>Nothing extra. Everything considered.</span>' },
+      preview: '<b>Desk Lamp</b><span>Aluminium, warm light. From $89</span>' },
     { cls: 'glitch', name: 'Glitch / Cyberpunk', years: '1980s— · revived', note: 'Broken signal as a look: split RGB channels, torn scan lines and neon on black. Bold, loud and deliberately imperfect.', tags: ['Glitch art', 'Neon', 'Distortion'],
-      preview: '<b data-t="SIGNAL">SIGNAL</b><i></i><i></i><i></i><code>ERR_0x2F // NO CARRIER</code>' },
+      preview: '<b data-t="SIGNAL">SIGNAL</b><i></i><i></i><i></i>' },
     { cls: 'brut', name: 'Brutalism', years: '1950s— · béton brut', note: 'Raw concrete left as it was poured: heavy mass, deep openings and the grain of the formwork on every surface. Structure with nothing hidden.', tags: ['Béton brut', 'Mass', 'Honesty'],
       preview: '<b>BÉTON<br>BRUT</b><i></i><i></i><i></i><em></em>' },
     { cls: '4', name: 'Neumorphism', years: '2019—', note: 'Controls pushed out of, or pressed into, one soft surface with twin light and shadow.', tags: ['Soft UI', 'Extruded', 'Tactile'],
@@ -122,7 +122,6 @@ if (section) {
     </article>`).join(''));
   makeTrack('skills', `<div class="my-wheel">${skills.map(([slug, name, group, use], index) => `
     <article class="my-skill" data-index="${index}">
-      <span class="my-skill-no">T—${String(index + 1).padStart(2, '0')}</span>
       <img src="assets/tool-logos/${slug}.svg" alt="" loading="lazy" decoding="async">
       <h3>${name}</h3>
       <p><b>${group}</b>${use}</p>

@@ -342,7 +342,7 @@ const pmIndexMarkup = isPmLanding ? `<section class="pm-work" id="work" aria-lab
 const pmLandingHeroMarkup=isPmLanding?`
   <section class="pm-spatial-hero" aria-label="Projects and leadership">
     <div class="pm-spatial-field" data-pm-spatial aria-hidden="true"><canvas class="pm-spatial-canvas"></canvas></div>
-    <p class="pm-spatial-kicker">10⁰ / LEADERSHIP<br>DECISIONS · TEAMS · DELIVERY</p>
+    <p class="pm-spatial-kicker">LEADERSHIP</p>
     <h1 class="pm-spatial-title" aria-label="Projects"><span data-pm-title-type></span></h1>
   </section>`:'';
 
@@ -353,15 +353,15 @@ document.title = `${project.title} — Zihe Huang`;
 document.querySelector('meta[name="description"]')?.setAttribute('content', `${project.title}: ${project.summary}`);
 document.querySelector('.transition-label').textContent = `PROJECT / ${project.no}`;
 document.getElementById('project-coordinates').innerHTML = isPmLanding
-  ? `${lens.code} / ${lens.name.toUpperCase()}<br />PROJECTS / DELIVERY`
-  : `${lens.code} / ${lens.name.toUpperCase()}<br />${project.no} / PROJECT RECORD`;
+  ? `${lens.name.toUpperCase()}`
+  : `${lens.name.toUpperCase()}<br />${project.title.toUpperCase()}`;
 document.getElementById('project-index-copy').textContent = lens.copy;
 document.querySelector(`[data-lens-link="${lensKey}"]`)?.setAttribute('aria-current', 'page');
 
 document.getElementById('project-root').innerHTML = isPmLanding ? `${pmLandingHeroMarkup}${pmIndexMarkup}` : `
   <section class="project-gateway${isPdfPortfolioProject ? ' project-gateway-pdf' : ''}${isSplitProject ? ' project-gateway-split' : ''}" id="top">
     <div class="project-gateway-grid" aria-hidden="true"></div>
-    <p class="project-gateway-kicker">01 / WORK GATEWAY<br>${lens.code} / ${lens.name.toUpperCase()}</p>
+    <p class="project-gateway-kicker">${lens.name.toUpperCase()}</p>
     ${`<a class="project-back" href="${lensHref}#experience" data-route data-route-label="${lens.name.toUpperCase()}" data-return-anchor="experience">← Selected work</a>`}
     <div class="project-gateway-heading">
       ${isSplitProject ? '' : `<span>${project.no} / ${project.type}</span>`}
@@ -379,7 +379,7 @@ document.getElementById('project-root').innerHTML = isPmLanding ? `${pmLandingHe
     ${lensKey !== 'pm' && !isInProgressArchitecture && !isPdfPortfolioProject ? `<figure class="project-hero-media"><img src="../assets/portfolio/${projectMedia[0]}" alt="${mediaAlt(0)}" fetchpriority="high"></figure>` : ''}
     <div class="project-aperture aperture-${lensKey}" aria-hidden="true">
       <span></span><span></span><span></span><span></span><span></span>
-      <strong>${project.no}</strong><em>${lens.code}</em>
+      <strong>${project.no}</strong><em></em>
     </div>
     ${sankofaContributionMarkup}
     ${sankofaRecognitionMarkup}

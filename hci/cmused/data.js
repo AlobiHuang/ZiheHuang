@@ -205,8 +205,43 @@ export const SNAPSHOTS = [
       neverListed: 1639,
       neverMessaged: 1655
     }
+  },
+  {
+    id: 'update-5',
+    label: 'Update 5',
+    date: '2026-10-11', // admin dashboard, read Oct 11
+    // Only the figures on screen this time; the rest carry over from Update 4.
+    values: {
+      // Listings
+      listingsTotal: 872,
+      listingsActive: 465,
+      listingsSold: 407,
+      // People
+      totalUsers: 1813,
+      dau: 5,
+      wau: 58,
+      mau: 249,
+      signups24h: 0,
+      signups7d: 13,
+      signups30d: 118,
+      partnerAccounts: 3,
+      // Buyers and sellers
+      sellers: 83,
+      wouldBeSellers: 86,
+      buyers: 42,
+      wouldBeBuyers: 111,
+      bothSides: 1,
+      neverListed: 1644,
+      neverMessaged: 1660,
+      // Messaging
+      sellersContacted: 110,
+      sellersNeverReplied: 96,
+      repliesAnswered: 40,
+      medianReplyHours: 28.7,
+      unansweredMessages: 313
+    }
   }
-  // , { id: 'update-5', label: 'Update 5', date: 'YYYY-MM-DD', values: { ...only the keys that were read... } }
+  // , { id: 'update-6', label: 'Update 6', date: 'YYYY-MM-DD', values: { ...only the keys that were read... } }
 ];
 
 // A reading only needs the figures that were actually read; the rest carry

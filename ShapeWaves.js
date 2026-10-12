@@ -446,6 +446,10 @@ void main(){vec2 uv=gl_FragCoord.xy/u_size;float acc=0.0,sum=0.0;
  const blinkAmount=now=>{const e=now-look.blinkAt;if(e<0)return 0;if(e<70)return(e/70)**2;if(e<70+look.hold)return 1;const o=(e-70-look.hold)/150;return o<1?1-o*o*(3-2*o):0};
  function updateEye(now){
   if(!eye)return 0;
+  // settings.eyeWhen: show the eye only while this returns true (the home page
+  // keeps it for the easter egg's inside-out world). It opens each time it returns.
+  if(settings.eyeWhen&&!settings.eyeWhen()){look.hidden=true;return 0}
+  if(look.hidden){look.hidden=false;look.openAt=now;look.closeAt=0}
   const dt=Math.min(.05,(now-look.last)/1000);look.last=now;
   const base=Math.min(eye.rx,eye.ry),cell=settings.cellSize*dpr;
   const pupilR=Math.max(cell*1.2,base*.36);

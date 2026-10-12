@@ -61,7 +61,7 @@
 .pd-grid{max-width:1320px;margin:0 auto;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:clamp(44px,5vw,72px) clamp(18px,2vw,28px)}
 .pd-grid .pd-project{max-width:none;margin:0}
 .pd-grid .pd-project+.pd-project{margin-top:0}
-.pd-plate{position:relative;display:grid;place-items:center;aspect-ratio:16/10;padding:7% 8%;box-sizing:border-box;background:#e9e9ec;overflow:hidden}
+.pd-plate{position:relative;display:grid;place-items:center;aspect-ratio:16/10;padding:7% 8%;box-sizing:border-box;background:#fafafb;overflow:hidden}
 .pd-plate .pd-screen{width:100%;box-shadow:0 0 0 .75px var(--pd-ink),0 24px 48px -28px rgba(24,4,0,.35)}
 .pd-plate .pd-screen-bar{height:20px;padding:0 9px;gap:5px}
 .pd-plate .pd-screen-bar i{width:6px;height:6px}
@@ -139,4 +139,12 @@
 .pd-phones img,.pd-phones video{display:block;height:88%;width:auto;max-width:30%;object-fit:contain;background:transparent}
 .pd-phones video{aspect-ratio:800/1488}
 .pd-phones>:nth-child(2){transform:translateY(-6%)}
-@media(hover:hover){.pd-grid .pd-project:hover .pd-plate.pd-plate-phones{background:#e9e9ec}}
+@media(hover:hover){.pd-grid .pd-project:hover .pd-plate.pd-plate-phones{background:#fafafb}}
+
+/* Oct 12: centre PRODUCT DESIGN in the band under the field, the same way as
+   SELECTED WORKS (ARCH) and PROJECTS (band: bottom 25.5svh; 34svh on narrow screens). */
+.hci-blank-hero .hci-uiux-title{bottom:0;height:25.5svh;display:flex;align-items:center;justify-content:center}
+@media(max-width:900px){.hci-blank-hero .hci-uiux-title{height:34svh;text-align:center}}
+
+/* Oct 12: picture plates are near-white with a hairline edge (were #e9e9ec). */
+.pd-plate{box-shadow:inset 0 0 0 1px rgba(29,29,31,.07)}

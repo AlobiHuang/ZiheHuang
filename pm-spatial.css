@@ -9,3 +9,8 @@
 @keyframes pm-caret{50%{opacity:0}}
 @media(max-width:900px){.pm-spatial-field{inset:52px 0 34svh}.pm-spatial-title{left:0;right:0;padding-inline:20px;white-space:normal}.pm-spatial-kicker{left:20px}}
 @media(prefers-reduced-motion:reduce){.pm-spatial-canvas{opacity:1}.pm-spatial-title span:after{display:none}}
+
+/* Oct 12: centre PROJECTS in the band under the field, the same way as
+   SELECTED WORKS (ARCH) and PRODUCT DESIGN (band: bottom 25.5svh; 34svh on narrow screens). */
+.pm-spatial-hero .pm-spatial-title{bottom:0;height:25.5svh;display:flex;align-items:center;justify-content:center}
+@media(max-width:900px){.pm-spatial-hero .pm-spatial-title{height:34svh;text-align:center}}

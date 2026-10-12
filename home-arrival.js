@@ -1,4 +1,4 @@
-import ShapeWaves from './ShapeWaves.js?v=20260925-slow-1';
+import ShapeWaves from './ShapeWaves.js?v=20261010-eye-egg-1';
 import heroExtrude from './hero-extrude.js?v=8';
 
 const hero = document.querySelector('.continuous-hero');
@@ -56,7 +56,7 @@ if (hero) {
  // The hero's field: a contour map of the word (the default), or the earlier
  // fine vertical lines with ?field=lines, kept for comparison.
  const heroField=new URLSearchParams(location.search).get('field')==='lines'?'lines':'contour';
- const mountWaves=()=>{if(!wavesRoot||wavesRoot.dataset.mounted)return;wavesRoot.dataset.mounted='true';try{waves=ShapeWaves(wavesRoot,{text:'ALOBI',fontFamily:'Geist, "Geist Sans", system-ui, sans-serif',fontWeight:500,textSize:.6,shapes:'squares',pattern:heroField,levels:20,cellSize:innerWidth<700?5:8,dotSize:1,lineDrift:30,color:'#1d1d1f',hoverColor:'#1d1d1f',backgroundColor:heroField==='contour'?'#f5f5f7':'#ffffff',speed:1,scale:1,contrast:1.1,brightness:.4,flow:0,direction:0,fade:0,interactive:true,splashRadius:120,splashStrength:.4,glow:.35,intro:false,introDuration:1.6,paused:false,eye:'O'});wavesRoot.alobiSnapshot=()=>{const still=waves.snapshot();const solid=wavesRoot.querySelector('.hero-extrude');if(still&&solid){try{still.getContext('2d').drawImage(solid,0,0,still.width,still.height)}catch{}}return still};
+ const mountWaves=()=>{if(!wavesRoot||wavesRoot.dataset.mounted)return;wavesRoot.dataset.mounted='true';try{waves=ShapeWaves(wavesRoot,{text:'ALOBI',fontFamily:'Geist, "Geist Sans", system-ui, sans-serif',fontWeight:500,textSize:.6,shapes:'squares',pattern:heroField,levels:20,cellSize:innerWidth<700?5:8,dotSize:1,lineDrift:30,color:'#1d1d1f',hoverColor:'#1d1d1f',backgroundColor:heroField==='contour'?'#f5f5f7':'#ffffff',speed:1,scale:1,contrast:1.1,brightness:.4,flow:0,direction:0,fade:0,interactive:true,splashRadius:120,splashStrength:.4,glow:.35,intro:false,introDuration:1.6,paused:false,eye:'O',eyeWhen:()=>document.documentElement.classList.contains('gp-world')});wavesRoot.alobiSnapshot=()=>{const still=waves.snapshot();const solid=wavesRoot.querySelector('.hero-extrude');if(still&&solid){try{still.getContext('2d').drawImage(solid,0,0,still.width,still.height)}catch{}}return still};
   // The word as a solid standing on the contour map (hero-extrude.js).
   if(heroField==='contour'&&waves.maskInfo){extrude=heroExtrude(wavesRoot,waves,{reduced});if(skip)extrude.settle();else if(extrudeReady)extrude.play()}}catch(error){wavesRoot.dataset.failed='true';console.error(error)}};
  // Hovering ARCH / PD / PM retypes the big word to match, straight away.
