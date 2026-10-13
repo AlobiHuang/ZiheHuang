@@ -49,7 +49,7 @@ html[data-portal="door"] .me-portal-exit{margin-top:-24svh}
 
 /* The names are a chapter inside the same reading corridor. */
 .me-story .dream-lab{overflow:visible;background:var(--me-paper)!important;border-block:1px solid var(--me-ink)}
-.me-story .dream-scroll{height:412svh!important}
+.me-story .dream-scroll{height:350svh!important} /* Oct 13: was 412svh; the three names pass a little quicker */
 .me-story .dream-sticky{min-height:0;height:100svh!important;background:var(--me-paper)!important;color:var(--me-ink)}
 .me-story .dream-sticky:before,.me-story .dream-sticky:after{display:none!important}
 .me-story .dream-header{left:9%;right:9%;top:90px;display:block}
@@ -90,7 +90,7 @@ html[data-portal="door"] .me-portal-exit{margin-top:-24svh}
 .name-color-inversion{position:fixed;inset:0;z-index:2147483647;pointer-events:none;background:#fff;mix-blend-mode:difference;visibility:hidden}
 .name-color-inversion.is-active{visibility:visible}
 @media(max-width:700px){
- .me-story .dream-scroll{height:358svh!important}
+ .me-story .dream-scroll{height:304svh!important} /* Oct 13: was 358svh, same 15% shorter as desktop */
  .me-story .dream-header{left:9%;right:9%;top:80px}
  .me-story .dream-header strong{font-size:25px}
  .me-story .dream-scene h3{font-size:clamp(34px,8vw,55px)}

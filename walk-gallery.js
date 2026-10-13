@@ -1,4 +1,5 @@
 import { drawSharedPortal, drawRoomLines, portalStyle } from './me-portal.js?v=20261002-door-23';
+import { coverMarkup, startCover } from './walk-covers.js?v=20261013-12';
 const gallery=document.querySelector('.walk-gallery');
 if(gallery){
  const world=gallery.querySelector('.walk-world');
@@ -14,13 +15,15 @@ if(gallery){
  // kind: the small word on the wall beside each frame (Product, Brand,
  // Competition, Project ...). Change it freely.
  const works=[
-  // Product design, newest work first.
-  {title:'CMUsed',kind:'Product',meta:'2026 · PRODUCT DESIGN',lens:'PRODUCTS',field:'PRODUCT DESIGN',href:'hci/cmused/',src:'assets/pd/cmused-home.webp?v=3',web:true,desc:'A second-hand marketplace for the Carnegie Mellon community. Browse by category, contact sellers directly, and list an item in three short steps, with AI help writing the description.'},
-  {title:'OpenGym',kind:'Product',meta:'2026 · PRODUCT DESIGN',lens:'PRODUCTS',field:'PRODUCT DESIGN',wip:true,srcs:['assets/pd/opengym-home.webp?v=2','assets/pd/opengym-detail.webp?v=3','assets/pd/opengym-map.webp?v=2'],src:'assets/pd/opengym-home.webp?v=2',web:true,desc:'Live occupancy for Carnegie Mellon\'s gyms. I\'m redesigning its user flow, interface and product logic together with the hardware team behind its live counts.'},
+  // Product design, newest work first. Oct 13: the three products show animated covers
+  // (cover:, walk-covers.js) that open on the brand or idea instead of the screens.
+  {title:'CMUsed',kind:'Product',meta:'2026 · PRODUCT DESIGN',lens:'PRODUCTS',field:'PRODUCT DESIGN',href:'hci/cmused/',cover:'cmused',web:true,desc:'A second-hand marketplace for the Carnegie Mellon community. Browse by category, contact sellers directly, and list an item in three short steps, with AI help writing the description.'},
+  {title:'OpenGym',kind:'Product',meta:'2026 · PRODUCT DESIGN',lens:'PRODUCTS',field:'PRODUCT DESIGN',wip:true,cover:'opengym',web:true,desc:'Live occupancy for Carnegie Mellon\'s gyms. I\'m redesigning its user flow, interface and product logic together with the hardware team behind its live counts.'},
+  {title:'Glimpse',kind:'Product',meta:'2026 · PRODUCT DESIGN',lens:'PRODUCTS',field:'PRODUCT DESIGN',href:'hci/glimpse/',cover:'glimpse',web:true,desc:'A mobile app for the everyday photos people take but never post. Its camera saves each photo onto the street where it was taken, and the photos people share build a living map of places, layered by the hour and the year.'},
   {slug:'call-of-the-sea',title:'Call of the Sea',kind:'Design',meta:'2026—PRESENT · IN PROGRESS',image:'sea-cover.webp',tag:'In progress'},
   {title:'Sankofa Bamboo Greenhouse',kind:'Project',meta:'2023—PRESENT · LEADERSHIP',lens:'PROJECTS',field:'LEADERSHIP',href:'project/?lens=pm&project=sankofa-multi-stakeholder-delivery',image:'sankofa-overview-wide.webp'},
   {slug:'re-serv-oir',title:'RE.SERV.OIR',kind:'Competition winner',meta:'2026 · DESIGN STUDIO',image:'reservoir-exterior.webp',note:['Winner:','AIA COTE Top Ten, one of the two Foundation Level winners across North America']},
-  // Oct 6: Call of the Sea leads the architecture work (03); RE.SERV.OIR is 05.
+  // Oct 6: Call of the Sea leads the architecture work (04 since Glimpse); RE.SERV.OIR is 06.
   {slug:'how-to-build-a-ruin',title:'How to Build a Ruin',kind:'Design',meta:'2026 · OPTION STUDIO',image:'ruin-hero-cover.jpg'},
   {slug:'convergence-environmental-middle-school',title:'Convergence',kind:'Design',meta:'2025 FALL · STUDIO PROJECT',image:'convergence-pdf-02.jpg'},
   {slug:'radical-empathy',title:'Radical Empathy',kind:'Design',meta:'2025 SPRING · STUDIO PROJECT',image:'radical-empathy-cover.jpg'},
@@ -34,7 +37,9 @@ if(gallery){
   if(wip){panel.classList.add('is-wip');panel.setAttribute('aria-label',`${work.title}: ${work.wip?'redesign ':''}in progress`)}
   else{panel.href=work.href||`project/?lens=architecture&project=${work.slug}`;panel.setAttribute('aria-label',`Open the ${work.title} project`)}
   const number=String(i+1).padStart(2,'0');
-  const visual=work.video
+  const visual=work.cover
+   ?coverMarkup(work.cover)+(work.wip?'<span class="walk-wip" aria-hidden="true"><span class="walk-wip-label">Redesign in progress</span></span>':'')
+   :work.video
    ?`<video src="assets/portfolio/${work.video}"${work.image?` poster="assets/portfolio/${work.image}"`:''} muted loop playsinline autoplay preload="metadata"></video>`
    :work.srcs
    ?work.srcs.map((s,k)=>`<img src="${s}" alt=""${k?' loading="lazy"':''} decoding="async"${k?'':' class="is-shown"'}>`).join('')+'<span class="walk-wip" aria-hidden="true"><span class="walk-wip-label">Redesign in progress</span></span>'
@@ -47,6 +52,7 @@ if(gallery){
   if(work.srcs){const frames=[...panel.querySelectorAll('.walk-placeholder img')];let k=0;setInterval(()=>{if(document.hidden)return;frames[k].classList.remove('is-shown');k=(k+1)%frames.length;frames[k].classList.add('is-shown')},3800)}
   if(work.note)panel.classList.add('has-note');
   world.append(panel);
+  if(work.cover)startCover(panel);
  });
  const panels=[...world.children],canvas=gallery.querySelector('.walk-space'),ctx=canvas.getContext('2d');
  // The room's back wall: a large WORK lettered on it, and beside each frame a
@@ -202,8 +208,8 @@ if(gallery){
  let doorShown=-1,doorTime=0,doorGliding=false,doorFrames=null;
  // Scroll brake through the doorway: the wheel moves the page at a fraction of
  // its usual distance, so the door opens and the camera flies in at a pace
- // you can follow.
- const DOOR_BRAKE=.72;
+ // you can follow. (Oct 13: .72 → .9, about 20% fewer scrolls through the door.)
+ const DOOR_BRAKE=.9;
  // "Selected work ↓" in the intro: glide down to the WORK door instead of
  // jumping there.
  document.querySelectorAll('a[href="#walk-gallery"]').forEach(link=>link.addEventListener('click',event=>{

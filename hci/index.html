@@ -17,6 +17,10 @@
     <link rel="stylesheet" href="../spectacle.css?v=20260916-simple-menu-1" />
     <link rel="stylesheet" href="../hero-entrance.css?v=20260922-head-grow-1" />
     <link rel="stylesheet" href="./hci.css?v=20261012-light-1" />
+    <link rel="stylesheet" href="../walk-covers.css?v=20261013-14" />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Climate+Crisis&text=CMUsed&display=swap" />
+    <!-- OpenGym cover: the app's own typeface -->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" />
       <link rel="stylesheet" href="../menu.css?v=20260925-paper-1" />
       <link rel="stylesheet" href="../page-flow.css?v=4" />
     <link rel="expect" href="#top" blocking="render" />
@@ -66,16 +70,7 @@
         <div class="pd-grid">
           <article class="pd-project" aria-labelledby="pd-cmused-title">
             <div class="pd-plate">
-              <figure class="pd-screen pd-laptop" aria-label="CMUsed, a short loop: home, search, a listing, a category and the selling flow">
-                <div class="pd-lid"><i class="pd-cam" aria-hidden="true"></i><div class="pd-screen-view" data-pd-loop>
-                  <img src="../assets/pd/cmused-home.webp?v=3" alt="CMUsed home page: category banners for clothing and furniture, then recent listings" decoding="async" />
-                  <img src="../assets/pd/cmused-search.webp?v=3" alt="CMUsed search results for “sofa”: filters for price, quality and category beside the listing cards" decoding="async" loading="lazy" />
-                  <img src="../assets/pd/cmused-item.webp?v=3" alt="CMUsed listing page: photos, price, condition, the seller and a Contact Seller button" decoding="async" loading="lazy" />
-                  <img src="../assets/pd/cmused-clothing.webp?v=2" alt="CMUsed clothing category with filters and listing cards" decoding="async" loading="lazy" />
-                  <img src="../assets/pd/cmused-sell.webp?v=2" alt="CMUsed listing flow: basic info step with photos, item details and a Generate with AI description" decoding="async" loading="lazy" />
-                </div></div>
-                <div class="pd-base" aria-hidden="true"></div>
-              </figure>
+              <div class="pd-cover" data-cover="cmused" role="img" aria-label="CMUsed: its categories roll past the wordmark, then a real listing card drops in"></div>
             </div>
             <div class="pd-card-cap">
               <h3 id="pd-cmused-title"><a class="pd-project-link" href="./cmused/" data-route data-route-label="PD / CMUSED">CMUsed</a><span>: a second-hand marketplace for Carnegie Mellon students</span></h3>
@@ -86,14 +81,7 @@
           <article class="pd-project is-wip" aria-labelledby="pd-opengym-title">
             <div class="pd-plate">
               <span class="pd-wip" aria-hidden="true"><b>Redesign in progress</b></span>
-              <figure class="pd-screen pd-laptop" aria-label="OpenGym, the existing app: the gym list, a gym page and its map">
-                <div class="pd-lid"><i class="pd-cam" aria-hidden="true"></i><div class="pd-screen-view" data-pd-loop>
-                  <img src="../assets/pd/opengym-home.webp?v=2" alt="OpenGym home: the three campus gyms, each with a photo, its name and when it next opens" decoding="async" />
-                  <img src="../assets/pd/opengym-detail.webp?v=3" alt="OpenGym gym page for Cohon Fitness Center Lower: operating hours, a live occupancy gauge reading 0 of 94 while offline, and how busy it usually is" decoding="async" loading="lazy" />
-                  <img src="../assets/pd/opengym-map.webp?v=2" alt="OpenGym gym page, bottom: an amenity photo and a map of the Cohon University Center" decoding="async" loading="lazy" />
-                </div></div>
-                <div class="pd-base" aria-hidden="true"></div>
-              </figure>
+              <div class="pd-cover" data-cover="opengym" role="img" aria-label="OpenGym: the three campus gyms, a click into Cohon Fitness Center Lower, its live count and how busy it usually is (illustrative numbers)"></div>
             </div>
             <div class="pd-card-cap">
               <h3 id="pd-opengym-title"><span class="pd-project-link">OpenGym</span><span>: live gym occupancy, redesign in progress</span></h3>
@@ -104,12 +92,8 @@
           <!-- Oct 12: Glimpse, re-recorded from the updated app (Your world, Now, the camera).
                Three short loops, already iPhone-framed, so the plate shows them as they are. -->
           <article class="pd-project" aria-labelledby="pd-glimpse-title">
-            <div class="pd-plate pd-plate-phones">
-              <figure class="pd-phones" aria-label="Glimpse on a phone: Your world, Now and the camera">
-                <video poster="../assets/pd/glimpse/v2/glimpse-world.jpg?v=2" muted loop playsinline preload="metadata" data-pd-video aria-label="Glimpse Your world: your photos on a map of Boston, year by year from 2026 to 2023, then a smooth zoom out to the whole world and back"><source src="../assets/pd/glimpse/v2/glimpse-world.mp4?v=2" type='video/mp4; codecs="avc1.640028"' /><source src="../assets/pd/glimpse/v2/glimpse-world.webm?v=2" type="video/webm" /></video>
-                <video poster="../assets/pd/glimpse/v2/glimpse-now-swipe.jpg?v=3" muted loop playsinline preload="metadata" data-pd-video aria-label="Glimpse Now: swiping through the hours, then Back to now scrolls all the way back to the first hour"><source src="../assets/pd/glimpse/v2/glimpse-now-swipe.mp4?v=3" type='video/mp4; codecs="avc1.640028"' /><source src="../assets/pd/glimpse/v2/glimpse-now-swipe.webm?v=3" type="video/webm" /></video>
-                <video poster="../assets/pd/glimpse/v2/glimpse-camera-shoot.jpg?v=3" muted loop playsinline preload="metadata" data-pd-video aria-label="The Glimpse camera: each shot is rated, 94 goes public to the archive, 58 stays private on your map"><source src="../assets/pd/glimpse/v2/glimpse-camera-shoot.mp4?v=3" type='video/mp4; codecs="avc1.640028"' /><source src="../assets/pd/glimpse/v2/glimpse-camera-shoot.webm?v=3" type="video/webm" /></video>
-              </figure>
+            <div class="pd-plate">
+              <div class="pd-cover" data-cover="glimpse" role="img" aria-label="Glimpse: the viewfinder mark forms and grows into the Now screen, then Your world and the camera join it"></div>
             </div>
             <div class="pd-card-cap">
               <h3 id="pd-glimpse-title"><a class="pd-project-link" href="./glimpse/" data-route data-route-label="PD / GLIMPSE">Glimpse</a><span>: a living map of the photos you never post</span></h3>
@@ -120,6 +104,8 @@
       </section>
     </main>
     <script type="module" src="./hci.js?v=20261007-video-1"></script>
+    <!-- Oct 13: the same animated covers as the WORK walk on the home page (walk-covers.js). -->
+    <script type="module">import { coverMarkup, startCover } from "../walk-covers.js?v=20261013-12"; document.querySelectorAll("[data-cover]").forEach(el => { el.innerHTML = coverMarkup(el.dataset.cover, "../"); startCover(el); });</script>
     <script src="../spectacle.js?v=20260925-perf-1"></script>
     <script src="../cursor-shape.js?v=3"></script>
     <script>
