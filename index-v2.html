@@ -1,0 +1,176 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Zihe (Alobi) Huang — home mockup</title>
+<meta name="robots" content="noindex" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet" />
+<!--
+  Mockup of a new first screen for the home page (Oct 12). A separate copy:
+  the live home page (index.html) is unchanged and nothing links here.
+  Open it as /index-v2.html. Delete this file to remove the mockup.
+-->
+<style>
+  :root{
+    --paper:#f7f6f2; --ink:#1a1714; --mute:#77716a; --line:rgba(26,23,20,.14);
+    --accent:#b4432c; --accent-soft:#f1e3dc;
+    --serif:"Instrument Serif",Georgia,"Times New Roman",serif;
+    --mono:"DM Mono",ui-monospace,SFMono-Regular,Consolas,monospace;
+    --sans:-apple-system,BlinkMacSystemFont,"Helvetica Neue",Arial,sans-serif;
+    --pad:clamp(16px,3vw,40px);
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;background:var(--paper);color:var(--ink)}
+  body{font:400 15px/1.5 var(--sans);-webkit-font-smoothing:antialiased}
+  a{color:inherit}
+  img{display:block;max-width:100%}
+
+  .mock-note{position:fixed;z-index:20;right:12px;bottom:12px;padding:6px 10px;border-radius:999px;background:var(--ink);color:var(--paper);font:500 11px/1 var(--mono)}
+
+  /* Top bar */
+  .top{position:sticky;top:0;z-index:10;display:flex;align-items:baseline;gap:14px;padding:14px var(--pad);background:rgba(247,246,242,.92);backdrop-filter:blur(8px);border-bottom:1px solid var(--line);font:400 13px/1.2 var(--mono)}
+  .top b{font-weight:500}
+  .top span{color:var(--mute)}
+  .top nav{margin-left:auto;display:flex;gap:clamp(18px,4vw,56px)}
+  .top nav a{text-decoration:none}
+  .top nav a:hover{color:var(--accent)}
+
+  /* Intro */
+  .intro{display:grid;grid-template-columns:minmax(0,1.6fr) minmax(0,1fr);gap:clamp(24px,5vw,80px);align-items:end;padding:clamp(40px,6vw,80px) var(--pad) clamp(24px,3vw,40px)}
+  .intro h1{margin:0;font:400 clamp(32px,3.4vw,52px)/1.08 var(--serif);letter-spacing:-.01em}
+  .intro h1 a{color:var(--accent);text-decoration:underline;text-decoration-thickness:1px;text-underline-offset:.12em}
+  .intro h1 a:hover{text-decoration-thickness:2px}
+  .sketch{margin:0}
+  .sketch img{width:100%;aspect-ratio:16/9;object-fit:cover;object-position:0 30%;mix-blend-mode:multiply}
+  .sketch figcaption{margin-top:8px;font:400 11px/1.4 var(--mono);color:var(--mute)}
+
+  /* Currently / previously */
+  .notes{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:clamp(16px,3vw,48px);padding:0 var(--pad) clamp(24px,3vw,40px);border-bottom:1px solid var(--line);font:400 13px/1.6 var(--mono)}
+  .notes h2{margin:0 0 4px;font:500 13px/1.6 var(--mono)}
+  .notes ul{list-style:none;margin:0;padding:0}
+  .notes li{padding-left:1.3em;text-indent:-1.3em}
+  .notes li:before{content:"* "}
+  .notes li span{color:var(--mute)}
+
+  /* Work grid */
+  .work{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:clamp(28px,3vw,44px) clamp(14px,1.6vw,24px);padding:clamp(28px,4vw,48px) var(--pad)}
+  .card{display:block;text-decoration:none}
+  .cover{position:relative;aspect-ratio:4/3;overflow:hidden;border-radius:4px;background:#ebe8e1}
+  .cover>img{width:100%;height:100%;object-fit:cover;transition:transform .6s cubic-bezier(.2,.7,.2,1)}
+  .card:hover .cover>img{transform:scale(1.03)}
+  .cover.screen{display:grid;place-items:center;padding:9% 8%}
+  .cover.screen>img{height:auto;object-fit:contain;border-radius:6px;box-shadow:0 14px 40px rgba(26,23,20,.16)}
+  .cover.phones{display:flex;justify-content:center;align-items:center;gap:5%;padding:7% 6%}
+  .cover.phones>img{width:26%;height:auto;border-radius:12px;box-shadow:0 14px 34px rgba(26,23,20,.18)}
+  .cover.phones>img:nth-child(2){transform:translateY(-6%)}
+  .card:hover .cover.phones>img{transform:none}
+  .card:hover .cover.phones>img:nth-child(2){transform:translateY(-8%)}
+  .tag{position:absolute;left:12px;top:12px;padding:4px 8px;border-radius:999px;background:var(--paper);font:500 11px/1 var(--mono)}
+  .card h3{margin:14px 0 4px;font:400 clamp(20px,1.7vw,25px)/1.15 var(--serif)}
+  .card:hover h3{color:var(--accent)}
+  .card p{margin:0;font:400 12px/1.4 var(--mono);color:var(--accent)}
+
+  .more{display:flex;flex-wrap:wrap;gap:10px 32px;padding:8px var(--pad) 64px;font:400 13px/1.4 var(--mono)}
+  .more a{text-underline-offset:4px}
+  .more a:hover{color:var(--accent)}
+
+  @media(max-width:900px){
+    .intro{grid-template-columns:1fr}
+    .sketch{max-width:420px}
+    .notes{grid-template-columns:1fr 1fr}
+    .work{grid-template-columns:1fr 1fr}
+  }
+  @media(max-width:600px){
+    .top span{display:none}
+    .notes,.work{grid-template-columns:1fr}
+  }
+</style>
+</head>
+<body>
+  <div class="mock-note">Mockup — not live</div>
+
+  <header class="top">
+    <b>Zihe (Alobi) Huang</b><span>Architecture + HCI, Carnegie Mellon</span>
+    <nav><a href="#work">Work</a><a href="about/">About</a><a href="mailto:ziheh@andrew.cmu.edu">Contact</a></nav>
+  </header>
+
+  <main>
+    <section class="intro">
+      <h1>I’m Alobi. I study architecture and HCI at Carnegie Mellon, and right now I’m redesigning a <a href="hci/cmused/">campus marketplace</a> and helping build a <a href="project/?lens=pm&amp;project=sankofa-multi-stakeholder-delivery">bamboo greenhouse</a> in Homewood.</h1>
+      <figure class="sketch">
+        <img src="assets/portfolio/sankofa-fabrication-sequence.webp" alt="Fabrication sequence for the bamboo arches of the Sankofa Greenhouse" />
+        <figcaption>bamboo arch fabrication sequence, Sankofa Greenhouse</figcaption>
+      </figure>
+    </section>
+
+    <section class="notes" aria-label="Currently, previously and recognition">
+      <div>
+        <h2>Currently…</h2>
+        <ul>
+          <li>Product designer, CMUsed <span>@ BTG Product Studio</span></li>
+          <li>Project designer, Sankofa Bamboo Greenhouse</li>
+          <li>Fabrication team lead (TA) <span>@ CMU School of Architecture</span></li>
+          <li>Architecture + HCI <span>@ Carnegie Mellon</span></li>
+        </ul>
+      </div>
+      <div>
+        <h2>Previously…</h2>
+        <ul>
+          <li>Design intern, AI + Stable Diffusion <span>@ Huayi Design, Hong Kong</span></li>
+          <li>Research assistant, bamboo joinery <span>@ CMU SURA</span></li>
+        </ul>
+      </div>
+      <div>
+        <h2>Recognition…</h2>
+        <ul>
+          <li>AIA COTE Top Ten for Students, Foundation Level winner <span>2026</span></li>
+          <li>Dean’s List ×3 <span>2024–2026</span></li>
+        </ul>
+      </div>
+    </section>
+
+    <section class="work" id="work" aria-label="Selected work">
+      <a class="card" href="hci/cmused/">
+        <div class="cover screen" style="background:#f1e3dc"><img src="assets/pd/cmused-home.webp" alt="CMUsed home page" loading="lazy" /></div>
+        <h3>CMUsed: making a campus marketplace easier to use for its 1,800+ members</h3>
+        <p>2026 – now | Product design · BTG Product Studio</p>
+      </a>
+      <a class="card" href="project/?lens=architecture&amp;project=re-serv-oir">
+        <div class="cover"><img src="assets/portfolio/reservoir-exterior.webp" alt="RE.SERV.OIR exterior" loading="lazy" /><span class="tag">AIA COTE winner</span></div>
+        <h3>RE.SERV.OIR: Portland’s retired water tanks as a community ecology center</h3>
+        <p>2026 | Studio · AIA COTE Top Ten, Foundation Level</p>
+      </a>
+      <a class="card" href="project/?lens=pm&amp;project=sankofa-multi-stakeholder-delivery">
+        <div class="cover"><img src="assets/portfolio/sankofa-overview-wide.webp" alt="The Sankofa Bamboo Greenhouse" loading="lazy" /></div>
+        <h3>Sankofa: taking a bamboo greenhouse from prototype to a full-scale build</h3>
+        <p>2023 – now | Project designer · Homewood, Pittsburgh</p>
+      </a>
+      <a class="card" href="hci/glimpse/">
+        <div class="cover phones" style="background:#e4e6dd"><img src="assets/pd/glimpse/glimpse-map.webp" alt="Glimpse map" loading="lazy" /><img src="assets/pd/glimpse/glimpse-now.webp" alt="Glimpse Now tab" loading="lazy" /><img src="assets/pd/glimpse/glimpse-layers.webp" alt="Glimpse Layers" loading="lazy" /></div>
+        <h3>Glimpse: a shared map of the photos people take but never post</h3>
+        <p>2026 | Designed and built · iOS, Android, Web</p>
+      </a>
+      <a class="card" href="hci/opengym/">
+        <div class="cover screen" style="background:#e3e6ea"><img src="assets/pd/opengym-home.webp" alt="OpenGym gym list" loading="lazy" /><span class="tag">In progress</span></div>
+        <h3>OpenGym: live gym counts that say when they can’t be trusted</h3>
+        <p>2026 | Redesign · with the hardware team</p>
+      </a>
+      <a class="card" href="project/?lens=architecture&amp;project=how-to-build-a-ruin">
+        <div class="cover"><img src="assets/portfolio/ruin-hero-cover.jpg" alt="How to Build a Ruin" loading="lazy" /></div>
+        <h3>How to Build a Ruin: a seed bank on a former coal site</h3>
+        <p>2026 | Option studio</p>
+      </a>
+    </section>
+
+    <nav class="more" aria-label="More">
+      <a href="index.html#walk-gallery">Walk through all the work →</a>
+      <a href="architecture/">All architecture</a>
+      <a href="hci/">All product design</a>
+      <a href="about/">About me</a>
+    </nav>
+  </main>
+</body>
+</html>
