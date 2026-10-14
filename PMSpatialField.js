@@ -1,4 +1,4 @@
-import heroEntrance from './hero-entrance.js?v=20260916-speed-1265';
+import heroEntrance from './hero-entrance.js?v=20261013-quick-1';
 import Waves from './Waves.js?v=20260925-perf-1';
 const start = () => {
  const field = document.querySelector('[data-pm-spatial]');

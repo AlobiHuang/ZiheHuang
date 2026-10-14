@@ -193,3 +193,26 @@
 .cm-toc a.is-current:before{opacity:1;transform:none}
 @media(max-width:1180px){.cm.cm-doc{display:block;max-width:calc(var(--cm-col) + 96px)}.cm-doc>.cm-toc{display:none}}
 body.cm-page{overflow-x:clip}
+
+/* Oct 13: problem vs solution, side by side (CMUsed "What was the problem?" / "Solutions?").
+   Each row pairs one problem (left) with what I'm doing about it (right); the arrow sits in the
+   gap between them. No small labels or tags. Type matches .cm-notes. */
+.cm-vs-heads,.cm-vs-row{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));column-gap:clamp(40px,5vw,72px)}
+.cm-vs{margin-top:6px}
+/* no rules between rows: space alone separates them */
+.cm-vs-row{position:relative}
+.cm-vs-row>div{padding:0 0 clamp(24px,2.4vw,32px)}
+.cm-vs-row:after{content:"→";position:absolute;left:50%;top:-1px;transform:translateX(-50%);font:450 16px/1.2 var(--cm-text);color:#6e6e73}
+.cm-vs-row b{display:block;margin-bottom:4px;font:650 15px/1.2 var(--cm-display);letter-spacing:-.01em}
+.cm-vs-row p{margin:0;font:450 13px/1.55 var(--cm-text);color:#3a3a3c}
+/* every row keeps room for two lines of text, so the rows share one rhythm whether or not
+   a line wraps (otherwise the gaps under the problems change from row to row) */
+.cm-vs-row p{min-height:calc(2em * 1.55)}
+@media(max-width:560px){
+  .cm-vs-heads h2+h2{display:none}
+  .cm-vs-row{grid-template-columns:1fr;row-gap:0}
+  .cm-vs-row>div:first-child{padding-bottom:10px}
+  .cm-vs-row p{min-height:0}
+  .cm-vs-row:after{content:none}
+  .cm-vs-row>div:last-child{padding-left:14px;border-left:1px solid var(--cm-ink)}
+}

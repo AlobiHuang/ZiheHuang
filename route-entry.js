@@ -31,6 +31,7 @@
     const transition = event.viewTransition;
     if (!transition) { settle(); return; }
     window.alobiViewTransition = transition;
+    transition.ready.catch(() => {}); // a skipped transition is fine; don't report it as an error
     const type = window.navigation?.activation?.navigationType || 'push';
     const from = window.navigation?.activation?.from?.url || '';
     let flow = 'rise';
@@ -53,9 +54,17 @@
   // Site links go straight to their page; the transition does the rest.
   const homeUrl = new URL(isHome ? './' : '../', location.href).href;
   const sections = { about: 'about/', architecture: 'architecture/', hci: 'hci/', pm: 'pm/', contact: 'contact/' };
+  // Oct 13: once a page change has started, further clicks on site links are
+  // swallowed. A second click used to start the trip over, which cancelled the
+  // transition: the old page froze, then the next one appeared with no movement.
+  let leaving = false;
+  addEventListener('pageshow', event => { if (event.persisted) leaving = false; });
   const go = (url, label) => {
     const destination = new URL(url, location.href);
     if (destination.href === location.href) return false;
+    if (leaving) return true;
+    leaving = true;
+    setTimeout(() => { leaving = false; }, 6000); // never lock the links if a load fails
     try {
       sessionStorage.removeItem('alobi-route-reveal');
       if (destination.href === homeUrl || /ALOBI\s*\/\s*HOME/i.test(label || '')) sessionStorage.setItem('alobi-home-line-return', '1');
@@ -83,6 +92,18 @@
       event.stopImmediatePropagation();
     }
   }, true);
+
+  // Oct 13: on every other page, the browser quietly prepares the home page as
+  // soon as the pointer rests on the ZH logo (or presses it), so a click shows
+  // it at once and the page change always plays. Without this the home page,
+  // with its many stylesheets, could take long enough to appear that the
+  // browser dropped the transition and switched with no movement.
+  if (!isHome && HTMLScriptElement.supports?.('speculationrules')) {
+    const rules = document.createElement('script');
+    rules.type = 'speculationrules';
+    rules.textContent = JSON.stringify({ prerender: [{ where: { selector_matches: '.site-head .identity' }, eagerness: 'moderate' }] });
+    document.head.append(rules);
+  }
 })();
 
 (() => {

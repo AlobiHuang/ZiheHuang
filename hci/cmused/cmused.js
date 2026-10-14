@@ -98,16 +98,16 @@ if (stamp) {
 const heading = document.querySelector('[data-cm-title]');
 if (heading && updated) heading.textContent = 'Where it stands now.';
 
-// ---- reading the baseline: three observations, from the first snapshot ----
-const notes = document.querySelector('[data-cm-notes]');
-if (notes) {
-  const items = [
-    ['Most people only look.', `${pct(share(b.neverListed, b.totalUsers))} of accounts had never listed anything, and ${pct(share(b.neverMessaged, b.totalUsers))} had never sent a message.`],
-    ['Conversations stall.', `${pct(share(b.sellersNeverReplied, b.sellersContacted))} of contacted sellers never replied. When they did, the median wait was ${hours(b.medianReplyHours)}.`],
-    ['New supply is thin.', `${int(b.newListings7d)} new listings went up in the same week that brought ${int(b.signups7d)} new sign-ups.`]
-  ];
-  notes.innerHTML = items.map(([title, text], i) => `<li><span>0${i + 1}</span><b>${title}</b><p>${text}</p></li>`).join('');
-}
+// ---- the problem, read from the baseline (the first snapshot) ---------------
+// Oct 13: short on purpose, one line each, so the problem reads in seconds. They fill the
+// left column of the problem vs solution table.
+const problems = {
+  activation: `${pct(share(b.neverListed, b.totalUsers), 0)} never listed an item; ${pct(share(b.neverMessaged, b.totalUsers), 0)} never sent a message.`,
+  response: `${pct(share(b.sellersNeverReplied, b.sellersContacted), 0)} of contacted sellers never replied. Median reply: ${Math.round(b.medianReplyHours)} hours.`,
+  supply: `${int(b.newListings7d)} new listings vs ${int(b.signups7d)} new sign-ups in one week.`,
+  retention: `${pct(share(b.mau, b.totalUsers), 0)} of accounts active in a month; DAU/MAU stickiness ${pct(share(b.dau, b.mau), 0)}.`
+};
+document.querySelectorAll("[data-cm-problem]").forEach(el => { el.textContent = problems[el.dataset.cmProblem] || ""; });
 
 // ---- active listings by category: one series, so one ink, sorted -------------
 const chart = document.querySelector('[data-cm-categories]');

@@ -214,7 +214,7 @@ const categoryRoutes = {
   hci: { url: 'hci/', label: 'PRODUCT DESIGN' },
   contact: { url: 'contact/', label: 'CONTACT / OPEN CHANNEL' }
 };
-const categoryTransitionDuration = 616;
+const categoryTransitionDuration = 490; // Oct 13: 616 → 490 with the .46s stroke (was .585s)
 const routeHoldDuration = 135;
 const routeRevealDuration = 913;
 const routeStorageKey = 'alobi-route-reveal';

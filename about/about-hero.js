@@ -1,6 +1,6 @@
 // About page cover: the same opening as the ARCH, PD, PM and Resume pages (the
 // field rises from the rule and the title spins in), over the light line field.
-import heroEntrance from '../hero-entrance.js?v=20260916-speed-1265';
+import heroEntrance from '../hero-entrance.js?v=20261013-quick-1';
 import Waves from '../Waves.js?v=20260925-perf-1';
 
 const hero = document.querySelector('.about-cover');

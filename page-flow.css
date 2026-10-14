@@ -6,9 +6,9 @@
 @view-transition{navigation:auto}
 @media (prefers-reduced-motion:reduce){@view-transition{navigation:none}}
 
-::view-transition-group(root){animation-duration:.82s}
+::view-transition-group(root){animation-duration:.6s} /* Oct 13: .82s → .6s */
 html[data-flow]::view-transition-old(root),
-html[data-flow]::view-transition-new(root){mix-blend-mode:normal;animation-duration:.82s;animation-timing-function:cubic-bezier(.76,0,.24,1);animation-fill-mode:both}
+html[data-flow]::view-transition-new(root){mix-blend-mode:normal;animation-duration:.6s;animation-timing-function:cubic-bezier(.76,0,.24,1);animation-fill-mode:both}
 
 /* Forward: the next page rises over this one, which drifts up a little. */
 html[data-flow="rise"]::view-transition-old(root){animation-name:flow-drift-up}

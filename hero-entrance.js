@@ -1,6 +1,7 @@
 export default function heroEntrance({field,typeTarget,title,hero,text,radial=false,revealCenters=null,onDispose=()=>{}}) {
   const reduced = matchMedia('(prefers-reduced-motion: reduce)').matches;
-  const motionRate = 1.265;
+  // Oct 13: 1.265 → 1.6, so the whole entrance (line, artwork, title) runs about 20% quicker.
+  const motionRate = 1.6;
   const scaled = ms => ms / motionRate;
   const divider = document.createElement('div');
   divider.className = 'arch-entrance-divider';
@@ -62,7 +63,7 @@ export default function heroEntrance({field,typeTarget,title,hero,text,radial=fa
       const points = [];
       for (let i = 0; i <= 60; i++) {
         const x = i / 60;
-        const centerDelay = Math.pow(Math.sin(x * Math.PI), 1.7) * 620;
+        const centerDelay = Math.pow(Math.sin(x * Math.PI), 1.7) * 420; // Oct 13: 620 → 420, the middle no longer seems to stall
         const rise = ease((elapsed - centerDelay) / 1150);
         points.push(`${x * 100}% ${(1 - rise) * 100}%`);
       }
@@ -149,7 +150,7 @@ export default function heroEntrance({field,typeTarget,title,hero,text,radial=fa
     ], { duration: scaled(730), easing: 'cubic-bezier(.65,0,.2,1)', fill: 'forwards' });
     if (disposed) return;
     const waves = revealField();
-    await pause(scaled(400));
+    await pause(scaled(160)); // Oct 13: 400 → 160, no wait after the line lands
     const gap = Math.max(0, title.getBoundingClientRect().top - field.getBoundingClientRect().bottom);
     title.style.clipPath = `inset(-${gap}px -5% -30% -5%)`;
     title.style.visibility = 'visible';

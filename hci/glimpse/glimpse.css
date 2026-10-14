@@ -136,3 +136,14 @@
 .gl-hero .gl-shot:nth-child(2){transform:translateY(calc(var(--gl-lift) * -1))}
 .gl-hero .gl-shot video{position:absolute;left:-13.514%;top:-3.341%;width:127.186%;height:auto;max-width:none}
 @media(max-width:560px){.gl-hero .gl-shot:nth-child(odd){transform:none}.gl-hero .gl-shot:nth-child(2){transform:none}}
+
+/* Oct 13 (c): Explorations, compiled into one 2×2 grid (it used to be four full-width
+   blocks, about five screens). Each cell: the earlier screen, an arrow, the current screen,
+   then one bold title and one sentence. No small labels. */
+.gl-evo{list-style:none;margin:22px 0 0;padding:0;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:clamp(28px,4vw,56px) clamp(24px,4vw,56px)}
+.gl-evo-pair{position:relative;display:flex;justify-content:center;gap:clamp(30px,4.5vw,56px);padding:clamp(22px,3vw,34px) 8%;margin-bottom:16px;background:#fafafb;border:1px solid rgba(29,29,31,.07);border-radius:14px}
+.gl-evo-pair .gl-shot{width:min(170px,42%)}
+.gl-evo-pair:not(.is-alt):after{content:"→";position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);font:450 18px/1 var(--cm-text);color:#6e6e73}
+.gl-evo b{display:block;margin-bottom:4px;font:650 15px/1.2 var(--cm-display);letter-spacing:-.01em}
+.gl-evo p{margin:0;max-width:440px;font:450 13px/1.55 var(--cm-text);color:#3a3a3c}
+@media(max-width:700px){.gl-evo{grid-template-columns:1fr}}

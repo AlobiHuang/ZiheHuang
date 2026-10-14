@@ -545,7 +545,7 @@ const routeTo = (url, label) => {
     transition.classList.add('is-holding');
     rememberRouteReveal(label);
     requestAnimationFrame(() => window.setTimeout(() => location.assign(url), 135));
-  }, 616);
+  }, 490); // Oct 13: 616 → 490
 };
 
 document.querySelectorAll('[data-route]').forEach(link => link.addEventListener('click', event => {

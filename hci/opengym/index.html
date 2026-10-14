@@ -5,23 +5,23 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="description" content="OpenGym, live gym occupancy at Carnegie Mellon: redesigning its user flow, interface and logic with the hardware team." />
     <title>OpenGym — Product Design — Zihe Huang</title>
-    <script src="../../route-entry.js?v=20260925-flow-2"></script>
+    <script src="../../route-entry.js?v=20261013-logo-1"></script>
     <script src="../../project/zoom-arrive.js?v=3"></script>
     <script src="../../smooth-scroll.js?v=2" defer></script>
     <script src="../../scroll-rail.js?v=2" defer></script>
     <script>document.documentElement.classList.add('arch-motion-pending');setTimeout(()=>document.documentElement.classList.remove('arch-motion-pending'),10000);</script>
     <link rel="icon" type="image/svg+xml" href="../../assets/alobi-mark.svg" />
     <link rel="stylesheet" href="../../styles.css?v=20260922-logo-hit-1" />
-    <link rel="stylesheet" href="../../animations.css?v=20260916-speed-1265" />
+    <link rel="stylesheet" href="../../animations.css?v=20261013-quick-1" />
     <link rel="stylesheet" href="../../category.css" />
     <link rel="stylesheet" href="../../apple-system.css?v=20261001-wide-1" />
     <link rel="stylesheet" href="../../spectacle.css?v=20260916-simple-menu-1" />
     <link rel="stylesheet" href="../../hero-entrance.css?v=20260922-head-grow-1" />
     <link rel="stylesheet" href="../hci.css?v=20261012-light-1" />
-    <link rel="stylesheet" href="../cmused/cmused.css?v=18" />
+    <link rel="stylesheet" href="../cmused/cmused.css?v=25" />
     <link rel="stylesheet" href="./opengym.css?v=3" />
       <link rel="stylesheet" href="../../menu.css?v=20260925-paper-1" />
-      <link rel="stylesheet" href="../../page-flow.css?v=4" />
+      <link rel="stylesheet" href="../../page-flow.css?v=5" />
     <link rel="expect" href="#top" blocking="render" />
     <script type="module" src="../../menu.js?v=20261010-copy-1"></script>
     <link rel="stylesheet" href="../../pd-polish.css?v=1" />
@@ -103,10 +103,16 @@
             <li><span>02</span><b>Summaries that contradict.</b><p>With too little data, the busiest and the least busy hours both come out as 9am – 12pm, “about 0% full”.</p></li>
             <li><span>03</span><b>Logic shared with hardware.</b><p>What counts as live, late or offline is decided together with the hardware team, so the interface can say which one the reading is and what to trust.</p></li>
           </ol>
+          <div class="cm-sub"><h3>The design question</h3><p>How might we show how busy a gym is in a way students can trust, even when the counter isn't reporting?</p></div>
         </section>
 
         <section class="cm-section og-next" id="next" aria-labelledby="og-next">
           <header class="cm-section-head"><h2 id="og-next">The redesigned flow.</h2></header>
+          <ol class="cm-notes">
+            <li><span>01</span><b>Say what the reading is.</b><p>Live, late and offline each look different, so a missing reading never passes for an empty gym.</p></li>
+            <li><span>02</span><b>Summarise only with enough data.</b><p>Busiest and quietest hours appear once there are enough days to compare; until then, the page says so.</p></li>
+            <li><span>03</span><b>Answer the question first.</b><p>A new flow that leads with whether the gym is busy now, then the detail behind it.</p></li>
+          </ol>
           <p class="og-pending">In progress. The new user flow and screens will be shown here, side by side with the original.</p>
         </section>
 

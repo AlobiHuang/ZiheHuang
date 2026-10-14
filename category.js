@@ -761,7 +761,7 @@ let routing = false;
 window.addEventListener('pageshow', event => {
   if (event.persisted) routing = false;
 });
-const routeTransitionDuration = 616;
+const routeTransitionDuration = 490; // Oct 13: 616 → 490, matching the .46s stroke
 const routeHoldDuration = 135;
 const routeRevealDuration = 913;
 const routeStorageKey = 'alobi-route-reveal';
