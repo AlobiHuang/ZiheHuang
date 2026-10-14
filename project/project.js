@@ -29,6 +29,7 @@ const portfolio = {
       },
       {
         slug: 're-serv-oir', no: 'A—05', title: 'RE.SERV.OIR', date: '2026', type: 'Competition Winner',
+        award: { href: 'https://www.acsa-arch.org/competitions/2026-cote-competition/winners/', label: 'AIA COTE Top Ten for Students 2026 · See the winners' },
         role: 'Community Ecology Center · Portland, Oregon',
         question: 'How can obsolete infrastructure become civic ground?',
         summary: 'A community ecology center that reclaims Portland’s decommissioned concrete water tanks as civic ground for environmental learning, gathering, and ecological repair.',
@@ -366,6 +367,7 @@ document.getElementById('project-root').innerHTML = isPmLanding ? `${pmLandingHe
     <div class="project-gateway-heading">
       ${isSplitProject ? '' : `<span>${project.no} / ${project.type}</span>`}
       <h1>${project.title}</h1>
+      ${project.award ? `<a class="project-award" href="${project.award.href}" target="_blank" rel="noopener">${project.award.label}<span aria-hidden="true"> ↗</span></a>` : ''}
       ${lensKey === 'architecture' ? (sourceOverview ? `<p class="project-hook">${sourceOverview}</p>` : '') : `<p class="project-hook">${project.summary}</p>`}
     </div>
     ${isSplitProject ? (() => { const side = isTaProject ? taHeroSide : sankofaHeroSide; const alt = isTaProject ? taHeroSideAlt : sankofaHeroSideAlt; if (!side) return ''; return `<figure class="project-hero-side${side ? '' : ' is-empty'}${isTaProject ? ' is-drawing' : ''}" data-hero-side>${side ? `<img src="../assets/portfolio/${side}" alt="${alt}" fetchpriority="high" decoding="async">` : '<span aria-hidden="true">IMAGE</span>'}</figure>`; })() : ''}

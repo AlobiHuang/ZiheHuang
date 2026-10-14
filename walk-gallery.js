@@ -1,5 +1,5 @@
 import { drawSharedPortal, drawRoomLines, portalStyle } from './me-portal.js?v=20261002-door-23';
-import { coverMarkup, startCover } from './walk-covers.js?v=20261013-12';
+import { coverMarkup, startCover } from './walk-covers.js?v=20261013-13';
 const gallery=document.querySelector('.walk-gallery');
 if(gallery){
  const world=gallery.querySelector('.walk-world');
@@ -26,8 +26,7 @@ if(gallery){
   // Oct 6: Call of the Sea leads the architecture work (04 since Glimpse); RE.SERV.OIR is 06.
   {slug:'how-to-build-a-ruin',title:'How to Build a Ruin',kind:'Design',meta:'2026 · OPTION STUDIO',image:'ruin-hero-cover.jpg'},
   {slug:'convergence-environmental-middle-school',title:'Convergence',kind:'Design',meta:'2025 FALL · STUDIO PROJECT',image:'convergence-pdf-02.jpg'},
-  {slug:'radical-empathy',title:'Radical Empathy',kind:'Design',meta:'2025 SPRING · STUDIO PROJECT',image:'radical-empathy-cover.jpg'},
-  // (The Tinkerer's Imaginarium is left out here; it stays on the ARCH page.)
+  // (Radical Empathy, removed Oct 13 as outdated, and The Tinkerer's Imaginarium are left out here; both stay on the ARCH page.)
  ];
  works.forEach((work,i)=>{
   // Oct 5: a project still in progress (wip) is a frame, not a link.

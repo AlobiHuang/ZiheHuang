@@ -18,12 +18,14 @@ const markup = {
     <span class="wc-foot">Second-hand at Carnegie Mellon</span></div>`,
   // Glimpse: the two viewfinder corners close in and form the mark; its square grows into the
   // Now screen (the real Now-swipe recording), the other two phones join, and as the screen
-  // swipes 4 pm → 8 pm the background follows the hour on it, in the app's own colours.
-  glimpse: (b) => `<div class="walk-cover wc-gl" data-scenes="0,700,3000,5000,8000,11000" data-loop="12100" data-still="3" aria-hidden="true">
+  // swipes 4 pm → 8 pm the background follows the hour on it, in the app's own colours. Each
+  // phone is a recording from the app: Your world steps back a year with every hour (2026 → 2023, then all years),
+  // and the camera tries its looks, takes the shot and rates it.
+  glimpse: (b) => `<div class="walk-cover wc-gl" data-scenes="0,700,3000,5000,8000,12000" data-loop="13100" data-still="3" aria-hidden="true">
     <i class="wc-corner wc-tl"></i><i class="wc-corner wc-br"></i><i class="wc-sq"></i>
     <span class="wc-tag">AN ARCHIVE OF THE EVERYDAY CITY</span>
-    <img class="wc-phone wc-left" src="${b}assets/pd/glimpse/v2/glimpse-world.webp?v=2" alt="" loading="lazy" decoding="async">
-    <img class="wc-phone wc-right" src="${b}assets/pd/glimpse/v2/glimpse-camera.webp?v=2" alt="" loading="lazy" decoding="async">
+    <div class="wc-phone wc-left"><video muted playsinline preload="auto" poster="${b}assets/pd/glimpse/v2/glimpse-world.jpg?v=2"><source src="${b}assets/pd/glimpse/v2/glimpse-world.mp4?v=3" type='video/mp4; codecs="avc1.640028"'><source src="${b}assets/pd/glimpse/v2/glimpse-world.webm?v=3" type="video/webm"></video></div>
+    <div class="wc-phone wc-right"><video muted playsinline preload="auto" poster="${b}assets/pd/glimpse/v2/glimpse-camera-shoot.jpg?v=3"><source src="${b}assets/pd/glimpse/v2/glimpse-camera-shoot.mp4?v=3" type='video/mp4; codecs="avc1.640028"'><source src="${b}assets/pd/glimpse/v2/glimpse-camera-shoot.webm?v=3" type="video/webm"></video></div>
     <div class="wc-phone wc-mid"><video muted playsinline preload="auto" poster="${b}assets/pd/glimpse/v2/glimpse-now-swipe.jpg?v=3"><source src="${b}assets/pd/glimpse/v2/glimpse-now-swipe.mp4?v=3" type='video/mp4; codecs="avc1.640028"'><source src="${b}assets/pd/glimpse/v2/glimpse-now-swipe.webm?v=3" type="video/webm"></video></div></div>`,
   // OpenGym: a visit through the app, rebuilt from its real screens with illustrative
   // numbers (the live counter is offline, so the real site reads 0 everywhere): the logo,
@@ -125,18 +127,27 @@ function reel(cover) {
 function glimpse(cover) {
   // The middle phone plays the real Now-swipe recording at 2×. Measured from its frames, the
   // app changes page at 1.80 s (4 → 5 pm), 3.80 s (6 pm), 5.80 s (7 pm) and 7.80 s (8 pm),
-  // the new page coming in from the right. Scene 2 holds 4 pm, scene 3 plays to 6 pm, scene 4
-  // to 8 pm. The background is the app's own page colour for the hour on screen; at each
-  // change the new colour sweeps in from the right behind a soft gradient edge, timed by the
-  // video's own clock so the edge crosses the middle on the frame the page changes.
-  const video = cover.querySelector('.wc-mid video');
-  const colours = ['#ebb76c', '#e6a15d', '#cb6f47', '#92564d', '#4d4661']; // 4–8 pm
+  // the new page coming in from the right. Scene 2 holds 4 pm; in scene 3 the side phones land
+  // and the screen swipes on to 8 pm. The background is the app's own page colour for the hour on
+  // screen; at each change the new colour sweeps in from the right behind a soft gradient edge,
+  // timed by the video's own clock so the edge crosses the middle on the frame the page changes.
+  //
+  // Oct 13: the side phones are recordings too. Your world (left) shows 2026 at 4 pm, then changes
+  // at 2.8 s (2025), 4.2 s (2024), 5.5 s (2023) and 6.8 s (All years, for 8 pm); it is steered from the middle video's clock so
+  // each year lands on the frame its hour does. The camera (right) plays 7.0–13.2 s of its
+  // recording at 1×: the looks, the shot at 10.7 s, and the rating card from 11.5 s, held there.
+  const video = cover.querySelector(".wc-mid video");
+  const left = cover.querySelector(".wc-left video"), right = cover.querySelector(".wc-right video");
+  const colours = ["#ebb76c", "#e6a15d", "#cb6f47", "#92564d", "#4d4661"]; // 4–8 pm
   const changes = [1.77, 3.77, 5.77, 7.77]; // 1.80 … less one frame: a style change shows on the next frame
   const HALF = 0.45;  // video seconds either side of a change (0.45 s on screen at 2×)
   const BAND = 60;    // width of the gradient edge, % of the cover
-  const rvfc = 'requestVideoFrameCallback' in HTMLVideoElement.prototype;
-  let stopAt = 0, frameCb = 0, live = false;
+  const YEARS = [[0, 1.9], [1.8, 2.8], [3.8, 4.2], [5.8, 5.5], [7.8, 6.8], [8.7, 7.3]]; // middle time → left time
+  const LEFT_FROM = 1.9, RIGHT_FROM = 7.0, RIGHT_TO = 13.2, RIGHT_STILL = 12.4, SWIPE_TO = 8.7;
+  const rvfc = "requestVideoFrameCallback" in HTMLVideoElement.prototype;
+  let stopAt = 0, frameCb = 0, rightCb = 0, live = false, wait = 0;
   const smooth = x => x * x * (3 - 2 * x);
+  const seek = (v, t) => { try { v.currentTime = t; } catch {} };
   const paint = t => {
     const before = changes.filter(c => t >= c).length;       // whole hours passed
     const near = changes.findIndex(c => Math.abs(t - c) < HALF);
@@ -146,29 +157,64 @@ function glimpse(cover) {
       const a = colours[near], b = colours[near + 1];
       cover.style.backgroundColor = q < .5 ? a : b;
       cover.style.backgroundImage = `linear-gradient(90deg, ${a} ${at.toFixed(2)}%, ${b} ${(at + BAND).toFixed(2)}%)`;
-      cover.classList.toggle('wc-dark', (q < .5 ? near : near + 1) >= 3);
+      cover.classList.toggle("wc-dark", (q < .5 ? near : near + 1) >= 3);
     } else {
-      cover.style.backgroundImage = '';
+      cover.style.backgroundImage = "";
       cover.style.backgroundColor = colours[before];
-      cover.classList.toggle('wc-dark', before >= 3);
+      cover.classList.toggle("wc-dark", before >= 3);
     }
   };
+  // where Your world should be for a moment of the swipe, and how fast it should be moving there
+  const yearAt = t => {
+    const k = Math.max(0, YEARS.findIndex(([m], i) => i > 0 && t <= m) - 1);
+    const [m0, l0] = YEARS[k], [m1, l1] = YEARS[Math.min(k + 1, YEARS.length - 1)];
+    const slope = m1 > m0 ? (l1 - l0) / (m1 - m0) : 0;
+    return { at: l0 + slope * (Math.min(t, m1) - m0), slope };
+  };
+  const steerLeft = t => {
+    const { at, slope } = yearAt(t), off = at - left.currentTime;
+    if (Math.abs(off) > .4) seek(left, at);
+    else left.playbackRate = Math.min(4, Math.max(.25, 2 * slope + 3 * off)); // 2×: the middle's own rate
+  };
   const onFrame = (now, meta) => {
-    paint(meta ? meta.mediaTime : video.currentTime);
-    if (stopAt && video.currentTime >= stopAt) { video.pause(); stopAt = 0; }
+    const t = meta ? meta.mediaTime : video.currentTime;
+    paint(t);
+    if (!video.paused) steerLeft(t);
+    if (stopAt && video.currentTime >= stopAt) { video.pause(); left.pause(); stopAt = 0; }
     if (live) frameCb = rvfc ? video.requestVideoFrameCallback(onFrame) : requestAnimationFrame(() => onFrame());
   };
-  const playTo = end => { stopAt = end; video.playbackRate = 2; cover.classList.add('wc-sync'); video.play().catch(() => {}); };
-  const stopFollowing = () => { if (rvfc && frameCb) video.cancelVideoFrameCallback(frameCb); else cancelAnimationFrame(frameCb); frameCb = 0; };
-  const clear = () => { cover.classList.remove('wc-sync', 'wc-dark'); cover.style.backgroundColor = ''; cover.style.backgroundImage = ''; };
-  cover.addEventListener('scene', e => {
+  const onRight = () => {
+    if (right.currentTime >= RIGHT_TO) { right.pause(); rightCb = 0; return; }
+    rightCb = rvfc ? right.requestVideoFrameCallback(onRight) : requestAnimationFrame(onRight);
+  };
+  const swipe = () => {
+    stopAt = SWIPE_TO; video.playbackRate = 2; cover.classList.add("wc-sync");
+    video.play().catch(() => {}); left.play().catch(() => {});
+  };
+  const stopFollowing = () => {
+    if (rvfc && frameCb) video.cancelVideoFrameCallback(frameCb); else cancelAnimationFrame(frameCb);
+    if (rvfc && rightCb) right.cancelVideoFrameCallback(rightCb); else cancelAnimationFrame(rightCb);
+    frameCb = rightCb = 0; clearTimeout(wait);
+  };
+  const rewind = () => { [video, left, right].forEach(v => v.pause()); seek(video, 0); seek(left, LEFT_FROM); seek(right, RIGHT_FROM); };
+  const clear = () => { cover.classList.remove("wc-sync", "wc-dark"); cover.style.backgroundColor = ""; cover.style.backgroundImage = ""; };
+  // the side phones open on the frames they start from, not on their posters
+  if (left.readyState >= 1) seek(left, LEFT_FROM);
+  if (right.readyState >= 1) seek(right, reduced() ? RIGHT_STILL : RIGHT_FROM);
+  left.addEventListener("loadedmetadata", () => { if (left.currentTime < LEFT_FROM) seek(left, LEFT_FROM); }, { once: true });
+  right.addEventListener("loadedmetadata", () => { if (right.currentTime < RIGHT_FROM) seek(right, reduced() ? RIGHT_STILL : RIGHT_FROM); }, { once: true });
+  cover.addEventListener("scene", e => {
     const n = e.detail;
-    stopFollowing(); live = n >= 2 && n <= 4;
-    if (n <= 1 || n === 5) { video.pause(); clear(); }
-    if (n === 0) { try { video.currentTime = 0; } catch {} }
-    if (n === 2) { video.pause(); try { video.currentTime = 0; } catch {} cover.classList.remove('wc-sync'); paint(0); } // paper → 4 pm, a soft fade
-    if (n === 3) playTo(4.8);
-    if (n === 4) playTo(8.7);
+    if (n === 4) return; // looks like scene 3; the videos just carry on
+    stopFollowing(); live = n === 2 || n === 3;
+    if (n <= 1 || n === 5) { [video, left, right].forEach(v => v.pause()); clear(); }
+    if (n === 0) rewind();
+    if (n === 2) { rewind(); cover.classList.remove("wc-sync"); paint(0); } // paper → 4 pm, a soft fade
+    if (n === 3 && reduced()) { paint(0); seek(right, RIGHT_STILL); live = false; return; } // a still: 4 pm, 2026, the rating
+    if (n === 3) {
+      right.playbackRate = 1; right.play().catch(() => {}); onRight();
+      wait = setTimeout(swipe, 900); // once the side phones have landed
+    }
     if (live) frameCb = rvfc ? video.requestVideoFrameCallback(onFrame) : requestAnimationFrame(() => onFrame());
   });
 }
