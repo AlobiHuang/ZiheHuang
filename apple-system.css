@@ -150,3 +150,13 @@ h1,h2,h3{letter-spacing:-.055em!important;text-wrap:balance}
    1440px content width as the header (logo to Contact), instead of some
    sections running to the screen edges while others stay centred. */
 @media(min-width:1609px){:root{--pad:calc((100vw - var(--max)) / 2)}}
+
+/* Oct 14: scrolling no longer resizes the header. It keeps its height (52px, 48px on phones)
+   in both states; only the name under the logo and the centre label fade out, and the colours
+   ease, so the change from the full header to the quiet one is one smooth motion. (The
+   compact state used to make it taller, 74–76px, and the height change was not animated.) */
+.site-head.is-compact{height:52px!important}
+.site-head{transition:background .35s ease,color .35s ease,box-shadow .35s ease!important}
+.site-head .identity-copy,.site-head .coordinates{transition:opacity .4s ease,transform .5s cubic-bezier(.16,1,.3,1)!important}
+@media(max-width:900px){.site-head.is-compact{height:48px!important}}
+@media(prefers-reduced-motion:reduce){.site-head .identity-copy,.site-head .coordinates{transition:opacity .2s ease!important}}

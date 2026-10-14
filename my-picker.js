@@ -1,16 +1,17 @@
 // "MY ______?" — the section after the ME exit.
 //
-// Scrolling through it (the stage is pinned; the section is 760svh):
+// Scrolling through it (the stage is pinned; the section is 745svh: one screen, the 6.3
+// screens of the phases below, then a 0.15-screen hold on the last record before the page
+// moves on, with the scroll braked around that exit; see EXIT_BRAKE):
 //  1. RISE    the question rises from the bottom of the screen to the middle.
 //  2. SPIN    as the question rises, a slot drum in the blank spins through
-//             STYLE / SKILLS / HOBBIES and comes to rest on one by itself.
+//             SKILLS / HOBBIES and comes to rest on one by itself.
 //             Click it (or press Enter/Space) to stop it, or drag it up or down
 //             to turn it to the word you want; if the
 //             visitor keeps scrolling it stops by itself on whatever is showing.
 //  3. SWEEP   the room's lines slide in from the right edge to a third of the
 //             way across, pushing the question into the left third.
 //  4. RECORDS the chosen topic's records ride up the room's centre strip:
-//             STYLE  square previews of visual UI/UX styles,
 //             SKILLS a wheel of tools turning vertically,
 //             HOBBIES what I do away from the desk.
 // Clicking the question again spins the drum again and swaps the records.
@@ -38,25 +39,12 @@ if (section) {
   const SPIN_AT = RISE, SWEEP_AT = RISE + SPIN, RECORDS_AT = SWEEP_AT + SWEEP;
 
   // ---- content --------------------------------------------------------
+  // Oct 14: STYLE removed (its previews are in archive/before-remove-style-2026-10-14).
   const topics = [
-    { key: 'style', word: 'STYLE' },
     { key: 'skills', word: 'SKILLS' },
     { key: 'hobbies', word: 'HOBBIES' }
   ];
 
-  // Each preview is drawn with plain HTML/CSS inside a square (see my-picker.css).
-  const styles = [
-    { cls: 'min', name: 'Refined Minimalism', years: '2010s—', note: 'Few elements, generous space and exact type, so the product is the hero. Calm and confident, never decorative. The school of Apple.', tags: ['Clarity', 'Whitespace', 'Precision'],
-      preview: '<b>Desk Lamp</b><span>Aluminium, warm light. From $89</span>' },
-    { cls: 'glitch', name: 'Glitch / Cyberpunk', years: '1980s— · revived', note: 'Broken signal as a look: split RGB channels, torn scan lines and neon on black. Bold, loud and deliberately imperfect.', tags: ['Glitch art', 'Neon', 'Distortion'],
-      preview: '<b data-t="SIGNAL">SIGNAL</b><i></i><i></i><i></i>' },
-    { cls: 'brut', name: 'Brutalism', years: '1950s— · béton brut', note: 'Raw concrete left as it was poured: heavy mass, deep openings and the grain of the formwork on every surface. Structure with nothing hidden.', tags: ['Béton brut', 'Mass', 'Honesty'],
-      preview: '<b>BÉTON<br>BRUT</b><i></i><i></i><i></i><em></em>' },
-    { cls: '4', name: 'Neumorphism', years: '2019—', note: 'Controls pushed out of, or pressed into, one soft surface with twin light and shadow.', tags: ['Soft UI', 'Extruded', 'Tactile'],
-      preview: '<span></span><i><b></b></i><em></em>' },
-    { cls: 'contour', name: 'Contour Drafting', years: 'this site', note: 'Paper, ink hairlines and a landscape of contour lines, drawn like an architectural plate. The house style you are reading.', tags: ['Drawing', 'Topography', 'Monochrome'],
-      preview: '<span>ALOBI</span>' }
-  ];
 
   // Tools, grouped the way the portfolio pages group them. PD polish (Oct 5):
   // product design tools come first; the original order is in
@@ -67,8 +55,9 @@ if (section) {
     ['css', 'CSS', 'Technical prototyping', 'Style & motion'],
     ['javascript', 'JavaScript', 'Technical prototyping', 'Behaviour'],
     ['python', 'Python', 'Technical prototyping', 'Automation & data'],
-    ['excel', 'Excel', 'Data & decisions', 'Analysis'],
     ['adobe', 'Adobe Creative Suite', 'Creative production', 'Visual design & post-production'],
+    // Oct 14: Excel sits with PowerPoint and Word.
+    ['excel', 'Excel', 'Data & decisions', 'Analysis'],
     ['powerpoint', 'PowerPoint', 'Alignment & communication', 'Stories & decks'],
     ['word', 'Word', 'Alignment & communication', 'Briefs & reports'],
     ['rhino', 'Rhino', 'Spatial design & BIM', '3D modelling'],
@@ -91,11 +80,14 @@ if (section) {
     { name: 'Cooking', img: 'cooking', line: 'Taste of a place', note: 'Trying what a place eats is the fastest way into how it lives, and the best excuse to bring people together.',
       svg: '<path d="M18 50h64a32 32 0 0 1-64 0Z" class="o"/><path d="M40 82h20" class="o"/><path d="M58 16l-10 30M70 18l-14 28" class="o"/><path d="M36 40c0-6 4-6 4-12M46 40c0-6 4-6 4-12" class="o"/>' },
     { name: 'People', img: 'people', line: 'The ones close to me', note: 'Friends and family keep life playful and the work grounded.',
-      svg: '<circle cx="36" cy="38" r="9" class="o"/><circle cx="64" cy="38" r="9" class="o"/><path d="M18 76c0-12 8-20 18-20s18 8 18 20M46 76c0-12 8-20 18-20s18 8 18 20" class="o"/>' }
+      svg: '<circle cx="36" cy="38" r="9" class="o"/><circle cx="64" cy="38" r="9" class="o"/><path d="M18 76c0-12 8-20 18-20s18 8 18 20M46 76c0-12 8-20 18-20s18 8 18 20" class="o"/>' },
+    // Oct 14: a studio model (making by hand).
+    { name: 'Making', img: 'making', line: 'Models, joints and prototypes', note: 'Building things by hand, from studio models to bamboo joints, is how I find out whether an idea really works.',
+      svg: '<path d="M20 74h60" class="o"/><path d="M28 74V42l22-16 22 16v32" class="o"/><path d="M40 74V54h20v20" class="o"/>' }
   ];
 
   // ---- build the drum and the records -----------------------------------
-  const FACES = 12; // three words repeated round the drum
+  const FACES = 12; // the two words, repeated round the drum
   const STEP = 360 / FACES;
   const faces = Array.from({ length: FACES }, (_, index) => {
     const face = document.createElement('span');
@@ -115,14 +107,9 @@ if (section) {
     column.append(track);
     tracks[key] = track;
   };
-  makeTrack('style', styles.map((item, index) => `
-    <article class="my-record">
-      <div class="my-preview my-preview-${item.cls}" aria-hidden="true">${item.preview}</div>
-      <h3>${item.name}</h3>
-    </article>`).join(''));
   makeTrack('skills', `<div class="my-wheel">${skills.map(([slug, name, group, use], index) => `
     <article class="my-skill" data-index="${index}">
-      <img src="assets/tool-logos/${slug}.svg" alt="" loading="lazy" decoding="async">
+      <img src="assets/tool-logos/${slug}.svg?v=2" alt="" loading="lazy" decoding="async">
       <h3>${name}</h3>
       <p><b>${group}</b>${use}</p>
     </article>`).join('')}</div><div class="my-wheel-window" aria-hidden="true"></div>`);
@@ -435,7 +422,10 @@ if (section) {
       if (track.dataset.topic === 'skills') {
         // A wheel turning vertically: one tool after another comes to the front.
         const cardH = Math.min(h * .3, 260);
-        const turn = progress * (wheelCards.length - 1) - travel / cardH * 1.1;
+        // Oct 14: the wheel starts turning where the page settles on entering the records
+        // (RECORDS_AT), so the first tool, Figma, is at the front on arrival.
+        const wheelProgress = clamp((screens - RECORDS_AT) / RECORDS);
+        const turn = wheelProgress * (wheelCards.length - 1) - travel / cardH * 1.1;
         const radius = cardH / 2 / Math.tan(Math.PI / 18);
         wheelCards.forEach((card, index) => {
           const angle = (index - turn) * 20;
@@ -448,8 +438,11 @@ if (section) {
         });
         track.style.setProperty('--wheel-radius', `${radius.toFixed(1)}px`);
       } else {
-        const trackH = track.scrollHeight;
-        const from = h * .62, to = h * .3 - trackH;
+        // Oct 14: the list ends when the middle of its last photo reaches the middle of the
+        // screen, so the section hands over to the next one right there (no empty room after it).
+        const lastPhoto = track.lastElementChild?.querySelector('.my-photo') || track.lastElementChild;
+        const lastMid = lastPhoto ? lastPhoto.getBoundingClientRect().top - track.getBoundingClientRect().top + lastPhoto.offsetHeight / 2 : track.scrollHeight;
+        const from = h * .62, to = h * .5 - lastMid;
         track.style.transform = `translate3d(0,${mix(from, to, progress).toFixed(1)}px,0)`;
         track.style.translate = travel ? `0 ${travel.toFixed(1)}px` : '';
       }
@@ -481,6 +474,19 @@ if (section) {
     if (snapTarget === null) return;
     event.preventDefault();
     window.siteScroll.scrollTo(snapTarget);
+  }, { passive: false });
+  // Oct 14: leaving gently. Around the end of the section (the hold on the last record and
+  // the first moments after it) each turn of the wheel moves the page half as far, the way
+  // the WORK door brakes, so the next section doesn't shoot up.
+  const EXIT_BRAKE = .5;
+  addEventListener('wheel', event => {
+    if (reduced.matches || event.defaultPrevented || event.ctrlKey || event.shiftKey || !window.siteScroll || !event.cancelable) return;
+    if (Math.abs(event.deltaX) > Math.abs(event.deltaY) || !event.deltaY) return;
+    const at = (scrollY - sectionTop()) / h, end = (section.offsetHeight - h) / h;
+    if (at < end - .2 || at > end + .25) return;
+    event.preventDefault();
+    const dy = event.deltaY * (event.deltaMode === 1 ? 16 : event.deltaMode === 2 ? innerHeight : 1);
+    window.siteScroll.scrollTo(window.siteScroll.target + dy * EXIT_BRAKE);
   }, { passive: false });
   addEventListener('resize', resize);
   reduced.addEventListener('change', wake);

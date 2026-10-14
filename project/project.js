@@ -343,7 +343,6 @@ const pmIndexMarkup = isPmLanding ? `<section class="pm-work" id="work" aria-lab
 const pmLandingHeroMarkup=isPmLanding?`
   <section class="pm-spatial-hero" aria-label="Projects and leadership">
     <div class="pm-spatial-field" data-pm-spatial aria-hidden="true"><canvas class="pm-spatial-canvas"></canvas></div>
-    <p class="pm-spatial-kicker">LEADERSHIP</p>
     <h1 class="pm-spatial-title" aria-label="Projects"><span data-pm-title-type></span></h1>
   </section>`:'';
 

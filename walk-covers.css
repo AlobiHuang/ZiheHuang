@@ -20,7 +20,6 @@
 .wc-cm .wc-listing{position:absolute;right:3cqw;bottom:-3cqw;height:36cqw;width:auto;opacity:0;transform:translateY(30%) rotate(7deg);transition:transform .9s var(--wc-ease-drawer),opacity .5s ease}
 .wc-cm .wc-listing{filter:drop-shadow(0 1.4cqw 2.4cqw rgba(40,20,10,.18))}
 .wc-cm.wc-show-card .wc-listing{opacity:1;transform:translateY(0) rotate(4deg)}
-.wc-cm .wc-foot{position:absolute;left:4cqw;bottom:3.4cqw;font:500 1.35cqw/1 var(--wc-mono);letter-spacing:.12em;text-transform:uppercase;color:#8a837b}
 
 /* ---------- Glimpse: the viewfinder (brand kit: Paper, Ink, Stamp, Hour Light) ----------
    Geometry in cqw; the window is 100 × 62.5 with its centre at 50, 31.25. The phone stills
@@ -43,11 +42,14 @@
 .wc-gl[data-scene="1"] .wc-sq{opacity:1;transition:opacity .4s ease .5s}
 .wc-gl[data-scene="1"] .wc-tag{opacity:1;transition-delay:.7s}
 /* scene 2, one phone (the video, body 39.49–60.51 × 9.25–53.24), frame 3 outside it */
-.wc-gl[data-scene="2"] .wc-tl{transform:translate(36.49cqw,6.25cqw)}
-.wc-gl[data-scene="2"] .wc-br{transform:translate(55.81cqw,48.55cqw)}
+/* Oct 14: the phones show at 94% in scenes 2–4 and the corners sit a little further out, so
+   there is ~2.4cqw clear between each corner and the phone body on every side (was ~1.1, and
+   they could touch while moving). Vertically the corners already meet the cover's edges. */
+.wc-gl[data-scene="2"] .wc-tl{transform:translate(35.8cqw,6.25cqw)}
+.wc-gl[data-scene="2"] .wc-br{transform:translate(56.5cqw,48.55cqw)}
 /* scenes 3–4, three phones 5 apart: visible 12.95–87.05, frame 9.95–90.05 (corners move only sideways) */
-.wc-gl[data-scene="3"] .wc-tl,.wc-gl[data-scene="4"] .wc-tl{transform:translate(9.95cqw,6.25cqw)}
-.wc-gl[data-scene="3"] .wc-br,.wc-gl[data-scene="4"] .wc-br{transform:translate(82.35cqw,48.55cqw)}
+.wc-gl[data-scene="3"] .wc-tl,.wc-gl[data-scene="4"] .wc-tl{transform:translate(9.4cqw,6.25cqw)}
+.wc-gl[data-scene="3"] .wc-br,.wc-gl[data-scene="4"] .wc-br{transform:translate(82.9cqw,48.55cqw)}
 /* phones: the middle one grows out of the square; the other two slide out from behind it */
 .wc-gl .wc-phone{position:absolute;top:8.24cqw;height:47.9cqw;width:auto;opacity:0;filter:drop-shadow(0 1cqw 1.8cqw rgba(20,15,10,.22));transition:transform 1s var(--wc-ease-in-out),opacity .5s ease}
 /* the middle phone is the Now-swipe video (800×1488, phone body 84–715 × 43–1363), sized and
@@ -56,15 +58,15 @@
 .wc-gl .wc-phone video{display:block;width:100%;height:100%;object-fit:contain;background:transparent;--phone-mask:url("data:image/png;base64,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");-webkit-mask:var(--phone-mask) center/100% 100% no-repeat;mask:var(--phone-mask) center/100% 100% no-repeat}
 /* Oct 13: the side phones are recordings too (same 800×1488 framing as the middle one), in the
    same size box, placed so their bodies land where the stills' did */
-.wc-gl .wc-left,.wc-gl .wc-right{top:7.817cqw;width:26.66cqw;height:49.59cqw;z-index:1}
-.wc-gl .wc-left{left:10.332cqw;transform:translateX(26.338cqw) scale(.96)}
-.wc-gl .wc-right{left:63.072cqw;transform:translateX(-26.402cqw) scale(.96)}
-.wc-gl[data-scene="2"] .wc-mid,.wc-gl[data-scene="3"] .wc-mid,.wc-gl[data-scene="4"] .wc-mid{opacity:1;transform:none}
+.wc-gl .wc-left,.wc-gl .wc-right{top:7.817cqw;width:26.66cqw;height:49.59cqw;z-index:1;transform-origin:49.9% 47.25%}
+.wc-gl .wc-left{left:10.332cqw;transform:translateX(26.338cqw) scale(.9)}
+.wc-gl .wc-right{left:63.072cqw;transform:translateX(-26.402cqw) scale(.9)}
+.wc-gl[data-scene="2"] .wc-mid,.wc-gl[data-scene="3"] .wc-mid,.wc-gl[data-scene="4"] .wc-mid{opacity:1;transform:scale(.94)}
 /* the phone starts to show only once the square has faded, so the two never overlap */
 .wc-gl[data-scene="2"] .wc-mid{transition:transform 1s var(--wc-ease-in-out),opacity .45s ease .2s}
 /* while the screen swipes, the background follows each video frame with no fade */
 .wc-gl.wc-sync{transition:none}
-.wc-gl[data-scene="3"] .wc-left,.wc-gl[data-scene="4"] .wc-left,.wc-gl[data-scene="3"] .wc-right,.wc-gl[data-scene="4"] .wc-right{opacity:1;transform:none}
+.wc-gl[data-scene="3"] .wc-left,.wc-gl[data-scene="4"] .wc-left,.wc-gl[data-scene="3"] .wc-right,.wc-gl[data-scene="4"] .wc-right{opacity:1;transform:scale(.94)}
 .wc-gl[data-scene="5"] .wc-phone{opacity:0;transition-duration:.5s}
 
 /* ---------- OpenGym: a visit through the app ----------

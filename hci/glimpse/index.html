@@ -4,6 +4,16 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="description" content="Glimpse, a camera and a living map for the everyday photos people take but never post." />
+    <!-- Link previews (Oct 14): what LinkedIn, Slack, iMessage and email show for this page. -->
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="Zihe Huang" />
+    <meta property="og:title" content="Glimpse — Product Design — Zihe Huang" />
+    <meta property="og:description" content="Glimpse, a camera and a living map for the everyday photos people take but never post." />
+    <meta property="og:url" content="https://alobihuang.github.io/ZiheHuang/hci/glimpse/" />
+    <meta property="og:image" content="https://alobihuang.github.io/ZiheHuang/assets/og-card.jpg" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta name="twitter:card" content="summary_large_image" />
     <title>Glimpse — Product Design — Zihe Huang</title>
     <script src="../../route-entry.js?v=20261013-logo-1"></script>
     <script src="../../project/zoom-arrive.js?v=3"></script>
@@ -14,7 +24,7 @@
     <link rel="stylesheet" href="../../styles.css?v=20260922-logo-hit-1" />
     <link rel="stylesheet" href="../../animations.css?v=20261013-quick-1" />
     <link rel="stylesheet" href="../../category.css" />
-    <link rel="stylesheet" href="../../apple-system.css?v=20261001-wide-1" />
+    <link rel="stylesheet" href="../../apple-system.css?v=20261014-head-1" />
     <link rel="stylesheet" href="../../spectacle.css?v=20260916-simple-menu-1" />
     <link rel="stylesheet" href="../../hero-entrance.css?v=20260922-head-grow-1" />
     <link rel="stylesheet" href="../hci.css?v=20261012-light-1" />
@@ -82,9 +92,9 @@
 
           <!-- Hero: three phones, each a short loop recorded from the app (assets/pd/glimpse/v2/*.mp4, Oct 12). -->
           <div class="gl-hero" aria-label="Glimpse on a phone: Your world, Now and the camera">
-            <figure class="gl-shot"><video poster="../../assets/pd/glimpse/v2/glimpse-world.jpg?v=2" autoplay muted loop playsinline preload="metadata" aria-label="Your world: photos pinned around Boston, shown year by year from 2026 to 2023, then a smooth zoom out to the whole world and back home"><source src="../../assets/pd/glimpse/v2/glimpse-world.mp4?v=2" type='video/mp4; codecs="avc1.640028"' /><source src="../../assets/pd/glimpse/v2/glimpse-world.webm?v=2" type="video/webm" /></video></figure>
-            <figure class="gl-shot"><video poster="../../assets/pd/glimpse/v2/glimpse-now-swipe.jpg?v=3" autoplay muted loop playsinline preload="metadata" aria-label="Swiping through the hours in Now: 4 pm in San Francisco and Los Angeles, 5 pm in Mexico City, 6 pm in Chicago, 7 pm in New York and 8 pm in Rio de Janeiro and Buenos Aires, each page in its own light, then Back to now scrolls all the way back to 4 pm"><source src="../../assets/pd/glimpse/v2/glimpse-now-swipe.mp4?v=3" type='video/mp4; codecs="avc1.640028"' /><source src="../../assets/pd/glimpse/v2/glimpse-now-swipe.webm?v=3" type="video/webm" /></video></figure>
-            <figure class="gl-shot"><video poster="../../assets/pd/glimpse/v2/glimpse-camera-shoot.jpg?v=3" autoplay muted loop playsinline preload="metadata" aria-label="The Glimpse camera in Lisbon: each shot is rated as it is placed. The tram scores 94 and goes public to the archive; a shaken shot with the Chrome look scores 58 and stays private on your map. Map opens it on the street where it was taken"><source src="../../assets/pd/glimpse/v2/glimpse-camera-shoot.mp4?v=3" type='video/mp4; codecs="avc1.640028"' /><source src="../../assets/pd/glimpse/v2/glimpse-camera-shoot.webm?v=3" type="video/webm" /></video></figure>
+            <figure class="gl-shot"><video poster="../../assets/pd/glimpse/v2/glimpse-world.jpg?v=60fps-1" autoplay muted loop playsinline preload="metadata" aria-label="Your world: photos pinned around Boston, shown year by year from 2026 to 2023, then a smooth zoom out to the whole world and back home"><source src="../../assets/pd/glimpse/v2/glimpse-world.mp4?v=60fps-1" type='video/mp4; codecs="avc1.640028"' /><source src="../../assets/pd/glimpse/v2/glimpse-world.webm?v=60fps-1" type="video/webm" /></video></figure>
+            <figure class="gl-shot"><video poster="../../assets/pd/glimpse/v2/glimpse-now-swipe.jpg?v=60fps-1" autoplay muted loop playsinline preload="metadata" aria-label="Swiping through the hours in Now: 4 pm in San Francisco and Los Angeles, 5 pm in Mexico City, 6 pm in Chicago, 7 pm in New York and 8 pm in Rio de Janeiro and Buenos Aires, each page in its own light, then Back to now scrolls all the way back to 4 pm"><source src="../../assets/pd/glimpse/v2/glimpse-now-swipe.mp4?v=60fps-1" type='video/mp4; codecs="avc1.640028"' /><source src="../../assets/pd/glimpse/v2/glimpse-now-swipe.webm?v=60fps-1" type="video/webm" /></video></figure>
+            <figure class="gl-shot"><video poster="../../assets/pd/glimpse/v2/glimpse-camera-shoot.jpg?v=60fps-1" autoplay muted loop playsinline preload="metadata" aria-label="The Glimpse camera in Lisbon: each shot is rated as it is placed. The tram scores 94 and goes public to the archive; a shaken shot with the Chrome look scores 58 and stays private on your map. Map opens it on the street where it was taken"><source src="../../assets/pd/glimpse/v2/glimpse-camera-shoot.mp4?v=60fps-1" type='video/mp4; codecs="avc1.640028"' /><source src="../../assets/pd/glimpse/v2/glimpse-camera-shoot.webm?v=60fps-1" type="video/webm" /></video></figure>
           </div>
 
           <div class="gl-brief">
@@ -174,7 +184,7 @@
 
           <div class="cm-sub"><h3>A map and a dictionary</h3><p>The map steps through the years, one layer at a time. Each city is defined by the words people attach to it.</p></div>
           <div class="gl-pair">
-            <figure class="gl-shot"><video poster="../../assets/pd/glimpse/v2/glimpse-world.jpg?v=2" autoplay muted loop playsinline preload="metadata" aria-label="The map layered by year: photos around Boston for 2026, 2025, 2024 and 2023, then all years together"><source src="../../assets/pd/glimpse/v2/glimpse-world.mp4?v=2" type='video/mp4; codecs="avc1.640028"' /><source src="../../assets/pd/glimpse/v2/glimpse-world.webm?v=2" type="video/webm" /></video></figure>
+            <figure class="gl-shot"><video poster="../../assets/pd/glimpse/v2/glimpse-world.jpg?v=60fps-1" autoplay muted loop playsinline preload="metadata" aria-label="The map layered by year: photos around Boston for 2026, 2025, 2024 and 2023, then all years together"><source src="../../assets/pd/glimpse/v2/glimpse-world.mp4?v=60fps-1" type='video/mp4; codecs="avc1.640028"' /><source src="../../assets/pd/glimpse/v2/glimpse-world.webm?v=60fps-1" type="video/webm" /></video></figure>
             <figure class="gl-shot"><img src="../../assets/pd/glimpse/v2/glimpse-city.webp?v=2" alt="Lisbon city page: glimpses pinned on the map as photos, and the city’s words, ranked" loading="lazy" decoding="async" /></figure>
           </div>
 
@@ -224,12 +234,6 @@
             <li><span>01</span><b>Measure people vs. places.</b><p>A survey to put a real number on how often people revisit photos of places compared with photos of people.</p></li>
             <li><span>02</span><b>Build the real camera.</b><p>The camera runs on sample scenes for now. Next is a native camera and a real cloud library, so the space it saves is measured, not estimated.</p></li>
             <li><span>03</span><b>Test and moderate.</b><p>Usability tests with real users, and server-side image moderation before the archive opens to everyone.</p></li>
-          </ol>
-          <div class="cm-sub"><h3>What I learned</h3></div>
-          <ol class="cm-notes">
-            <li><span>01</span><b>A form still feels like posting.</b><p>Asking people to pick a photo, name the place and pass checks brought back the very pressure Glimpse was meant to remove. Making it a camera took the decision away.</p></li>
-            <li><span>02</span><b>The unit is a view over time, not a photo.</b><p>Now and Layers both got better when they stopped showing single photos and started showing a place across hours and years.</p></li>
-            <li><span>03</span><b>Evidence before scale.</b><p>The idea rests on published research and my own habits. Before opening the archive, it needs its own survey and usability tests.</p></li>
           </ol>
         </section>
 

@@ -1,7 +1,7 @@
 // CMUsed case page: draws the numbers from data.js. The newest snapshot is
 // shown; anything that has moved since the first one (when I joined) is
 // marked with the change and the starting value.
-import { SNAPSHOTS } from './data.js?v=7';
+import { SNAPSHOTS } from './data.js?v=8';
 
 const base = SNAPSHOTS[0];
 const latest = SNAPSHOTS[SNAPSHOTS.length - 1];

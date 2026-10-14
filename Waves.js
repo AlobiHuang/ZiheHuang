@@ -73,6 +73,9 @@ export default function Waves({
   canvas,
   radial = false,
   radialCenters = null,
+  // Oct 14: axis 'x' lays the same lines horizontally (xGap is still the gap between lines,
+  // yGap the spacing of points along them). Pair it with waveAmpY > waveAmpX.
+  axis = 'y',
   lineColor = 'black',
   backgroundColor = 'transparent',
   waveSpeedX = 0.0125,
@@ -130,6 +133,22 @@ export default function Waves({
           }));
         }
       });
+      return;
+    }
+    if (axis === 'x') {
+      const outerWidth = bounds.width + 30;
+      const outerHeight = bounds.height + 200;
+      const totalLines = Math.ceil(outerHeight / xGap);
+      const totalPoints = Math.ceil(outerWidth / yGap);
+      const yStart = (bounds.height - xGap * totalLines) / 2;
+      const xStart = (bounds.width - yGap * totalPoints) / 2;
+      for (let i = 0; i <= totalLines; i += 1) {
+        const points = [];
+        for (let j = 0; j <= totalPoints; j += 1) {
+          points.push({ x: xStart + yGap * j, y: yStart + xGap * i, wave: { x: 0, y: 0 }, cursor: { x: 0, y: 0, vx: 0, vy: 0 } });
+        }
+        lines.push(points);
+      }
       return;
     }
     const outerWidth = bounds.width + 200;

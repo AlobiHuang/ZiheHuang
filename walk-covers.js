@@ -14,19 +14,18 @@ const markup = {
   // when the reel stops on Home Decor, a real listing card drops in.
   cmused: (b) => `<div class="walk-cover wc-cm" data-reel aria-hidden="true">
     <span class="wc-brand">CMUsed</span><div class="wc-reel"><ul></ul></div><div class="wc-fade"></div>
-    <img class="wc-listing" src="${b}assets/pd/cmused-card.webp?v=2" alt="" loading="lazy" decoding="async">
-    <span class="wc-foot">Second-hand at Carnegie Mellon</span></div>`,
+    <img class="wc-listing" src="${b}assets/pd/cmused-card.webp?v=2" alt="" loading="lazy" decoding="async"></div>`,
   // Glimpse: the two viewfinder corners close in and form the mark; its square grows into the
   // Now screen (the real Now-swipe recording), the other two phones join, and as the screen
   // swipes 4 pm → 8 pm the background follows the hour on it, in the app's own colours. Each
   // phone is a recording from the app: Your world steps back a year with every hour (2026 → 2023, then all years),
   // and the camera tries its looks, takes the shot and rates it.
-  glimpse: (b) => `<div class="walk-cover wc-gl" data-scenes="0,700,3000,5000,8000,12000" data-loop="13100" data-still="3" aria-hidden="true">
+  glimpse: (b) => `<div class="walk-cover wc-gl" data-scenes="0,400,2600,4300,6500,10500" data-loop="11200" data-still="3" aria-hidden="true">
     <i class="wc-corner wc-tl"></i><i class="wc-corner wc-br"></i><i class="wc-sq"></i>
     <span class="wc-tag">AN ARCHIVE OF THE EVERYDAY CITY</span>
-    <div class="wc-phone wc-left"><video muted playsinline preload="auto" poster="${b}assets/pd/glimpse/v2/glimpse-world.jpg?v=2"><source src="${b}assets/pd/glimpse/v2/glimpse-world.mp4?v=3" type='video/mp4; codecs="avc1.640028"'><source src="${b}assets/pd/glimpse/v2/glimpse-world.webm?v=3" type="video/webm"></video></div>
-    <div class="wc-phone wc-right"><video muted playsinline preload="auto" poster="${b}assets/pd/glimpse/v2/glimpse-camera-shoot.jpg?v=3"><source src="${b}assets/pd/glimpse/v2/glimpse-camera-shoot.mp4?v=3" type='video/mp4; codecs="avc1.640028"'><source src="${b}assets/pd/glimpse/v2/glimpse-camera-shoot.webm?v=3" type="video/webm"></video></div>
-    <div class="wc-phone wc-mid"><video muted playsinline preload="auto" poster="${b}assets/pd/glimpse/v2/glimpse-now-swipe.jpg?v=3"><source src="${b}assets/pd/glimpse/v2/glimpse-now-swipe.mp4?v=3" type='video/mp4; codecs="avc1.640028"'><source src="${b}assets/pd/glimpse/v2/glimpse-now-swipe.webm?v=3" type="video/webm"></video></div></div>`,
+    <div class="wc-phone wc-left"><video muted playsinline preload="auto" poster="${b}assets/pd/glimpse/v2/glimpse-world.jpg?v=60fps-1"><source src="${b}assets/pd/glimpse/v2/glimpse-world.mp4?v=60fps-1" type='video/mp4; codecs="avc1.640028"'><source src="${b}assets/pd/glimpse/v2/glimpse-world.webm?v=60fps-1" type="video/webm"></video></div>
+    <div class="wc-phone wc-right"><video muted playsinline preload="auto" poster="${b}assets/pd/glimpse/v2/glimpse-camera-shoot.jpg?v=60fps-1"><source src="${b}assets/pd/glimpse/v2/glimpse-camera-shoot.mp4?v=60fps-1" type='video/mp4; codecs="avc1.640028"'><source src="${b}assets/pd/glimpse/v2/glimpse-camera-shoot.webm?v=60fps-1" type="video/webm"></video></div>
+    <div class="wc-phone wc-mid"><video muted playsinline preload="auto" poster="${b}assets/pd/glimpse/v2/glimpse-now-swipe.jpg?v=60fps-1"><source src="${b}assets/pd/glimpse/v2/glimpse-now-swipe.mp4?v=60fps-1" type='video/mp4; codecs="avc1.640028"'><source src="${b}assets/pd/glimpse/v2/glimpse-now-swipe.webm?v=60fps-1" type="video/webm"></video></div></div>`,
   // OpenGym: a visit through the app, rebuilt from its real screens with illustrative
   // numbers (the live counter is offline, so the real site reads 0 everywhere): the logo,
   // the three gyms, a click on Cohon Lower, its page, and a scroll to "How busy it usually is".
@@ -136,6 +135,8 @@ function glimpse(cover) {
   // at 2.8 s (2025), 4.2 s (2024), 5.5 s (2023) and 6.8 s (All years, for 8 pm); it is steered from the middle video's clock so
   // each year lands on the frame its hour does. The camera (right) plays 7.0–13.2 s of its
   // recording at 1×: the looks, the shot at 10.7 s, and the rating card from 11.5 s, held there.
+  // Oct 14: tighter loop (11.2 s): 4 pm holds ~1.4 s, 8 pm ~1.15 s (the rating card still shows
+  // ~1.7 s), and the corners close in ~0.6 s after the phones fade.
   const video = cover.querySelector(".wc-mid video");
   const left = cover.querySelector(".wc-left video"), right = cover.querySelector(".wc-right video");
   const colours = ["#ebb76c", "#e6a15d", "#cb6f47", "#92564d", "#4d4661"]; // 4–8 pm
@@ -213,7 +214,7 @@ function glimpse(cover) {
     if (n === 3 && reduced()) { paint(0); seek(right, RIGHT_STILL); live = false; return; } // a still: 4 pm, 2026, the rating
     if (n === 3) {
       right.playbackRate = 1; right.play().catch(() => {}); onRight();
-      wait = setTimeout(swipe, 900); // once the side phones have landed
+      wait = setTimeout(swipe, 700); // once the side phones have landed
     }
     if (live) frameCb = rvfc ? video.requestVideoFrameCallback(onFrame) : requestAnimationFrame(() => onFrame());
   });

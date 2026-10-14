@@ -531,7 +531,6 @@ const standardCategoryMarkup = `
   <section class="category-hero${isArchitecture ? ' architecture-waves-hero' : ''}" id="top">
     <div class="category-grid" aria-hidden="true"></div>
     ${isArchitecture ? '<div class="architecture-wave-field" data-selected-waves aria-hidden="true"><canvas class="selected-works-waves" data-selected-waves-canvas></canvas></div>' : ''}
-    <p class="category-kicker">${data.name}</p>
     ${isArchitecture ? '<h1 class="selected-works-title" aria-label="Selected works"><span data-selected-works-type></span></h1>' : `<h1>${data.question.map((line, index) => `<span class="question-line line-${index + 1}">${line}</span>`).join('')}<i>?</i></h1>`}
     <div class="category-figure figure-${key}" aria-hidden="true"><span></span><span></span><span></span><span></span><span></span></div>
     ${isArchitecture ? '' : `<figure class="category-image-stage" aria-hidden="true"><img src="../assets/portfolio/${categoryHeroImage[key]}" alt="" fetchpriority="high"></figure>`}

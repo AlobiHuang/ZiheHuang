@@ -240,8 +240,46 @@ export const SNAPSHOTS = [
       medianReplyHours: 28.7,
       unansweredMessages: 313
     }
+  },
+  {
+    id: 'update-6',
+    label: 'Update 6',
+    date: '2026-10-14', // admin dashboard, read Oct 14
+    // Only the figures on screen this time; the rest carry over from Update 5.
+    // (The dashboard also showed chats: 353 conversations, 548 messages, 1.6 per chat;
+    // conversations with a message: 0 in 24 h, 1 in 7 days, 50 in 30 days; 0.2 per user.
+    // Not shown on the page.)
+    values: {
+      // Listings
+      listingsTotal: 873,
+      listingsActive: 466,
+      listingsSold: 407,
+      newListings24h: 1,
+      newListings7d: 1,
+      newListings30d: 4,
+      // People
+      totalUsers: 1816,
+      dau: 5,
+      wau: 47,
+      mau: 241,
+      signups24h: 0,
+      signups7d: 8,
+      signups30d: 113,
+      partnerAccounts: 3,
+      // Active listings by category
+      categories: {
+        Clothing: 111,
+        Furniture: 136,
+        Electronics: 68,
+        Rideables: 3,
+        Appliances: 73,
+        'Home Decor': 28,
+        Books: 4,
+        Other: 43
+      }
+    }
   }
-  // , { id: 'update-6', label: 'Update 6', date: 'YYYY-MM-DD', values: { ...only the keys that were read... } }
+  // , { id: 'update-7', label: 'Update 7', date: 'YYYY-MM-DD', values: { ...only the keys that were read... } }
 ];
 
 // A reading only needs the figures that were actually read; the rest carry

@@ -54,6 +54,12 @@ body:has(.world-map:hover) .fx-aura{opacity:0!important}
 .wm-place:after{content:"";position:absolute;left:0;top:0;width:1px;height:0;background:var(--wm-ink);transform:translateY(-100%);transition:height .4s cubic-bezier(.16,1,.3,1)}
 .wm-place.is-open:after{height:16px}
 
+/* Oct 14: places without a photo yet open without the picture box (no "IMAGE" placeholder) */
+.wm-place.no-photo .wm-photo{display:none}
+.wm-place.no-photo.is-open .wm-box{width:calc(var(--chars) * (1ch + .06em) + 18px);height:22px;bottom:16px}
+.wm-place.no-photo.is-open .wm-label{top:auto;bottom:0}
+.wm-place.no-photo.is-open.is-group .wm-box{height:calc(34px + var(--rows) * 22px)}
+.wm-place.no-photo .wm-list{top:6px}
 @media(max-width:700px){.world-map{margin-top:32px;margin-bottom:calc(42% + 30px)}.wm-inset{left:4px;bottom:auto;top:calc(100% + 26px);width:56%}.wm-place.is-open .wm-box{width:max(150px,calc(var(--chars) * (1ch + .06em) + 18px))}.wm-place.is-open.is-group .wm-box{width:180px}}
 @media(prefers-reduced-motion:reduce){.wm-box,.wm-place:after,.wm-label,.wm-photo,.wm-list,.wm-pin:before{transition:none}.wm-pin:after{animation:none}}
 .wm-place.is-open .wm-box{left:-6px}

@@ -1,14 +1,18 @@
 // The lens section's three windows, each running the line field of the page
 // it opens. Clicking a window is handled by app.js (data-lens-choice).
-import Waves from './Waves.js?v=20260925-perf-1';
+import Waves from './Waves.js?v=20261014-axis-1';
 
 const section = document.querySelector('.lens-trio');
 if (section) {
   const panels = section.querySelector('.lt-panels');
   const fields = {
+    // Oct 14: one family on paper, three geometries from the same engine (Waves.js):
+    // ARCH vertical lines, PRODUCTS the same lines laid horizontally, PROJECTS rings
+    // around two centres (the engine's radial mode), bending towards each other.
     arch: { lineColor: 'rgba(29, 29, 31, 0.3)', backgroundColor: 'transparent', xGap: 13, yGap: 38 },
-    // PD stays blank for now: the PD page is still under construction.
-    pm: { lineColor: 'rgba(245, 245, 247, 0.4)', backgroundColor: 'transparent', xGap: 12, yGap: 36 }
+    pd: { axis: 'x', lineColor: 'rgba(29, 29, 31, 0.3)', backgroundColor: 'transparent', xGap: 13, yGap: 38, waveAmpX: 20, waveAmpY: 40 },
+    pm: { radial: true, radialCenters: [{ x: .34, y: .36, radius: .95, gravity: 1 }, { x: .7, y: .7, radius: .75, gravity: .8 }],
+      lineColor: 'rgba(29, 29, 31, 0.3)', backgroundColor: 'transparent', xGap: 13, yGap: 38 }
   };
   let started = false;
 

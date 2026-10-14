@@ -78,3 +78,12 @@
 @media(prefers-reduced-motion:reduce){
   .lens-trio .lt-head>*,.lens-trio .lt-panel{opacity:1!important;transform:none!important;clip-path:none!important;transition:none!important}
 }
+
+/* Oct 14: all three windows on paper with ink lines (see lens-trio.js); each name fits its window. */
+.lt-pd,.lt-pm{background:#f5f5f7;color:#1d1d1f}
+.lt-pd,.lt-pm{--lt-fade:rgba(245,245,247,.92)}
+.lt-pd .lt-field canvas,.lt-pm .lt-field canvas{opacity:.82;mix-blend-mode:multiply}
+.lt-pm .lt-index{color:#6e6e73}.lt-pm .lt-index b{color:#1d1d1f}
+.lt-pm .lt-name small{color:#6e6e73}
+.lt-panel{container-type:inline-size}
+.lt-name strong{font-size:min(clamp(48px,min(6.5vw,11vh),112px),15.5cqw)}

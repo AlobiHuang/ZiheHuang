@@ -148,7 +148,8 @@ if (map) {
     const y = inInset ? (EUROPE.north - lat) / (euRows * EUROPE.step) * 100 : (NORTH - lat) / (STEP * ROWS) * 100;
     const title = group ? `${group} · ${places.length}`.toUpperCase() : labelOf(places[0]);
     const marker = document.createElement('div');
-    marker.className = 'wm-place' + (!inInset && x > 55 ? ' is-east' : '') + (group ? ' is-group' : '');
+    marker.className = 'wm-place' + (!inInset && x > 55 ? ' is-east' : '') + (group ? ' is-group' : '') + (places.some(place => place.image) ? '' : ' no-photo');
+    // Oct 14: no photo for this place yet: it opens as its name (and list), without an empty picture box.
     marker.style.setProperty('--x', `${x.toFixed(2)}%`);
     marker.style.setProperty('--y', `${y.toFixed(2)}%`);
     marker.style.setProperty('--chars', title.length);
