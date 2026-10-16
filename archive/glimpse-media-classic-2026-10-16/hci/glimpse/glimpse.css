@@ -1,0 +1,149 @@
+/* Glimpse project page (Oct 7). Built on cmused.css; these rules only cover the
+   phone screenshots, which arrive already framed as iPhones (transparent PNG → webp
+   in assets/pd/glimpse/). Layout first; placement and images to be tuned later. */
+.gl-shot{margin:0}
+.gl-shot img,.gl-shot video{display:block;width:100%;height:auto}
+.gl-shot video{aspect-ratio:800/1488;background:#fafafb}
+.gl-shot figcaption{margin-top:10px;text-align:center;font:500 9px/1.4 var(--cm-mono);letter-spacing:.08em;text-transform:uppercase;color:var(--cm-mute)}
+
+/* Hero: three phones on a grey plate, the middle one raised. */
+.gl-hero{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:clamp(16px,4vw,64px);align-items:start;margin-top:clamp(28px,4vw,48px);padding:clamp(34px,5vw,72px) clamp(24px,8vw,120px);background:#fafafb}
+.gl-hero .gl-shot:nth-child(2){margin-top:clamp(-28px,-3vw,-14px)}
+.gl-hero .gl-shot:nth-child(odd){margin-top:clamp(20px,4vw,56px)}
+
+/* Five tabs: one phone per tab, in a row on wide screens. */
+.gl-flow{list-style:none;margin:28px 0 0;padding:0;display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:clamp(18px,2.4vw,32px)}
+.gl-flow .gl-shot{margin-bottom:14px}
+.gl-flow span{display:block;margin-bottom:8px;font:600 9px/1 var(--cm-mono);letter-spacing:.08em}
+.gl-flow b{display:block;margin-bottom:6px;font:600 15px/1.2 var(--cm-display);letter-spacing:-.01em}
+.gl-flow p{margin:0;font:450 13px/1.55 var(--cm-text);color:#3a3a3c}
+
+/* Two phones side by side on a grey plate. */
+.gl-pair{display:flex;justify-content:center;gap:clamp(24px,6vw,96px);margin-top:26px;padding:clamp(34px,5vw,64px) 6%;background:#fafafb}
+.gl-pair .gl-shot{width:min(260px,40%)}
+
+@media(max-width:900px){.gl-flow{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media(max-width:560px){.gl-hero{grid-template-columns:1fr 1fr}.gl-hero .gl-shot:nth-child(3){display:none}}
+
+/* Problem: the design question, set apart. */
+.gl-question{max-width:860px;margin:clamp(28px,3vw,40px) 0 0;padding:18px 0 0;border-top:1px solid var(--cm-ink);font:600 clamp(19px,1.7vw,26px)/1.3 var(--cm-display);letter-spacing:-.03em}
+.gl-question span{display:block;margin-bottom:10px;font:600 9px/1 var(--cm-mono);letter-spacing:.08em;text-transform:uppercase}
+
+/* Research: four big numbers (cm-grid cells), then the evidence, one row per step. */
+
+/* Landscape: a 2x2, Glimpse in the empty quadrant. */
+.gl-map2{display:grid;grid-template-columns:1fr 1fr;margin:26px 0 0;border-top:1px solid var(--cm-ink);border-left:1px solid var(--cm-soft)}
+.gl-q{padding:18px 20px 22px;border-right:1px solid var(--cm-soft);border-bottom:1px solid var(--cm-soft);background:#fff}
+.gl-q b{display:block;margin-bottom:8px;font:600 9px/1.4 var(--cm-mono);letter-spacing:.08em;text-transform:uppercase}
+.gl-q p{margin:0;font:450 13.5px/1.55 var(--cm-text);color:#3a3a3c}
+.gl-q-me{background:var(--cm-ink)}
+.gl-q-me b,.gl-q-me p{color:#f5f5f7}
+
+/* Sources. */
+.gl-sources ol{margin:18px 0 0;padding-left:22px;columns:2;column-gap:clamp(24px,4vw,64px)}
+.gl-sources li{break-inside:avoid;margin-bottom:8px;font:450 12px/1.5 var(--cm-text);color:var(--cm-mute)}
+.gl-sources a{color:inherit;text-underline-offset:3px}
+.gl-sources a:hover{color:var(--cm-ink)}
+
+@media(max-width:760px){.gl-map2{grid-template-columns:1fr}.gl-sources ol{columns:1}}
+
+/* Oct 7: TOM-style page. A table of contents in its own column on the left that
+   stays in view and highlights the section being read. */
+.gl-part{scroll-margin-top:90px}
+
+/* Overview brief (the TOM red-box block): a headline, one paragraph, the design
+   question with a rule on its left, and three goals in columns. */
+.gl-brief{margin-top:clamp(48px,6vw,80px);padding-top:clamp(28px,3vw,40px);border-top:1px solid var(--cm-soft)}
+.gl-brief h2{max-width:760px;margin:0 0 16px;font:650 clamp(22px,2vw,30px)/1.2 var(--cm-display);letter-spacing:-.035em}
+.gl-brief>p{max-width:720px;margin:0;font:450 clamp(15px,1.15vw,17px)/1.55 var(--cm-text);letter-spacing:-.015em}
+.gl-brief blockquote{max-width:720px;margin:24px 0 0;padding:2px 0 2px 18px;border-left:2px solid var(--cm-ink);font:500 clamp(15px,1.2vw,18px)/1.5 var(--cm-text);letter-spacing:-.015em}
+.gl-quote{margin:0;font:600 clamp(26px,2.2vw,34px)/1.15 var(--cm-display);letter-spacing:-.03em;color:var(--cm-ink)}
+.gl-problems{list-style:none;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:clamp(16px,2vw,28px);margin:clamp(22px,2.4vw,32px) 0 0;padding:0}
+.gl-problems li{padding:12px 0 0;border-top:1px solid var(--cm-ink);font:450 14px/1.5 var(--cm-text);color:#3a3a3c}
+.gl-problems span{display:block;margin-bottom:8px;font:600 9px/1 var(--cm-mono);letter-spacing:.08em;color:var(--cm-mute)}
+.gl-goals-block{margin-top:clamp(56px,6vw,90px)}
+.gl-goals-title{margin:0;font:600 15px/1.25 var(--cm-display);letter-spacing:-.01em;color:var(--cm-ink)}
+@media(max-width:560px){.gl-problems{grid-template-columns:1fr}}
+.gl-goals{list-style:none;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:clamp(16px,2vw,28px);max-width:860px;margin:14px 0 0;padding:0}
+.gl-goals li{padding:4px 0 4px 16px;border-left:1px solid var(--cm-soft);font:450 14px/1.5 var(--cm-text);color:#3a3a3c}
+@media(max-width:560px){.gl-goals{grid-template-columns:1fr}}
+
+/* Solution headline reads as a statement, not a label. */
+#solution .cm-section-head h2{max-width:820px}
+.gl .cm-sub{margin-top:clamp(40px,4vw,56px)}
+.gl .cm-sub+.gl-pair{margin-top:18px}
+
+/* Hour Light shots arrive without a frame: draw the same phone around them. */
+.gl-raw{width:min(240px,40%)}
+.gl-pair .gl-raw{width:min(240px,40%)}
+.gl-raw .cm-phone-body{container-type:inline-size}
+.gl-raw-screen{position:relative;aspect-ratio:1179/2400;overflow:hidden;border-radius:12cqw;background:#fff}
+.gl-raw-screen img{display:block;width:100%;height:100%;object-fit:cover;object-position:50% 0;padding-top:13cqw;box-sizing:border-box;background:inherit}
+
+/* The site sets body{overflow-x:hidden}, which makes the body a scroll box and
+   stops sticky elements from sticking. clip hides the same overflow without that. */
+/* Hour Light frames: the figure is the size reference for the phone's proportions. */
+.gl-raw{container-type:inline-size}
+.gl-raw .cm-phone-body{container-type:normal}
+
+/* Research numbers: four cards; each opens the niche findings behind it. */
+.gl-stats{margin-top:26px}
+.gl-stat{position:relative;display:flex;flex-direction:column;align-items:flex-start;text-align:left;font:inherit;color:inherit;cursor:pointer;border-top:0;border-left:0;transition:background .2s ease}
+.gl-stat:hover{background:#fafafa}
+.gl-stat-k{font:600 8px/1.4 var(--cm-mono);letter-spacing:.08em;text-transform:uppercase;color:var(--cm-mute)}
+.gl-stat b{margin-top:10px;white-space:nowrap}
+.gl-stat small{flex:1}
+.gl-stat-more{margin-top:12px;font:600 8px/1.4 var(--cm-mono);font-style:normal;letter-spacing:.08em;text-transform:uppercase;color:var(--cm-mute)}
+.gl-stat[aria-expanded="true"] .gl-stat-more{color:var(--cm-ink)}
+.gl-ev li{padding:10px 0;font:450 13px/1.55 var(--cm-text);color:#3a3a3c}
+.gl-ev li+li{border-top:1px solid var(--cm-soft)}
+.gl-ev b{font-weight:600;color:var(--cm-ink)}
+.gl-ev cite{font:600 9px/1 var(--cm-mono);font-style:normal;letter-spacing:.06em;color:var(--cm-mute);white-space:nowrap}
+.gl-stats-hint{margin:10px 0 0;font:450 11px/1.5 var(--cm-text);color:var(--cm-mute)}
+/* More: the card draws a line under itself, the + turns into a ×, and the findings slide open
+   with each line rising in, the same easing as the rest of the site. */
+.gl-stat:after{content:"";position:absolute;left:0;right:0;bottom:-1px;height:2px;background:var(--cm-ink);transform:scaleX(0);transform-origin:left;transition:transform .55s cubic-bezier(.2,.7,.2,1)}
+.gl-stat[aria-expanded="true"]:after{transform:none}
+.gl-stat-more{display:inline-flex;align-items:center;gap:6px}
+.gl-stat-more:after{content:"+";display:inline-block;font-size:11px;line-height:1;transition:transform .45s cubic-bezier(.2,.7,.2,1)}
+.gl-stat[aria-expanded="true"] .gl-stat-more:after{transform:rotate(45deg)}
+.gl-ev{list-style:none;margin:0;padding:0 16px;background:#fff;border:1px solid var(--cm-soft);border-top:0;overflow:hidden;transition:height .5s cubic-bezier(.2,.7,.2,1)}
+.gl-ev li:first-child{margin-top:6px}.gl-ev li:last-child{margin-bottom:6px}
+.gl-ev.is-open li{animation:gl-ev-in .55s cubic-bezier(.2,.7,.2,1) both;animation-delay:calc(var(--i,0) * 90ms + 80ms)}
+@keyframes gl-ev-in{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}
+@media(prefers-reduced-motion:reduce){.gl-stat:after,.gl-stat-more:after,.gl-ev{transition:none}.gl-ev.is-open li{animation:none}}
+.gl-trio .gl-shot{width:min(220px,29%)}
+.gl-trio{gap:clamp(14px,4vw,56px)}
+
+/* Oct 12: lighter picture panels, as on a clean case-study page: near-white
+   with a hairline edge and soft corners instead of a mid-grey block. */
+.gl-hero,.gl-pair{border:1px solid rgba(29,29,31,.07);border-radius:14px}
+
+/* Oct 13: phones sit straight on the page. The stills carry only the phone (no baked
+   shadow), the videos are clipped to the phone outline (inline mask, so it also works from file://), and the shadow is drawn here, so
+   no grey rectangle shows behind them on white or on the plates. */
+.gl-shot img{filter:drop-shadow(0 14px 22px rgba(17,20,24,.15)) drop-shadow(0 2px 4px rgba(17,20,24,.08))}
+.gl-shot video{background:transparent;--phone-mask:url("data:image/png;base64,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");-webkit-mask:var(--phone-mask) center/100% 100% no-repeat;mask:var(--phone-mask) center/100% 100% no-repeat}
+.gl-hero .gl-shot{filter:drop-shadow(0 14px 22px rgba(17,20,24,.15)) drop-shadow(0 2px 4px rgba(17,20,24,.08))}
+
+/* Oct 13 (b): hero phones bigger and centred on their plate. Each recording is 800×1488 with
+   the phone body at 85–714 × 44–1361, so the frame's empty margin (more below than above)
+   made the phones look small and sit high. Each slot is now cropped to the phone body
+   (629×1317); the video is enlarged and shifted so the body fills it. The stagger moves the
+   middle phone up and the outer ones down by the same amount, so the group stays centred. */
+.gl-hero{--gl-lift:clamp(10px,1.6vw,22px);align-items:center;gap:clamp(14px,2.6vw,40px);padding:calc(clamp(28px,3.4vw,48px) + var(--gl-lift)) clamp(18px,4.5vw,64px)}
+.gl-hero .gl-shot,.gl-hero .gl-shot:nth-child(2),.gl-hero .gl-shot:nth-child(odd){position:relative;margin-top:0;aspect-ratio:629/1317;transform:translateY(var(--gl-lift))}
+.gl-hero .gl-shot:nth-child(2){transform:translateY(calc(var(--gl-lift) * -1))}
+.gl-hero .gl-shot video{position:absolute;left:-13.514%;top:-3.341%;width:127.186%;height:auto;max-width:none}
+@media(max-width:560px){.gl-hero .gl-shot:nth-child(odd){transform:none}.gl-hero .gl-shot:nth-child(2){transform:none}}
+
+/* Oct 13 (c): Explorations, compiled into one 2×2 grid (it used to be four full-width
+   blocks, about five screens). Each cell: the earlier screen, an arrow, the current screen,
+   then one bold title and one sentence. No small labels. */
+.gl-evo{list-style:none;margin:22px 0 0;padding:0;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:clamp(28px,4vw,56px) clamp(24px,4vw,56px)}
+.gl-evo-pair{position:relative;display:flex;justify-content:center;gap:clamp(30px,4.5vw,56px);padding:clamp(22px,3vw,34px) 8%;margin-bottom:16px;background:#fafafb;border:1px solid rgba(29,29,31,.07);border-radius:14px}
+.gl-evo-pair .gl-shot{width:min(170px,42%)}
+.gl-evo-pair:not(.is-alt):after{content:"→";position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);font:450 18px/1 var(--cm-text);color:#6e6e73}
+.gl-evo b{display:block;margin-bottom:4px;font:650 15px/1.2 var(--cm-display);letter-spacing:-.01em}
+.gl-evo p{margin:0;max-width:440px;font:450 13px/1.55 var(--cm-text);color:#3a3a3c}
+@media(max-width:700px){.gl-evo{grid-template-columns:1fr}}

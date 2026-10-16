@@ -147,3 +147,9 @@
 .gl-evo b{display:block;margin-bottom:4px;font:650 15px/1.2 var(--cm-display);letter-spacing:-.01em}
 .gl-evo p{margin:0;max-width:440px;font:450 13px/1.55 var(--cm-text);color:#3a3a3c}
 @media(max-width:700px){.gl-evo{grid-template-columns:1fr}}
+
+/* Oct 16: a video among the stills ("A map and a dictionary") gets the stills' size, phone box and
+   shadow. The slot is a still's 640×1190 box; the 800×1488 recording is scaled so its phone body
+   (85–714 × 44–1361) lands on the stills' (55–587 × 25–1118), 1.6% shorter, as stills.py fits them. */
+.gl-pair .gl-shot:has(video){position:relative;aspect-ratio:640/1190;filter:drop-shadow(0 14px 22px rgba(17,20,24,.15)) drop-shadow(0 2px 4px rgba(17,20,24,.08))}
+.gl-pair .gl-shot video{position:absolute;left:-2.639%;top:-0.968%;width:105.723%;height:103.774%;max-width:none;aspect-ratio:auto;object-fit:fill}
