@@ -15,17 +15,12 @@ const markup = {
   cmused: (b) => `<div class="walk-cover wc-cm" data-reel aria-hidden="true">
     <span class="wc-brand">CMUsed</span><div class="wc-reel"><ul></ul></div><div class="wc-fade"></div>
     <img class="wc-listing" src="${b}assets/pd/cmused-card.webp?v=2" alt="" loading="lazy" decoding="async"></div>`,
-  // Glimpse: the two viewfinder corners close in and form the mark; its square grows into the
-  // Now screen (the real Now-swipe recording), the other two phones join, and as the screen
-  // swipes 4 pm → 8 pm the background follows the hour on it, in the app's own colours. Each
-  // phone is a recording from the app: Your world steps back a year with every hour (2026 → 2023, then all years),
-  // and the camera tries its looks, takes the shot and rates it.
-  glimpse: (b) => `<div class="walk-cover wc-gl" data-scenes="0,400,2600,4300,6500,10500" data-loop="11200" data-still="3" aria-hidden="true">
-    <i class="wc-corner wc-tl"></i><i class="wc-corner wc-br"></i><i class="wc-sq"></i>
-    <span class="wc-tag">AN ARCHIVE OF THE EVERYDAY CITY</span>
-    <div class="wc-phone wc-left"><video muted playsinline preload="auto" poster="${b}assets/pd/glimpse/v2/glimpse-world.jpg?v=60fps-1"><source src="${b}assets/pd/glimpse/v2/glimpse-world.mp4?v=60fps-1" type='video/mp4; codecs="avc1.640028"'><source src="${b}assets/pd/glimpse/v2/glimpse-world.webm?v=60fps-1" type="video/webm"></video></div>
-    <div class="wc-phone wc-right"><video muted playsinline preload="auto" poster="${b}assets/pd/glimpse/v2/glimpse-camera-shoot.jpg?v=white-3"><source src="${b}assets/pd/glimpse/v2/glimpse-camera-shoot.mp4?v=white-3" type='video/mp4; codecs="avc1.640028"'><source src="${b}assets/pd/glimpse/v2/glimpse-camera-shoot.webm?v=white-3" type="video/webm"></video></div>
-    <div class="wc-phone wc-mid"><video muted playsinline preload="auto" poster="${b}assets/pd/glimpse/v2/glimpse-now-swipe.jpg?v=60fps-1"><source src="${b}assets/pd/glimpse/v2/glimpse-now-swipe.mp4?v=60fps-1" type='video/mp4; codecs="avc1.640028"'><source src="${b}assets/pd/glimpse/v2/glimpse-now-swipe.webm?v=60fps-1" type="video/webm"></video></div></div>`,
+  // Glimpse (Oct 16): one phone on linen playing "Your world, filling in", the advertising video
+  // made from the app: the circle of your photos fills year by year, 23.0 GB kept off your iPhone,
+  // the photos land across the world, then gather into the hour-dial logo. The earlier three-phone
+  // cover is in archive/before-glimpse-cover-2026-10-16/.
+  glimpse: (b) => `<div class="walk-cover wc-gl2" aria-hidden="true">
+    <div class="wc-one"><video muted playsinline loop preload="metadata" poster="${b}assets/pd/glimpse/v3/glimpse-world-filling.jpg?v=cosmos-1"><source src="${b}assets/pd/glimpse/v3/glimpse-world-filling.mp4?v=cosmos-1" type='video/mp4; codecs="avc1.640028"'><source src="${b}assets/pd/glimpse/v3/glimpse-world-filling.webm?v=cosmos-1" type="video/webm"></video></div></div>`,
   // OpenGym: a visit through the app, rebuilt from its real screens with illustrative
   // numbers (the live counter is offline, so the real site reads 0 everywhere): the logo,
   // the three gyms, a click on Cohon Lower, its page, and a scroll to "How busy it usually is".
@@ -239,9 +234,18 @@ function opengym(cover) {
   });
 }
 
+// The Glimpse cover: its video plays only while the cover is on screen; with reduced motion it
+// rests on the poster frame.
+function glimpseVideo(cover) {
+  const video = cover.querySelector('video');
+  if (reduced()) return;
+  whenOnScreen(cover, () => video.play().catch(() => {}), () => video.pause());
+}
+
 export function startCover(root) {
   const cover = root.querySelector('.walk-cover');
   if (!cover) return;
+  if (cover.matches('.wc-gl2')) glimpseVideo(cover);
   if (cover.matches('.wc-og')) opengym(cover);
   if (cover.matches('.wc-gl')) glimpse(cover);
   if (cover.matches('[data-reel]')) reel(cover);
