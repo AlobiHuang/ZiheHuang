@@ -1,0 +1,162 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Glimpse cover A</title>
+<!-- Oct 17, 2026: trial of cover direction A, "every photo finds its street" (not live). One phone on the
+     Glimpse camera, the world behind it. Each shot flashes, and the photo leaves the viewfinder and lands
+     as a print on its city; the shots come faster until the map is full; then the hour-dial logo.
+     Everything is drawn from render(t) (t in seconds, loop L), so it can be recorded frame by frame:
+     ?t=4.2 freezes one moment, ?rec holds the clock for a recorder that calls window.render(t).
+     Pieces: the real Cosmos camera still (../v2/glimpse-camera.webp, Lisbon), the app's own world map
+     redrawn as one warm shape (cover-a-land.png, tools/glimpse-previews/videos/land_a.py), and the
+     city photos the app's demo data uses (Unsplash, as in the app). -->
+<style>
+  html,body{margin:0;height:100%;background:#f5f5f7}
+  body{display:grid;place-items:center;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Inter,Roboto,Helvetica,Arial,sans-serif}
+  .frame{width:min(96vw,1200px);aspect-ratio:16/10;position:relative;overflow:hidden;border-radius:6px;box-shadow:0 0 0 1px rgba(0,0,0,.06)}
+  body.rec .frame{width:1600px;border-radius:0;box-shadow:none}
+  .st{position:absolute;left:0;top:0;width:1600px;height:1000px;transform-origin:0 0;background:linear-gradient(180deg,#F6EFE6,#F2DFC6);overflow:hidden}
+  .land{position:absolute;inset:0;width:1600px;height:1000px}
+  .phone{position:absolute;left:40px;top:42px;width:492px;filter:drop-shadow(0 18px 28px rgba(60,40,20,.18)) drop-shadow(0 3px 6px rgba(60,40,20,.10))}
+  .phone>img{display:block;width:100%}
+  .vf{position:absolute;left:71.5px;top:144.5px;width:350.5px;height:459px;border-radius:14px;overflow:hidden}
+  .vf img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:0}
+  .vf .flash{position:absolute;inset:0;background:#fff;opacity:0}
+  .vf i{position:absolute;width:18px;height:18px;border:0 solid #fff}
+  .vf .c1{left:16px;top:16px;border-width:3px 0 0 3px}.vf .c2{right:16px;bottom:16px;border-width:0 3px 3px 0}
+  .pill{position:absolute;left:50%;top:21px;transform:translateX(-50%);display:flex;align-items:center;gap:8px;padding:6px 13px;border-radius:999px;background:rgba(255,255,255,.94);font-size:13.5px;color:#0D0D0D;white-space:nowrap}
+  .pill:before{content:"";width:9px;height:9px;border-radius:2px;background:#E2532D}
+  .ring{position:absolute;left:246px;top:742px;width:76px;height:76px;margin:-38px 0 0 -38px;border-radius:50%;box-shadow:0 0 0 0 rgba(13,13,13,.0)}
+  .thumb{position:absolute;left:84.6px;top:718.8px;width:50.7px;height:48.4px;border-radius:9px;overflow:hidden;opacity:0}
+  .thumb img{width:100%;height:100%;object-fit:cover}
+  .pr{position:absolute;left:0;top:0;overflow:hidden;background:#fff;box-sizing:border-box;will-change:transform}
+  .pr img{display:block;width:100%;height:100%;object-fit:cover;border-radius:inherit}
+  .pin{position:absolute;width:10px;height:10px;margin:-5px 0 0 -5px;border-radius:50%;background:#E2532D;box-shadow:0 0 0 2.5px #fff,0 1px 3px rgba(0,0,0,.25);opacity:0}
+  .logo{position:absolute;left:800px;top:455px;transform:translate(-50%,-50%);display:grid;justify-items:center;gap:22px;opacity:0}
+  .logo img{width:250px;height:250px}
+  .logo b{font:800 74px/1 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;letter-spacing:-.0333em;color:#111418}
+  .note{max-width:1200px;margin:14px auto 0;font:13px/1.5 system-ui;color:#6e6e73}
+  body.rec .note{display:none}
+</style>
+</head>
+<body>
+<div>
+<div class="frame"><div class="st" id="st">
+  <img class="land" src="cover-a-land.png?v=1" alt="">
+  <div class="phone" id="phone">
+    <img src="../v2/glimpse-camera.webp?v=cosmos-1" alt="">
+    <div class="vf" id="vf"><div class="flash" id="flash"></div><i class="c1"></i><i class="c2"></i></div>
+    <div class="thumb" id="thumb"><img alt=""></div>
+    <div class="ring" id="ring"></div>
+  </div>
+  <div class="logo" id="logo"><img src="../v3/glimpse-cover-logo-ring.webp?v=1" alt=""><b>Glimpse</b></div>
+</div></div>
+<p class="note">Trial: cover direction A, "every photo finds its street". Not on the site. One loop is about 11 s.</p>
+</div>
+<script>
+// The card is 1600 x 1000. A city's place: 360 deg = 1600 px with 150 E at the left edge; Mercator, y = frac * 1600 - 230.
+const X = (lng) => ((lng - 150 + 720) % 360) / 360 * 1600;
+const Y = (lat) => { const r = lat * Math.PI / 180; return (0.5 - Math.log(Math.tan(Math.PI / 4 + r / 2)) / (2 * Math.PI)) * 1600 - 288; }; // the strip's world sits 58 px higher than its nominal Mercator rows (measured on the coastlines)
+const U = (id, w, h) => `https://images.unsplash.com/photo-${id}?w=${w}&h=${h}&fit=crop&crop=entropy&auto=format&q=80`;
+// the shots, in order; they come faster and faster. Lisbon is the camera still's own scene.
+const SHOTS = [
+  { city: 'Lisbon', place: 'Rua das Escolas Gerais', lat: 38.7223, lng: -9.1393, at: 0.85, tilt: -5, still: true },
+  { city: 'Tokyo', place: 'Tokyo', lat: 35.6762, lng: 139.6503, at: 2.55, tilt: 4, id: '1573455494060-c5595004fb6c' },
+  { city: 'New York', place: 'New York', lat: 40.7128, lng: -74.006, at: 3.95, tilt: -3, id: '1485871981521-5b1fd3805eee' },
+  { city: 'Cape Town', place: 'Cape Town', lat: -33.9249, lng: 18.4241, at: 5.05, tilt: 5, id: '1654625750512-a3b1e475ac7b' },
+  { city: 'Rio de Janeiro', place: 'Rio de Janeiro', lat: -22.9068, lng: -43.1729, at: 5.9, tilt: -4, id: '1648554586178-bbd078dd26b4' },
+  { city: 'Mumbai', place: 'Mumbai', lat: 19.076, lng: 72.8777, at: 6.6, tilt: 3, id: '1595660981167-fe72e31f6a40' },
+  { city: 'Paris', place: 'Paris', lat: 48.8566, lng: 2.3522, at: 7.2, tilt: 6, id: '1559607734-3484564973ae' },
+];
+const L = 11.2, FLY = 0.85, PR = 92, LIFT = 56; // loop, flight time, print size, print above its pin
+const st = document.getElementById('st'), phone = document.getElementById('phone'), vf = document.getElementById('vf');
+const flash = document.getElementById('flash'), ring = document.getElementById('ring'), thumb = document.getElementById('thumb');
+const logo = document.getElementById('logo'), land = st.querySelector('.land');
+// the phone's viewfinder on the card (the phone image is scaled 492 / 640)
+const VF = { x: 40 + 71.5, y: 42 + 144.5, w: 350.5, h: 459, r: 14 };
+const pill = document.createElement('div'); pill.className = 'pill'; vf.append(pill);
+for (const s of SHOTS) {
+  s.x = X(s.lng); s.y = Y(s.lat);
+  s.img = document.createElement('img'); s.img.alt = '';
+  // Lisbon: the still's own viewfinder, cut out of the camera image for the print
+  s.src = s.still ? null : U(s.id, 800, 1050);
+  if (s.src) { s.img.src = s.src; vf.insertBefore(s.img, flash); }
+  s.pr = document.createElement('div'); s.pr.className = 'pr';
+  const pi = document.createElement('img'); pi.alt = '';
+  if (s.still) { pi.src = '../v2/glimpse-camera.webp?v=cosmos-1'; pi.style.cssText = 'object-fit:none'; s.cut = pi; }
+  else pi.src = U(s.id, 400, 400);
+  s.pr.append(pi);
+  s.pin = document.createElement('div'); s.pin.className = 'pin';
+  st.append(s.pin, s.pr);
+}
+const clamp = (v) => Math.max(0, Math.min(1, v)), prog = (t, a, b) => clamp((t - a) / (b - a));
+const out = (u) => 1 - Math.pow(1 - clamp(u), 3), inOut = (u) => { u = clamp(u); return u < .5 ? 4 * u * u * u : 1 - Math.pow(-2 * u + 2, 3) / 2; };
+const mix = (a, b, k) => a + (b - a) * k;
+function render(T) {
+  const t = ((T % L) + L) % L;
+  // which scene the viewfinder shows: each city fades in 0.35 s before its shot
+  let cur = 0; SHOTS.forEach((s, i) => { if (t >= s.at - 0.35) cur = i; });
+  SHOTS.forEach((s, i) => { if (s.src) s.img.style.opacity = t > 10.5 ? 1 - prog(t, 10.5, 10.8) : i < cur ? 1 : i === cur ? prog(t, s.at - 0.35, s.at - 0.18) : 0; });
+  pill.textContent = SHOTS[cur].place;
+  pill.style.opacity = SHOTS[cur].still || t > 10.5 ? 0 : (cur === 1 ? prog(t, SHOTS[1].at - 0.35, SHOTS[1].at - 0.18) : 1); // the still already carries Lisbon's pill
+  // the shutter: a quick flash and a ring around the button
+  let fl = 0, rg = 0;
+  for (const s of SHOTS) { const d = t - s.at; if (d >= 0 && d < 0.4) { fl = Math.max(fl, d < 0.05 ? d / 0.05 * 0.85 : 0.85 * (1 - (d - 0.05) / 0.35)); rg = Math.max(rg, 1 - d / 0.4); } }
+  flash.style.opacity = fl;
+  ring.style.boxShadow = `0 0 0 ${(1 - rg) * 14}px rgba(226,83,45,${rg * 0.35})`;
+  // the last photo taken shows in the corner thumbnail
+  const last = [...SHOTS].reverse().find((s) => t >= s.at + 0.2);
+  thumb.style.opacity = last ? 1 : 0;
+  if (last) { const im = thumb.firstElementChild, want = last.still ? '../v2/glimpse-camera.webp?v=cosmos-1' : U(last.id, 160, 160); if (!im.src.endsWith(want.replace('..', ''))) im.src = want; im.style.objectFit = last.still ? 'none' : 'cover'; im.style.objectPosition = last.still ? '-150px -230px' : ''; }
+  // the end: the phone steps aside, the map dims under the logo, then everything resets
+  const away = inOut(prog(t, 7.9, 8.5)), back = inOut(prog(t, 10.5, 11.1));
+  const ph = t < 10.5 ? 1 - away : back;
+  phone.style.opacity = ph;
+  phone.style.transform = `translateX(${-70 * (1 - ph)}px)`;
+  const dim = out(prog(t, 8.3, 8.9)) * (1 - prog(t, 10.2, 10.6));
+  land.style.opacity = 1 - dim * 0.6;
+  const lg = out(prog(t, 8.45, 9.05)) * (1 - prog(t, 10.1, 10.45));
+  logo.style.opacity = lg; logo.style.transform = `translate(-50%,-50%) scale(${0.94 + 0.06 * lg})`;
+  const clear = prog(t, 10.1, 10.5);
+  for (const s of SHOTS) {
+    const u = prog(t, s.at + 0.1, s.at + 0.1 + FLY), e = inOut(u), es = out(u);
+    const tx = s.x - PR / 2, ty = s.y - LIFT - PR / 2;
+    const flying = t >= s.at + 0.1;
+    s.pr.style.display = flying ? 'block' : 'none';
+    s.pin.style.opacity = 0;
+    if (!flying) continue;
+    // from the viewfinder's rectangle to a square print, along an arc that lifts off the phone
+    const w = mix(VF.w, PR, es), h = mix(VF.h, PR, es);
+    const cx = mix(VF.x + VF.w / 2, tx + PR / 2, e), cy = mix(VF.y + VF.h / 2, ty + PR / 2, e) - Math.sin(Math.PI * e) * 70;
+    const land = prog(t, s.at + 0.1 + FLY - 0.05, s.at + 0.1 + FLY + 0.25);
+    const settle = 1 + 0.08 * Math.sin(Math.PI * land) * (land < 1 ? 1 : 0);
+    s.pr.style.width = w + 'px'; s.pr.style.height = h + 'px';
+    s.pr.style.borderRadius = mix(VF.r, 10, es) + 'px';
+    s.pr.style.border = `${mix(0, 4, es)}px solid #fff`;
+    s.pr.style.transform = `translate(${cx - w / 2}px, ${cy - h / 2}px) rotate(${s.tilt * e}deg) scale(${settle})`;
+    s.pr.style.boxShadow = `0 ${mix(2, 10, Math.sin(Math.PI * e)) + 4}px ${mix(6, 22, Math.sin(Math.PI * e)) + 6}px rgba(60,40,20,${0.16 + 0.08 * Math.sin(Math.PI * e)})`;
+    s.pr.style.opacity = (1 - dim * 0.8) * (1 - clear);
+    s.pr.style.zIndex = u < 1 ? 20 : 10;
+    if (s.cut) { // Lisbon: the still's own viewfinder (456 x 597 at 93, 188 of the 640 x 1190 still), cropped like object-fit: cover
+      const iw = w - 2 * mix(0, 4, es), ih = h - 2 * mix(0, 4, es), sc = Math.max(iw / 456, ih / 597);
+      Object.assign(s.cut.style, { position: 'absolute', left: '0', top: '0', maxWidth: 'none', objectFit: 'fill', borderRadius: '0',
+        width: 640 * sc + 'px', height: 1190 * sc + 'px', transform: `translate(${-93 * sc - (456 * sc - iw) / 2}px, ${-188 * sc - (597 * sc - ih) / 2}px)` });
+    }
+    s.pin.style.left = s.x + 'px'; s.pin.style.top = s.y + 'px';
+    s.pin.style.opacity = prog(t, s.at + 0.1 + FLY - 0.1, s.at + 0.1 + FLY + 0.1) * (1 - dim * 0.8) * (1 - clear);
+    s.pin.style.transform = `scale(${0.6 + 0.4 * out(land)})`;
+  }
+}
+window.render = render;
+// fit the 1600 x 1000 stage into the frame
+const fit = () => { const f = st.parentElement.getBoundingClientRect().width; st.style.transform = `scale(${f / 1600})`; };
+addEventListener('resize', fit); fit();
+const q = new URLSearchParams(location.search);
+if (q.has('rec')) document.body.classList.add('rec'), fit();
+if (q.has('t')) render(+q.get('t'));
+else if (!q.has('rec')) { const t0 = performance.now(); const tick = (now) => { render((now - t0) / 1000); requestAnimationFrame(tick); }; requestAnimationFrame(tick); }
+</script>
+</body>
+</html>

@@ -1,0 +1,271 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="Kumi, an AI assistant that gathers what you check across a dozen apps into one window and shows what needs you next." />
+    <!-- Link previews (Oct 14): what LinkedIn, Slack, iMessage and email show for this page. -->
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="Zihe Huang" />
+    <meta property="og:title" content="Kumi — Product Design — Zihe Huang" />
+    <meta property="og:description" content="Kumi, an AI assistant that gathers what you check across a dozen apps into one window and shows what needs you next." />
+    <meta property="og:url" content="https://alobihuang.github.io/ZiheHuang/hci/kumi/" />
+    <meta property="og:image" content="https://alobihuang.github.io/ZiheHuang/assets/og-card.jpg" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <title>Kumi — Product Design — Zihe Huang</title>
+    <script src="../../route-entry.js?v=20261013-logo-1"></script>
+    <script src="../../project/zoom-arrive.js?v=3"></script>
+    <script src="../../smooth-scroll.js?v=2" defer></script>
+    <script src="../../scroll-rail.js?v=2" defer></script>
+    <script>document.documentElement.classList.add('arch-motion-pending');setTimeout(()=>document.documentElement.classList.remove('arch-motion-pending'),10000);</script>
+    <link rel="icon" type="image/svg+xml" href="../../assets/alobi-mark.svg" />
+    <link rel="stylesheet" href="../../styles.css?v=20260922-logo-hit-1" />
+    <link rel="stylesheet" href="../../animations.css?v=20261013-quick-1" />
+    <link rel="stylesheet" href="../../category.css" />
+    <link rel="stylesheet" href="../../apple-system.css?v=20261014-head-1" />
+    <link rel="stylesheet" href="../../spectacle.css?v=20260916-simple-menu-1" />
+    <link rel="stylesheet" href="../../hero-entrance.css?v=20260922-head-grow-1" />
+    <link rel="stylesheet" href="../hci.css?v=20261012-light-1" />
+    <link rel="stylesheet" href="../cmused/cmused.css?v=25" />
+    <link rel="stylesheet" href="../glimpse/glimpse.css?v=14" />
+    <link rel="stylesheet" href="./kumi.css?v=2" />
+      <link rel="stylesheet" href="../../menu.css?v=20260925-paper-1" />
+      <link rel="stylesheet" href="../../page-flow.css?v=5" />
+    <link rel="expect" href="#top" blocking="render" />
+    <script type="module" src="../../menu.js?v=20261002-lead-1"></script>
+    <link rel="stylesheet" href="../../pd-polish.css?v=1" />
+  </head>
+  <body class="hci-page cm-page gl-page km-page">
+    <div class="page-transition" aria-hidden="true"><div class="transition-panel"></div><div class="transition-grid"></div><div class="transition-scan"></div><span class="transition-label">KUMI</span></div>
+    <div class="cursor" aria-hidden="true"></div><div class="grain" aria-hidden="true"></div>
+    <header class="site-head">
+      <a class="identity" href="../../" data-route data-route-label="ALOBI / HOME" aria-label="Zihe Huang — home">
+        <span class="logo-tile" aria-hidden="true"><span class="logo-initials">ZH</span><svg class="personal-mark" viewBox="0 0 48 48" role="presentation"><path class="mark-z" d="M9 12H39L9 36H39"/><path class="mark-h" d="M17 9V39M31 9V39M17 24H31"/><circle cx="24" cy="24" r="2"/></svg></span>
+        <span class="identity-copy">Zihe Huang<br />Architecture · HCI · AI</span>
+      </a>
+      <div class="coordinates" aria-hidden="true">PRODUCT DESIGN</div>
+      <div class="header-actions"><button class="menu-button" type="button" aria-label="Open contents" aria-expanded="false"><i aria-hidden="true"></i></button><a class="header-contact" href="../../contact/" data-route data-route-label="CONTACT / OPEN CHANNEL">Contact</a></div>
+    </header>
+    <aside class="index-panel" aria-hidden="true">
+      <nav aria-label="Portfolio contents">
+        <a href="../../" data-route data-route-label="ALOBI / HOME"><span>01</span><b>Home</b></a>
+        <a href="../../about/" data-route data-route-label="ABOUT / TIMELINE"><span>02</span><b>About me</b></a>
+        <a href="../../architecture/" data-route data-route-label="ARCHITECTURE"><span>03</span><b>Arch</b></a>
+        <a href="../" data-route data-route-label="PRODUCT DESIGN"><span>04</span><b>Products</b></a>
+        <a href="../../pm/" data-route data-route-label="LEADERSHIP"><span>05</span><b>Projects</b></a>
+        <a href="../../contact/" data-route data-route-label="CONTACT / OPEN CHANNEL"><span>06</span><b>Contact</b></a>
+      </nav>
+      <p>Human-centered work grounded in research, prototyping, feedback, and usable systems.</p>
+      <div class="index-socials" aria-label="Contact links">
+        <a class="index-linkedin" href="https://www.linkedin.com/in/zihe-huang/" target="_blank" rel="noreferrer" aria-label="LinkedIn">in</a>
+        <a class="index-instagram" href="https://www.instagram.com/zihealobi/" target="_blank" rel="noreferrer" aria-label="Instagram"><i></i></a>
+        <a class="index-email" href="mailto:ziheh@andrew.cmu.edu" aria-label="Email Zihe Huang"><i></i></a>
+      </div>
+    </aside>
+    <main>
+      <article class="cm gl km cm-doc" id="top" aria-labelledby="km-title">
+        <!-- Oct 17: drafted from the Kumi project's own README, brief and plan (D:\gpt\ChatGPT\dashboard),
+             in the Glimpse page's structure: Overview, Research, Solution, Explorations, Next Steps.
+             Copy is a draft for Alobi to check. Pictures: assets/pd/kumi/. -->
+        <nav class="cm-toc" aria-label="On this page">
+          <a href="#overview" data-cm-toc>Overview</a>
+          <a href="#research" data-cm-toc>Research</a>
+          <a href="#solution" data-cm-toc>Solution</a>
+          <a href="#explorations" data-cm-toc>Explorations</a>
+          <a href="#next" data-cm-toc>Next Steps</a>
+        </nav>
+        <div class="cm-main">
+        <section id="overview" class="gl-part" aria-labelledby="km-title">
+          <header class="cm-head" data-rail="OVERVIEW">
+            <p class="cm-crumb"><a href="../" data-route data-route-label="PRODUCT DESIGN">← Product design</a><span>P—04</span></p>
+            <h1 id="km-title">Kumi</h1>
+            <p class="cm-lede">Kumi is an AI assistant for anyone whose work is spread across too many apps. It gathers your calendar, inbox, deadlines and tools into one small window, sums up what needs you next, and keeps each app already open one tap away, so moving between platforms stops costing time. I designed it and directed its build with Claude Code over three weeks.</p>
+            <dl class="cm-facts cm-facts-4">
+              <div><dt>Role</dt><dd>Product designer &amp; product owner</dd></div>
+              <div><dt>Type</dt><dd>Product design · Web · Wallpaper · Phone</dd></div>
+              <div><dt>Duration</dt><dd>3 weeks</dd></div>
+              <div><dt>Year</dt><dd>2026</dd></div>
+              <div><dt>Built with</dt><dd>Figma · Claude Code</dd></div>
+            </dl>
+          </header>
+
+          <!-- Hero: Kumi's own intro, rendered from the app (dashboard/scripts/promo-render.mjs, 60 fps). -->
+          <div class="km-hero">
+            <video poster="../../assets/pd/kumi/kumi-promo.jpg?v=2" autoplay muted loop playsinline preload="metadata" aria-label="Kumi's intro: its K holds still while the tile turns into the apps it gathers, from Gmail and Google Calendar to Slack, Canvas and Discord, then the tile widens into the Kumi wordmark and the line One glance tells you what's next."><source src="../../assets/pd/kumi/kumi-promo.mp4?v=2" type="video/mp4" /><source src="../../assets/pd/kumi/kumi-promo.webm?v=2" type="video/webm" /></video>
+          </div>
+          <p class="km-note">The intro redraws real app icons with Kumi’s K in place of each app’s own symbol. It’s a concept piece for this portfolio, not an advertisement.</p>
+
+          <div class="gl-brief">
+            <h2 class="gl-quote">“What needs me next?”</h2>
+            <ol class="gl-problems" aria-label="Three problems observed">
+              <li><span>01</span>We check a calendar, an inbox, deadlines and more, many times a day.</li>
+              <li><span>02</span>Each app ranks only its own things.</li>
+              <li><span>03</span>No single screen says what needs you next.</li>
+            </ol>
+          </div>
+        </section>
+
+        <section id="research" class="gl-part cm-section" data-rail="RESEARCH" aria-labelledby="km-research">
+          <header class="cm-section-head"><h2 id="km-research">Research</h2></header>
+          <div class="cm-sub"><h3>Where it started</h3><p>I started Kumi for myself. I check Canvas for deadlines, Google Calendar for where to be, Gmail for who’s waiting, and half a dozen other apps for everything else, many times a day. Each one is good at its own list. None of them can tell me which of all those things is next.</p></div>
+          <div class="cm-sub"><h3>Where existing tools sit</h3><p>Tools that already pull apps together either decide the order for you or only cover one kind of thing.</p></div>
+          <ol class="cm-notes">
+            <li><span>01</span><b>AI briefs.</b><p>Apple’s priority notifications and Gemini’s Daily Brief summarise many apps, but rank them in an order they can’t explain.</p></li>
+            <li><span>02</span><b>Unified inboxes.</b><p>Apps like Beeper bring messages into one place, but deadlines, classes and events stay where they were.</p></li>
+            <li><span>03</span><b>Each app’s own list.</b><p>Canvas’s To Do, Gmail and Calendar are clear, but each one only knows about itself.</p></li>
+          </ol>
+          <div class="cm-sub"><h3>High-level goals that defined my design</h3><p>Every screen was judged against one sentence: one glance tells you what’s next.</p></div>
+          <ol class="cm-notes">
+            <li><span>01</span><b>An order you can explain.</b><p>Needs you now sorts by one rule, when it’s due. Overdue first, then the soonest.</p></li>
+            <li><span>02</span><b>A glance layer, not another inbox.</b><p>Kumi reads from the apps and shows what matters next. Tapping anything opens the app, where the real work happens.</p></li>
+            <li><span>03</span><b>Colour only where it means something.</b><p>The interface is ink on paper. Colour is kept for what kind of thing it is and how much it needs you.</p></li>
+          </ol>
+        </section>
+
+        <section id="solution" class="gl-part cm-section" data-rail="SOLUTION" aria-labelledby="km-solution">
+          <header class="cm-section-head"><h2 id="km-solution">Kumi puts every app you check on one board you design.</h2></header>
+          <p class="cm-intro">One window, the size of a chat box, that you can keep open beside your work.</p>
+          <div class="km-plate"><figure class="km-shot"><img src="../../assets/pd/kumi/kumi-board.webp?v=1" alt="The Kumi board at 1:18 pm: 2 things need you now. Needs you now lists Lab write-up 3, a day late, in solid red, then Studio crit in 42 minutes, a gym slot, replies, office hours and deadlines. Next up shows Studio crit in 42 min; small tiles show Claude back to full at 4:30, 3 emails to reply, the gym this week, the weather and Canvas." loading="lazy" decoding="async" /></figure></div>
+
+          <div class="cm-sub"><h3>Needs you now</h3><p>One list of deadlines, events, replies and your own reminders from every connected app, sorted only by when they’re due, one line each. Done, Snooze and Dismiss each come with Undo, and every row has Open in … to jump to the app. The headline counts only what needs you right now: “2 things need you now.”</p></div>
+
+          <div class="cm-sub"><h3>Colour that means something</h3><p>The hue says what kind of thing it is. The amount of colour says how much it needs you. A board shows one or two solid items at most, so the eye goes straight to them, and kind is always shown by an icon and a word too, never by colour alone.</p></div>
+          <div class="km-plate">
+            <ul class="km-kinds" aria-label="Six kinds, one colour each">
+              <li style="--k:#FF9A6E"><b>Class</b><span>Canvas, Todoist, deadlines</span></li>
+              <li style="--k:#8FB0FF"><b>Time</b><span>Calendar, Zoom, gym bookings</span></li>
+              <li style="--k:#FFB6DA"><b>People</b><span>Gmail, iMessage, Slack</span></li>
+              <li style="--k:#82DAA3"><b>Body</b><span>Health, gym, Grubhub</span></li>
+              <li style="--k:#FFDF80"><b>Yours</b><span>Your notes and trackers</span></li>
+              <li style="--k:#CFC0FF"><b>Tools</b><span>Claude, GitHub, Notion</span></li>
+            </ul>
+            <ul class="km-levels" aria-label="Three levels of urgency">
+              <li class="is-now"><b>Now</b>Solid, outlined, a hard shadow</li>
+              <li class="is-soon"><b>Soon</b>A soft tint and a coloured edge</li>
+              <li class="is-later"><b>Later</b>Plain paper and a dot</li>
+            </ul>
+          </div>
+
+          <div class="cm-sub"><h3>A board that knows what time it is</h3><p>The board changes with the day. In the morning it leads with what’s first; before an event it says when to leave; in the evening it says what tomorrow starts with, and at night the room around the window goes dark.</p></div>
+          <div class="km-plate km-pair">
+            <figure class="km-shot"><img src="../../assets/pd/kumi/kumi-morning.webp?v=1" alt="Kumi at 9:05 in the morning: 1 thing needs you now, and Next up is HCI Methods in 1 hour 25 minutes." loading="lazy" decoding="async" /><figcaption>9:05 am</figcaption></figure>
+            <figure class="km-shot"><img src="../../assets/pd/kumi/kumi-night.webp?v=1" alt="Kumi at 11:10 at night: the room around the window is dark, and Next up says tomorrow starts with a lab check-in at 10 am." loading="lazy" decoding="async" /><figcaption>11:10 pm</figcaption></figure>
+          </div>
+
+          <div class="cm-sub"><h3>Everything already on the calendar</h3><p>Opened from Needs you now, the calendar holds every deadline, event, reply and gym session from your apps, already placed by time. Nothing is added by hand, which is the part people give up on in Google Calendar.</p></div>
+          <div class="km-plate"><figure class="km-shot"><img src="../../assets/pd/kumi/kumi-calendar.webp?v=1" alt="Kumi's calendar for the week of October 12: deadlines, classes, replies and gym sessions from every app placed by time, in the board's colours." loading="lazy" decoding="async" /></figure></div>
+
+          <div class="cm-sub"><h3>Built like Lego</h3><p>The board is a grid of square cells. Widgets drag and resize, and the ones you land on move along to the next free spot and slide back if you change your mind. The window comes in three sizes, landscape or portrait, and each size has its own layout that fills it exactly. Every drag also has a one-click version, and every widget moves with the keyboard.</p></div>
+
+          <div class="cm-sub"><h3>Usable by everyone</h3><p>Kumi targets WCAG 2.2 AA. Every page works by keyboard alone, contrast is measured in both themes, charts come with a table a screen reader can read, and undo messages never time out. 132 automated tests run accessibility checks on every page, in both themes and on desktop, tablet and phone.</p></div>
+        </section>
+
+        <section id="explorations" class="gl-part cm-section" data-rail="EXPLORATIONS" aria-labelledby="km-explore">
+          <header class="cm-section-head"><h2 id="km-explore">Explorations</h2></header>
+          <ul class="km-evo">
+            <li>
+              <div class="km-plate km-pair km-arrow">
+                <figure class="km-shot"><img src="../../assets/pd/kumi/kumi-before-matcha.webp?v=1" alt="The first version: a full-screen dashboard in a sage and cream matcha theme, with a greeting, an icon rail and wide widgets." loading="lazy" decoding="async" /></figure>
+                <figure class="km-shot"><img src="../../assets/pd/kumi/kumi-board.webp?v=1" alt="The current Kumi window." loading="lazy" decoding="async" /></figure>
+              </div>
+              <b>From a full screen to a window.</b><p>The first version filled the screen in a calm matcha theme. Across the whole screen it was too much to take in at a glance, so Kumi became a small window: compact, informative and clean.</p>
+            </li>
+            <li>
+              <div class="km-plate km-trio">
+                <figure class="km-shot"><img src="../../assets/pd/kumi/kumi-dir-sticker.webp?v=1" alt="Direction A, Sticker: cream paper, ink outlines and hard offset shadows." loading="lazy" decoding="async" /><figcaption>A. Sticker</figcaption></figure>
+                <figure class="km-shot"><img src="../../assets/pd/kumi/kumi-dir-poster.webp?v=1" alt="Direction B, Poster: no outlines, the most urgent widget floods with colour, giant numbers." loading="lazy" decoding="async" /><figcaption>B. Poster</figcaption></figure>
+                <figure class="km-shot is-picked"><img src="../../assets/pd/kumi/kumi-dir-gummy.webp?v=1" alt="Direction C, Gummy: same-hue gradients and a soft highlight on urgent items only." loading="lazy" decoding="async" /><figcaption>C. Gummy, picked</figcaption></figure>
+              </div>
+              <b>Three ways to wear the same colours.</b><p>Sticker, Poster and Gummy share one colour system and differ in how loud it gets. Gummy kept the warmth with the least noise: soft same-hue gradients, only on what needs you now. The working name then was Tessu; Kumi, from kumihimo, Japanese braiding of many threads into one cord, won.</p>
+            </li>
+            <li>
+              <div class="km-plate"><figure class="km-shot"><img src="../../assets/pd/kumi/kumi-app-tiles.webp?v=1" alt="Thirty-three app icons redrawn with Kumi's K in place of each app's symbol: Gmail, Google Calendar, Claude, Canvas, Slack, Notion, Zoom, Figma, Discord and more." loading="lazy" decoding="async" /></figure></div>
+              <b>An intro that shows the real apps.</b><p>The intro first cycled through abstract colours and textures for each app. It now shows each app’s own icon with the K standing in for its symbol, so “one board, every app” reads in a second.</p>
+            </li>
+          </ul>
+        </section>
+
+        <section id="next" class="gl-part cm-section" data-rail="NEXT" aria-labelledby="km-next">
+          <header class="cm-section-head"><h2 id="km-next">Next Steps</h2></header>
+          <ol class="cm-notes">
+            <li><span>01</span><b>Connect real accounts.</b><p>Every app runs on realistic sample data for now. Next is sign-in and the real connections; iMessage, Grubhub and LinkedIn have no public API, so the Sources page says how each one would connect.</p></li>
+            <li><span>02</span><b>Test with students.</b><p>A week of real use with a few students, to see whether one glance really replaces the round of apps.</p></li>
+            <li><span>03</span><b>A screen reader pass.</b><p>A full pass with NVDA, then testing with people who use assistive technology every day.</p></li>
+          </ol>
+        </section>
+
+        <footer class="cm-end"><a href="../" data-route data-route-label="PRODUCT DESIGN">← Back to product design</a><span>KUMI / 2026</span></footer>
+        </div>
+      </article>
+    </main>
+    <script src="../case-toc.js?v=1" defer></script>
+    <script src="../../spectacle.js?v=20260925-perf-1"></script>
+    <script src="../../cursor-shape.js?v=3"></script>
+    <script>
+      (() => {
+        const transition = document.querySelector('.page-transition');
+        const grid = transition?.querySelector('.transition-grid');
+        for (let index = 0; index < 12; index += 1) {
+          const cell = document.createElement('span');
+          cell.style.setProperty('--cell', index);
+          cell.style.setProperty('--reverse-cell', 11 - index);
+          grid?.append(cell);
+        }
+        let hasRevealed = false;
+        const reveal = () => {
+          if (hasRevealed) return;
+          hasRevealed = true;
+          let state = null;
+          try {
+            const raw = sessionStorage.getItem('alobi-route-reveal');
+            state = raw ? JSON.parse(raw) : null;
+          } catch {}
+          if (state?.effect === 'line' || state?.effect === 'cleaner') {
+            transition.className = 'page-transition';
+            document.documentElement.classList.remove('route-enter-pending');
+            document.getElementById('route-prepaint-style')?.remove();
+            try { sessionStorage.removeItem('alobi-route-reveal'); } catch {}
+            return;
+          }
+          if (transition && grid?.children.length) {
+            transition.className = 'page-transition is-active effect-route-reveal';
+            requestAnimationFrame(() => {
+              document.documentElement.classList.remove('route-enter-pending');
+              document.getElementById('route-prepaint-style')?.remove();
+            });
+            window.setTimeout(() => { transition.className = 'page-transition'; }, 1100);
+          } else {
+            document.documentElement.classList.remove('route-enter-pending');
+            document.getElementById('route-prepaint-style')?.remove();
+          }
+          try { sessionStorage.removeItem('alobi-route-reveal'); } catch {}
+        };
+        requestAnimationFrame(() => requestAnimationFrame(reveal));
+        window.addEventListener('pageshow', reveal, { once: true });
+
+        document.querySelectorAll('[data-route]').forEach(link => link.addEventListener('click', event => {
+          if (link.href === location.href) return;
+          event.preventDefault();
+          if (/ALOBI\s*\/\s*HOME/i.test(link.dataset.routeLabel || link.textContent.trim())) {
+            try { sessionStorage.setItem('alobi-home-line-return', '1'); } catch {}
+          }
+          document.documentElement.classList.add('route-leaving');
+          transition.className = 'page-transition is-active effect-cleaner-down';
+          try {
+            sessionStorage.setItem('alobi-route-reveal', JSON.stringify({
+              label: link.dataset.routeLabel || link.textContent.trim(),
+              effect: 'line',
+              createdAt: Date.now()
+            }));
+          } catch {}
+          window.setTimeout(() => {
+            transition.classList.add('is-holding');
+            window.setTimeout(() => location.assign(link.href), 135);
+          }, 616);
+        }));
+      })();
+    </script>
+  </body>
+</html>

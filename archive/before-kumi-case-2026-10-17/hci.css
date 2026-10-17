@@ -1,0 +1,156 @@
+.hci-page{min-height:100svh;overflow-x:hidden;background:#f5f5f7;color:#1d1d1f}
+.hci-blank-hero{position:relative;isolation:isolate;min-height:100svh;overflow:hidden;border-bottom:1px solid #1d1d1f;background:#f5f5f7}
+.hci-blank-field{position:absolute;z-index:1;inset:52px 0 25.5svh;overflow:hidden;border-bottom:1px solid #1d1d1f;background:#f5f5f7;pointer-events:none}
+.hci-status{position:absolute;z-index:3;left:50%;top:calc(37.25svh + 26px);bottom:auto;margin:0;display:flex;align-items:center;gap:12px;color:#6e6e73;font:600 11px/1 "DM Mono",monospace;letter-spacing:.1em;white-space:nowrap;opacity:0;transform:translate(-50%,-50%)}.hci-status:before{content:"";width:34px;height:1px;background:#1d1d1f}.arch-toolbar-ready .hci-status{animation:hci-status-in .55s .18s ease both}@keyframes hci-status-in{from{opacity:0;transform:translate(-50%,calc(-50% + 8px))}to{opacity:1;transform:translate(-50%,-50%)}}
+.hci-uiux-title{position:absolute;z-index:3;left:0;right:0;bottom:clamp(26px,4vh,58px);box-sizing:border-box;width:100%;min-height:1em;margin:0;padding-inline:var(--pad);font-family:-apple-system,BlinkMacSystemFont,"SF Pro Display","Helvetica Neue",Arial,sans-serif!important;font-size:clamp(60px,9vw,136px);font-weight:650;line-height:.9;letter-spacing:-.075em;text-align:center;white-space:nowrap}
+@media(max-width:900px){.hci-blank-field{inset:52px 0 34svh}.hci-status{left:50%;top:calc(33svh + 26px);bottom:auto}.hci-uiux-title{padding-inline:20px;white-space:normal}}
+@media(max-width:560px){.hci-page{cursor:auto}.hci-page .cursor{display:none}.hci-page .identity-copy{display:none}.hci-page .coordinates{display:none}.hci-page .site-head{grid-template-columns:1fr auto}.hci-page .header-actions{grid-column:2;gap:16px}.hci-uiux-title{font-size:clamp(58px,20vw,92px)}}
+@media(prefers-reduced-motion:reduce){.hci-blank-field{clip-path:none}.hci-uiux-title{visibility:visible}.hci-status{opacity:1;animation:none!important}}
+
+/* ---- PD (Sept 28): line-field cover, then one clear project block ---- */
+/* No orange PRODUCT DESIGN tag while the page loads. */
+.hci-page .page-transition .transition-label{display:none!important}
+.hci-page .pd-field canvas{position:absolute;inset:0;display:block;width:100%;height:100%;opacity:.82;mix-blend-mode:multiply}
+.hci-page .pd-field:after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(245,245,247,.08),rgba(245,245,247,.3));pointer-events:none}
+.pd-title{font-size:clamp(46px,8.2vw,136px)!important}
+.pd-work{--pd-ink:#1d1d1f;--pd-mono:"DM Mono",ui-monospace,SFMono-Regular,Consolas,monospace;--pd-display:-apple-system,BlinkMacSystemFont,"SF Pro Display","Helvetica Neue",Arial,sans-serif;padding:clamp(90px,11vw,160px) var(--pad,5vw) clamp(100px,12vw,180px);background:#f5f5f7;color:var(--pd-ink)}
+.pd-work-head{max-width:1320px;margin:0 auto clamp(48px,6vw,84px)}
+.pd-work-head p{display:flex;justify-content:space-between;margin:0 0 26px;padding-bottom:12px;border-bottom:1px solid var(--pd-ink);font:600 10px/1.4 var(--pd-mono);letter-spacing:.08em}
+.pd-work-head h2{margin:0;font:650 clamp(38px,4.6vw,72px)/.98 var(--pd-display);letter-spacing:-.055em}
+.pd-project{max-width:1320px;margin:0 auto}
+/* The screen: a plain browser frame around the product. */
+.pd-screen{margin:0;overflow:hidden;background:#fff;box-shadow:0 0 0 .75px var(--pd-ink),0 40px 80px -48px rgba(24,4,0,.35)}
+.pd-screen-bar{display:flex;align-items:center;gap:7px;height:30px;padding:0 14px;border-bottom:.75px solid var(--pd-ink);background:#f5f5f7}
+.pd-screen-bar i{width:8px;height:8px;border-radius:50%;box-shadow:0 0 0 .75px var(--pd-ink)}
+.pd-screen-bar span{margin-left:auto;margin-right:auto;transform:translateX(-24px);font:500 10px/1 var(--pd-mono);letter-spacing:.08em}
+.pd-screen-view{position:relative;aspect-ratio:1800/899;overflow:hidden;background:#fff}
+.pd-screen-view img,.pd-screen-view video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:50% 0}
+.pd-screen-view img{opacity:0;transition:opacity .7s ease}
+.pd-screen-view img.is-shown{opacity:1}
+/* The words under it: name, one line of what it is, three facts. */
+.pd-project-info{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.5fr) minmax(0,1fr);gap:clamp(24px,4vw,64px);margin-top:28px;padding-top:18px;border-top:1px solid var(--pd-ink)}
+.pd-project-name small{display:block;margin-bottom:10px;font:600 10px/1 var(--pd-mono);letter-spacing:.08em}
+.pd-project-name h3{margin:0;font:650 clamp(30px,3vw,46px)/1 var(--pd-display);letter-spacing:-.05em}
+.pd-project-desc{margin:0;font:450 clamp(16px,1.3vw,20px)/1.5 -apple-system,BlinkMacSystemFont,"SF Pro Text","Helvetica Neue",Arial,sans-serif;letter-spacing:-.015em}
+.pd-project-meta{margin:0;display:grid;gap:0;align-content:start}
+.pd-project-meta div{display:flex;justify-content:space-between;gap:16px;padding:9px 0;border-bottom:1px solid rgba(29,29,31,.18)}
+.pd-project-meta div:first-child{padding-top:0}
+.pd-project-meta dt{font:600 10px/1.4 var(--pd-mono);letter-spacing:.08em;text-transform:uppercase}
+.pd-project-meta dd{margin:0;font:450 14px/1.4 -apple-system,BlinkMacSystemFont,"SF Pro Text","Helvetica Neue",Arial,sans-serif;text-align:right}
+@media(max-width:900px){.pd-project-info{grid-template-columns:1fr;gap:20px}}
+@media(prefers-reduced-motion:reduce){.pd-screen-view img{transition:none}}
+/* The whole project block opens the CMUsed page. */
+.pd-project{position:relative}
+.pd-project-link{color:inherit;text-decoration:none}
+.pd-project-link:after{content:"";position:absolute;inset:0;z-index:2}
+.pd-project-link:focus-visible{outline:none}
+.pd-project:has(.pd-project-link:focus-visible){outline:2px solid #1d1d1f;outline-offset:8px}
+.pd-project-more{display:inline-block;margin-top:14px;padding-bottom:3px;border-bottom:1px solid #1d1d1f;font:600 11px/1 "DM Mono",monospace;letter-spacing:.08em;text-transform:uppercase;transition:transform .35s cubic-bezier(.16,1,.3,1)}
+.pd-screen{transition:transform .55s cubic-bezier(.16,1,.3,1),box-shadow .55s cubic-bezier(.16,1,.3,1)}
+@media(hover:hover){.pd-project:hover .pd-screen{transform:translateY(-6px);box-shadow:0 0 0 .75px #1d1d1f,0 50px 90px -48px rgba(24,4,0,.45)}.pd-project:hover .pd-project-more{transform:translateX(6px)}}
+/* The ENTER word inside the black square cursor over the project. */
+.fx-cursor.is-enter span{display:block!important;opacity:1!important;transform:none!important;color:#000!important;font:600 11px/1 "DM Mono",ui-monospace,monospace!important;letter-spacing:.12em!important}
+/* More than one project: a clear gap between them. */
+.pd-project+.pd-project{margin-top:clamp(90px,10vw,150px)}
+
+/* ---- PD work as a grid (Sept 28): two projects to a row, each a grey plate
+   with the product's screen in it, then a one-line caption and tags. ---- */
+.pd-work{padding-top:clamp(70px,8vw,120px)}
+.pd-work-head{margin-bottom:clamp(28px,3vw,44px)}
+.pd-work-head h2{font-size:clamp(26px,2.6vw,40px)!important;letter-spacing:-.045em!important}
+.pd-grid{max-width:1320px;margin:0 auto;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:clamp(44px,5vw,72px) clamp(18px,2vw,28px)}
+.pd-grid .pd-project{max-width:none;margin:0}
+.pd-grid .pd-project+.pd-project{margin-top:0}
+.pd-plate{position:relative;display:grid;place-items:center;aspect-ratio:16/10;padding:7% 8%;box-sizing:border-box;background:#fafafb;overflow:hidden}
+.pd-plate .pd-screen{width:100%;box-shadow:0 0 0 .75px var(--pd-ink),0 24px 48px -28px rgba(24,4,0,.35)}
+.pd-plate .pd-screen-bar{height:20px;padding:0 9px;gap:5px}
+.pd-plate .pd-screen-bar i{width:6px;height:6px}
+.pd-plate .pd-screen-bar span{font-size:8px;transform:translateX(-16px)}
+.pd-card-cap{display:flex;flex-wrap:wrap;justify-content:space-between;align-items:baseline;gap:4px 16px;margin-top:14px}
+.pd-card-cap h3{margin:0;font:600 clamp(15px,1.2vw,18px)/1.3 var(--pd-display);letter-spacing:-.02em}
+.pd-card-cap h3 span{font-weight:450;color:#6e6e73}
+.pd-card-cap p{margin:0;font:500 9px/1.4 var(--pd-mono);letter-spacing:.08em;text-transform:uppercase;color:#6e6e73}
+@media(hover:hover){.pd-grid .pd-project:hover .pd-screen{transform:translateY(-4px)}.pd-grid .pd-project:hover .pd-plate{background:#e3e3e7}}
+.pd-plate{transition:background-color .4s ease}
+@media(max-width:760px){.pd-grid{grid-template-columns:1fr}}
+.pd-work{padding-top:clamp(56px,6vw,96px)!important}
+
+/* ---- The product shown on a laptop instead of a browser outline. A plain,
+   generic laptop drawn in CSS: dark lid with a thin bezel and camera dot,
+   the page on its screen, and a light base with a thumb notch. ---- */
+.pd-plate{container-type:inline-size}
+.pd-screen.pd-laptop{width:100%;background:none;box-shadow:none;overflow:visible}
+.pd-lid{position:relative;padding:1.5cqw 1.5cqw 2cqw;background:#111113;border-radius:2.2cqw 2.2cqw .4cqw .4cqw;box-shadow:inset 0 0 0 .18cqw #3a3a3e}
+.pd-cam{position:absolute;left:50%;top:.55cqw;width:.5cqw;height:.5cqw;margin-left:-.25cqw;border-radius:50%;background:#2c2c30}
+.pd-laptop .pd-screen-view{border-radius:.2cqw}
+.pd-base{position:relative;height:1.7cqw;margin:0 -7%;background:linear-gradient(180deg,#e2e2e5 0%,#c9c9ce 55%,#a9a9af 100%);border-radius:0 0 2.4cqw 2.4cqw/0 0 1.4cqw 1.4cqw;box-shadow:0 1.6cqw 2.6cqw -1.4cqw rgba(0,0,0,.45)}
+.pd-base:before{content:"";position:absolute;left:50%;top:0;width:15%;height:45%;transform:translateX(-50%);background:linear-gradient(180deg,#b3b3b8,#c6c6cb);border-radius:0 0 1cqw 1cqw}
+@media(hover:hover){.pd-grid .pd-project:hover .pd-screen.pd-laptop{box-shadow:none}}
+/* Lighter captions. */
+.pd-card-cap h3{font:500 clamp(14px,1.1vw,17px)/1.35 -apple-system,BlinkMacSystemFont,"SF Pro Text","Helvetica Neue",Arial,sans-serif!important;letter-spacing:0!important}
+.pd-card-cap h3 span{font-weight:300!important;color:#6e6e73}
+.pd-card-cap p{font-weight:400!important;letter-spacing:.06em!important;color:#8a8a8f!important}
+/* Laptop, second pass: a dark midnight shell like a current thin laptop, a
+   near-black bezel, and a base in the same tone. */
+.pd-lid{padding:1.2cqw 1.2cqw 1.6cqw;background:#0c0c0e;border-radius:2.4cqw 2.4cqw .5cqw .5cqw;box-shadow:inset 0 0 0 .35cqw #2a2e39,inset 0 0 0 .45cqw #3c4150}
+.pd-cam{top:.45cqw;background:#23262f}
+.pd-base{height:1.5cqw;margin:0 -6.5%;background:linear-gradient(180deg,#4a5062 0%,#2f3443 45%,#1f232d 100%);border-radius:0 0 3cqw 3cqw/0 0 1.3cqw 1.3cqw;box-shadow:0 1.8cqw 3cqw -1.6cqw rgba(10,12,20,.55)}
+.pd-base:before{width:14%;height:40%;background:linear-gradient(180deg,#262a35,#3a3f4e);border-radius:0 0 .9cqw .9cqw}
+/* Project pages: the laptop on a grey plate at the top, like the PD cards. */
+.cm-plate{aspect-ratio:16/9;padding:6% 9%;margin-bottom:clamp(80px,10vw,140px)}
+.cm-plate:has(+.og-caption){margin-bottom:0}
+
+/* ---- Laptop, third pass (Sept 28): the proportions of a 14-inch MacBook Pro
+   seen straight on, in space black. Measured against the real machine:
+   screen bezels about 1.6% of the lid's width at the sides; a black band
+   across the top of the screen (the notch row, black in full-screen apps);
+   the lid about two-thirds as tall as it is wide; a thin base a little wider
+   than the lid with the thumb scoop at the front. The page area is 1512:945,
+   the default 14" screen size less the notch row: screenshots taken at that
+   size fill it exactly. Wider screenshots are shown full width from the top.
+   (cqw = 1% of the whole laptop's width.) ---- */
+.pd-screen.pd-laptop{container-type:inline-size;position:relative;width:100%;margin:0 auto;background:none;box-shadow:none;overflow:visible}
+.pd-laptop .pd-lid{position:relative;margin:0 4.2cqw;padding:3.7cqw 1.5cqw 2.1cqw;background:#050506;border-radius:2.5cqw 2.5cqw .5cqw .5cqw;box-shadow:inset 0 0 0 .22cqw #3b3b3f,inset 0 0 0 .32cqw #1a1a1c}
+.pd-laptop .pd-cam{position:absolute;left:50%;top:1.2cqw;width:.42cqw;height:.42cqw;margin-left:-.21cqw;border-radius:50%;background:#1d2230;box-shadow:inset 0 0 0 .08cqw #2d3446}
+.pd-laptop .pd-screen-view{position:relative;aspect-ratio:1512/945;border-radius:0;background:#fff;overflow:hidden}
+.pd-laptop .pd-screen-view img,.pd-laptop .pd-screen-view video{position:absolute;left:0;top:0;right:auto;bottom:auto;width:100%;height:auto;min-height:0;object-fit:initial}
+.pd-laptop .pd-base{position:relative;height:1.9cqw;margin:0;background:linear-gradient(180deg,#77777c 0,#4a4a4e 14%,#343437 55%,#1d1d1f 100%);border-radius:.3cqw .3cqw 3.2cqw 3.2cqw/.3cqw .3cqw 1.5cqw 1.5cqw;box-shadow:0 1.6cqw 2.8cqw -1.3cqw rgba(0,0,0,.5)}
+.pd-laptop .pd-base:before{content:"";position:absolute;left:50%;top:0;width:13cqw;height:.75cqw;transform:translateX(-50%);background:linear-gradient(180deg,#2a2a2d,#3c3c40);border-radius:0 0 .9cqw .9cqw}
+.pd-plate{padding:5.5% 12%!important}
+.cm-plate{padding:4.5% 17%!important}
+
+/* Oct 5: card labels always sit on their own line under the title. */
+.pd-card-cap{display:block}
+.pd-card-cap p{margin-top:6px}
+
+/* Oct 5: OpenGym is not open yet. The screens keep cycling; on hover a note
+   says the redesign is in progress, and nothing on the card is a link. */
+.pd-project.is-wip .pd-plate{position:relative;cursor:default}
+.pd-project.is-wip .pd-project-link{cursor:default}
+.pd-wip{position:absolute;inset:0;z-index:3;display:grid;place-items:center;background:rgba(245,245,247,.42);opacity:0;transition:opacity .35s ease;pointer-events:none}
+.pd-wip b{padding:12px 18px;border:1px solid #1d1d1f;background:#f5f5f7;color:#1d1d1f;font:500 12px/1 DM Mono,ui-monospace,Consolas,monospace;letter-spacing:.1em;text-transform:uppercase}
+.pd-project.is-wip:hover .pd-wip,.pd-project.is-wip:focus-within .pd-wip{opacity:1}
+@media(hover:none){.pd-wip{opacity:1;background:none;place-items:end start;padding:12px}.pd-wip b{padding:8px 10px;font-size:10px}}
+
+/* Oct 7: Glimpse card: three framed phone screenshots on the plate, the middle
+   one raised, in place of the laptop. */
+.pd-plate.pd-plate-phones{display:flex;align-items:center;justify-content:center;padding:5% 8%!important}
+.pd-phones{display:flex;align-items:flex-end;justify-content:center;gap:4%;width:100%;height:100%;margin:0}
+.pd-phones img,.pd-phones video{display:block;height:88%;width:auto;max-width:30%;object-fit:contain;background:transparent}
+.pd-phones video{aspect-ratio:800/1488}
+.pd-phones>:nth-child(2){transform:translateY(-6%)}
+@media(hover:hover){.pd-grid .pd-project:hover .pd-plate.pd-plate-phones{background:#fafafb}}
+
+/* Oct 12: centre PRODUCT DESIGN in the band under the field, the same way as
+   SELECTED WORKS (ARCH) and PROJECTS (band: bottom 25.5svh; 34svh on narrow screens). */
+.hci-blank-hero .hci-uiux-title{bottom:0;height:25.5svh;display:flex;align-items:center;justify-content:center}
+@media(max-width:900px){.hci-blank-hero .hci-uiux-title{height:34svh;text-align:center}}
+
+/* Oct 12: picture plates are near-white with a hairline edge (were #e9e9ec). */
+.pd-plate{box-shadow:inset 0 0 0 1px rgba(29,29,31,.07)}
+
+/* Oct 13: phones sit straight on the plate. The stills carry only the phone (no baked
+   shadow), the videos are clipped to the phone outline (inline mask, so it also works from file://), and the shadow is drawn here, so
+   no grey rectangle shows behind them on any background. */
+.pd-phones{filter:drop-shadow(0 10px 16px rgba(17,20,24,.16)) drop-shadow(0 2px 3px rgba(17,20,24,.08))}
+.pd-phones video{background:transparent;--phone-mask:url("data:image/png;base64,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");-webkit-mask:var(--phone-mask) center/100% 100% no-repeat;mask:var(--phone-mask) center/100% 100% no-repeat}
