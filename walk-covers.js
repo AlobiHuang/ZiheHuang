@@ -8,6 +8,10 @@
 const OPENGYM_LOGO = 'https://cmuopengym.com/images/light_mode_logo.png';
 // Its gym photos (uc = Cohon Lower, ucA1 = Cohon Upper, tepper = Tepper).
 const OG_IMAGES = 'https://cmuopengym.com/images/';
+// The footer's social links (GitHub, Instagram, LinkedIn), drawn like the real site's Ionicons.
+const GITHUB = '<svg viewBox="0 0 16 16"><path fill="currentColor" d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.01 8.01 0 0 0 16 8c0-4.42-3.58-8-8-8z"/></svg>';
+const INSTAGRAM = '<svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.4"><rect x="1.2" y="1.2" width="13.6" height="13.6" rx="4"/><circle cx="8" cy="8" r="3.1"/><circle cx="12" cy="4" r=".5" fill="currentColor"/></svg>';
+const LINKEDIN = '<svg viewBox="0 0 16 16"><path fill="currentColor" fill-rule="evenodd" d="M2 0h12a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V2a2 2 0 0 1 2-2zm1.4 6.1v7h2.2v-7zm1.1-3.6a1.25 1.25 0 1 0 0 2.5 1.25 1.25 0 0 0 0-2.5zm2.8 3.6v7h2.2V9.6c0-.9.2-1.7 1.3-1.7s1.1 1 1.1 1.8v3.4h2.2V9.3c0-1.9-.4-3.4-2.6-3.4-1.1 0-1.8.6-2.1 1.1V6.1z"/></svg>';
 
 const markup = {
   // CMUsed: its wordmark holds still while the marketplace's real categories roll past;
@@ -15,12 +19,24 @@ const markup = {
   cmused: (b) => `<div class="walk-cover wc-cm" data-reel aria-hidden="true">
     <span class="wc-brand">CMUsed</span><div class="wc-reel"><ul></ul></div><div class="wc-fade"></div>
     <img class="wc-listing" src="${b}assets/pd/cmused-card.webp?v=2" alt="" loading="lazy" decoding="async"></div>`,
-  // Glimpse (Oct 16): one phone on linen playing "Your world, filling in", the advertising video
-  // made from the app: the circle of your photos fills year by year, 23.0 GB kept off your iPhone,
-  // the photos land across the world, then gather into the hour-dial logo. The earlier three-phone
-  // cover is in archive/before-glimpse-cover-2026-10-16/.
-  glimpse: (b) => `<div class="walk-cover wc-gl2" aria-hidden="true">
-    <div class="wc-one"><video muted playsinline loop preload="metadata" poster="${b}assets/pd/glimpse/v3/glimpse-world-filling.jpg?v=cosmos-1"><source src="${b}assets/pd/glimpse/v3/glimpse-world-filling.mp4?v=cosmos-1" type='video/mp4; codecs="avc1.640028"'><source src="${b}assets/pd/glimpse/v3/glimpse-world-filling.webm?v=cosmos-1" type="video/webm"></video></div></div>`,
+  // Glimpse (Oct 16–17, built up like Jean Chen's Typistry cover; prototype: assets/pd/glimpse/v3/cover-proto.html):
+  // it opens on the hour-ring logo, which shrinks onto the photo circle as the phone rises around it; then
+  // one phone playing "Your world, filling in" (the circle of your photos fills, 23.0 GB kept off your iPhone);
+  // as its tiles break out the Now and camera phones slide out from behind it; the view pulls back and the
+  // desktop app rises behind on two MacBooks (Search, Layers of Alfama); everything goes back behind the
+  // phone; the phone fades and its photos merge into the hour-dial logo on the cover itself, with "glimpse"
+  // (v3/glimpse-cover-ring, drawn at the cover's 16:10 from the phone's own print positions). The one-phone
+  // cover is in archive/before-glimpse-cover-build-2026-10-16/, the three-phone one in before-glimpse-cover-2026-10-16/.
+  glimpse: (b) => {
+    const g = `${b}assets/pd/glimpse/v3/`;
+    const V = (n) => `<video muted playsinline preload="metadata" poster="${g}${n}.jpg?v=cosmos-1"><source src="${g}${n}.mp4?v=cosmos-1" type='video/mp4; codecs="avc1.640028"'><source src="${g}${n}.webm?v=cosmos-1" type="video/webm"></video>`;
+    const mac = (cls, img) => `<div class="wc-mac ${cls}"><div class="wc-lid"><img src="${g}${img}.webp?v=1" alt="" loading="lazy" decoding="async"><i class="wc-notch"></i></div><div class="wc-base"></div></div>`;
+    return `<div class="walk-cover wc-gl3" aria-hidden="true">
+    ${mac('wc-mac-l', 'glimpse-desk-search')}${mac('wc-mac-r', 'glimpse-desk-layers')}
+    <div class="wc-ph wc-ph-l">${V('glimpse-now-swipe')}</div><div class="wc-ph wc-ph-r">${V('glimpse-camera-shoot')}</div><div class="wc-ph wc-ph-m">${V('glimpse-world-filling')}</div>
+    <video class="wc-ring" muted playsinline preload="metadata"><source src="${g}glimpse-cover-ring.mp4?v=2" type='video/mp4; codecs="avc1.640028"'><source src="${g}glimpse-cover-ring.webm?v=2" type="video/webm"></video>
+    <img class="wc-logo-ring" src="${g}glimpse-cover-logo-ring.webp?v=1" alt=""><img class="wc-logo-word" src="${g}glimpse-cover-logo-word.webp?v=1" alt=""></div>`;
+  },
   // OpenGym: a visit through the app, rebuilt from its real screens with illustrative
   // numbers (the live counter is offline, so the real site reads 0 everywhere): the logo,
   // the three gyms, a click on Cohon Lower, its page, and a scroll to "How busy it usually is".
@@ -39,12 +55,15 @@ const markup = {
     <div class="wc-browser"><div class="wc-bar"><i></i><i></i><i></i><b></b></div>
       <div class="wc-page"><div class="wc-scroll">
         <img class="wc-mark" src="${OPENGYM_LOGO}" alt="" decoding="async">
+        <svg class="wc-moon wc-fade" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M20.5 14.2A8.5 8.5 0 1 1 9.8 3.5a7 7 0 0 0 10.7 10.7z"/></svg>
         <span class="wc-tagline wc-fade">Beat the rush - see gym occupancy in real-time!</span><i class="wc-rule wc-fade"></i>
         <div class="wc-home">
           ${card('uc.jpg', 'Cohon Fitness Center Lower', 62, 'Closes in 6h 16m (today at 11:00 PM)')}
           ${card('ucA1.jpg', 'Cohon Fitness Center Upper', 38, 'Closes in 6h 16m (today at 11:00 PM)')}
           ${card('tepper.jpg', 'Tepper Fitness Center', 21, 'Closes in 3h 16m (today at 8:00 PM)')}
-          <div class="wc-foot"><b>Open Gym</b><span>© 2026</span><i></i><small>Copyright (c) 2025 Carnegie Mellon University Business Technology Group. All rights reserved.</small></div>
+          <div class="wc-foot"><img class="wc-btg" src="${b}assets/pd/opengym-btg.svg" alt="" decoding="async"><b>Open Gym</b><span>© 2026</span>
+            <div class="wc-social">${GITHUB}${INSTAGRAM}${LINKEDIN}</div><i></i>
+            <small>Copyright (c) 2025 Carnegie Mellon University Business Technology Group. All rights reserved.<br>Unauthorized copying, modification, distribution, or use of this code is strictly prohibited.</small></div>
         </div>
         <div class="wc-hero" style="background-image:url(${OG_IMAGES}uc.jpg)"></div>
         <div class="wc-detail">
@@ -236,16 +255,109 @@ function opengym(cover) {
 
 // The Glimpse cover: its video plays only while the cover is on screen; with reduced motion it
 // rests on the poster frame.
-function glimpseVideo(cover) {
-  const video = cover.querySelector('video');
-  if (reduced()) return;
-  whenOnScreen(cover, () => video.play().catch(() => {}), () => video.pause());
+function glimpseBuild(cover) {
+  // Timed from the middle phone's own clock ("Your world, filling in", 13.7 s): 5.15 s its tiles break out,
+  // the side phones come out; 6.1 s its map starts to slide, the view pulls back and the MacBooks rise;
+  // 9.35 s everything goes back behind it; 10.35 s its prints are about to gather, the phone fades and the
+  // cover's own ending takes over, which holds the logo from about 12 s; at 13.25 s the cover hands over to the
+  // same logo (two images) and the opening plays again: the ring shrinks onto the photo circle as the phone
+  // rises around it, and the circle starts to fill.
+  // Boxes in cqw of the 100 x 62.5 frame (left, top, height; a phone is 800/1488 as wide as it is tall).
+  const PW = 800 / 1488, box = (l, t, h) => ({ l, t, h });
+  const SINGLE = box(34.95, 3.25, 56), BEHIND = box(37.05, 7.15, 48.2);
+  const SIDE2_L = box(12.5, 9, 47), SIDE2_R = box(100 - 12.5 - 47 * PW, 9, 47);
+  const MID3 = box(50 - 21 * PW, 15.5, 42), SIDE3_L = box(21, 21.5, 35), SIDE3_R = box(100 - 21 - 35 * PW, 21.5, 35);
+  const T = { breakOut: 5.15, pull: 6.1, back: 9.35, merge: 10.35, end: 13.25 };
+  const INTRO = 1.6, RING_TO = { dy: 20.23 - 27, s: 14.23 / 25 };   // the ring (centre 50,27 cqw, 25 across) onto the circle (50,20.23; 14.23 across)
+  const clamp = (x) => Math.min(1, Math.max(0, x)), prog = (t, a, b) => clamp((t - a) / (b - a));
+  const out = (x) => 1 - Math.pow(1 - clamp(x), 3.2);
+  const inOut = (x) => { x = clamp(x); return x < .5 ? 4 * x * x * x : 1 - Math.pow(-2 * x + 2, 3) / 2; };
+  const mix = (a, b, k) => ({ l: a.l + (b.l - a.l) * k, t: a.t + (b.t - a.t) * k, h: a.h + (b.h - a.h) * k });
+  const mid = cover.querySelector('.wc-ph-m'), L = cover.querySelector('.wc-ph-l'), R = cover.querySelector('.wc-ph-r');
+  const lap = cover.querySelector('.wc-mac-l'), mon = cover.querySelector('.wc-mac-r');
+  const vm = mid.querySelector('video'), vl = L.querySelector('video'), vr = R.querySelector('video'), vg = cover.querySelector('.wc-ring');
+  const ring = cover.querySelector('.wc-logo-ring'), word = cover.querySelector('.wc-logo-word');
+  // each phone sits at its box in the full composition; a transform shows where it is at the moment
+  const home = new Map([[mid, MID3], [L, SIDE3_L], [R, SIDE3_R]]);
+  for (const [el, b] of home) Object.assign(el.style, { left: b.l + 'cqw', top: b.t + 'cqw', height: b.h + 'cqw', width: b.h * PW + 'cqw' });
+  const put = (el, b) => { const h = home.get(el); el.style.transform = `translate(${b.l - h.l}cqw, ${b.t - h.t}cqw) scale(${b.h / h.h})`; };
+  let sidesOn = false, ringOn = false, frame = 0, live = false;
+  const render = (t, enter = 1) => {
+    const e2 = out(prog(t, T.breakOut, T.breakOut + .9));
+    const e3 = inOut(prog(t, T.pull, T.pull + 1.2)), eb = inOut(prog(t, T.back, T.back + .9));
+    const m = mix(mix(SINGLE, MID3, e3), SINGLE, eb);
+    put(mid, { l: m.l, t: m.t + (1 - enter) * 2.5, h: m.h });
+    const hand = out(prog(t, T.merge, T.merge + .35));
+    mid.style.opacity = enter * (1 - hand);
+    vg.style.opacity = hand;
+    if (t >= T.merge && !ringOn) { ringOn = true; vg.currentTime = Math.max(0, t - T.merge); vg.play().catch(() => {}); }
+    if (t < T.merge && ringOn) { ringOn = false; vg.pause(); vg.currentTime = 0; }
+    for (const [el, s2, s3] of [[L, SIDE2_L, SIDE3_L], [R, SIDE2_R, SIDE3_R]]) {
+      put(el, mix(mix(mix(BEHIND, s2, e2), s3, e3), BEHIND, eb));
+      el.style.opacity = clamp(e2 * 2.5) * (1 - prog(eb, .55, 1));
+    }
+    [[lap, 0], [mon, .12]].forEach(([el, d]) => {
+      const up = out(prog(t, T.pull + .2 + d, T.pull + 1.4 + d)), down = out(prog(t, T.back - .1 + d, T.back + .5 + d));
+      el.style.opacity = up * (1 - down);
+      el.style.transform = `translateY(${(1 - up) * 7 + down * 5}cqw)`;
+    });
+    if (t >= T.breakOut && t < T.back + .9 && !sidesOn) { sidesOn = true; vl.currentTime = 0; vr.currentTime = 1.5; vl.play().catch(() => {}); vr.play().catch(() => {}); }
+    if ((t >= T.back + .9 || t < T.breakOut) && sidesOn) { sidesOn = false; vl.pause(); vr.pause(); }
+  };
+  // the opening, on its own clock c (0 .. INTRO): the logo holds, the ring shrinks onto the empty circle as the
+  // phone rises around it, the word goes; the very first time the logo fades in
+  let first = true;
+  const intro = (c) => {
+    const show = first ? out(prog(c, 0, .4)) : 1, k = inOut(prog(c, .5, 1.35)), w = out(prog(c, .45, .8));
+    ring.style.transform = `translateY(${RING_TO.dy * k}cqw) scale(${1 + (RING_TO.s - 1) * k})`;
+    ring.style.opacity = show * (1 - prog(c, 1.15, 1.5));
+    word.style.transform = `translateY(${w * 1.2}cqw)`;
+    word.style.opacity = show * (1 - w);
+    render(0, out(prog(c, .8, 1.4)));
+  };
+  const hideLogo = () => { ring.style.opacity = word.style.opacity = 0; };
+  if (reduced()) {
+    // a still: the full composition, the circle on 23.0 GB, Now at 4 pm, the camera's rating card
+    const still = () => { hideLogo(); render(7.4); try { vm.currentTime = 4.5; vl.currentTime = .3; vr.currentTime = 3.6; } catch {} };
+    [vm, vl, vr].forEach((v) => (v.preload = 'auto'));
+    vm.addEventListener('loadedmetadata', still, { once: true }); still();
+    return;
+  }
+  let phase = 'intro', c0 = null;
+  vm.loop = false;
+  intro(0);
+  const loop = (now) => {
+    if (!live) return;
+    if (phase === 'intro') {
+      if (c0 === null) c0 = now;
+      const c = (now - c0) / 1000;
+      intro(c);
+      if (c >= INTRO) { phase = 'video'; hideLogo(); first = false; vm.currentTime = 0; vm.play().catch(() => {}); }
+    } else {
+      const t = vm.currentTime;
+      render(t);
+      if (t >= T.end || vm.ended) {
+        // the ending video shows exactly the logo the opening starts on: hand over and begin again
+        vm.pause(); vg.pause(); vm.currentTime = 0; ringOn = false; vg.style.opacity = 0;
+        phase = 'intro'; c0 = now; intro(0);
+      }
+    }
+    frame = requestAnimationFrame(loop);
+  };
+  whenOnScreen(cover, () => {
+    if (live) return;
+    live = true; c0 = null; [vm, vl, vr, vg].forEach((v) => (v.preload = 'auto'));
+    if (phase === 'video') vm.play().catch(() => {});
+    frame = requestAnimationFrame(loop);
+  }, () => {
+    live = false; cancelAnimationFrame(frame); [vm, vl, vr, vg].forEach((v) => v.pause()); sidesOn = false;
+  });
 }
 
 export function startCover(root) {
   const cover = root.querySelector('.walk-cover');
   if (!cover) return;
-  if (cover.matches('.wc-gl2')) glimpseVideo(cover);
+  if (cover.matches('.wc-gl3')) glimpseBuild(cover);
   if (cover.matches('.wc-og')) opengym(cover);
   if (cover.matches('.wc-gl')) glimpse(cover);
   if (cover.matches('[data-reel]')) reel(cover);
