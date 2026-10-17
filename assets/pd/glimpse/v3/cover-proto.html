@@ -1,0 +1,197 @@
+<!doctype html>
+<!-- Prototype (Oct 16, 2026): the Glimpse cover built up the way Jean Chen's Typistry cover is: it opens on
+     one phone, then other screens join until the frame is full, then it comes back to the one phone.
+     Not linked from the site. Everything is timed from the middle video's own clock (video B,
+     v3/glimpse-world-filling, 13.7 s):
+       0–0.6 s    the phone rises in; B plays: the circle fills, 23.0 GB kept off your iPhone
+       5.15 s     B's tiles break out — the Now and camera phones slide out from behind it
+       6.1 s      B's map starts to slide — the view pulls back and the desktop app rises behind
+                  (two MacBooks: Search, "words people use" and the cities; Layers of Alfama)
+       9.35 s     everything goes back behind the middle phone
+       10.35 s    B's prints are about to gather: the phone fades out and the cover's own ending takes
+                  over from the same places (v3/glimpse-cover-ring, drawn at the cover's 16:10 by
+                  tools/glimpse-previews/videos/videos.html ?v=ring): the prints leave the phone, grow as
+                  they merge, and become the Hour dial ring, big and on its own, then "glimpse"
+       13.7 s     plain linen; B starts again and the phone fades back in
+     Same frame as the live cover (16:10, cqw units, the single phone at its current size), so it
+     can replace wc-gl2 in walk-covers.js. Motion: transform and opacity only; ease-out to arrive,
+     ease-in-out to move; a still composition for reduced motion. -->
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Glimpse cover prototype (MacBooks, logo on its own)</title>
+<style>
+body { margin: 0; background: #f5f5f4; color: #111; font: 16px/1.45 Inter, system-ui, sans-serif; }
+main { max-width: 1040px; margin: 0 auto; padding: 40px 20px 80px; }
+h1 { font-size: 28px; font-weight: 500; letter-spacing: -.02em; margin: 0 0 6px; }
+p { color: #555; margin: 0 0 28px; max-width: 720px; }
+.row { display: flex; gap: 32px; align-items: flex-start; flex-wrap: wrap; }
+.slot { position: relative; aspect-ratio: 16 / 10; border-radius: 6px; overflow: hidden; }
+.slot.big { width: 100%; }
+.slot.card { width: 506px; max-width: 100%; }
+.cap { font-size: 13px; color: #777; margin-top: 8px; }
+
+/* the cover */
+/* a light wash of the Hour Light colours (the logo's late afternoon: cream to amber), so the plate reads as Glimpse */
+.gc { position: absolute; inset: 0; overflow: hidden; container-type: inline-size; background: linear-gradient(180deg, #F6EFE6 0%, #F2DFC6 100%); }
+/* the logo the cover opens on (exactly the one its ending holds): the hour ring and "glimpse", as two images */
+.gc .logo-ring, .gc .logo-word { position: absolute; z-index: 6; pointer-events: none; will-change: transform, opacity; }
+.gc .logo-ring { left: 37.5cqw; top: 14.5cqw; width: 25cqw; transform-origin: 50% 50%; }
+.gc .logo-word { left: 40.75cqw; top: 42.625cqw; width: 18.875cqw; }
+.gc .ph, .gc .scr { position: absolute; transform-origin: 0 0; will-change: transform, opacity; }
+.gc .ph video { display: block; width: 100%; height: 100%; object-fit: contain;
+  -webkit-mask: url("../v2/phone-mask.png") center / 100% 100% no-repeat; mask: url("../v2/phone-mask.png") center / 100% 100% no-repeat; }
+.gc .ph { filter: drop-shadow(0 1cqw 1.8cqw rgba(20, 15, 10, .18)); }
+.gc .mid { z-index: 3; }
+.gc .side { z-index: 2; }
+/* the desktop app on two MacBooks (front view, like a MacBook Pro): a dark lid with a thin black bezel and the
+   camera notch, and the silver base below the hinge, a little wider than the lid, with the thumb notch in the
+   front edge and its shadow on the table */
+.gc .scr { z-index: 1; }
+.gc .mbp .lid { position: absolute; left: 0; top: 0; width: 100%; aspect-ratio: 16 / 10; box-sizing: border-box; padding: .5cqw .5cqw .75cqw;
+  border-radius: 1.5cqw 1.5cqw .35cqw .35cqw; background: #26272b; box-shadow: inset 0 0 0 .12cqw #3a3b40, 0 .6cqw 1.4cqw rgba(20, 15, 10, .12); }
+.gc .mbp .lid img { display: block; width: 100%; height: 100%; object-fit: cover; object-position: top; border-radius: 1.05cqw 1.05cqw .1cqw .1cqw; }
+.gc .mbp .notch { position: absolute; left: 50%; top: .5cqw; width: 9%; height: 1.15cqw; margin-left: -4.5%; border-radius: 0 0 .45cqw .45cqw; background: #0b0b0c; }
+.gc .mbp .base { position: absolute; left: -7%; width: 114%; height: 1.45cqw; top: calc(100% - .05cqw);
+  border-radius: .2cqw .2cqw 1.4cqw 1.4cqw / .2cqw .2cqw 1.1cqw 1.1cqw;
+  background: linear-gradient(#f3f3f5 0, #e2e3e6 22%, #c9cbcf 70%, #a8aaaf 100%); box-shadow: inset 0 .08cqw 0 #ffffff, 0 .9cqw 1.4cqw -.4cqw rgba(20, 15, 10, .35); }
+.gc .mbp .base::before { content: ""; position: absolute; left: 50%; top: 0; width: 14%; margin-left: -7%; height: .55cqw;
+  border-radius: 0 0 .7cqw .7cqw; background: linear-gradient(#bfc1c5, #d8d9dc); }
+.gc .mbp .base::after { content: ""; position: absolute; left: 0; right: 0; top: 0; height: .18cqw; background: linear-gradient(90deg, #8d8f94, #b5b7bb 8%, #b5b7bb 92%, #8d8f94); opacity: .7; }
+.gc .ring { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; z-index: 5; opacity: 0; pointer-events: none; }
+@media (prefers-reduced-motion: reduce) { .gc .ph, .gc .scr { will-change: auto; } }
+</style>
+</head>
+<body>
+<main>
+  <h1>Glimpse cover, built up like Typistry</h1>
+  <p>Now it opens on the logo: the hour ring shrinks onto the phone’s empty photo circle as the phone rises around it, and the circle fills. The plate is a light wash of the Hour Light colours.</p>
+  <p>One phone first (the live cover, video B), then the Now and camera phones slide out from behind it as its tiles break out, then the view pulls back and the desktop app rises behind as its map starts to slide: on two MacBooks, Search (the words people use, the cities) and Layers of Alfama (one place through the years). Then everything goes back behind the phone, the phone fades out, and its photos merge into the logo on the cover itself, big, with “glimpse”. All screens are real captures of the app.</p>
+  <div class="slot big"><div class="gc"></div></div>
+  <div class="cap">Full width (the WORK walk).</div>
+  <div class="row" style="margin-top:28px">
+    <div><div class="slot card"><div class="gc"></div></div><div class="cap">At the PRODUCTS card's size (506 px).</div></div>
+  </div>
+</main>
+<script>
+const V = (name, v = 'cosmos-1') => `<video muted playsinline preload="auto" poster="${name}.jpg?v=${v}"><source src="${name}.mp4?v=${v}" type='video/mp4; codecs="avc1.640028"'><source src="${name}.webm?v=${v}" type="video/webm"></video>`;
+const MARKUP = `
+  <div class="scr mbp lap"><div class="lid"><img src="glimpse-desk-search.webp" alt=""><div class="notch"></div></div><div class="base"></div></div>
+  <div class="scr mbp mon"><div class="lid"><img src="glimpse-desk-layers.webp" alt=""><div class="notch"></div></div><div class="base"></div></div>
+  <div class="ph side left">${V('glimpse-now-swipe')}</div>
+  <div class="ph side right">${V('glimpse-camera-shoot')}</div>
+  <div class="ph mid">${V('glimpse-world-filling')}</div>
+  <video class="ring" muted playsinline preload="auto"><source src="glimpse-cover-ring.mp4?v=2" type='video/mp4; codecs="avc1.640028"'><source src="glimpse-cover-ring.webm?v=2" type="video/webm"></video>
+  <img class="logo-ring" src="glimpse-cover-logo-ring.webp?v=1" alt=""><img class="logo-word" src="glimpse-cover-logo-word.webp?v=1" alt="">`;
+
+// boxes in cqw of the 100 x 62.5 frame: left, top, height (a phone's width is 800/1488 of its height)
+const PW = 800 / 1488;
+const box = (l, t, h) => ({ l, t, h });
+const SINGLE = box(34.95, 3.25, 56);                 // the one phone
+const BEHIND = box(37.05, 7.15, 48.2);               // tucked behind it
+const SIDE2_L = box(12.5, 9, 47), SIDE2_R = box(100 - 12.5 - 47 * PW, 9, 47);
+const MID3 = box(50 - 21 * PW, 15.5, 42), SIDE3_L = box(21, 21.5, 35), SIDE3_R = box(100 - 21 - 35 * PW, 21.5, 35);
+const LAP = { l: 4, t: 7, w: 44 }, MON = { l: 52, t: 4, w: 44 };   // the MacBooks (the bases, 114% of the lid, stay inside the frame)
+// the middle video's moments; the ending video (2.9 s from 10.35) holds the logo until 13.25
+const T = { breakOut: 5.15, pull: 6.1, back: 9.35, merge: 10.35, end: 13.25 };
+// the opening: the logo (where the ending left it) shrinks onto the phone's empty photo circle
+const INTRO = 1.6;
+const RING_TO = { dy: 20.23 - 27, s: 14.23 / 25 };   // ring centre 50,27 cqw (25 across) -> the circle's, 50,20.23 (14.23 across)
+
+const clamp = (x, a = 0, b = 1) => Math.min(b, Math.max(a, x));
+const prog = (t, a, b) => clamp((t - a) / (b - a));
+const out = (x) => 1 - Math.pow(1 - clamp(x), 3.2);                       // arrivals
+const inOut = (x) => { x = clamp(x); return x < .5 ? 4 * x * x * x : 1 - Math.pow(-2 * x + 2, 3) / 2; }; // moves on screen
+const mix = (a, b, k) => ({ l: a.l + (b.l - a.l) * k, t: a.t + (b.t - a.t) * k, h: a.h + (b.h - a.h) * k });
+
+function mount(gc) {
+  gc.innerHTML = MARKUP;
+  const mid = gc.querySelector('.mid'), L = gc.querySelector('.left'), R = gc.querySelector('.right');
+  const lap = gc.querySelector('.lap'), mon = gc.querySelector('.mon');
+  const vm = mid.querySelector('video'), vl = L.querySelector('video'), vr = R.querySelector('video'), vg = gc.querySelector('.ring');
+  const ring = gc.querySelector('.logo-ring'), word = gc.querySelector('.logo-word');
+  const home = { mid: MID3, L: SIDE3_L, R: SIDE3_R };
+  for (const [el, b] of [[mid, MID3], [L, SIDE3_L], [R, SIDE3_R]]) Object.assign(el.style, { left: b.l + 'cqw', top: b.t + 'cqw', height: b.h + 'cqw', width: b.h * PW + 'cqw' });
+  for (const [el, s] of [[lap, LAP], [mon, MON]]) Object.assign(el.style, { left: s.l + 'cqw', top: s.t + 'cqw', width: s.w + 'cqw', height: s.w / 1.6 + 'cqw' });
+  const put = (el, b, h) => { const s = b.h / h.h; el.style.transform = `translate(${b.l - h.l}cqw, ${b.t - h.t}cqw) scale(${s})`; };
+
+  let sidesOn = false, ringOn = false;
+  // the video part, on the middle video's clock t
+  const render = (t, enter = 1) => {
+    const e2 = out(prog(t, T.breakOut, T.breakOut + .9));
+    const e3 = inOut(prog(t, T.pull, T.pull + 1.2));
+    const eb = inOut(prog(t, T.back, T.back + .9));
+    const m = mix(mix(SINGLE, MID3, e3), SINGLE, eb);
+    put(mid, { l: m.l, t: m.t + (1 - enter) * 2.5, h: m.h }, home.mid);
+    // at the merge the phone fades out and the cover's own ending (same print positions) fades in over it
+    const hand = out(prog(t, T.merge, T.merge + .35));
+    mid.style.opacity = enter * (1 - hand);
+    vg.style.opacity = hand;
+    if (t >= T.merge && !ringOn) { ringOn = true; vg.currentTime = Math.max(0, t - T.merge); vg.play().catch(() => {}); }
+    if (t < T.merge && ringOn) { ringOn = false; vg.pause(); vg.currentTime = 0; }
+    for (const [el, s2, s3, h] of [[L, SIDE2_L, SIDE3_L, home.L], [R, SIDE2_R, SIDE3_R, home.R]]) {
+      put(el, mix(mix(mix(BEHIND, s2, e2), s3, e3), BEHIND, eb), h);
+      el.style.opacity = clamp(e2 * 2.5) * (1 - prog(eb, .55, 1));
+    }
+    [[lap, 0], [mon, .12]].forEach(([el, d]) => {
+      const up = out(prog(t, T.pull + .2 + d, T.pull + 1.4 + d)), down = out(prog(t, T.back - .1 + d, T.back + .5 + d));
+      el.style.opacity = up * (1 - down);
+      el.style.transform = `translateY(${(1 - up) * 7 + down * 5}cqw)`;
+    });
+    if (t >= T.breakOut && t < T.back + .9 && !sidesOn) { sidesOn = true; vl.currentTime = 0; vr.currentTime = 1.5; vl.play().catch(() => {}); vr.play().catch(() => {}); }
+    if ((t >= T.back + .9 || t < T.breakOut) && sidesOn) { sidesOn = false; vl.pause(); vr.pause(); }
+  };
+  // the opening, on its own clock c (0 .. INTRO): the logo holds, then the ring shrinks onto the empty
+  // circle as the phone rises around it, and the word goes; the first time, the logo fades in
+  let first = true;
+  const intro = (c) => {
+    const show = first ? out(prog(c, 0, .4)) : 1;
+    const k = inOut(prog(c, .5, 1.35));
+    ring.style.transform = `translateY(${RING_TO.dy * k}cqw) scale(${1 + (RING_TO.s - 1) * k})`;
+    ring.style.opacity = show * (1 - prog(c, 1.15, 1.5));
+    const w = out(prog(c, .45, .8));
+    word.style.transform = `translateY(${w * 1.2}cqw)`;
+    word.style.opacity = show * (1 - w);
+    render(0, out(prog(c, .8, 1.4)));
+  };
+  const hideLogo = () => { ring.style.opacity = word.style.opacity = 0; };
+
+  gc.__render = render; gc.__intro = intro; gc.__videos = [vm, vl, vr, vg];   // for checking single moments
+  if (matchMedia('(prefers-reduced-motion: reduce)').matches) {
+    // a still: the full composition, the circle on 23.0 GB, Now at 4 pm, the camera's rating card
+    const still = () => { hideLogo(); render(7.4); vm.currentTime = 4.5; vl.currentTime = .3; vr.currentTime = 3.6; vl.pause(); vr.pause(); };
+    vm.addEventListener('loadedmetadata', still, { once: true }); still();
+    return;
+  }
+  // one loop: the opening, then the video until the ending holds the logo, then the opening again
+  let phase = 'intro', c0 = null, raf = 0, live = false;
+  vm.loop = false;
+  intro(0);
+  const loop = (now) => {
+    if (!live) return;
+    if (phase === 'intro') {
+      if (c0 === null) c0 = now;
+      const c = (now - c0) / 1000;
+      intro(c);
+      if (c >= INTRO) { phase = 'video'; hideLogo(); first = false; vm.currentTime = 0; vm.play().catch(() => {}); }
+    } else {
+      const t = vm.currentTime;
+      render(t);
+      if (t >= T.end || vm.ended) {
+        // the ending video now shows exactly the logo the opening starts on: hand over and begin again
+        vm.pause(); vg.pause(); vm.currentTime = 0; ringOn = false; vg.style.opacity = 0;
+        phase = 'intro'; c0 = now; intro(0);
+      }
+    }
+    raf = requestAnimationFrame(loop);
+  };
+  new IntersectionObserver(([e]) => {
+    if (e.isIntersecting) { if (live) return; live = true; c0 = null; if (phase === 'video') vm.play().catch(() => {}); raf = requestAnimationFrame(loop); }
+    else { live = false; cancelAnimationFrame(raf); [vm, vl, vr, vg].forEach((v) => v.pause()); sidesOn = false; }
+  }, { threshold: .2 }).observe(gc);
+}
+document.querySelectorAll('.gc').forEach(mount);
+</script>
+</body>
+</html>
