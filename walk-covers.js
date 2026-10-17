@@ -25,7 +25,7 @@ const markup = {
   // as its tiles break out the Now and camera phones slide out from behind it; the view pulls back and the
   // desktop app rises behind on two MacBooks (Search, Layers of Alfama); everything goes back behind the
   // phone; its photos come straight out of its map, form a dial of photos (dark ones at the top, light at the
-  // bottom) and close into the hour-dial logo on the cover itself, with "Glimpse" (v3/glimpse-cover-ending6, drawn
+  // bottom) and close into the hour-dial logo on the cover itself, with "Glimpse" (v3/glimpse-cover-ending7, drawn
   // at the cover's 16:10 from the phone's own last frame; Oct 17). The one-phone
   // cover is in archive/before-glimpse-cover-build-2026-10-16/, the three-phone one in before-glimpse-cover-2026-10-16/.
   glimpse: (b) => {
@@ -35,7 +35,7 @@ const markup = {
     return `<div class="walk-cover wc-gl3" aria-hidden="true">
     ${mac('wc-mac-l', 'glimpse-desk-search')}${mac('wc-mac-r', 'glimpse-desk-layers')}
     <div class="wc-ph wc-ph-l">${V('glimpse-now-swipe')}</div><div class="wc-ph wc-ph-r">${V('glimpse-camera-shoot')}</div>
-    <video class="wc-ring" muted playsinline preload="metadata"><source src="${g}glimpse-cover-ending6.mp4?v=1" type='video/mp4; codecs="avc1.640028"'><source src="${g}glimpse-cover-ending6.webm?v=1" type="video/webm"></video>
+    <video class="wc-ring" muted playsinline preload="metadata"><source src="${g}glimpse-cover-ending7.mp4?v=1" type='video/mp4; codecs="avc1.640028"'><source src="${g}glimpse-cover-ending7.webm?v=1" type="video/webm"></video>
     <div class="wc-ph wc-ph-m">${V('glimpse-cover-world2', '1')}</div></div>`;
   },
   // Kumi (Oct 17): its own promo (D:\gpt\ChatGPT\dashboard, scripts/promo-render.mjs, 8.2 s at 1920×1080): the Kumi
@@ -267,10 +267,10 @@ function glimpseBuild(cover) {
   // out; 6.1 s its map starts to slide, the view pulls back and the MacBooks rise; the full picture holds until
   // 11.15 s, when everything goes back behind it; "Your world, one photo at a time." shows, and at 12.65 s the
   // ending video, lying under the phone and showing exactly its frame, takes over. The ending's
-  // (v3/glimpse-cover-ending6, 6.85 s; "Glimpse" set like the map home's wordmark, system face 800): the photos come straight
+  // (v3/glimpse-cover-ending7, 6.05 s; "Glimpse" set like the map home's wordmark, system face 800): the photos come straight
   // out of the phone's map, east to west, and form a
   // dial of photos (darkest at the top, by the night slices; lightest at the bottom, by noon), which closes into
-  // the logo; the logo holds from 3.3 s (where the cover starts the first time); from 5.6 s the opening, one step
+  // the logo; the logo holds 1.5 s from 3.3 s (where the cover starts the first time); from 4.8 s the opening, one step
   // at a time: the word fades in place, the ring alone shrinks onto the place of the phone's empty photo circle, the
   // phone (drawn in the video) fades in around it without moving, then the ring fades; the video ends on exactly
   // the middle video's first frame, which takes over. The logo it ends on and the one it
@@ -281,7 +281,7 @@ function glimpseBuild(cover) {
   const SIDE2_L = box(12.5, 9, 47), SIDE2_R = box(100 - 12.5 - 47 * PW, 9, 47);
   const MID3 = box(50 - 21 * PW, 15.5, 42), SIDE3_L = box(21, 21.5, 35), SIDE3_R = box(100 - 21 - 35 * PW, 21.5, 35);
   const T = { breakOut: 5.15, pull: 6.1, back: 11.15, merge: 12.65 };
-  const END = { logo: 3.3, intro: 5.6, len: 6.85 };
+  const END = { logo: 3.3, intro: 4.8, len: 6.05 };
   const clamp = (x) => Math.min(1, Math.max(0, x)), prog = (t, a, b) => clamp((t - a) / (b - a));
   const out = (x) => 1 - Math.pow(1 - clamp(x), 3.2);
   const inOut = (x) => { x = clamp(x); return x < .5 ? 4 * x * x * x : 1 - Math.pow(-2 * x + 2, 3) / 2; };

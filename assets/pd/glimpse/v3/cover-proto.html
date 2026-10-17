@@ -10,14 +10,14 @@
                   picture holds until 11.15 s (1.8 s longer than before, Alobi Oct 17)
        11.15 s    everything goes back behind the middle phone
        12.65 s    the merge ("Your world, one photo at a time." gone): the ending video, under the phone and showing exactly its frame, takes over
-     and the ending's (v3/glimpse-cover-ending6, 6.85 s, drawn at the cover's 16:10 by
+     and the ending's (v3/glimpse-cover-ending7, 6.05 s, drawn at the cover's 16:10 by
      tools/glimpse-previews/videos/videos.html ?v=ring):
        0.2–1.8    the prints come straight out of the phone's map, east to west (the rest of the world's slide
                   out from behind the screen's west edge), and fly to a dial of photos, darkest at the top
                   (the night slices), lightest at the bottom (noon); the phone fades behind them (1.2–1.8)
        1.95–3.3   the dial closes into the Hour dial ring; "Glimpse"
-       3.3–5.85   the logo (the cover starts here the first time)
-       5.6–6.85   the opening, one step at a time: "Glimpse" fades in place, the ring alone shrinks onto the place
+       3.3–4.8    the logo, whole for 1.5 s (the cover starts here the first time)
+       4.8–6.05   the opening, one step at a time: "Glimpse" fades in place, the ring alone shrinks onto the place
                   of B's empty photo circle, the phone fades in around it as it lands, then the ring fades; the
                   video ends on B's first frame, where the middle phone takes over
      The logo the loop ends on and starts on are the same frames of one video, so there is no seam.
@@ -86,7 +86,7 @@ const MARKUP = `
   <div class="scr mbp mon"><div class="lid"><img src="glimpse-desk-layers.webp" alt=""><div class="notch"></div></div><div class="base"></div></div>
   <div class="ph side left">${V('glimpse-now-swipe')}</div>
   <div class="ph side right">${V('glimpse-camera-shoot')}</div>
-  <video class="ring" muted playsinline preload="auto"><source src="glimpse-cover-ending6.mp4?v=1" type='video/mp4; codecs="avc1.640028"'><source src="glimpse-cover-ending6.webm?v=1" type="video/webm"></video>
+  <video class="ring" muted playsinline preload="auto"><source src="glimpse-cover-ending7.mp4?v=1" type='video/mp4; codecs="avc1.640028"'><source src="glimpse-cover-ending7.webm?v=1" type="video/webm"></video>
   <div class="ph mid">${V('glimpse-cover-world2', '1')}</div>`;
 
 // boxes in cqw of the 100 x 62.5 frame: left, top, height (a phone's width is 800/1488 of its height)
@@ -101,13 +101,13 @@ const LAP = { l: 4, t: 7, w: 44 }, MON = { l: 52, t: 4, w: 44 };   // the MacBoo
 // B, "Your world, one photo at a time." 0.5 s longer, and it stops on the map); at T.merge the cover's ending video
 // takes over from exactly the same frame
 const T = { breakOut: 5.15, pull: 6.1, back: 11.15, merge: 12.65 };
-// the ending's moments (v3/glimpse-cover-ending6, 6.85 s; "Glimpse" set like the map home's wordmark: system face, 800): the photos come straight out of the phone's map and form
+// the ending's moments (v3/glimpse-cover-ending7, 6.05 s; "Glimpse" set like the map home's wordmark: system face, 800): the photos come straight out of the phone's map and form
 // a dial (darkest photos at the top, by the night slices; lightest at the bottom, by noon), which closes into the
-// logo; the logo is whole from 3.3 s (the cover starts there the first time); from 5.6 s it plays the opening, one
+// logo; the logo is whole from 3.3 s (the cover starts there the first time); from 4.8 s it plays the opening, one
 // step at a time: the word fades in place, the ring alone shrinks onto the place of the phone's empty photo circle,
 // the phone (drawn in the video) fades in around it without moving, then the ring fades; the video ends on exactly
 // the middle video's first frame, which then takes over
-const END = { logo: 3.3, intro: 5.6, len: 6.85 };   // Oct 17: faster (Alobi)
+const END = { logo: 3.3, intro: 4.8, len: 6.05 };   // Oct 17: faster; the whole logo holds 1.5 s (Alobi)
 
 const clamp = (x, a = 0, b = 1) => Math.min(b, Math.max(a, x));
 const prog = (t, a, b) => clamp((t - a) / (b - a));
