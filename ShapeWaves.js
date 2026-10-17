@@ -116,8 +116,8 @@ float smoothTexture(sampler2D t,vec2 uv){
  return mix(mix(s3,s2,sx),mix(s1,s0,sx),sy);
 }
 // The contour field: the page read as a site model. A slow terrain drifts
-// underneath, the word rises out of it as a plateau, and the pointer lifts a
-// hill that the contours part around. Lines are drawn at a constant hairline
+// underneath and the word rises out of it as a plateau. (Oct 17, Alobi: the pointer no longer lifts a hill
+// in it; only the solid ALOBI, hero-extrude.js, answers the pointer. The terrain moves on its own.) Lines are drawn at a constant hairline
 // width; every fifth is an index contour, slightly heavier, as on a survey
 // drawing. Where the ground is too steep for separate lines they settle into
 // a soft grey, so edges read as hatching rather than noise.
@@ -130,10 +130,7 @@ void contour(vec2 p){
  float cut=smoothstep(.3,.5,texture(u_hmask,uv).r);
  float nearH=smoothTexture(u_near,uv),farH=smoothTexture(u_far,uv);
  float terrain=noise(f*.62+vec2(t*.028,-t*.018))*.62+noise(f*1.7-vec2(t*.012,t*.022)+4.7)*.22;
- vec2 d=p-u_mouse-u_flow*.35;
- float R=u_splashRadius*1.55;
- float hill=exp(-dot(d,d)/(2.0*R*R))*u_splashStrength*.95;
- float H=terrain+(farH*.78+nearH*.34)*u_rise+hill;
+ float H=terrain+(farH*.78+nearH*.34)*u_rise;
  float v=H*u_levels;
  float fw=max(fwidth(v),1e-4);
  float dist=abs(fract(v+.5)-.5)/fw;
@@ -144,8 +141,6 @@ void contour(vec2 p){
  // Too steep to draw line by line: an even grey instead.
  float crowd=smoothstep(.22,.5,fw/u_dpr);
  ink=mix(ink,.2,crowd);
- // The pointer's hill is drawn a touch darker, so it reads as the thing you move.
- ink*=1.0+hill*.35;
  ink*=u_ground;
  // The letters are the buildings on this site plan: outlined, and filled
  // with a fine 45 degree hatch (poché), the way a cut is drawn.
@@ -157,8 +152,7 @@ void contour(vec2 p){
  float hd=abs(fract((p.x+p.y)/hs+.5)-.5)*hs;
  float hatch=(1.0-smoothstep(.3*u_dpr,.95*u_dpr,hd))*.55*cut;
  ink=max(ink,max(outline*.95,hatch)*u_letters);
- vec3 tint=mix(u_color,u_hover,clamp(hill*.9,0.0,1.0));
- vec3 ground=mix(u_background,tint,clamp(ink,0.0,1.0)*spawn);
+ vec3 ground=mix(u_background,u_color,clamp(ink,0.0,1.0)*spawn);
  // The eye only takes over its patch of the map once its O has risen;
  // until then the contours run straight through.
  float eyeIn=u_ground*smoothstep(.55,.95,u_rise*u_eyeRise);

@@ -1,4 +1,4 @@
-import ShapeWaves from './ShapeWaves.js?v=20261010-eye-egg-1';
+import ShapeWaves from './ShapeWaves.js?v=20261017-still-1';
 import heroExtrude from './hero-extrude.js?v=8';
 
 const hero = document.querySelector('.continuous-hero');
