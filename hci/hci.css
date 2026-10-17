@@ -158,3 +158,6 @@
 /* Oct 17 (Alobi): a product name that is not a link yet (OpenGym, an unlinked card) is a span, and the caption's
    grey 300 style for the one-line description caught it too. Every name now reads like CMUsed and Glimpse. */
 .pd-card-cap h3 span.pd-project-link{font-weight:inherit!important;color:inherit}
+/* Oct 17 (Alobi): the four products sat too close together; a little more room between them (was
+   clamp(44px,5vw,72px) between rows, clamp(18px,2vw,28px) between columns). */
+.pd-grid{gap:clamp(56px,6vw,88px) clamp(28px,3vw,44px)}

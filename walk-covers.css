@@ -227,3 +227,8 @@
 /* ---------- Kumi (Oct 17): its promo video on its own cream (#FFF8ED), filling the frame ---------- */
 .wc-km{background:#FFF8ED}
 .wc-km video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;transform:scale(1.2)}
+
+/* ---------- Glimpse (Oct 17): one video on the app's linen, filling the frame (the built-up wc-gl3 rules above are
+   no longer used; kept with the archive copy in archive/before-glimpse-cover-b-2026-10-17/) ---------- */
+.wc-gb{background:#F7F5F3}
+.wc-gb video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}

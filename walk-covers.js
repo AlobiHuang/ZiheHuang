@@ -19,25 +19,14 @@ const markup = {
   cmused: (b) => `<div class="walk-cover wc-cm" data-reel aria-hidden="true">
     <span class="wc-brand">CMUsed</span><div class="wc-reel"><ul></ul></div><div class="wc-fade"></div>
     <img class="wc-listing" src="${b}assets/pd/cmused-card.webp?v=2" alt="" loading="lazy" decoding="async"></div>`,
-  // Glimpse (Oct 16–17, built up like Jean Chen's Typistry cover; prototype: assets/pd/glimpse/v3/cover-proto.html):
-  // it opens on the hour-ring logo, which shrinks onto the photo circle as the phone rises around it; then
-  // one phone playing "Your world, filling in" (the circle of your photos fills, 23.0 GB kept off your iPhone);
-  // as its tiles break out the Now and camera phones slide out from behind it; the view pulls back and the
-  // desktop app rises behind on two MacBooks (Search, Layers of Alfama); everything goes back behind the
-  // phone; its photos come straight out of its map, form a dial of photos (dark ones at the top, light at the
-  // bottom) and close into the hour-dial logo on the cover itself, with "Glimpse" (v3/glimpse-cover-ending7, drawn
-  // at the cover's 16:10 from the phone's own last frame; Oct 17). The one-phone
-  // cover is in archive/before-glimpse-cover-build-2026-10-16/, the three-phone one in before-glimpse-cover-2026-10-16/.
-  glimpse: (b) => {
-    const g = `${b}assets/pd/glimpse/v3/`;
-    const V = (n, v = 'cosmos-1') => `<video muted playsinline preload="metadata" poster="${g}${n}.jpg?v=${v}"><source src="${g}${n}.mp4?v=${v}" type='video/mp4; codecs="avc1.640028"'><source src="${g}${n}.webm?v=${v}" type="video/webm"></video>`;
-    const mac = (cls, img) => `<div class="wc-mac ${cls}"><div class="wc-lid"><img src="${g}${img}.webp?v=1" alt="" loading="lazy" decoding="async"><i class="wc-notch"></i></div><div class="wc-base"></div></div>`;
-    return `<div class="walk-cover wc-gl3" aria-hidden="true">
-    ${mac('wc-mac-l', 'glimpse-desk-search')}${mac('wc-mac-r', 'glimpse-desk-layers')}
-    <div class="wc-ph wc-ph-l">${V('glimpse-now-swipe')}</div><div class="wc-ph wc-ph-r">${V('glimpse-camera-shoot')}</div>
-    <video class="wc-ring" muted playsinline preload="metadata"><source src="${g}glimpse-cover-ending7.mp4?v=1" type='video/mp4; codecs="avc1.640028"'><source src="${g}glimpse-cover-ending7.webm?v=1" type="video/webm"></video>
-    <div class="wc-ph wc-ph-m">${V('glimpse-cover-world2', '1')}</div></div>`;
-  },
+  // Glimpse (Oct 17, Alobi's outline, replacing the built-up cover): one video on the app's linen. The hour-dial logo
+  // shrinks onto the phone's empty photo circle; 2023 -> 2026 fills it while the camera roll piles up as a wall
+  // around the phone; the world map grows out of the phone to the whole card and every photo lands on its city;
+  // they gather into the dial in hour order, and "Glimpse". 14.6 s loop, 1600 x 1000, 60 fps, rendered from
+  // assets/pd/glimpse/v4/cover-b.html (tools/glimpse-previews/rec_cover.mjs). The built-up cover (phones, MacBooks)
+  // is in archive/before-glimpse-cover-b-2026-10-17/.
+  glimpse: (b) => `<div class="walk-cover wc-gb" aria-hidden="true">
+    <video muted playsinline loop preload="metadata" poster="${b}assets/pd/glimpse/v4/glimpse-cover.jpg?v=2"><source src="${b}assets/pd/glimpse/v4/glimpse-cover.mp4?v=2" type="video/mp4"><source src="${b}assets/pd/glimpse/v4/glimpse-cover.webm?v=2" type="video/webm"></video></div>`,
   // Kumi (Oct 17): its own promo (D:\gpt\ChatGPT\dashboard, scripts/promo-render.mjs, 9.1 s at 1920×1080, 60 fps; re-rendered Oct 17 with the real app icons): the Kumi
   // tile turns into the apps it gathers (Google Calendar, Claude, Slack, Drive, Discord …) and ends on the wordmark,
   // "One glance tells you what's next." Shown on its own cream, cropped from 16:9 to the cover's 16:10.
@@ -259,117 +248,9 @@ function opengym(cover) {
   });
 }
 
-// The Glimpse cover: its video plays only while the cover is on screen; with reduced motion it
-// rests on the poster frame.
-function glimpseBuild(cover) {
-  // Two clocks (Oct 17, prototype: assets/pd/glimpse/v3/cover-proto.html). The middle phone's (the cover's copy of
-  // "Your world, filling in", v3/glimpse-cover-world2, 13.15 s): 5.15 s its tiles break out, the side phones come
-  // out; 6.1 s its map starts to slide, the view pulls back and the MacBooks rise; the full picture holds until
-  // 11.15 s, when everything goes back behind it; "Your world, one photo at a time." shows, and at 12.65 s the
-  // ending video, lying under the phone and showing exactly its frame, takes over. The ending's
-  // (v3/glimpse-cover-ending7, 6.05 s; "Glimpse" set like the map home's wordmark, system face 800): the photos come straight
-  // out of the phone's map, east to west, and form a
-  // dial of photos (darkest at the top, by the night slices; lightest at the bottom, by noon), which closes into
-  // the logo; the logo holds 1.5 s from 3.3 s (where the cover starts the first time); from 4.8 s the opening, one step
-  // at a time: the word fades in place, the ring alone shrinks onto the place of the phone's empty photo circle, the
-  // phone (drawn in the video) fades in around it without moving, then the ring fades; the video ends on exactly
-  // the middle video's first frame, which takes over. The logo it ends on and the one it
-  // starts on are the same frames, so the loop has no seam.
-  // Boxes in cqw of the 100 x 62.5 frame (left, top, height; a phone is 800/1488 as wide as it is tall).
-  const PW = 800 / 1488, box = (l, t, h) => ({ l, t, h });
-  const SINGLE = box(34.95, 3.25, 56), BEHIND = box(37.05, 7.15, 48.2);
-  const SIDE2_L = box(12.5, 9, 47), SIDE2_R = box(100 - 12.5 - 47 * PW, 9, 47);
-  const MID3 = box(50 - 21 * PW, 15.5, 42), SIDE3_L = box(21, 21.5, 35), SIDE3_R = box(100 - 21 - 35 * PW, 21.5, 35);
-  const T = { breakOut: 5.15, pull: 6.1, back: 11.15, merge: 12.65 };
-  const END = { logo: 3.3, intro: 4.8, len: 6.05 };
-  const clamp = (x) => Math.min(1, Math.max(0, x)), prog = (t, a, b) => clamp((t - a) / (b - a));
-  const out = (x) => 1 - Math.pow(1 - clamp(x), 3.2);
-  const inOut = (x) => { x = clamp(x); return x < .5 ? 4 * x * x * x : 1 - Math.pow(-2 * x + 2, 3) / 2; };
-  const mix = (a, b, k) => ({ l: a.l + (b.l - a.l) * k, t: a.t + (b.t - a.t) * k, h: a.h + (b.h - a.h) * k });
-  const mid = cover.querySelector('.wc-ph-m'), L = cover.querySelector('.wc-ph-l'), R = cover.querySelector('.wc-ph-r');
-  const lap = cover.querySelector('.wc-mac-l'), mon = cover.querySelector('.wc-mac-r');
-  const vm = mid.querySelector('video'), vl = L.querySelector('video'), vr = R.querySelector('video'), vg = cover.querySelector('.wc-ring');
-  // each phone sits at its box in the full composition; a transform shows where it is at the moment
-  const home = new Map([[mid, MID3], [L, SIDE3_L], [R, SIDE3_R]]);
-  for (const [el, b] of home) Object.assign(el.style, { left: b.l + 'cqw', top: b.t + 'cqw', height: b.h + 'cqw', width: b.h * PW + 'cqw' });
-  const put = (el, b) => { const h = home.get(el); el.style.transform = `translate(${b.l - h.l}cqw, ${b.t - h.t}cqw) scale(${b.h / h.h})`; };
-  let sidesOn = false, frame = 0, live = false;
-  // the composition, on the middle video's clock t; enter: the middle phone's opacity (it rises in as it appears)
-  const render = (t, enter = 1) => {
-    const e2 = out(prog(t, T.breakOut, T.breakOut + .9));
-    const e3 = inOut(prog(t, T.pull, T.pull + 1.2)), eb = inOut(prog(t, T.back, T.back + .9));
-    const m = mix(mix(SINGLE, MID3, e3), SINGLE, eb);
-    put(mid, { l: m.l, t: m.t + (1 - enter) * 2.5, h: m.h });
-    mid.style.opacity = enter;
-    for (const [el, s2, s3] of [[L, SIDE2_L, SIDE3_L], [R, SIDE2_R, SIDE3_R]]) {
-      put(el, mix(mix(mix(BEHIND, s2, e2), s3, e3), BEHIND, eb));
-      el.style.opacity = clamp(e2 * 2.5) * (1 - prog(eb, .55, 1));
-    }
-    [[lap, 0], [mon, .12]].forEach(([el, d]) => {
-      const up = out(prog(t, T.pull + .2 + d, T.pull + 1.4 + d)), down = out(prog(t, T.back - .1 + d, T.back + .5 + d));
-      el.style.opacity = up * (1 - down);
-      el.style.transform = `translateY(${(1 - up) * 7 + down * 5}cqw)`;
-    });
-    if (t >= T.breakOut && t < T.back + .9 && !sidesOn) { sidesOn = true; vl.currentTime = 0; vr.currentTime = 1.5; vl.play().catch(() => {}); vr.play().catch(() => {}); }
-    if ((t >= T.back + .9 || t < T.breakOut) && sidesOn) { sidesOn = false; vl.pause(); vr.pause(); }
-  };
-  // the ending, on its own clock u: the phone fades off the same frame in the video under it, then waits, hidden,
-  // on its first frame, which is the ending's last
-  const ending = (u) => {
-    if (u < .2) { render(T.merge); mid.style.opacity = 1 - prog(u, .04, .16); return; }   // fades in place
-    render(0, 0);
-  };
-  if (reduced()) {
-    // a still: the full composition, the circle on 23.0 GB, Now at 4 pm, the camera's rating card
-    const still = () => { render(7.4); try { vm.currentTime = 4.5; vl.currentTime = .3; vr.currentTime = 3.6; } catch {} };
-    [vm, vl, vr].forEach((v) => (v.preload = 'auto'));
-    vm.addEventListener('loadedmetadata', still, { once: true }); still();
-    return;
-  }
-  // one loop: the ending (the first time from the logo), the middle video until the merge, the ending again
-  let phase = 'ending', first = true, rewound = true, under = false;
-  vm.loop = vg.loop = false;
-  vg.currentTime = END.logo; vg.style.opacity = 0;
-  ending(END.logo);
-  const loop = () => {
-    if (!live) return;
-    if (phase === 'ending') {
-      const u = vg.currentTime;
-      vg.style.opacity = first ? out(prog(u, END.logo, END.logo + .45)) : 1;
-      ending(u);
-      if (u > .2 && !rewound) { rewound = true; vm.pause(); vm.currentTime = 0; }
-      if (vg.ended || u >= END.len - .02) {
-        // the ending's last frame is the middle video's first: it stays under the phone until the phone's video
-        // is surely showing frames (its first 0.3 s are still), so a slow first frame never shows the bare plate
-        phase = 'video'; first = false; under = true;
-        if (vm.currentTime !== 0) vm.currentTime = 0;
-        vm.play().catch(() => {});
-      }
-    } else {
-      const t = vm.currentTime;
-      render(t);
-      if (under && t > .25) { under = false; vg.pause(); vg.style.opacity = 0; vg.currentTime = 0; }   // ready for the next merge
-      if (t >= T.merge || vm.ended) {
-        phase = 'ending'; rewound = false;
-        vm.pause(); vg.style.opacity = 1; vg.play().catch(() => {});
-        ending(0);
-      }
-    }
-    frame = requestAnimationFrame(loop);
-  };
-  whenOnScreen(cover, () => {
-    if (live) return;
-    live = true; [vm, vl, vr, vg].forEach((v) => (v.preload = 'auto'));
-    (phase === 'video' ? vm : vg).play().catch(() => {});
-    frame = requestAnimationFrame(loop);
-  }, () => {
-    live = false; cancelAnimationFrame(frame); [vm, vl, vr, vg].forEach((v) => v.pause()); sidesOn = false;
-  });
-}
-
-// The Kumi cover: its promo plays only while the cover is on screen; with reduced motion it rests on
-// the poster (the wordmark).
-function kumi(cover) {
+// The Kumi and Glimpse covers: one video that plays only while the cover is on screen; with reduced motion
+// it rests on the poster (Kumi: the wordmark; Glimpse: every photo on its city).
+function videoCover(cover) {
   const video = cover.querySelector('video');
   if (reduced()) return;
   whenOnScreen(cover, () => video.play().catch(() => {}), () => video.pause());
@@ -378,9 +259,9 @@ function kumi(cover) {
 export function startCover(root) {
   const cover = root.querySelector('.walk-cover');
   if (!cover) return;
-  if (cover.matches('.wc-gl3')) glimpseBuild(cover);
+  if (cover.matches('.wc-gb')) videoCover(cover);
   if (cover.matches('.wc-og')) opengym(cover);
-  if (cover.matches('.wc-km')) kumi(cover);
+  if (cover.matches('.wc-km')) videoCover(cover);
   if (cover.matches('.wc-gl')) glimpse(cover);
   if (cover.matches('[data-reel]')) reel(cover);
   if (cover.dataset.scenes) scenes(cover);
