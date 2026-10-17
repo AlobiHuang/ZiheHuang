@@ -1,5 +1,5 @@
 import { drawSharedPortal, drawRoomLines, portalStyle } from './me-portal.js?v=20261002-door-23';
-import { coverMarkup, startCover } from './walk-covers.js?v=20261017-km';
+import { coverMarkup, startCover } from './walk-covers.js?v=20261017-gl7';
 const gallery=document.querySelector('.walk-gallery');
 if(gallery){
  const world=gallery.querySelector('.walk-world');
