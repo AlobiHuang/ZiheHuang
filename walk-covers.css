@@ -220,9 +220,10 @@
 .wc-gl3 .wc-base{position:absolute;left:-7%;width:114%;height:1.45cqw;top:calc(100% - .05cqw);border-radius:.2cqw .2cqw 1.4cqw 1.4cqw/.2cqw .2cqw 1.1cqw 1.1cqw;background:linear-gradient(#f3f3f5 0,#e2e3e6 22%,#c9cbcf 70%,#a8aaaf 100%);box-shadow:inset 0 .08cqw 0 #fff,0 .9cqw 1.4cqw -.4cqw rgba(20,15,10,.35)}
 .wc-gl3 .wc-base::before{content:"";position:absolute;left:50%;top:0;width:14%;margin-left:-7%;height:.55cqw;border-radius:0 0 .7cqw .7cqw;background:linear-gradient(#bfc1c5,#d8d9dc)}
 .wc-gl3 .wc-base::after{content:"";position:absolute;left:0;right:0;top:0;height:.18cqw;background:linear-gradient(90deg,#8d8f94,#b5b7bb 8%,#b5b7bb 92%,#8d8f94);opacity:.7}
-.wc-gl3 .wc-ring{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:5;opacity:0;pointer-events:none}
+/* Oct 17: the ending (and the opening) lies under the middle phone, which fades off it at the merge and back over it at the end */
+.wc-gl3 .wc-ring{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:2;opacity:0;pointer-events:none}
 @media (prefers-reduced-motion:reduce){.wc-gl3 .wc-ph,.wc-gl3 .wc-mac{will-change:auto}}
-/* Oct 17: the logo the cover opens on (exactly the one its ending holds): the hour ring and "glimpse" as two images */
-.wc-gl3 .wc-logo-ring,.wc-gl3 .wc-logo-word{position:absolute;z-index:6;pointer-events:none;will-change:transform,opacity}
-.wc-gl3 .wc-logo-ring{left:37.5cqw;top:14.5cqw;width:25cqw;transform-origin:50% 50%}
-.wc-gl3 .wc-logo-word{left:40.75cqw;top:42.625cqw;width:18.875cqw}
+
+/* ---------- Kumi (Oct 17): its promo video on its own cream (#FFF8ED), filling the frame ---------- */
+.wc-km{background:#FFF8ED}
+.wc-km video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;transform:scale(1.2)}
