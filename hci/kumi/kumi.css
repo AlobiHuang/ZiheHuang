@@ -36,11 +36,12 @@
 
 /* Widgets, Sources, Notes (Oct 17): small diagrams in Kumi's own paper and ink. */
 .km-cap{max-width:640px;margin:16px 0 0;font:450 12px/1.5 var(--cm-text);color:var(--cm-mute)}
-.km-sizes{list-style:none;display:grid;grid-template-columns:1fr 2fr 3fr;gap:14px;align-items:end;margin:0;padding:0}
+.km-sizes{list-style:none;display:grid;grid-template-columns:272fr 504fr 504fr 736fr;gap:14px;align-items:end;margin:0;padding:0}
 .km-sizes li{display:grid;gap:8px}
-/* the real Inbox widget at each size (captured from the app, transparent around the card) */
+/* the real Inbox widget at each size (captured from the app, transparent around the card); columns in the
+   captures' own widths, so every card is drawn at the same scale */
 .km-sizes img{display:block;width:100%;height:auto}
-.km-sizes small{font:500 9px/1.4 var(--cm-mono);letter-spacing:.06em;color:var(--cm-mute)}
+.km-sizes small{font:500 9px/1.4 var(--cm-mono);white-space:nowrap;letter-spacing:.06em;color:var(--cm-mute)}
 .km-ways{list-style:none;display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:10px;margin:0;padding:0}
 .km-ways li{display:flex;flex-direction:column;gap:6px;padding:12px;border-radius:12px;background:#FFFDF8;box-shadow:0 0 0 1px #EADFCF}
 .km-ways b{margin-bottom:4px;font:650 12.5px/1.25 var(--cm-display);color:#1E1A16}
@@ -70,7 +71,7 @@
   .km-anywhere .km-phones{grid-template-columns:1fr 1fr;width:min(420px,100%);margin:0 auto}
   .km-kinds{grid-template-columns:repeat(3,minmax(0,1fr))}
   .km-levels{grid-template-columns:1fr}
-  .km-sizes{grid-template-columns:1fr 2fr}.km-sizes .s3{grid-column:1/-1}
+  .km-sizes{grid-template-columns:272fr 504fr}.km-sizes .s3{grid-column:1/-1;width:65%}.km-sizes .s4{grid-column:1/-1}
   .km-ways,.km-steps{grid-template-columns:1fr}
   .km-steps li+li:before{content:"\2193";left:50%;top:-9px}
   .km-arrow:after{content:"↓"}
