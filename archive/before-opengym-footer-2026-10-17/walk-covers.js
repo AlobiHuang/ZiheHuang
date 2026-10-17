@@ -15,22 +15,12 @@ const markup = {
   cmused: (b) => `<div class="walk-cover wc-cm" data-reel aria-hidden="true">
     <span class="wc-brand">CMUsed</span><div class="wc-reel"><ul></ul></div><div class="wc-fade"></div>
     <img class="wc-listing" src="${b}assets/pd/cmused-card.webp?v=2" alt="" loading="lazy" decoding="async"></div>`,
-  // Glimpse (Oct 16, built up like Jean Chen's Typistry cover; prototype: assets/pd/glimpse/v3/cover-proto.html):
-  // one phone playing "Your world, filling in" (the circle of your photos fills, 23.0 GB kept off your iPhone);
-  // as its tiles break out the Now and camera phones slide out from behind it; the view pulls back and the
-  // desktop app rises behind on two MacBooks (Search, Layers of Alfama); everything goes back behind the
-  // phone; the phone fades and its photos merge into the hour-dial logo on the cover itself, with "glimpse"
-  // (v3/glimpse-cover-ring, drawn at the cover's 16:10 from the phone's own print positions). The one-phone
-  // cover is in archive/before-glimpse-cover-build-2026-10-16/, the three-phone one in before-glimpse-cover-2026-10-16/.
-  glimpse: (b) => {
-    const g = `${b}assets/pd/glimpse/v3/`;
-    const V = (n) => `<video muted playsinline preload="metadata" poster="${g}${n}.jpg?v=cosmos-1"><source src="${g}${n}.mp4?v=cosmos-1" type='video/mp4; codecs="avc1.640028"'><source src="${g}${n}.webm?v=cosmos-1" type="video/webm"></video>`;
-    const mac = (cls, img) => `<div class="wc-mac ${cls}"><div class="wc-lid"><img src="${g}${img}.webp?v=1" alt="" loading="lazy" decoding="async"><i class="wc-notch"></i></div><div class="wc-base"></div></div>`;
-    return `<div class="walk-cover wc-gl3" aria-hidden="true">
-    ${mac('wc-mac-l', 'glimpse-desk-search')}${mac('wc-mac-r', 'glimpse-desk-layers')}
-    <div class="wc-ph wc-ph-l">${V('glimpse-now-swipe')}</div><div class="wc-ph wc-ph-r">${V('glimpse-camera-shoot')}</div><div class="wc-ph wc-ph-m">${V('glimpse-world-filling')}</div>
-    <video class="wc-ring" muted playsinline preload="metadata"><source src="${g}glimpse-cover-ring.mp4?v=1" type='video/mp4; codecs="avc1.640028"'><source src="${g}glimpse-cover-ring.webm?v=1" type="video/webm"></video></div>`;
-  },
+  // Glimpse (Oct 16): one phone on linen playing "Your world, filling in", the advertising video
+  // made from the app: the circle of your photos fills year by year, 23.0 GB kept off your iPhone,
+  // the photos land across the world, then gather into the hour-dial logo. The earlier three-phone
+  // cover is in archive/before-glimpse-cover-2026-10-16/.
+  glimpse: (b) => `<div class="walk-cover wc-gl2" aria-hidden="true">
+    <div class="wc-one"><video muted playsinline loop preload="metadata" poster="${b}assets/pd/glimpse/v3/glimpse-world-filling.jpg?v=cosmos-1"><source src="${b}assets/pd/glimpse/v3/glimpse-world-filling.mp4?v=cosmos-1" type='video/mp4; codecs="avc1.640028"'><source src="${b}assets/pd/glimpse/v3/glimpse-world-filling.webm?v=cosmos-1" type="video/webm"></video></div></div>`,
   // OpenGym: a visit through the app, rebuilt from its real screens with illustrative
   // numbers (the live counter is offline, so the real site reads 0 everywhere): the logo,
   // the three gyms, a click on Cohon Lower, its page, and a scroll to "How busy it usually is".
@@ -246,77 +236,16 @@ function opengym(cover) {
 
 // The Glimpse cover: its video plays only while the cover is on screen; with reduced motion it
 // rests on the poster frame.
-function glimpseBuild(cover) {
-  // Timed from the middle phone's own clock ("Your world, filling in", 13.7 s): 5.15 s its tiles break out,
-  // the side phones come out; 6.1 s its map starts to slide, the view pulls back and the MacBooks rise;
-  // 9.35 s everything goes back behind it; 10.35 s its prints are about to gather, the phone fades and the
-  // cover's own ending takes over; at 13.7 s it starts again and the phone fades back in.
-  // Boxes in cqw of the 100 x 62.5 frame (left, top, height; a phone is 800/1488 as wide as it is tall).
-  const PW = 800 / 1488, box = (l, t, h) => ({ l, t, h });
-  const SINGLE = box(34.95, 3.25, 56), BEHIND = box(37.05, 7.15, 48.2);
-  const SIDE2_L = box(12.5, 9, 47), SIDE2_R = box(100 - 12.5 - 47 * PW, 9, 47);
-  const MID3 = box(50 - 21 * PW, 15.5, 42), SIDE3_L = box(21, 21.5, 35), SIDE3_R = box(100 - 21 - 35 * PW, 21.5, 35);
-  const T = { breakOut: 5.15, pull: 6.1, back: 9.35, merge: 10.35 };
-  const clamp = (x) => Math.min(1, Math.max(0, x)), prog = (t, a, b) => clamp((t - a) / (b - a));
-  const out = (x) => 1 - Math.pow(1 - clamp(x), 3.2);
-  const inOut = (x) => { x = clamp(x); return x < .5 ? 4 * x * x * x : 1 - Math.pow(-2 * x + 2, 3) / 2; };
-  const mix = (a, b, k) => ({ l: a.l + (b.l - a.l) * k, t: a.t + (b.t - a.t) * k, h: a.h + (b.h - a.h) * k });
-  const mid = cover.querySelector('.wc-ph-m'), L = cover.querySelector('.wc-ph-l'), R = cover.querySelector('.wc-ph-r');
-  const lap = cover.querySelector('.wc-mac-l'), mon = cover.querySelector('.wc-mac-r');
-  const vm = mid.querySelector('video'), vl = L.querySelector('video'), vr = R.querySelector('video'), vg = cover.querySelector('.wc-ring');
-  // each phone sits at its box in the full composition; a transform shows where it is at the moment
-  const home = new Map([[mid, MID3], [L, SIDE3_L], [R, SIDE3_R]]);
-  for (const [el, b] of home) Object.assign(el.style, { left: b.l + 'cqw', top: b.t + 'cqw', height: b.h + 'cqw', width: b.h * PW + 'cqw' });
-  const put = (el, b) => { const h = home.get(el); el.style.transform = `translate(${b.l - h.l}cqw, ${b.t - h.t}cqw) scale(${b.h / h.h})`; };
-  let sidesOn = false, ringOn = false, frame = 0, live = false;
-  const render = (t) => {
-    const enter = out(prog(t, 0, .6)), e2 = out(prog(t, T.breakOut, T.breakOut + .9));
-    const e3 = inOut(prog(t, T.pull, T.pull + 1.2)), eb = inOut(prog(t, T.back, T.back + .9));
-    const m = mix(mix(SINGLE, MID3, e3), SINGLE, eb);
-    put(mid, { l: m.l, t: m.t + (1 - enter) * 2.5, h: m.h });
-    const hand = out(prog(t, T.merge, T.merge + .35));
-    mid.style.opacity = enter * (1 - hand);
-    vg.style.opacity = hand;
-    if (t >= T.merge && !ringOn) { ringOn = true; vg.currentTime = Math.max(0, t - T.merge); vg.play().catch(() => {}); }
-    if (t < T.merge && ringOn) { ringOn = false; vg.pause(); vg.currentTime = 0; }
-    for (const [el, s2, s3] of [[L, SIDE2_L, SIDE3_L], [R, SIDE2_R, SIDE3_R]]) {
-      put(el, mix(mix(mix(BEHIND, s2, e2), s3, e3), BEHIND, eb));
-      el.style.opacity = clamp(e2 * 2.5) * (1 - prog(eb, .55, 1));
-    }
-    [[lap, 0], [mon, .12]].forEach(([el, d]) => {
-      const up = out(prog(t, T.pull + .2 + d, T.pull + 1.4 + d)), down = out(prog(t, T.back - .1 + d, T.back + .5 + d));
-      el.style.opacity = up * (1 - down);
-      el.style.transform = `translateY(${(1 - up) * 7 + down * 5}cqw)`;
-    });
-    if (t >= T.breakOut && t < T.back + .9 && !sidesOn) { sidesOn = true; vl.currentTime = 0; vr.currentTime = 1.5; vl.play().catch(() => {}); vr.play().catch(() => {}); }
-    if ((t >= T.back + .9 || t < T.breakOut) && sidesOn) { sidesOn = false; vl.pause(); vr.pause(); }
-  };
-  if (reduced()) {
-    // a still: the full composition, the circle on 23.0 GB, Now at 4 pm, the camera's rating card
-    const still = () => { render(7.4); try { vm.currentTime = 4.5; vl.currentTime = .3; vr.currentTime = 3.6; } catch {} };
-    [vm, vl, vr].forEach((v) => (v.preload = 'auto'));
-    vm.addEventListener('loadedmetadata', still, { once: true }); still();
-    return;
-  }
-  render(0);
-  vm.loop = true;
-  const rvfc = 'requestVideoFrameCallback' in HTMLVideoElement.prototype;
-  const next = () => { frame = rvfc ? vm.requestVideoFrameCallback(tick) : requestAnimationFrame(() => tick()); };
-  const tick = (now, meta) => { if (!live) return; render(meta ? meta.mediaTime : vm.currentTime); next(); };
-  whenOnScreen(cover, () => {
-    if (live) return;
-    live = true; [vm, vl, vr, vg].forEach((v) => (v.preload = 'auto'));
-    vm.play().catch(() => {}); next();
-  }, () => {
-    live = false; [vm, vl, vr, vg].forEach((v) => v.pause()); sidesOn = false;
-    if (rvfc && frame) vm.cancelVideoFrameCallback(frame); else cancelAnimationFrame(frame);
-  });
+function glimpseVideo(cover) {
+  const video = cover.querySelector('video');
+  if (reduced()) return;
+  whenOnScreen(cover, () => video.play().catch(() => {}), () => video.pause());
 }
 
 export function startCover(root) {
   const cover = root.querySelector('.walk-cover');
   if (!cover) return;
-  if (cover.matches('.wc-gl3')) glimpseBuild(cover);
+  if (cover.matches('.wc-gl2')) glimpseVideo(cover);
   if (cover.matches('.wc-og')) opengym(cover);
   if (cover.matches('.wc-gl')) glimpse(cover);
   if (cover.matches('[data-reel]')) reel(cover);

@@ -1,0 +1,225 @@
+/* Oct 13: animated covers for the product frames in the WORK walk (walk-covers.js).
+   Each loop opens on the brand or the idea and reaches the real interface only at the end.
+   Sizes are in cqw of the cover, which fills the frame's 16:10 picture window. */
+.walk-cover{position:absolute;inset:0;overflow:hidden;container-type:inline-size;
+  --wc-ease-out:cubic-bezier(.23,1,.32,1);--wc-ease-in-out:cubic-bezier(.77,0,.175,1);--wc-ease-drawer:cubic-bezier(.32,.72,0,1);
+  --wc-sans:"SF Pro Display",-apple-system,BlinkMacSystemFont,"Helvetica Neue",Arial,sans-serif;
+  --wc-mono:"DM Mono",ui-monospace,"SFMono-Regular",Consolas,monospace}
+.walk-cover img{max-width:none}
+
+/* ---------- CMUsed: the reel ---------- */
+.wc-cm{background:#ebe6e0}
+.wc-cm .wc-brand{position:absolute;right:56cqw;top:50%;transform:translateY(-50%);font:400 4cqw/1 "Climate Crisis",var(--wc-sans);color:#c41230}
+.wc-cm .wc-reel{position:absolute;left:46.4cqw;top:50%;height:5.6cqw;margin-top:-2.8cqw}
+.wc-cm .wc-reel ul{list-style:none;margin:0;padding:0;will-change:transform}
+.wc-cm .wc-reel li{height:5.6cqw;font:400 4.4cqw/5.6cqw var(--wc-sans);letter-spacing:-.035em;white-space:nowrap;color:#1d1d1f;opacity:.16;transition:opacity .7s var(--wc-ease-in-out)}
+.wc-cm .wc-reel li.wc-d1{opacity:.34}
+.wc-cm .wc-reel li.wc-on{opacity:1}
+.wc-cm .wc-reel ul.wc-snap li{transition:none} /* the jump back after a full turn */
+.wc-cm .wc-fade{position:absolute;inset:0;pointer-events:none;background:linear-gradient(#ebe6e0 0%,rgba(235,230,224,0) 26%,rgba(235,230,224,0) 74%,#ebe6e0 100%)}
+.wc-cm .wc-listing{position:absolute;right:3cqw;bottom:-3cqw;height:36cqw;width:auto;opacity:0;transform:translateY(30%) rotate(7deg);transition:transform .9s var(--wc-ease-drawer),opacity .5s ease}
+.wc-cm .wc-listing{filter:drop-shadow(0 1.4cqw 2.4cqw rgba(40,20,10,.18))}
+.wc-cm.wc-show-card .wc-listing{opacity:1;transform:translateY(0) rotate(4deg)}
+
+/* ---------- Glimpse: the viewfinder (brand kit: Paper, Ink, Stamp, Hour Light) ----------
+   Geometry in cqw; the window is 100 × 62.5 with its centre at 50, 31.25. The phone stills
+   are 640×1190 with the phone itself 8.59–91.56% across and 2.1–93.95% down, so a still
+   47.9 tall shows a phone 44 tall and 21.37 wide. Every frame the corners make is
+   concentric with what it frames and 3 clear of it on all four sides. */
+.wc-gl{--paper:#F4F1EA;--ink:#1A1814;--stamp:#E2532D;background:var(--paper);transition:background-color .5s ease}
+/* from scene 2 the background is set by walk-covers.js to the colour of the hour on the phone,
+   switching on the exact frame the app changes page */
+/* the mark: two L corners (7.7 arm, 1.92 thick) and one square, from the app icon's 1024 grid */
+.wc-gl .wc-corner{position:absolute;left:0;top:0;z-index:3;width:7.7cqw;height:7.7cqw;transition:transform 1.1s var(--wc-ease-in-out),border-color 1.2s var(--wc-ease-in-out)}
+.wc-gl .wc-tl{border-top:1.92cqw solid var(--ink);border-left:1.92cqw solid var(--ink);transform:translate(5cqw,5cqw)}
+.wc-gl .wc-br{border-bottom:1.92cqw solid var(--ink);border-right:1.92cqw solid var(--ink);transform:translate(87.3cqw,49.8cqw)}
+.wc-gl.wc-dark .wc-corner{border-color:var(--paper)}
+.wc-gl .wc-sq{position:absolute;left:47.98cqw;top:29.23cqw;width:4.03cqw;height:4.03cqw;background:var(--stamp);opacity:0;transition:opacity .25s ease} /* fades only, never resizes */
+.wc-gl .wc-tag{position:absolute;left:0;right:0;top:44cqw;text-align:center;font:500 1.3cqw/1 var(--wc-mono);letter-spacing:.16em;color:#6B655B;opacity:0;transition:opacity .6s ease}
+/* scene 1, the mark: 18 square, centred */
+.wc-gl[data-scene="1"] .wc-tl{transform:translate(41cqw,22.25cqw)}
+.wc-gl[data-scene="1"] .wc-br{transform:translate(51.3cqw,32.55cqw)}
+.wc-gl[data-scene="1"] .wc-sq{opacity:1;transition:opacity .4s ease .5s}
+.wc-gl[data-scene="1"] .wc-tag{opacity:1;transition-delay:.7s}
+/* scene 2, one phone (the video, body 39.49–60.51 × 9.25–53.24), frame 3 outside it */
+/* Oct 14: the phones show at 94% in scenes 2–4 and the corners sit a little further out, so
+   there is ~2.4cqw clear between each corner and the phone body on every side (was ~1.1, and
+   they could touch while moving). Vertically the corners already meet the cover's edges. */
+.wc-gl[data-scene="2"] .wc-tl{transform:translate(35.8cqw,6.25cqw)}
+.wc-gl[data-scene="2"] .wc-br{transform:translate(56.5cqw,48.55cqw)}
+/* scenes 3–4, three phones 5 apart: visible 12.95–87.05, frame 9.95–90.05 (corners move only sideways) */
+.wc-gl[data-scene="3"] .wc-tl,.wc-gl[data-scene="4"] .wc-tl{transform:translate(9.4cqw,6.25cqw)}
+.wc-gl[data-scene="3"] .wc-br,.wc-gl[data-scene="4"] .wc-br{transform:translate(82.9cqw,48.55cqw)}
+/* phones: the middle one grows out of the square; the other two slide out from behind it */
+.wc-gl .wc-phone{position:absolute;top:8.24cqw;height:47.9cqw;width:auto;opacity:0;filter:drop-shadow(0 1cqw 1.8cqw rgba(20,15,10,.22));transition:transform 1s var(--wc-ease-in-out),opacity .5s ease}
+/* the middle phone is the Now-swipe video (800×1488, phone body 84–715 × 43–1363), sized and
+   placed so its body lands exactly where the stills' does (39.32–60.68 × 9.25–53.24) */
+.wc-gl .wc-mid{left:36.69cqw;top:7.817cqw;width:26.66cqw;height:49.59cqw;z-index:2;transform:scale(.09);transform-origin:49.9% 47.25%}
+.wc-gl .wc-phone video,.wc-gl2 .wc-one video,.wc-gl3 .wc-ph video{display:block;width:100%;height:100%;object-fit:contain;background:transparent;--phone-mask:url("data:image/png;base64,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");-webkit-mask:var(--phone-mask) center/100% 100% no-repeat;mask:var(--phone-mask) center/100% 100% no-repeat}
+/* Oct 13: the side phones are recordings too (same 800×1488 framing as the middle one), in the
+   same size box, placed so their bodies land where the stills' did */
+.wc-gl .wc-left,.wc-gl .wc-right{top:7.817cqw;width:26.66cqw;height:49.59cqw;z-index:1;transform-origin:49.9% 47.25%}
+.wc-gl .wc-left{left:10.332cqw;transform:translateX(26.338cqw) scale(.9)}
+.wc-gl .wc-right{left:63.072cqw;transform:translateX(-26.402cqw) scale(.9)}
+.wc-gl[data-scene="2"] .wc-mid,.wc-gl[data-scene="3"] .wc-mid,.wc-gl[data-scene="4"] .wc-mid{opacity:1;transform:scale(.94)}
+/* the phone starts to show only once the square has faded, so the two never overlap */
+.wc-gl[data-scene="2"] .wc-mid{transition:transform 1s var(--wc-ease-in-out),opacity .45s ease .2s}
+/* while the screen swipes, the background follows each video frame with no fade */
+.wc-gl.wc-sync{transition:none}
+.wc-gl[data-scene="3"] .wc-left,.wc-gl[data-scene="4"] .wc-left,.wc-gl[data-scene="3"] .wc-right,.wc-gl[data-scene="4"] .wc-right{opacity:1;transform:scale(.94)}
+.wc-gl[data-scene="5"] .wc-phone{opacity:0;transition-duration:.5s}
+
+/* ---------- OpenGym: a visit through the app ----------
+   The real OpenGym screens, rebuilt with illustrative numbers (the live counter is offline,
+   so the real site reads 0 everywhere). Scenes: 0 the logo, 1 home with the three gyms,
+   2 the pointer clicks Cohon Lower, 3 its page (the card photo grows into the banner, the
+   live count fills), 4 the page scrolls to "How busy it usually is", 5 fade out.
+   Geometry in cqw, in the browser's own units: it is 72 wide, centred from 6 down, and drawn
+   at 1.2× (so it bleeds off the frame); the page starts under its 3.2 bar and 43.9 of it shows.
+   Page content runs 5–67. */
+.wc-og{--og-font:Inter,"SF Pro Text",-apple-system,BlinkMacSystemFont,"Helvetica Neue",Arial,sans-serif;--og-ink:#111;--og-grey:#6b7280;--og-line:#e5e7eb;--og-green:#16a34a;
+  background:linear-gradient(125deg,#efff7a 0%,#c4f54a 38%,#5fd68e 100%)}
+.wc-og .wc-grain{position:absolute;inset:0;opacity:.35;mix-blend-mode:multiply;background-image:radial-gradient(rgba(0,0,0,.18) .6px,transparent .7px);background-size:.9cqw .9cqw}
+.wc-og .wc-browser{position:absolute;left:14cqw;width:72cqw;top:6cqw;height:62cqw;transform:scale(1.2);transform-origin:50% 0;background:#f7f7f7;border-radius:1cqw 1cqw 0 0;overflow:hidden;box-shadow:0 2cqw 5cqw rgba(20,60,20,.28);font-family:var(--og-font);color:var(--og-ink)}
+.wc-og .wc-bar{position:relative;z-index:5;height:3.2cqw;display:flex;align-items:center;gap:.7cqw;padding:0 1.4cqw;background:#18181a}
+.wc-og .wc-bar i{width:.9cqw;height:.9cqw;border-radius:50%}
+.wc-og .wc-bar i:nth-child(1){background:#ff5f57}.wc-og .wc-bar i:nth-child(2){background:#febc2e}.wc-og .wc-bar i:nth-child(3){background:#28c840}
+.wc-og .wc-bar b{margin:0 auto;width:24cqw;height:1.6cqw;border-radius:.5cqw;background:#2a2a2d}
+.wc-og .wc-page{position:absolute;left:0;top:3.2cqw;width:72cqw;height:70cqw;transition:opacity .45s ease}
+.wc-og .wc-page > *,.wc-og .wc-scroll > *{position:absolute}
+.wc-og[data-scene="5"] .wc-page{opacity:0}
+.wc-og[data-scene="0"] .wc-page *{transition:none!important;animation:none!important}
+/* every scene change below is either a move (ease-in-out) or an arrival (ease-out). In scene 1
+   the home arrives only once the logo has landed in the header (0.9 s). */
+.wc-og .wc-fade{opacity:0;transition:opacity .5s ease,transform .7s var(--wc-ease-out)}
+
+/* header: the real logo (600×136), whole at all times. Scene 0: 2× and centred on the
+   visible page (36, 21.95); from scene 1 it glides into the header at 5, 2.6, 2.2 tall
+   (centre 9.855, 3.7), so scene 0 is translate(26.145, 18.25) scale(2). */
+.wc-og .wc-mark{left:5cqw;top:2.6cqw;height:2.2cqw;width:9.71cqw;transform:none;transition:transform .9s var(--wc-ease-in-out)}
+.wc-og[data-scene="0"] .wc-mark{transform:translate(26.145cqw,18.25cqw) scale(2)}
+.wc-og .wc-tagline{left:5cqw;top:5.4cqw;font-size:.82cqw;color:var(--og-grey)}
+.wc-og .wc-moon{left:65.95cqw;top:4.45cqw;width:1.05cqw;height:1.05cqw;color:#374151}
+.wc-og .wc-rule{left:5cqw;top:7.3cqw;width:62cqw;height:1px;background:var(--og-line)}
+.wc-og:is([data-scene="1"],[data-scene="2"],[data-scene="3"],[data-scene="4"]) :is(.wc-tagline,.wc-rule,.wc-moon){opacity:1;transition-delay:.75s}
+
+/* home: three gym cards, 19.33 wide, 2 apart, from 9.6 down */
+.wc-og .wc-home{left:0;top:0;width:72cqw;height:30cqw;transition:opacity .4s ease}
+.wc-og .wc-card{position:absolute;top:9.6cqw;width:19.33cqw;height:16cqw;opacity:0;transform:translateY(1.2cqw);transition:opacity .5s ease,transform .8s var(--wc-ease-out)}
+.wc-og .wc-card:nth-child(1){left:5cqw}.wc-og .wc-card:nth-child(2){left:26.33cqw}.wc-og .wc-card:nth-child(3){left:47.67cqw}
+.wc-og .wc-photo{position:absolute;left:0;top:0;width:100%;height:10.7cqw;border-radius:.5cqw;background:#ddd center/cover no-repeat}
+.wc-og .wc-card:nth-child(1) .wc-photo{visibility:hidden} /* the shared banner below stands in for it */
+.wc-og .wc-name{position:absolute;left:0;top:11.75cqw;font-size:1.02cqw;font-weight:600;letter-spacing:-.01em;white-space:nowrap}
+.wc-og .wc-close{position:absolute;left:0;top:14.3cqw;font-size:.74cqw;color:var(--og-green);white-space:nowrap}
+.wc-og .wc-close::before,.wc-og .wc-pill::before{content:"";display:inline-block;width:.6cqw;height:.6cqw;margin-right:.6cqw;border-radius:50%;background:var(--og-green);vertical-align:.02cqw}
+.wc-og .wc-sg{position:absolute;right:0;top:11.2cqw;width:4.4cqw;height:2.6cqw}
+.wc-og .wc-sg svg{display:block;width:100%;height:auto;overflow:visible}
+.wc-og .wc-sg b{position:absolute;left:0;right:0;bottom:-.1cqw;text-align:center;font-size:.72cqw;font-weight:700}
+.wc-og .wc-track{stroke:var(--og-line)}
+.wc-og .wc-fill{stroke:var(--og-ink);stroke-dasharray:100;stroke-dashoffset:100;transition:stroke-dashoffset 1.3s var(--wc-ease-out)}
+.wc-og:is([data-scene="1"],[data-scene="2"]) .wc-card{opacity:1;transform:none}
+.wc-og:is([data-scene="1"],[data-scene="2"]) .wc-card:nth-child(1){transition-delay:.85s}
+.wc-og:is([data-scene="1"],[data-scene="2"]) .wc-card:nth-child(2){transition-delay:.95s}
+.wc-og:is([data-scene="1"],[data-scene="2"]) .wc-card:nth-child(3){transition-delay:1.05s}
+.wc-og:is([data-scene="1"],[data-scene="2"]) .wc-card .wc-fill{stroke-dashoffset:calc(100 - var(--v));transition-delay:1.4s}
+.wc-og:is([data-scene="3"],[data-scene="4"]) .wc-home{opacity:0}
+/* the dark footer, as on the real site: CMU BTG logo, Open Gym © 2026, the three social links,
+   a rule, two lines of copyright. Oct 17: lower and shorter (Alobi: too much black), so the
+   home keeps more of its light page; it runs off the bottom of the frame like the real page's end. */
+.wc-og .wc-foot{position:absolute;left:0;top:34.3cqw;width:72cqw;height:10cqw;background:#3a3a3a;color:#fff;opacity:0;transition:opacity .6s ease 1.1s}
+.wc-og .wc-foot .wc-btg{position:absolute;left:2cqw;top:2.25cqw;width:1.8cqw;height:1.8cqw}
+.wc-og .wc-foot b{position:absolute;left:4.4cqw;top:2.45cqw;font-size:.66cqw;font-weight:600;line-height:1.2}
+.wc-og .wc-foot span{position:absolute;left:4.4cqw;top:3.3cqw;font-size:.6cqw;line-height:1.2}
+.wc-og .wc-social{position:absolute;right:2cqw;top:2.7cqw;display:flex;gap:.75cqw;opacity:.7}
+.wc-og .wc-social svg{display:block;width:.9cqw;height:.9cqw}
+.wc-og .wc-foot i{position:absolute;left:2cqw;right:2cqw;top:5.05cqw;height:1px;background:rgba(255,255,255,.12)}
+.wc-og .wc-foot small{position:absolute;left:0;right:0;top:5.65cqw;text-align:center;font-size:.55cqw;line-height:1.45;color:#fff}
+.wc-og:is([data-scene="1"],[data-scene="2"]) .wc-foot{opacity:1}
+
+/* the shared banner: in the home it is card 1's photo (clipped to the card), in the gym page
+   it opens to the full 62 × 13 banner at 5, 11.6 */
+.wc-og .wc-hero{left:5cqw;top:11.6cqw;width:62cqw;height:13cqw;border-radius:.6cqw;background:#222 center 58%/cover no-repeat;opacity:0;
+  transform:translateY(-2cqw);clip-path:inset(0 42.67cqw 2.3cqw 0 round .5cqw);transition:clip-path .95s var(--wc-ease-in-out),transform .95s var(--wc-ease-in-out),opacity .5s ease}
+.wc-og .wc-hero::after{content:"";position:absolute;inset:0;border-radius:inherit;background:linear-gradient(180deg,rgba(0,0,0,0) 30%,rgba(0,0,0,.86) 100%);opacity:0;transition:opacity .6s ease}
+.wc-og:is([data-scene="1"],[data-scene="2"]) .wc-hero{opacity:1;transition-delay:0s,0s,.85s}
+.wc-og:is([data-scene="3"],[data-scene="4"]) .wc-hero{opacity:1;transform:none;clip-path:inset(0 0 0 0 round .6cqw)}
+.wc-og:is([data-scene="3"],[data-scene="4"]) .wc-hero::after{opacity:1;transition-delay:.5s}
+.wc-og[data-scene="2"] .wc-hero,.wc-og[data-scene="2"] .wc-card:nth-child(1){animation:wc-og-press .32s var(--wc-ease-out) .82s both}
+@keyframes wc-og-press{50%{scale:.97}}
+
+/* the pointer (the standard Windows arrow): comes in from the lower right and clicks card 1 */
+.wc-og .wc-pointer{position:absolute;z-index:6;left:0;top:0;width:1.3cqw;opacity:0;transform:translate(58cqw,52cqw);transition:transform .8s var(--wc-ease-in-out),opacity .3s ease}
+.wc-og .wc-pointer svg{display:block;width:100%;height:auto;filter:drop-shadow(.05cqw .1cqw .12cqw rgba(0,0,0,.35))}
+.wc-og[data-scene="2"] .wc-pointer{opacity:1;transform:translate(15.2cqw,18.6cqw)}
+
+/* the gym page */
+.wc-og .wc-detail{left:0;top:0;width:72cqw;height:70cqw}
+.wc-og .wc-detail > *{position:absolute}
+.wc-og .wc-back{left:5cqw;top:8.7cqw;font-size:.8cqw;color:#374151}
+.wc-og .wc-htext{left:6.6cqw;top:18.2cqw;color:#fff}
+.wc-og .wc-htext b{display:block;font-size:2.05cqw;font-weight:700;letter-spacing:-.02em;line-height:1}
+.wc-og .wc-htext span{display:block;margin-top:.6cqw;font-size:.6cqw;opacity:.9;line-height:1.5}
+.wc-og .wc-hours{right:6.6cqw;top:18.6cqw;width:12.5cqw;color:#fff;font-size:.6cqw;line-height:1.75}
+.wc-og .wc-hours b{display:block;margin-bottom:.15cqw;font-size:.85cqw}
+.wc-og .wc-hours span{display:flex;justify-content:space-between}
+.wc-og .wc-hours em{font-style:normal;font-weight:600}
+.wc-og .wc-bg{left:5cqw;top:27.4cqw;width:9.2cqw;height:5.6cqw}
+.wc-og .wc-bg svg{display:block;width:100%;height:auto;overflow:visible}
+.wc-og .wc-bg b{position:absolute;left:0;right:0;top:2.2cqw;text-align:center;font-size:1.45cqw;font-weight:700}
+.wc-og .wc-bg small{position:absolute;left:0;right:0;top:4cqw;text-align:center;font-size:.48cqw;color:var(--og-grey)}
+.wc-og .wc-count{left:16.6cqw;top:27.9cqw;font-size:1.9cqw;font-weight:600;letter-spacing:-.02em;white-space:nowrap;font-variant-numeric:tabular-nums}
+.wc-og .wc-livetag{left:31.4cqw;top:28.75cqw;font-size:.55cqw;letter-spacing:.06em;color:var(--og-grey);white-space:nowrap}
+.wc-og .wc-livetag::before{content:"";display:inline-block;width:.55cqw;height:.55cqw;margin-right:.45cqw;border-radius:50%;background:#ef4444;vertical-align:.02cqw;box-shadow:0 0 0 .3cqw rgba(239,68,68,.18)}
+.wc-og .wc-pill{left:16.6cqw;top:31.1cqw;padding:.35cqw .8cqw;border:1px solid var(--og-line);border-radius:2cqw;background:#fff;font-size:.66cqw;font-weight:600;color:var(--og-green);white-space:nowrap}
+.wc-og .wc-h2{left:5cqw;top:36.4cqw;font-size:1.6cqw;font-weight:600;letter-spacing:-.02em}
+.wc-og .wc-stat{top:39.9cqw;width:19.33cqw;height:6.6cqw;padding:1.1cqw 1.2cqw;box-sizing:border-box;border:1px solid var(--og-line);border-radius:.6cqw;background:#fff}
+.wc-og .wc-s1{left:5cqw}.wc-og .wc-s2{left:26.33cqw}.wc-og .wc-s3{left:47.67cqw}
+.wc-og .wc-stat small{display:block;font-size:.48cqw;letter-spacing:.04em;color:var(--og-grey)}
+.wc-og .wc-stat b{display:block;margin-top:.55cqw;font-size:1.1cqw;font-weight:700;letter-spacing:-.01em}
+.wc-og .wc-stat span{display:block;margin-top:.5cqw;font-size:.58cqw;color:var(--og-grey)}
+.wc-og .wc-day{left:5cqw;top:48.5cqw;font-size:.92cqw;font-weight:700;letter-spacing:.02em;white-space:nowrap}
+.wc-og .wc-day em{margin-left:.9cqw;font-style:normal;font-weight:400;font-size:.62cqw;color:#9ca3af}
+.wc-og .wc-chart{left:5cqw;top:50.6cqw;width:62cqw;height:11.4cqw}
+.wc-og .wc-chart i{position:absolute;left:2.4cqw;right:0;height:1px;background:var(--og-line)}
+.wc-og .wc-chart i span{position:absolute;left:-2.4cqw;top:-.3cqw;font-size:.42cqw;color:#9ca3af;font-style:normal}
+.wc-og .wc-bars{position:absolute;left:2.4cqw;right:0;top:.6cqw;bottom:1.4cqw;display:grid;grid-template-columns:repeat(17,1fr);align-items:end}
+.wc-og .wc-bars u{justify-self:center;width:1.45cqw;height:calc(var(--h) * 1%);border-radius:.35cqw .35cqw 0 0;background:var(--og-line);transform:scaleY(0);transform-origin:50% 100%;transition:transform .9s var(--wc-ease-out);transition-delay:calc(.6s + var(--i) * 45ms)}
+.wc-og .wc-bars u.m{background:#dc2626}.wc-og .wc-bars u.n{background:#f87171}
+.wc-og .wc-hrs{position:absolute;left:2.4cqw;right:0;bottom:0;display:grid;grid-template-columns:repeat(17,1fr);font-size:.42cqw;color:#9ca3af;text-align:center}
+.wc-og .wc-legend{left:5cqw;top:63.3cqw;font-size:.55cqw;color:#4b5563;white-space:nowrap}
+.wc-og .wc-legend span{margin-right:1.2cqw}
+.wc-og .wc-legend span::before{content:"";display:inline-block;width:1cqw;height:.55cqw;margin-right:.4cqw;border-radius:.3cqw;background:var(--c);vertical-align:-.02cqw}
+.wc-og .wc-detail > :where(:not(.wc-htext):not(.wc-hours)){opacity:0;transform:translateY(.8cqw);transition:opacity .5s ease,transform .7s var(--wc-ease-out)}
+.wc-og .wc-htext,.wc-og .wc-hours{opacity:0;transition:opacity .5s ease}
+.wc-og:is([data-scene="3"],[data-scene="4"]) .wc-detail > *{opacity:1;transform:none;transition-delay:.55s}
+.wc-og:is([data-scene="3"],[data-scene="4"]) .wc-bg .wc-fill{stroke-dashoffset:calc(100 - var(--v));transition-delay:.9s;transition-duration:1.6s}
+.wc-og:is([data-scene="3"],[data-scene="4"]) .wc-bars u{transform:none}
+/* scroll down to "How busy it usually is" */
+.wc-og .wc-scroll{left:0;top:0;width:72cqw;height:70cqw;transition:transform 1.8s var(--wc-ease-in-out)}
+.wc-og[data-scene="4"] .wc-scroll{transform:translateY(-21.4cqw)}
+
+@media(prefers-reduced-motion:reduce){.walk-cover,.walk-cover *{transition:none!important}}
+
+/* Oct 16: the Glimpse cover is one phone on linen playing the "Your world, filling in" video. */
+.wc-gl2{background:#F7F5F3}
+.wc-gl2 .wc-one{position:absolute;top:3.25cqw;left:34.95cqw;width:30.1cqw;height:56cqw;filter:drop-shadow(0 1cqw 1.8cqw rgba(20,15,10,.18))}
+
+/* Glimpse (Oct 16): built up like Typistry (walk-covers.js glimpseBuild). Phones and MacBooks are placed and
+   moved by the script, transform and opacity only. MacBook, front view: a dark lid with a thin black bezel and
+   the camera notch, the silver base below the hinge a little wider than the lid, with the thumb notch. */
+.wc-gl3{background:linear-gradient(180deg,#F6EFE6 0%,#F2DFC6 100%)} /* Oct 17: a light wash of the Hour Light colours (the logo's late afternoon), so the plate reads as Glimpse */
+.wc-gl3 .wc-ph{position:absolute;transform-origin:0 0;filter:drop-shadow(0 1cqw 1.8cqw rgba(20,15,10,.18));will-change:transform,opacity}
+.wc-gl3 .wc-ph-m{z-index:3}
+.wc-gl3 .wc-ph-l,.wc-gl3 .wc-ph-r{z-index:2;opacity:0}
+.wc-gl3 .wc-mac{position:absolute;z-index:1;width:44cqw;height:27.5cqw;opacity:0;will-change:transform,opacity}
+.wc-gl3 .wc-mac-l{left:4cqw;top:7cqw}
+.wc-gl3 .wc-mac-r{left:52cqw;top:4cqw}
+.wc-gl3 .wc-lid{position:absolute;inset:0;box-sizing:border-box;padding:.5cqw .5cqw .75cqw;border-radius:1.5cqw 1.5cqw .35cqw .35cqw;background:#26272b;box-shadow:inset 0 0 0 .12cqw #3a3b40,0 .6cqw 1.4cqw rgba(20,15,10,.12)}
+.wc-gl3 .wc-lid img{display:block;width:100%;height:100%;object-fit:cover;object-position:top;border-radius:1.05cqw 1.05cqw .1cqw .1cqw}
+.wc-gl3 .wc-notch{position:absolute;left:50%;top:.5cqw;width:9%;height:1.15cqw;margin-left:-4.5%;border-radius:0 0 .45cqw .45cqw;background:#0b0b0c}
+.wc-gl3 .wc-base{position:absolute;left:-7%;width:114%;height:1.45cqw;top:calc(100% - .05cqw);border-radius:.2cqw .2cqw 1.4cqw 1.4cqw/.2cqw .2cqw 1.1cqw 1.1cqw;background:linear-gradient(#f3f3f5 0,#e2e3e6 22%,#c9cbcf 70%,#a8aaaf 100%);box-shadow:inset 0 .08cqw 0 #fff,0 .9cqw 1.4cqw -.4cqw rgba(20,15,10,.35)}
+.wc-gl3 .wc-base::before{content:"";position:absolute;left:50%;top:0;width:14%;margin-left:-7%;height:.55cqw;border-radius:0 0 .7cqw .7cqw;background:linear-gradient(#bfc1c5,#d8d9dc)}
+.wc-gl3 .wc-base::after{content:"";position:absolute;left:0;right:0;top:0;height:.18cqw;background:linear-gradient(90deg,#8d8f94,#b5b7bb 8%,#b5b7bb 92%,#8d8f94);opacity:.7}
+/* Oct 17: the ending (and the opening) lies under the middle phone, which fades off it at the merge and back over it at the end */
+.wc-gl3 .wc-ring{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:2;opacity:0;pointer-events:none}
+@media (prefers-reduced-motion:reduce){.wc-gl3 .wc-ph,.wc-gl3 .wc-mac{will-change:auto}}
