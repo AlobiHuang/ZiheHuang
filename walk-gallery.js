@@ -1,5 +1,5 @@
 import { drawSharedPortal, drawRoomLines, portalStyle } from './me-portal.js?v=20261002-door-23';
-import { coverMarkup, startCover } from './walk-covers.js?v=20261017-gl10';
+import { coverMarkup, startCover } from './walk-covers.js?v=20261017-km2';
 const gallery=document.querySelector('.walk-gallery');
 if(gallery){
  const world=gallery.querySelector('.walk-world');
@@ -20,7 +20,7 @@ if(gallery){
   {title:'CMUsed',kind:'Product',meta:'2026 · PRODUCT DESIGN',lens:'PRODUCTS',field:'PRODUCT DESIGN',href:'hci/cmused/',cover:'cmused',web:true,desc:'A second-hand marketplace for the Carnegie Mellon community. Browse by category, contact sellers directly, and list an item in three short steps, with AI help writing the description.'},
   {title:'OpenGym',kind:'Product',meta:'2026 · PRODUCT DESIGN',lens:'PRODUCTS',field:'PRODUCT DESIGN',wip:true,cover:'opengym',web:true,desc:'Live occupancy for Carnegie Mellon\'s gyms. I\'m redesigning its user flow, interface and product logic together with the hardware team behind its live counts.'},
   {title:'Glimpse',kind:'Product',meta:'2026 · PRODUCT DESIGN',lens:'PRODUCTS',field:'PRODUCT DESIGN',href:'hci/glimpse/',cover:'glimpse',web:true,desc:'A mobile app for the everyday photos people take but never post. Its camera saves each photo onto the street where it was taken, and the photos people share build a living map of places, layered by the hour and the year.'},
-  {title:'Kumi',kind:'Product',meta:'2026 · PRODUCT DESIGN',lens:'PRODUCTS',field:'PRODUCT DESIGN',wip:true,cover:'kumi',web:true,desc:'One board for a student\'s whole day. Google Calendar, Canvas, Gmail, the gym\'s live headcount and campus food wait times sit side by side as widgets you arrange yourself, and Needs you now pulls everything that\'s due into one list, soonest first.'},
+  {title:'Kumi',kind:'Product',meta:'2026 · PRODUCT DESIGN',lens:'PRODUCTS',field:'PRODUCT DESIGN',href:'hci/kumi/',cover:'kumi',web:true,desc:'One board for a student\'s whole day. Google Calendar, Canvas, Gmail, the gym\'s live headcount and campus food wait times sit side by side as widgets you arrange yourself, and Needs you now pulls everything that\'s due into one list, soonest first.'},
   {slug:'call-of-the-sea',title:'Call of the Sea',kind:'Design',meta:'2026—PRESENT · IN PROGRESS',image:'sea-cover.webp',tag:'In progress'},
   {title:'Sankofa Bamboo Greenhouse',kind:'Project',meta:'2023—PRESENT · LEADERSHIP',lens:'PROJECTS',field:'LEADERSHIP',href:'project/?lens=pm&project=sankofa-multi-stakeholder-delivery',image:'sankofa-overview-wide.webp'},
   {slug:'re-serv-oir',title:'RE.SERV.OIR',kind:'Competition winner',meta:'2026 · DESIGN STUDIO',image:'reservoir-exterior.webp',note:['Winner:','AIA COTE Top Ten, one of the two Foundation Level winners across North America']},

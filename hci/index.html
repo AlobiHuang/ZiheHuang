@@ -26,8 +26,8 @@
     <link rel="stylesheet" href="../apple-system.css?v=20261014-head-1" />
     <link rel="stylesheet" href="../spectacle.css?v=20260916-simple-menu-1" />
     <link rel="stylesheet" href="../hero-entrance.css?v=20260922-head-grow-1" />
-    <link rel="stylesheet" href="./hci.css?v=20261012-light-1" />
-    <link rel="stylesheet" href="../walk-covers.css?v=20261017-gl10" />
+    <link rel="stylesheet" href="./hci.css?v=20261017-names-1" />
+    <link rel="stylesheet" href="../walk-covers.css?v=20261017-km2" />
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Climate+Crisis&text=CMUsed&display=swap" media="print" onload="this.media='all'" />
     <!-- OpenGym cover: the app's own typeface -->
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" media="print" onload="this.media='all'" />
@@ -111,14 +111,13 @@
             </div>
           </article>
 
-          <!-- Oct 17: Kumi (the dashboard project), shown with its own promo video; no case study yet. -->
-          <article class="pd-project is-wip" aria-labelledby="pd-kumi-title">
+          <!-- Oct 17: Kumi (the dashboard project), shown with its own intro video; case study at ./kumi/. -->
+          <article class="pd-project" aria-labelledby="pd-kumi-title">
             <div class="pd-plate">
-              <span class="pd-wip" aria-hidden="true"><b>Prototype in progress</b></span>
               <div class="pd-cover" data-cover="kumi" role="img" aria-label="Kumi: its tile turns into the apps it gathers, Google Calendar, Slack, Drive and Discord among them, then becomes the Kumi wordmark: One glance tells you what's next"></div>
             </div>
             <div class="pd-card-cap">
-              <h3 id="pd-kumi-title"><span class="pd-project-link">Kumi</span><span>: every app you check, on one board you design</span></h3>
+              <h3 id="pd-kumi-title"><a class="pd-project-link" href="./kumi/" data-route data-route-label="PD / KUMI">Kumi</a><span>: every app you check, on one board you design</span></h3>
               <p>Personal project · Designed &amp; built · Web · Desktop wallpaper · 2026</p>
             </div>
           </article>
@@ -127,7 +126,7 @@
     </main>
     <script type="module" src="./hci.js?v=20261013-quick-1"></script>
     <!-- Oct 13: the same animated covers as the WORK walk on the home page (walk-covers.js). -->
-    <script type="module">import { coverMarkup, startCover } from "../walk-covers.js?v=20261017-gl10"; document.querySelectorAll("[data-cover]").forEach(el => { el.innerHTML = coverMarkup(el.dataset.cover, "../"); startCover(el); });</script>
+    <script type="module">import { coverMarkup, startCover } from "../walk-covers.js?v=20261017-km2"; document.querySelectorAll("[data-cover]").forEach(el => { el.innerHTML = coverMarkup(el.dataset.cover, "../"); startCover(el); });</script>
     <script src="../spectacle.js?v=20260925-perf-1"></script>
     <script src="../cursor-shape.js?v=3"></script>
     <script>

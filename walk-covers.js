@@ -38,11 +38,11 @@ const markup = {
     <video class="wc-ring" muted playsinline preload="metadata"><source src="${g}glimpse-cover-ending7.mp4?v=1" type='video/mp4; codecs="avc1.640028"'><source src="${g}glimpse-cover-ending7.webm?v=1" type="video/webm"></video>
     <div class="wc-ph wc-ph-m">${V('glimpse-cover-world2', '1')}</div></div>`;
   },
-  // Kumi (Oct 17): its own promo (D:\gpt\ChatGPT\dashboard, scripts/promo-render.mjs, 8.2 s at 1920×1080): the Kumi
+  // Kumi (Oct 17): its own promo (D:\gpt\ChatGPT\dashboard, scripts/promo-render.mjs, 9.1 s at 1920×1080, 60 fps; re-rendered Oct 17 with the real app icons): the Kumi
   // tile turns into the apps it gathers (Google Calendar, Claude, Slack, Drive, Discord …) and ends on the wordmark,
   // "One glance tells you what's next." Shown on its own cream, cropped from 16:9 to the cover's 16:10.
   kumi: (b) => `<div class="walk-cover wc-km" aria-hidden="true">
-    <video muted playsinline loop preload="metadata" poster="${b}assets/pd/kumi/kumi-promo.jpg?v=1"><source src="${b}assets/pd/kumi/kumi-promo.mp4?v=1" type='video/mp4; codecs="avc1.640028"'><source src="${b}assets/pd/kumi/kumi-promo.webm?v=1" type="video/webm"></video></div>`,
+    <video muted playsinline loop preload="metadata" poster="${b}assets/pd/kumi/kumi-promo.jpg?v=2"><source src="${b}assets/pd/kumi/kumi-promo.mp4?v=2" type="video/mp4"><source src="${b}assets/pd/kumi/kumi-promo.webm?v=2" type="video/webm"></video></div>`,
   // OpenGym: a visit through the app, rebuilt from its real screens with illustrative
   // numbers (the live counter is offline, so the real site reads 0 everywhere): the logo,
   // the three gyms, a click on Cohon Lower, its page, and a scroll to "How busy it usually is".
