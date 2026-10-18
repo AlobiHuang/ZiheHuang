@@ -1,0 +1,234 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Glimpse cover B</title>
+<!-- Oct 17, 2026: trial of a simpler Glimpse cover (not live), Alobi's outline: keep the phone's 2023 -> 2026 photo
+     circle; while it counts, the camera roll piles up as a wall around the phone (the pain); when the photos fall
+     out, the world map grows out of the phone to the whole card and every photo drops onto its place; then they
+     gather into the hour dial, and "Glimpse". No side phones, no MacBooks. On the app's own linen.
+     Drawn from render(t) (t in seconds, loop L); ?t= freezes a moment, ?rec waits for a recorder (window.render
+     returns a promise that settles once the phone video has reached its frame).
+     Pieces: video B's cover copy (../v3/glimpse-cover-world2.mp4, its first 5 s), the live cover's phone mask,
+     the app's map redrawn as one shape (cover-b-land.png, videos/land_a.py LEFT=-165), the circle's 25 photos
+     and the roll from the app's demo data (cover-b-data.js), the hour dial drawn as in videos.html. -->
+<style>
+  html,body{margin:0;height:100%;background:#f5f5f7}
+  body{display:grid;place-items:center;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Inter,Roboto,Helvetica,Arial,sans-serif}
+  .frame{width:min(96vw,1200px);aspect-ratio:16/10;position:relative;overflow:hidden;border-radius:6px;box-shadow:0 0 0 1px rgba(0,0,0,.06)}
+  body.rec .frame{width:1600px;border-radius:0;box-shadow:none}
+  .st{position:absolute;left:0;top:0;width:1600px;height:1000px;transform-origin:0 0;background:#F7F5F3;overflow:hidden}
+  .wall{position:absolute;inset:0}
+  .wall i{position:absolute;width:50px;height:50px;border-radius:6px;background:#E6E2DC center/cover no-repeat;opacity:0}
+  .veil{position:absolute;inset:0;background:radial-gradient(ellipse 34% 52% at 50% 48%,rgba(247,245,243,.0),rgba(247,245,243,.0) 60%,rgba(247,245,243,.25));pointer-events:none}
+  .phone{position:absolute;left:559px;top:52px;width:481.7px;height:896px;filter:drop-shadow(0 22px 34px rgba(13,13,13,.22)) drop-shadow(0 3px 6px rgba(13,13,13,.10))}
+  .phone video{display:block;width:100%;height:100%;-webkit-mask:url(../v2/phone-mask.png) center/100% 100% no-repeat;mask:url(../v2/phone-mask.png) center/100% 100% no-repeat}
+  .map{position:absolute;inset:0;background:#F7F5F3;opacity:0}
+  .map img{position:absolute;left:0;top:0;width:1600px;height:1000px}
+  .pr{position:absolute;left:0;top:0;width:64px;height:64px;transform-origin:32px 32px;will-change:transform}
+  .pr b{position:absolute;inset:0;background:#fff center/cover no-repeat;box-sizing:border-box;border:0 solid #fff;border-radius:7px;box-shadow:0 3px 10px rgba(13,13,13,.18)}
+  .pr u{position:absolute;inset:0;border-radius:inherit;opacity:0}
+  .pr em{position:absolute;right:-7px;top:-7px;min-width:20px;height:20px;padding:0 5px;box-sizing:border-box;border-radius:10px;background:#0D0D0D;color:#fff;font:600 12px/20px -apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;font-style:normal;text-align:center;opacity:0}
+  svg.dial{position:absolute;left:0;top:0;width:1600px;height:1000px;overflow:visible}
+  .pin{position:absolute;width:11px;height:11px;margin:-5.5px 0 0 -5.5px;border-radius:50%;background:#E2532D;box-shadow:0 0 0 2.5px #fff,0 1px 3px rgba(0,0,0,.25);opacity:0}
+  .word{position:absolute;left:800px;transform:translateX(-50%);font:800 84px/1 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;letter-spacing:-.0333em;color:#111418;opacity:0;white-space:nowrap}
+  .note{max-width:1200px;margin:14px auto 0;font:13px/1.5 system-ui;color:#6e6e73}
+  body.rec .note{display:none}
+</style>
+</head>
+<body>
+<div>
+<div class="frame"><div class="st" id="st">
+  <div class="wall" id="wall"></div><div class="veil"></div>
+  <div class="map" id="map"><img src="cover-b-land.png?v=1" alt=""></div>
+  <div class="phone" id="phone"><video id="vid" muted playsinline preload="auto" src="../v3/glimpse-cover-world2.mp4?v=1"></video></div>
+  <svg class="dial" id="dial"></svg>
+  <div class="word" id="word">Glimpse</div>
+</div></div>
+<p class="note">Trial: the 2023 → 2026 circle with the camera roll piling up around it, then the photos land on the world and gather into the logo. Not on the site.</p>
+</div>
+<script src="cover-b-data.js?v=2"></script>
+<script>
+const $ = (id) => document.getElementById(id);
+const st = $('st'), wall = $('wall'), map = $('map'), phone = $('phone'), vid = $('vid'), dial = $('dial'), word = $('word');
+const clamp = (v) => Math.max(0, Math.min(1, v)), prog = (t, a, b) => clamp((t - a) / (b - a)), lerp = (a, b, k) => a + (b - a) * k;
+const out = (u) => 1 - Math.pow(1 - clamp(u), 3), inOut = (u) => { u = clamp(u); return u < .5 ? 4 * u * u * u : 1 - Math.pow(-2 * u + 2, 3) / 2; };
+const outQuint = (u) => 1 - Math.pow(1 - clamp(u), 5);
+
+// ---- timeline (s) ----
+const L = 14.6;
+const V0 = 2.45;          // video B starts (its frame 0: the empty circle, 2023)
+const VB = 5.0;           // video B time where the phone freezes, the circle full, just before its own break-out
+const T_BREAK = V0 + VB;  // 7.45: the photos fall out, the map grows out of the phone
+const T_HOLD = 9.75, T_GATHER = 10.25, T_CLOSE = 12.0, T_WORD = 12.85;   // to a ring of photos, then it closes into the dial
+
+// ---- the phone and its screen on the card (the live cover's single-phone box; video frame 800 x 1488) ----
+const K = 896 / 1488, PX = 559, PY = 52;
+const SCR = { x: PX + 105 * K, y: PY + 64 * K, w: 590 * K, h: 1278 * K };      // the phone's screen
+const S = SCR.w / 393;                                                       // card px per app css px
+// video B's circle (videos.html): 5 x 5 tiles of 45.6 css px, 3 apart, from (70.5, 132), clipped to a circle 252 across
+const OX = 70.5, OY = 132, R = 252, TILE = (R - 24) / 5, GAP = 3;
+const CIRC = { x: SCR.x + 196.5 * S, y: SCR.y + (OY + R / 2) * S, r: R / 2 * S };
+const ORDER = [12, 3, 19, 7, 22, 15, 0, 9, 17, 5, 24, 13, 1, 20, 10, 6, 16, 2, 23, 11, 18, 8, 4, 21, 14];
+const SKY = ['#25304D','#25304D','#2A3554','#34405E','#4A4F6B','#B98A8C','#F2B5A7','#F5C9A6','#F3D9A4','#F5E3BC','#F5EBD2','#F5F1E6','#F5F1E6','#F5EEDB','#F3E4C4','#EFCF97','#E9B872','#E2A062','#C46A4A','#8E5150','#4E4560','#34405E','#2E3A5C','#28324F'];
+
+// ---- the map on the card: 360 deg = 1600 px, 165 W at the left edge; Mercator rows as cover A ----
+const X = (lng) => ((lng + 165 + 720) % 360) / 360 * 1600;
+const Y = (lat) => { const r = lat * Math.PI / 180; return (0.5 - Math.log(Math.tan(Math.PI / 4 + r / 2)) / (2 * Math.PI)) * 1600 - 288; };
+
+// ---- the camera roll wall: 50 px thumbnails, 6 apart, filling the card in a loose random order while B counts ----
+const ROLL = GB.roll, CELL = 56, COLS = Math.ceil(1600 / CELL) + 1, ROWS = Math.ceil(1000 / CELL) + 1;
+const rnd = (i) => { const x = Math.sin(i * 127.1 + 311.7) * 43758.5453; return x - Math.floor(x); };
+const cells = [];
+for (let r = 0; r < ROWS; r++) for (let c = 0; c < COLS; c++) {
+  const x = c * CELL - 18 + (r % 2) * 10, y = r * CELL - 14;
+  // under the phone nothing would show, so skip it
+  if (x + 50 > PX + 20 && x < PX + 462 && y + 50 > PY + 10 && y < PY + 886) continue;
+  cells.push({ x, y, k: rnd(r * 97 + c) });
+}
+cells.sort((a, b) => a.k - b.k);
+cells.forEach((cl, i) => {
+  const el = document.createElement('i');
+  el.style.left = cl.x + 'px'; el.style.top = cl.y + 'px';
+  el.style.backgroundImage = `url(https://images.unsplash.com/${ROLL[i % ROLL.length]}?w=110&h=110&fit=crop&auto=format&q=60)`;
+  wall.append(el); cl.el = el;
+  // appear time: slow at first, then a flood (B's photo count goes 0 -> 5,629 between its 0.3 s and 3.6 s)
+  cl.t = V0 + 0.35 + 3.4 * Math.pow(i / cells.length, 0.62);
+});
+
+// ---- the circle's photos as prints ----
+const P = GB.spread;
+const byCity = {};
+const prints = ORDER.map((k, slot) => {
+  const p = P[k], el = document.createElement('div'); el.className = 'pr';
+  el.innerHTML = `<b style="background-image:url(&quot;${p.url}&quot;)"><u style="background:${p.hour === null ? 'transparent' : SKY[p.hour]}"></u></b><em></em>`;
+  st.insertBefore(el, dial);
+  const pr = { ...p, slot, el, card: el.firstElementChild, tint: el.querySelector('u'), badge: el.querySelector('em'), row: Math.floor(slot / 5), col: slot % 5 };
+  (byCity[p.city] = byCity[p.city] || []).push(pr);
+  return pr;
+});
+// a stack per city, centred on it; the ones underneath peek out down-left, each turned the other way
+Object.values(byCity).forEach((list) => list.forEach((pr, k) => {
+  const d = list.length - 1 - k;
+  pr.home = [X(pr.lng) - 4 * d, Y(pr.lat) - 52 + 3.4 * d];
+  pr.tiltHome = ((pr.slot * 47) % 9) - 4 + (d ? (d % 2 ? -7 : 6) : 0);
+  pr.z = k;
+  if (d === 0 && list.length > 1) { pr.badge.textContent = list.length; pr.hasBadge = true; }
+  if (d === 0) { pr.pin = document.createElement('i'); pr.pin.className = 'pin'; pr.pin.style.left = X(pr.lng) + 'px'; pr.pin.style.top = Y(pr.lat) + 'px'; st.insertBefore(pr.pin, prints.length ? st.querySelector('.pr') : dial); }
+}));
+// the ring: 24 photos (the one with no hour fades), ranked by brightness and matched rank for rank to the slices'
+// colours, so the dark ones sit at the top (night) and the light ones at the bottom (noon), as on the live cover
+const lumOf = (hex) => { const n = parseInt(hex.slice(1), 16); return 0.2126 * (n >> 16) + 0.7152 * ((n >> 8) & 255) + 0.0722 * (n & 255); };
+const sliceRank = SKY.map((c, i) => [lumOf(c), i]).sort((a, b) => a[0] - b[0]).map((x) => x[1]);
+prints.filter((p) => p.hour !== null).sort((a, b) => a.lum - b.lum).forEach((p, k) => { p.dial = sliceRank[k]; });
+// they leave the circle west to east, so the map fills from the Americas across
+const westToEast = [...prints].sort((a, b) => X(a.lng) - X(b.lng));
+westToEast.forEach((pr, i) => { pr.tLand = T_BREAK + 0.25 + i * 0.055; });
+
+// ---- the hour dial (videos.html's geometry), centred on the card, outer radius 200 px ----
+const CX = 800, CY = 410, RS = 200 / 45;
+const seg = (i, r0 = 25, r1 = 45, gap = 1.6) => {
+  const pt = (r, a) => [CX + RS * r * Math.cos(a), CY + RS * r * Math.sin(a)];
+  const g = gap * Math.PI / 180, a0 = i / 24 * 2 * Math.PI - Math.PI / 2 + g / 2, a1 = (i + 1) / 24 * 2 * Math.PI - Math.PI / 2 - g / 2;
+  const [x0, y0] = pt(r1, a0), [x1, y1] = pt(r1, a1), [x2, y2] = pt(r0, a1), [x3, y3] = pt(r0, a0);
+  return `M${x0} ${y0}A${RS * r1} ${RS * r1} 0 0 1 ${x1} ${y1}L${x2} ${y2}A${RS * r0} ${RS * r0} 0 0 0 ${x3} ${y3}Z`;
+};
+const slicePos = (h, rad = RS * 35) => { const a = (h + 0.5) / 24 * 2 * Math.PI - Math.PI / 2; return [CX + rad * Math.cos(a), CY + rad * Math.sin(a), a]; };
+const RING_R = 300, RING_PHOTO = 74;          // the ring of photos: radius and photo size (px)
+dial.innerHTML = `<g id="ring">${SKY.map((c, i) => `<path d="${seg(i)}" fill="${c}"/>`).join('')}</g>`;
+const ring = dial.querySelector('#ring'), slices = [...ring.children];
+word.style.top = (CY + 200 + 54) + 'px';
+
+// ---- the loop's two ends: the logo shrinks onto B's empty circle (the opening), the prints become it (the ending) ----
+const RING_SMALL = CIRC.r / (RS * 45);        // the ring, shrunk so its outside meets the circle's edge
+
+let seekWanted = null;
+function draw(T) {
+  const t = ((T % L) + L) % L;
+  // opening: logo (from the last loop) holds; the word leaves; the ring shrinks onto the circle; the phone fades in
+  const shrink = inOut(prog(t, 0.55, 1.35)), phoneIn = out(prog(t, 1.25, 1.75)), ringOff = out(prog(t, 1.7, 2.1));
+  const end = t >= T_GATHER;                  // the ending owns the ring after T_GATHER
+  if (!end) {
+    const sc = lerp(1, RING_SMALL, shrink);
+    ring.setAttribute('transform', `translate(${lerp(CX, CIRC.x, shrink)} ${lerp(CY, CIRC.y, shrink)}) scale(${sc}) translate(${-CX} ${-CY})`);
+    ring.style.opacity = 1 - ringOff;
+    slices.forEach((s) => { s.setAttribute('opacity', 1); s.removeAttribute('transform'); });
+    word.style.opacity = 1 - out(prog(t, 0.3, 0.6));
+  }
+  // the phone: video B from V0, frozen at VB; it steps back as the map grows out of its screen
+  const grow = inOut(prog(t, T_BREAK + 0.05, T_BREAK + 1.05));
+  phone.style.opacity = t < T_BREAK ? phoneIn : 1 - out(prog(t, T_BREAK + 0.2, T_BREAK + 0.7));
+  phone.style.transform = `scale(${1 + 0.06 * grow})`;
+  const vt = Math.max(0, Math.min(VB, t - V0));
+  seekWanted = vt;
+  // the wall: piles up while B counts; it is swept away as the map takes the card
+  const sweep = out(prog(t, T_BREAK + 0.1, T_BREAK + 0.9));
+  for (const c of cells) { const a = out(prog(t, c.t, c.t + 0.25)); c.el.style.opacity = a * (1 - sweep) * (t > L - 0.3 ? 0 : 1); c.el.style.transform = `scale(${lerp(0.8, 1, a)})`; }
+  // the map: an opaque linen screen first (so B's tiles under it are gone), then it grows to the whole card
+  const mapOn = out(prog(t, T_BREAK, T_BREAK + 0.12)), mapOff = out(prog(t, T_GATHER + 0.3, T_GATHER + 1.1));
+  map.style.opacity = mapOn * (1 - mapOff);
+  const ix = lerp(SCR.x, 0, grow), iy = lerp(SCR.y, 0, grow), iw = lerp(SCR.w, 1600, grow), ih = lerp(SCR.h, 1000, grow);
+  map.style.clipPath = `inset(${iy}px ${1600 - ix - iw}px ${1000 - iy - ih}px ${ix}px round ${lerp(48 * S, 0, grow)}px)`;
+  map.firstElementChild.style.opacity = out(prog(t, T_BREAK + 0.2, T_BREAK + 0.9));
+  // the prints: off until the break (B shows them), then from their tile in the circle to their city, then to the dial
+  for (const p of prints) {
+    const el = p.el;
+    if (p.pin) p.pin.style.opacity = t < T_BREAK ? 0 : out(prog(t, p.tLand + 0.8, p.tLand + 1.0)) * (1 - out(prog(t, T_GATHER, T_GATHER + 0.3)));
+    if (t < T_BREAK || t >= L - 0.05) { el.style.display = 'none'; continue; }
+    el.style.display = '';
+    const cx = CIRC.x + (OX + p.col * (TILE + GAP) + TILE / 2 - 196.5) * S, cy = SCR.y + (OY + p.row * (TILE + GAP) + TILE / 2) * S;
+    const fall = out(prog(t, T_BREAK, T_BREAK + 0.35));                       // a little drop out of the circle
+    const land = outQuint(prog(t, p.tLand, p.tLand + 1.0));
+    // to the ring of photos (upright, in order round the ring), a short hold, then in onto its slice
+    const slot = p.dial ?? 12;
+    const g0 = T_GATHER + slot * 0.025, gat = inOut(prog(t, g0, g0 + 1.05));
+    const c0 = T_CLOSE + slot * 0.012, cls = inOut(prog(t, c0, c0 + 0.75));
+    const [qx, qy] = p.dial === undefined ? [CX, CY] : slicePos(p.dial, RING_R);
+    const [rx, ry, ra] = p.dial === undefined ? [CX, CY, 0] : slicePos(p.dial);
+    let x = lerp(cx, p.home[0], land), y = lerp(cy + fall * 10, p.home[1], land) - Math.sin(Math.PI * land) * 90;
+    x = lerp(lerp(x, qx, gat), rx, cls); y = lerp(lerp(y, qy, gat), ry, cls);
+    const sTile = TILE * S / 64, sPrint = 78 / 64, sRing = RING_PHOTO / 64, sSlice = 74 / 64 * 0.5;
+    const s = lerp(lerp(lerp(sTile, sPrint, out(prog(t, p.tLand, p.tLand + 0.6))), sRing, gat), sSlice, cls);
+    let r = lerp(lerp(0, p.tiltHome, land), 0, gat); r = lerp(r, p.dial === undefined ? 0 : ra * 180 / Math.PI + 90, cls);
+    el.style.transform = `translate(${x - 32}px, ${y - 32}px) rotate(${r}deg) scale(${s})`;
+    const b = clamp((t - p.tLand) / 0.5);
+    p.card.style.borderWidth = `${3.5 * b / Math.max(s, .1)}px`;
+    p.card.style.borderRadius = `${lerp(7.5 * S / sTile, 12, b) }px`;
+    // while it is still in the circle, it is clipped to the circle like B's tiles
+    el.style.clipPath = land > 0.02 || t > p.tLand ? 'none' : `circle(${CIRC.r / s}px at ${32 + (CIRC.x - cx) / s}px ${32 + (CIRC.y - cy) / s}px)`;
+    p.tint.style.opacity = clamp(cls * 1.6 - 0.35);
+    el.style.opacity = (1 - prog(cls, 0.72, 0.92)) * (p.dial === undefined ? 1 - prog(gat, 0.2, 0.6) : 1);
+    el.style.zIndex = gat > 0 ? 70 : 20 + p.z;
+    p.badge.style.opacity = p.hasBadge ? out(prog(t, p.tLand + 0.9, p.tLand + 1.2)) * (1 - out(prog(t, g0 - 0.1, g0 + 0.15))) : 0;
+    if (end && p.dial !== undefined) {
+      const sl = slices[p.dial], k = out(prog(cls, 0.68, 1));
+      sl.setAttribute('opacity', k);
+      sl.setAttribute('transform', `translate(${rx} ${ry}) scale(${lerp(0.55, 1, k)}) translate(${-rx} ${-ry})`);
+    }
+  }
+  if (end) { ring.removeAttribute('transform'); ring.style.opacity = 1; word.style.opacity = out(prog(t, T_WORD, T_WORD + 0.45)); word.style.transform = `translateX(-50%) translateY(${(1 - out(prog(t, T_WORD, T_WORD + 0.5))) * 10}px)`; }
+  else { word.style.transform = 'translateX(-50%)'; }
+}
+// the video: seek and wait in recording mode; play along with the clock otherwise
+function seek(v) { return new Promise((res) => { if (Math.abs(vid.currentTime - v) < 1 / 240) return res(); vid.addEventListener('seeked', () => res(), { once: true }); vid.currentTime = v; }); }
+window.render = async (T) => { draw(T); await seek(seekWanted); };
+const fit = () => { const f = st.parentElement.getBoundingClientRect().width; st.style.transform = `scale(${f / 1600})`; };
+addEventListener('resize', fit); fit();
+const q = new URLSearchParams(location.search);
+if (q.has('rec')) { document.body.classList.add('rec'); fit(); }
+else if (q.has('t')) window.render(+q.get('t'));
+else {
+  const t0 = performance.now();
+  const tick = (now) => {
+    const T = (now - t0) / 1000, t = T % L; draw(T);
+    const inVideo = t > V0 && t < T_BREAK;
+    if (inVideo && vid.paused) { vid.currentTime = t - V0; vid.play().catch(() => {}); }
+    if (!inVideo) { if (!vid.paused) vid.pause(); if (Math.abs(vid.currentTime - seekWanted) > 0.05) vid.currentTime = seekWanted; }
+    requestAnimationFrame(tick);
+  };
+  requestAnimationFrame(tick);
+}
+</script>
+</body>
+</html>
