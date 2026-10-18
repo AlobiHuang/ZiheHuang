@@ -22,11 +22,11 @@ const markup = {
   // Glimpse (Oct 17, Alobi's outline, replacing the built-up cover): one video on the app's linen. The hour-dial logo
   // shrinks onto the phone's empty photo circle; 2023 -> 2026 fills it while the camera roll piles up as a wall
   // around the phone; the world map grows out of the phone to the whole card and every photo lands on its city;
-  // they gather into the dial in hour order, and "Glimpse". 14.6 s loop, 1600 x 1000, 60 fps, rendered from
+  // they gather into the dial in hour order, and "Glimpse". 13.8 s loop, 1600 x 1000, 60 fps, rendered from
   // assets/pd/glimpse/v4/cover-b.html (tools/glimpse-previews/rec_cover.mjs). The built-up cover (phones, MacBooks)
   // is in archive/before-glimpse-cover-b-2026-10-17/.
   glimpse: (b) => `<div class="walk-cover wc-gb" aria-hidden="true">
-    <video muted playsinline loop preload="metadata" poster="${b}assets/pd/glimpse/v4/glimpse-cover.jpg?v=2"><source src="${b}assets/pd/glimpse/v4/glimpse-cover.mp4?v=2" type="video/mp4"><source src="${b}assets/pd/glimpse/v4/glimpse-cover.webm?v=2" type="video/webm"></video></div>`,
+    <video muted playsinline loop preload="metadata" poster="${b}assets/pd/glimpse/v4/glimpse-cover.jpg?v=4"><source src="${b}assets/pd/glimpse/v4/glimpse-cover.mp4?v=4" type="video/mp4"><source src="${b}assets/pd/glimpse/v4/glimpse-cover.webm?v=4" type="video/webm"></video></div>`,
   // Kumi (Oct 17): its own promo (D:\gpt\ChatGPT\dashboard, scripts/promo-render.mjs, 9.1 s at 1920×1080, 60 fps; re-rendered Oct 17 with the real app icons): the Kumi
   // tile turns into the apps it gathers (Google Calendar, Claude, Slack, Drive, Discord …) and ends on the wordmark,
   // "One glance tells you what's next." Shown on its own cream, cropped from 16:9 to the cover's 16:10.

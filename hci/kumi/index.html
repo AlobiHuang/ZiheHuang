@@ -30,7 +30,7 @@
     <link rel="stylesheet" href="../hci.css?v=20261012-light-1" />
     <link rel="stylesheet" href="../cmused/cmused.css?v=25" />
     <link rel="stylesheet" href="../glimpse/glimpse.css?v=14" />
-    <link rel="stylesheet" href="./kumi.css?v=5" />
+    <link rel="stylesheet" href="./kumi.css?v=7" />
       <link rel="stylesheet" href="../../menu.css?v=20260925-paper-1" />
       <link rel="stylesheet" href="../../page-flow.css?v=5" />
     <link rel="expect" href="#top" blocking="render" />
@@ -133,7 +133,7 @@
           <p class="cm-intro">One window, the size of a chat box, that you can keep open beside your work.</p>
           <!-- Oct 17 (evening): the board still becomes the real window changing size, recorded from the app
                (tools/kumi-sizes: rec_sizes.mjs, then enc_sizes.py at 1.25× slower). Reduced motion: the poster only. -->
-          <div class="km-plate"><figure class="km-shot"><video autoplay muted loop playsinline preload="metadata" poster="../../assets/pd/kumi/kumi-sizes.jpg?v=2" aria-label="The Kumi window changing size, slowed down: landscape small, medium and large, then portrait large, medium and small, and back to landscape small. As it grows, the widgets move and resize and show more: Needs you now gains rows, the small tiles become full widgets with the gym's week, Claude's usage, the weather and the inbox."><source src="../../assets/pd/kumi/kumi-sizes.mp4?v=2" type="video/mp4" /><source src="../../assets/pd/kumi/kumi-sizes.webm?v=2" type="video/webm" /></video><script>if(matchMedia('(prefers-reduced-motion: reduce)').matches){const v=document.currentScript.previousElementSibling;v.removeAttribute('autoplay');v.load();}</script></figure></div>
+          <div class="km-plate"><figure class="km-shot"><video autoplay muted loop playsinline preload="metadata" poster="../../assets/pd/kumi/kumi-sizes.jpg?v=3" aria-label="The Kumi window changing size, slowed down: landscape small, medium and large, then portrait large, medium and small, and back to landscape small. As it grows, the widgets move and resize and show more: Needs you now gains rows, the small tiles become full widgets with the gym's week, Claude's usage, the weather and the inbox."><source src="../../assets/pd/kumi/kumi-sizes.mp4?v=3" type="video/mp4" /><source src="../../assets/pd/kumi/kumi-sizes.webm?v=3" type="video/webm" /></video><script>if(matchMedia('(prefers-reduced-motion: reduce)').matches){const v=document.currentScript.previousElementSibling;v.removeAttribute('autoplay');v.load();}</script></figure></div>
 
           <div class="cm-sub"><h3>Needs you now</h3><p>One list of deadlines, events, replies and your own reminders from every connected app, sorted only by when they’re due, one line each. Done, Snooze and Dismiss each come with Undo, and every row has Open in … to jump to the app. The headline counts only what needs you right now: “2 things need you now.”</p></div>
 
@@ -197,14 +197,16 @@
           <div class="cm-sub"><h3>Built like Lego</h3><p>The board is a grid of square cells. Widgets drag and resize, and the ones you land on move along to the next free spot and slide back if you change your mind. The window comes in three sizes, landscape or portrait, and each size has its own layout that fills it exactly. Every drag also has a one-click version, and every widget moves with the keyboard.</p></div>
 
           <div class="cm-sub"><h3>Wherever you look</h3><p>The same board as a read-only desktop wallpaper or an always-on screen, in a dark theme, and as one column with a tab bar on a phone, light or dark.</p></div>
+          <!-- Oct 17 (Alobi): each desktop picture and its phone share one row, the same height and the same top line
+               (flex-grow = each picture's aspect ratio, so their heights come out equal); both desktop pictures at 16:10. -->
           <div class="km-plate km-anywhere">
-            <div class="km-stack">
-              <figure class="km-shot"><img src="../../assets/pd/kumi/kumi-wallpaper.webp?v=2" alt="Wallpaper mode: Good afternoon, Alobi, with the time, then Needs you now across the left half, Next up, and the gym's week, Claude's usage, the weather and the sorted inbox across the whole screen." loading="lazy" decoding="async" /><figcaption>Wallpaper</figcaption></figure>
-              <figure class="km-shot"><img src="../../assets/pd/kumi/kumi-dark.webp?v=2" alt="The Kumi board in its dark theme." loading="lazy" decoding="async" /><figcaption>Dark</figcaption></figure>
+            <div class="km-row">
+              <figure class="km-shot" style="--ar:1.6"><img src="../../assets/pd/kumi/kumi-wallpaper.webp?v=2" alt="Wallpaper mode: Good afternoon, Alobi, with the time, then Needs you now across the left half, Next up, and the gym's week, Claude's usage, the weather and the sorted inbox across the whole screen." loading="lazy" decoding="async" /><figcaption>Wallpaper</figcaption></figure>
+              <figure class="km-shot km-phone" style="--ar:.4621"><img src="../../assets/pd/kumi/kumi-phone.webp?v=2" alt="Kumi on a phone: Next up, then Needs you now and the small tiles in one column, with a bottom tab bar." loading="lazy" decoding="async" /><figcaption>Phone</figcaption></figure>
             </div>
-            <div class="km-stack km-phones">
-              <figure class="km-shot km-phone"><img src="../../assets/pd/kumi/kumi-phone.webp?v=2" alt="Kumi on a phone: Next up, then Needs you now and the small tiles in one column, with a bottom tab bar." loading="lazy" decoding="async" /><figcaption>Phone</figcaption></figure>
-              <figure class="km-shot km-phone"><img src="../../assets/pd/kumi/kumi-phone-dark.webp?v=2" alt="Kumi on a phone in its dark theme: warm charcoal cards, with Needs you now's rows in deep tints of their colours." loading="lazy" decoding="async" /><figcaption>Phone, dark</figcaption></figure>
+            <div class="km-row">
+              <figure class="km-shot" style="--ar:1.6"><img src="../../assets/pd/kumi/kumi-dark.webp?v=2" alt="The Kumi board in its dark theme." loading="lazy" decoding="async" /><figcaption>Dark</figcaption></figure>
+              <figure class="km-shot km-phone" style="--ar:.4621"><img src="../../assets/pd/kumi/kumi-phone-dark.webp?v=2" alt="Kumi on a phone in its dark theme: warm charcoal cards, with Needs you now's rows in deep tints of their colours." loading="lazy" decoding="async" /><figcaption>Phone, dark</figcaption></figure>
             </div>
           </div>
 

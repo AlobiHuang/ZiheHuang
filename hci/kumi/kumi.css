@@ -17,8 +17,10 @@
 .km-pair{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:clamp(14px,2.4vw,32px);align-items:start}
 
 /* Wherever you look: wallpaper and dark on the left, the phone light and dark on the right. */
-.km-anywhere{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,.3fr);gap:clamp(14px,2.4vw,32px);align-items:start}
-.km-anywhere .km-stack{display:grid;gap:clamp(14px,2.4vw,32px)}
+.km-anywhere{display:grid;gap:clamp(18px,2.6vw,34px)}
+.km-row{display:flex;gap:clamp(14px,2.4vw,32px);align-items:flex-start}
+.km-row .km-shot{flex:var(--ar) 1 0;min-width:0}
+.km-row .km-shot img{aspect-ratio:var(--ar);object-fit:cover}
 .km-anywhere .km-phone img{border-radius:14px}
 
 /* Colour that means something: six kinds, then three levels of urgency. */
@@ -64,11 +66,13 @@
 .km-arrow:after{content:"→";position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);font:450 18px/1 var(--cm-text);color:#6e6e73}
 .km-trio{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:clamp(12px,2vw,24px);align-items:start}
 .km-trio .is-picked img{box-shadow:0 0 0 2px #1d1d1f,0 14px 30px rgba(17,20,24,.10)}
+/* Oct 17 (Alobi: misalignments): pictures side by side share one shape, so their tops, bottoms and captions line up
+   (the board crop is 1.69 and the matcha capture 1.6; the poster study is 460 px tall, the other two 468) */
+.km-pair .km-shot img{aspect-ratio:1.6;object-fit:cover}
+.km-trio .km-shot img{aspect-ratio:572/468;object-fit:cover}
 
 @media(max-width:760px){
   .km-pair,.km-trio{grid-template-columns:1fr}
-  .km-anywhere{grid-template-columns:1fr}
-  .km-anywhere .km-phones{grid-template-columns:1fr 1fr;width:min(420px,100%);margin:0 auto}
   .km-kinds{grid-template-columns:repeat(3,minmax(0,1fr))}
   .km-levels{grid-template-columns:1fr}
   .km-sizes{grid-template-columns:272fr 504fr}.km-sizes .s3{grid-column:1/-1;width:65%}.km-sizes .s4{grid-column:1/-1}
