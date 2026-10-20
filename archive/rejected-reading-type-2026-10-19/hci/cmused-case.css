@@ -1,0 +1,88 @@
+/* CMUsed presentation, matched to the accepted Kumi and Glimpse case studies.
+   Scoped here because cmused.css also supplies the other project pages. */
+.cmused-case{
+  --case-small:12px;
+  --case-body:14px;
+  --case-heading:18px;
+  --case-section:22px;
+  --case-display:30px;
+  --case-rule:#d5d5d9;
+}
+.cmused-page .cmused-case p{font-size:var(--case-body);line-height:1.6;letter-spacing:0}
+.cmused-page .cmused-case :is(h1,h2,h3){text-wrap:pretty}
+.cmused-page .cmused-case .cm-head{grid-template-columns:minmax(0,1fr);gap:20px;align-items:start;margin-bottom:0}
+.cmused-page .cmused-case .cm-head>:not(.cm-crumb){max-width:none}
+.cmused-page .cmused-case .cm-crumb{margin-bottom:18px;padding:0;border:0;font:500 var(--case-body)/1.5 var(--cm-text);letter-spacing:0;text-transform:none}
+.cmused-page .cmused-case .cm-crumb span{font-size:var(--case-small);color:#5c5c62}
+.cmused-page .cmused-case .cm-head h1{margin:0;font-size:var(--case-display);font-weight:600;line-height:1.08;letter-spacing:-.03em}
+.cmused-page .cmused-case .cm-lede{margin:0;max-width:none;color:#404044}
+.cmused-page .cmused-case .cm-facts{grid-template-columns:repeat(4,minmax(0,1fr));gap:20px 24px;margin:12px 0 0;padding:22px 0;max-width:none;border-top:1px solid var(--case-rule)}
+.cmused-page .cmused-case .cm-facts div{display:block;padding:0;min-width:0}
+.cmused-page .cmused-case .cm-facts dt{font:500 var(--case-small)/1.5 var(--cm-text);letter-spacing:0;text-transform:none;color:#5c5c62}
+.cmused-page .cmused-case .cm-facts dt:after{content:none}
+.cmused-page .cmused-case .cm-facts dd{margin:7px 0 0;font-size:var(--case-small);line-height:1.5;color:#1d1d1f}
+
+/* A single divider owns each major transition. */
+.cmused-page .cmused-case .cm-section{margin-top:90px;padding-top:32px;border-top:1px solid var(--case-rule)}
+.cmused-page .cmused-case .cm-section-head{margin-bottom:28px;padding:0;border:0}
+.cmused-page .cmused-case .cm-section-head h2{font-size:var(--case-section);font-weight:550;line-height:1.2;letter-spacing:-.025em}
+.cmused-page .cmused-case .cm-section-head p[data-cm-stamp]{margin:0 0 14px;padding:0;border:0;font:450 var(--case-small)/1.5 var(--cm-text);letter-spacing:0;text-transform:none;color:#5c5c62}
+.cmused-page .cmused-case .cm-sub{max-width:none;margin-top:48px}
+.cmused-page .cmused-case .cm-sub h3{margin:0 0 12px;font-size:var(--case-heading);font-weight:600;line-height:1.25;letter-spacing:-.02em}
+.cmused-page .cmused-case .cm-intro{max-width:none;margin:0 0 28px}
+.cmused-page .cmused-case .cm-prose{max-width:none;gap:32px}
+.cmused-page .cmused-case .cm-vs-row p{min-height:0}
+.cmused-page .cmused-case .cm-vs-row>div{padding-bottom:28px}
+.cmused-page .cmused-case :is(.cm-vs-row b,.cm-steps b){font-size:var(--case-heading);font-weight:500;line-height:1.25;letter-spacing:-.02em}
+.cmused-page .cmused-case .cm-steps{gap:40px 32px}
+.cmused-page .cmused-case .cm-steps span{font:450 var(--case-small)/1.5 var(--cm-text);letter-spacing:0;color:#5c5c62}
+.cmused-page .cmused-case .cm-steps p{max-width:none}
+
+/* Remove added presentation panels, retaining device frames and screenshot crops. */
+.cmused-page .cmused-case .pd-plate.cm-plate{aspect-ratio:auto;margin:32px 0 0;padding:0!important;background:transparent;border:0;box-shadow:none;overflow:visible}
+.cmused-page .cmused-case :is(.cm-anatomy,.cm-phones){padding:0;background:transparent;border:0;box-shadow:none;margin-top:24px}
+.cmused-page .cmused-case .cm-phones{gap:48px}
+.cmused-page .cmused-case .cm-steps figure,.cmused-page .cmused-case .cm-sell figure{background:transparent;box-shadow:none}
+.cmused-page .cmused-case .cm-phone figcaption{font:450 var(--case-small)/1.5 var(--cm-text);letter-spacing:0;text-transform:none;color:#5c5c62}
+.cmused-page .cmused-case .cm-anatomy-notes li{font-size:var(--case-small);line-height:1.5}
+
+/* Keep the actual metrics prominent; quiet only their supporting labels. */
+.cmused-page .cmused-case .cm-cell dt{font:500 var(--case-small)/1.5 var(--cm-text);letter-spacing:0;text-transform:none;color:#5c5c62}
+.cmused-page .cmused-case .cm-cell small{font-size:var(--case-small);line-height:1.5}
+.cmused-page .cmused-case .cm-delta{font:500 var(--case-small)/1.5 var(--cm-text);letter-spacing:0;text-transform:none}
+.cmused-page .cmused-case .cm-chart figcaption{font:500 var(--case-small)/1.5 var(--cm-text);letter-spacing:0;text-transform:none;flex-wrap:wrap}
+.cmused-page .cmused-case .cm-cat{font-size:var(--case-small);line-height:1.4}
+.cmused-page .cmused-case .cm-chart li>b{font-size:var(--case-small);line-height:1.4}
+.cmused-page .cmused-case .cm-tip{font-size:var(--case-small);line-height:1.4;letter-spacing:0}
+.cmused-page .cmused-case .cm-end{font:450 var(--case-body)/1.5 var(--cm-text);letter-spacing:0;text-transform:none;border-color:var(--case-rule)}
+
+@media(max-width:760px){
+  .cmused-case{--case-display:26px;--case-section:20px}
+  .cmused-page .cmused-case .cm-crumb{margin-bottom:8px}
+  .cmused-page .cmused-case .cm-facts{grid-template-columns:repeat(2,minmax(0,1fr));gap:20px 24px;margin-top:8px}
+  .cmused-page .cmused-case .cm-section{margin-top:64px;padding-top:25px}
+  .cmused-page .cmused-case .cm-section-head{margin-bottom:24px}
+  .cmused-page .cmused-case .cm-sub{margin-top:40px}
+  .cmused-page .cmused-case .cm-steps{gap:32px}
+  .cmused-page .cmused-case .cm-phones{gap:28px}
+}
+@media(max-width:640px){
+  .cmused-page .cmused-case .cm-anatomy{grid-template-columns:minmax(0,1fr);gap:22px}
+  .cmused-page .cmused-case .cm-anatomy-notes li{white-space:normal}
+}
+
+/* Restore white media panels and the breathing room around the product screens. */
+.cmused-page .cmused-case .pd-plate.cm-plate{padding:clamp(24px,4vw,48px) 6%!important;background:#fff;border:1px solid rgba(29,29,31,.07);border-radius:14px}
+.cmused-page .cmused-case :is(.cm-anatomy,.cm-phones){box-sizing:border-box;padding:clamp(34px,5vw,64px) 6%;background:#fff;border:1px solid rgba(29,29,31,.07);border-radius:14px}
+.cmused-page .cmused-case .cm-phones{gap:clamp(24px,6vw,96px)}
+.cmused-page .cmused-case .cm-steps figure{background:#fff;box-shadow:0 0 0 1px rgba(29,29,31,.1);border-radius:10px}
+.cmused-page .cmused-case .cm-sell{box-sizing:border-box;padding:clamp(18px,3vw,32px);background:#fff;border:1px solid rgba(29,29,31,.07);border-radius:14px}
+.cmused-page .cmused-case .cm-sell figure{background:#fff}
+@media(max-width:640px){
+ .cmused-page .cmused-case .cm-anatomy{padding:28px 20px}
+ .cmused-page .cmused-case .pd-plate.cm-plate{padding:24px 12px!important}
+}
+
+/* Oct 19 reading type: the opening paragraph reads as a lead, at the subhead size (see ../case-type.css). */
+.cmused-page .cmused-case .cm-head .cm-lede{font-size:15px;line-height:1.55;letter-spacing:-.005em}
+@media(max-width:760px){.cmused-page .cmused-case .cm-head .cm-lede{font-size:15px}}

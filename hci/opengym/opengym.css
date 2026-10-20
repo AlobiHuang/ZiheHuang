@@ -3,3 +3,6 @@
 .og-caption{margin:10px 0 clamp(80px,10vw,140px);font:500 11px/1.4 "DM Mono",ui-monospace,monospace;letter-spacing:.08em;color:#6e6e73}
 .og-pending{max-width:620px;margin:0;padding:18px 0 0;font:450 13px/1.55 -apple-system,BlinkMacSystemFont,"SF Pro Text","Helvetica Neue",Arial,sans-serif;color:#6e6e73}
 
+
+/* Oct 19: the caption reads as a sentence, in the case studies' caption style (no mono, no capitals). */
+.og-caption{font:450 13px/1.5 var(--cm-text,-apple-system,BlinkMacSystemFont,"Helvetica Neue",Arial,sans-serif);letter-spacing:0;text-transform:none;color:#5c5c62}

@@ -278,8 +278,81 @@ export const SNAPSHOTS = [
         Other: 43
       }
     }
+  },
+  {
+    id: 'update-7',
+    label: 'Update 7',
+    date: '2026-10-19', // admin dashboard, read Oct 19
+    // Only the figures on screen this time; marketplace money and messaging carry over from Update 6.
+    // (The dashboard also showed chats: 355 conversations, 564 messages, 1.6 per chat. Not shown on the page.)
+    values: {
+      // Listings
+      listingsTotal: 876,
+      listingsActive: 469,
+      listingsSold: 407,
+      newListings24h: 1,
+      newListings7d: 4,
+      newListings30d: 7,
+      // People
+      totalUsers: 1822,
+      dau: 11,
+      wau: 36,
+      mau: 222,
+      signups24h: 2,
+      signups7d: 6,
+      signups30d: 100,
+      partnerAccounts: 3,
+      // Buyers and sellers
+      sellers: 83,
+      wouldBeSellers: 90,
+      buyers: 42,
+      wouldBeBuyers: 112,
+      bothSides: 1,
+      neverListed: 1649,
+      neverMessaged: 1668,
+      // Active listings by category
+      categories: {
+        Clothing: 111,
+        Furniture: 136,
+        Electronics: 70,
+        Rideables: 3,
+        Appliances: 74,
+        'Home Decor': 28,
+        Books: 4,
+        Other: 43
+      }
+    }
+  },
+  {
+    id: 'update-8',
+    label: 'Update 8',
+    date: '2026-10-20', // admin dashboard, last updated Oct 20, 12:00 AM
+    // Everything else on screen matched Update 7. New this time: the chat funnel and the
+    // most active listers (kept here as totals only; the dashboard's names and emails stay off the site).
+    values: {
+      // Marketplace
+      soldValue: 23900,
+      activeInventory: 33600,
+      medianSale: 15,
+      averageSale: 59,
+      // Messaging
+      sellersContacted: 110,
+      sellersNeverReplied: 96,
+      repliesAnswered: 41,
+      medianReplyHours: 28.1,
+      unansweredMessages: 314,
+      // Chats: buyer messaged a seller → seller replied → buyer wrote back
+      conversations: 355,
+      conversationsReplied: 41,
+      conversationsBackAndForth: 13,
+      messages: 564,
+      // The seven most active listers together: listings posted, of them sold
+      topListers: 7,
+      topListersListings: 279,
+      topListersSold: 152
+    }
   }
-  // , { id: 'update-7', label: 'Update 7', date: 'YYYY-MM-DD', values: { ...only the keys that were read... } }
+  // , { id: 'update-9', label: 'Update 7', date: 'YYYY-MM-DD', values: { ...only the keys that were read... } }
 ];
 
 // A reading only needs the figures that were actually read; the rest carry

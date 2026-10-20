@@ -1,0 +1,46 @@
+[
+  {
+    "name": "calendar",
+    "file": "calendar.png",
+    "page": "https://workspaceupdates.googleblog.com/2024/10/new-look-and-feel-and-dark-mode-google-calendar.html",
+    "image": "https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEj_A4x1TPo8WQMngNahkop2HO63AmojpVVbhnHNwaBjBeH0OYgRCGW3Yyoantu1IK-0oHVpptKMCk7jwS91Jts9IuUdmMwg_yh9vXUP3sPBlFgTogtHA1zbzTcMu9IkX4C6YwEmEkiwfSMYwtVATt_PRv68bhJZPos6CZcw3pad4446wFtoIRafcKchSRc/s1600/Calendar%20on%20web%20in%20light%20mode.png",
+    "bytes": 319948,
+    "presentation": "16:10 board viewport; original image opens on selection"
+  },
+  {
+    "name": "gmail",
+    "file": "gmail.webp",
+    "page": "https://blog.google/products-and-platforms/products/gmail/gmail-design-update/",
+    "image": "https://storage.googleapis.com/gweb-uniblog-publish-prod/images/Gmail_GM3.width-1200.format-webp.webp",
+    "bytes": 76200,
+    "presentation": "16:10 board viewport; original image opens on selection"
+  },
+  {
+    "name": "canvas",
+    "page": "https://community.instructure.com/en/kb/articles/664620-how-do-i-use-the-dashboard",
+    "image": "https://us.v-cdn.net/6038536/uploads/migrated/6OD7Q7PQ6KBU/1a104611-f2aa-420b-bba6-75e777128389.png",
+    "previousLocalFile": "canvas.png",
+    "previousImage": "https://us.v-cdn.net/6038536/uploads/migrated/N24AMW7N6BJN/8bb9fcaa-7f86-4bc5-8de9-4e844cf94282.png",
+    "delivery": "Official remote image reference; local download blocked by approval-service capacity",
+    "creator": "Instructure",
+    "license": "CC BY-NC-SA 4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-nc-sa/4.0/",
+    "modifications": "CSS preview crop to 16:10; full original remains available in the enlargement dialog",
+    "checked": "2026-10-19",
+    "note": "Guide screenshot using sample courses. Noncommercial restriction applies; portfolio promotion should not be assumed to qualify. Public/commercial publication requires a separate rights decision.",
+    "presentation": "16:10 board viewport; original image opens on selection",
+    "fallback": "Previous official course-card image, if the wider official image cannot load"
+  },
+  {
+    "name": "todoist",
+    "page": "https://www.todoist.com/help/todoist/troubleshooting/install-todoist-for-windows-as-an-msix-app-VHhgnNqiV",
+    "image": "https://res.cloudinary.com/imagist/image/fetch/q_auto,f_auto,c_scale,w_1300/https%3A%2F%2Fget.todoist.help%2Fhc%2Farticle_attachments%2F22868838995868",
+    "previousImage": "https://www.todoist.com/_astro/desktop.D6Z3P-2N.png",
+    "previousLocalFile": "todoist.png",
+    "delivery": "Official remote image reference; local download blocked by approval-service capacity",
+    "modifications": "CSS preview crop to 16:10; full original remains available in the enlargement dialog",
+    "checked": "2026-10-19",
+    "presentation": "16:10 board viewport; original image opens on selection",
+    "fallback": "todoist.png (previous official product screenshot, still cropped to the matching preview ratio)"
+  }
+]

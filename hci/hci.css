@@ -161,3 +161,10 @@
 /* Oct 17 (Alobi): the four products sat too close together; a little more room between them (was
    clamp(44px,5vw,72px) between rows, clamp(18px,2vw,28px) between columns). */
 .pd-grid{gap:clamp(56px,6vw,88px) clamp(28px,3vw,44px)}
+
+/* Oct 19: case-study pages are for reading, so they use the system cursor instead of the site's custom one. */
+body.cm-page .fx-cursor{display:none!important}
+@media(pointer:fine){
+  body.cm-page.fx-ready{cursor:auto!important}
+  body.cm-page.fx-ready :is(a,button,[role="button"],summary,label){cursor:pointer!important}
+}

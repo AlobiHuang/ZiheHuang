@@ -1,0 +1,23 @@
+/* Case-study reading type (CMUsed, Glimpse, Kumi), Oct 19 2026.
+   Sizes are compared against jeanchen.xyz/projects/typistry: body 16/1.6, lead and subheads 21, section heads 26.
+   Each page keeps its own size variables; this file only supplies the face and heading tracking. */
+
+/* Macs keep SF. Elsewhere the stack used to fall to Arial; Inter (already in assets/fonts) takes its place.
+   Weight ranges map the variable weights the pages use (450/550/650) to the nearest static file. */
+@font-face{font-family:"Inter";src:url(../assets/fonts/inter-regular.woff) format("woff");font-weight:300 474;font-style:normal;font-display:swap}
+@font-face{font-family:"Inter";src:url(../assets/fonts/inter-medium.woff) format("woff");font-weight:475 549;font-style:normal;font-display:swap}
+@font-face{font-family:"Inter";src:url(../assets/fonts/inter-semibold.woff) format("woff");font-weight:550 649;font-style:normal;font-display:swap}
+@font-face{font-family:"Inter";src:url(../assets/fonts/inter-bold.woff) format("woff");font-weight:650 800;font-style:normal;font-display:swap}
+
+.cm.cm-doc{
+  --cm-display:-apple-system,BlinkMacSystemFont,"SF Pro Display","Inter","Helvetica Neue",Arial,sans-serif;
+  --cm-text:-apple-system,BlinkMacSystemFont,"SF Pro Text","Inter","Helvetica Neue",Arial,sans-serif;
+  font-family:var(--cm-text);
+  font-kerning:normal;
+}
+
+/* apple-system.css tracks every h1-h3 at -.055em; that only suits very large type.
+   Tracking here scales with size: tight for the title, nearly neutral for subheads. */
+.cm.cm-doc :is(h1,h2,h3){letter-spacing:-.012em!important}
+.cm.cm-doc .cm-head h1{letter-spacing:-.03em!important}
+.cm.cm-doc :is(.cm-section-head h2,.gl-brief h2){letter-spacing:-.02em!important}

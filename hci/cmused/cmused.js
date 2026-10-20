@@ -1,7 +1,7 @@
 // CMUsed case page: draws the numbers from data.js. The newest snapshot is
 // shown; anything that has moved since the first one (when I joined) is
 // marked with the change and the starting value.
-import { SNAPSHOTS } from './data.js?v=8';
+import { SNAPSHOTS } from './data.js?v=10';
 
 const base = SNAPSHOTS[0];
 const latest = SNAPSHOTS[SNAPSHOTS.length - 1];
@@ -88,11 +88,12 @@ if (stamp) {
   const day = date => {
     const [y, m, d] = (date || '').split('-').map(Number);
     if (!y || !m) return '';
-    const month = ['JAN', 'FEB', 'MAR', 'APR', 'MAY', 'JUN', 'JUL', 'AUG', 'SEP', 'OCT', 'NOV', 'DEC'][m - 1];
+    const month = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'][m - 1];
     return d ? `${month} ${d}, ${y}` : `${month} ${y}`;
   };
+  // Oct 20: a plain sentence, not a small capitals label.
   const when = day(latest.date);
-  stamp.innerHTML = `<span>${when ? `DATA RETRIEVED ${when} · ` : ''}FROM THE CMUSED ADMIN DASHBOARD</span>`;
+  stamp.innerHTML = `<span>Read off the CMUsed admin dashboard${when ? ` on ${when}` : ''}.</span>`;
 }
 
 const heading = document.querySelector('[data-cm-title]');
